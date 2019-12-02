@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 18/11/2019 13:00:01 by Hibernate Tools 5.4.7.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="dbelaseguradov4" dynamic-insert="false" dynamic-update="false" mutable="true" name="Direccion" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="direccion">
+        <id name="idDireccion" type="int">
+            <column name="idDireccion"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="idLocalidad" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="idLocalidad"/>
+        </property>
+        <property generated="never" lazy="false" name="calle" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="calle"/>
+        </property>
+        <property generated="never" lazy="false" name="numero" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="numero"/>
+        </property>
+        <property generated="never" lazy="false" name="piso" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="piso"/>
+        </property>
+        <property generated="never" lazy="false" name="departamento" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="departamento"/>
+        </property>
+    </class>
+</hibernate-mapping>

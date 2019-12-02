@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="dbelaseguradov4" match-name="aniodevehiculo"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="cliente"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="condicioniva"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="cuota"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="datosdehijo"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="direccion"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="estado"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="estadocivil"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="estadocliente"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="factoresusados"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="formasdepago"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="kmporanio"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="localidad"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="marca"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="medidasdeseguridad"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="medidasdeseguridadporc"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="modelo"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="modificacionpoliza"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="numeropoliza"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="operador"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="pais"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="parametrosgenerales"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="poliza"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="profesion"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="provincia"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="recibo"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="siniestro"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="tipocobertura"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="tipodedocumento"/>
+  <table-filter match-catalog="dbelaseguradov4" match-name="vehiculo"/>
+</hibernate-reverse-engineering>

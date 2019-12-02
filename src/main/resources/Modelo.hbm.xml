@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 18/11/2019 13:00:01 by Hibernate Tools 5.4.7.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="dbelaseguradov4" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="modelo">
+        <id name="idModelo" type="int">
+            <column name="idModelo"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="idMarca" optimistic-lock="true" type="int" unique="false">
+            <column name="idMarca" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="idAnioDeVehiculo" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="idAnioDeVehiculo"/>
+        </property>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="40" name="nombre"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentaje" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentaje" precision="12" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>

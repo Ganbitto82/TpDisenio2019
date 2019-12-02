@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 18/11/2019 13:00:01 by Hibernate Tools 5.4.7.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="dbelaseguradov4" dynamic-insert="false" dynamic-update="false" mutable="true" name="Factoresusados" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="factoresusados">
+        <id name="idFacUsados" type="int">
+            <column name="idFacUsados"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="idMedPorc" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="idMedPorc"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajeCobertura" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajeCobertura" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorRiesgoDeDomicilio" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorRiesgoDeDomicilio" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorKm" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorKm" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorModeloVehiculo" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorModeloVehiculo" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorMedidasDeSeguridad" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorMedidasDeSeguridad" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorSiniestro" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorSiniestro" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="porcentajePorHijo" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="porcentajePorHijo" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importePorDescuentosPagoSemestral" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="importePorDescuentosPagoSemestral" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="descuentoPorUnidad" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="descuentoPorUnidad" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="montoTotal" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="montoTotal" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="prima" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="prima" precision="12" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>
