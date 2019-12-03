@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4"
+  name="ar.TpDisenio2019.Modelo.Direccion" table="direccion">
+  <id name="idDireccion" type="int">
+   <column name="idDireccion"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idLocalidad" type="java.lang.Integer">
+   <column name="idLocalidad"/>
+  </property>
+  <property generated="never" lazy="false" name="calle" type="string">
+   <column length="50" name="calle"/>
+  </property>
+  <property generated="never" lazy="false" name="numero" type="java.lang.Integer">
+   <column name="numero"/>
+  </property>
+  <property generated="never" lazy="false" name="piso" type="java.lang.Integer">
+   <column name="piso"/>
+  </property>
+  <property generated="never" lazy="false" name="departamento" type="string">
+   <column length="50" name="departamento"/>
+  </property>
+ </class>
+</hibernate-mapping>

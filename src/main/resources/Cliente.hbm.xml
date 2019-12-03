@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Cliente" table="cliente">
+  <id name="idCliente" type="int">
+   <column name="idCliente"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idEstadoCivil" type="java.lang.Integer">
+   <column name="idEstadoCivil"/>
+  </property>
+  <property generated="never" lazy="false" name="idProfesion" type="java.lang.Integer">
+   <column name="idProfesion"/>
+  </property>
+  <property generated="never" lazy="false" name="idDireccion" type="java.lang.Integer">
+   <column name="idDireccion"/>
+  </property>
+  <property generated="never" lazy="false" name="idCondicionIva" type="java.lang.Integer">
+   <column name="idCondicionIva"/>
+  </property>
+  <property generated="never" lazy="false" name="idTipoDeDocumento" type="java.lang.Integer">
+   <column name="idTipoDeDocumento"/>
+  </property>
+  <property generated="never" lazy="false" name="idEstadoCliente" type="java.lang.Integer">
+   <column name="idEstadoCliente"/>
+  </property>
+  <property generated="never" lazy="false" name="nombre" type="string">
+   <column length="50" name="nombre"/>
+  </property>
+  <property generated="never" lazy="false" name="apellido" type="string">
+   <column length="50" name="apellido"/>
+  </property>
+  <property generated="never" lazy="false" name="nroDocumento" type="java.lang.Integer">
+   <column name="nroDocumento"/>
+  </property>
+  <property generated="never" lazy="false" name="correoElectronico" type="string">
+   <column length="50" name="correoElectronico"/>
+  </property>
+  <property generated="never" lazy="false" name="anioDeRegistro" type="date">
+   <column length="0" name="anioDeRegistro"/>
+  </property>
+  <property generated="never" lazy="false" name="nroCuil" type="java.lang.Integer">
+   <column name="nroCuil"/>
+  </property>
+  <property generated="never" lazy="false" name="nroCliente" type="java.lang.Integer">
+   <column name="nroCliente"/>
+  </property>
+ </class>
+</hibernate-mapping>

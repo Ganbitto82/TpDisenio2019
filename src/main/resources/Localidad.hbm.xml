@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4"
+  name="ar.TpDisenio2019.Modelo.Localidad" table="localidad">
+  <id name="idLocalidad" type="int">
+   <column name="idLocalidad"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idProvincia" type="java.lang.Integer">
+   <column name="idProvincia"/>
+  </property>
+  <property generated="never" lazy="false" name="nombre" type="string">
+   <column length="50" name="nombre"/>
+  </property>
+ </class>
+</hibernate-mapping>

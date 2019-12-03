@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Recibo" table="recibo">
+  <id name="idRecibo" type="int">
+   <column name="idRecibo"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idOperador" type="java.lang.Integer">
+   <column name="idOperador"/>
+  </property>
+  <property generated="never" lazy="false" name="nroRecibo" type="java.lang.Integer">
+   <column name="nroRecibo"/>
+  </property>
+  <property generated="never" lazy="false" name="fecha" type="date">
+   <column length="10" name="fecha"/>
+  </property>
+  <property generated="never" lazy="false" name="hora" type="java.lang.Integer">
+   <column name="hora"/>
+  </property>
+  <property generated="never" lazy="false" name="ultimoDiaDePago" type="date">
+   <column length="10" name="ultimoDiaDePago"/>
+  </property>
+  <property generated="never" lazy="false" name="importeTotal" type="java.lang.Float">
+   <column name="importeTotal" precision="12" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>

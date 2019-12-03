@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4"
+  name="ar.TpDisenio2019.Modelo.Modificacionpoliza" table="modificacionpoliza">
+  <id name="idModificacionPoliza" type="int">
+   <column name="idModificacionPoliza"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idVehiculo" type="int">
+   <column name="idVehiculo" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="idMedidasSeguridad" type="int">
+   <column name="idMedidasSeguridad" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="idDatosHijo" type="int">
+   <column name="idDatosHijo" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="idTipoCobertura" type="int">
+   <column name="idTipoCobertura" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="identNroPoliza" type="int">
+   <column name="identNroPoliza" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="anio" type="date">
+   <column length="0" name="anio"/>
+  </property>
+  <property generated="never" lazy="false" name="patente" type="string">
+   <column length="10" name="patente"/>
+  </property>
+  <property generated="never" lazy="false" name="motor" type="string">
+   <column length="20" name="motor"/>
+  </property>
+  <property generated="never" lazy="false" name="chasis" type="string">
+   <column length="20" name="chasis"/>
+  </property>
+  <property generated="never" lazy="false" name="nroSiniestro" type="string">
+   <column length="10" name="nroSiniestro"/>
+  </property>
+  <property generated="never" lazy="false" name="kmPorAnio" type="java.lang.Integer">
+   <column name="kmPorAnio"/>
+  </property>
+  <property generated="never" lazy="false" name="montoTotal" type="java.lang.Float">
+   <column name="montoTotal" precision="12" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>

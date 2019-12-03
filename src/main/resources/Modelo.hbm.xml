@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Modelo" table="modelo">
+  <id name="idModelo" type="int">
+   <column name="idModelo"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idMarca" type="int">
+   <column name="idMarca" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="idAnioDeVehiculo" type="java.lang.Integer">
+   <column name="idAnioDeVehiculo"/>
+  </property>
+  <property generated="never" lazy="false" name="nombre" type="string">
+   <column length="40" name="nombre"/>
+  </property>
+  <property generated="never" lazy="false" name="porcentaje" type="java.lang.Float">
+   <column name="porcentaje" precision="12" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>

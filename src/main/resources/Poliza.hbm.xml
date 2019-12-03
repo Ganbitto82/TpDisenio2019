@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Poliza" table="poliza">
+  <id name="identNroPoliza" type="int">
+   <column name="identNroPoliza"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idCliente" type="java.lang.Integer">
+   <column name="idCliente"/>
+  </property>
+  <property generated="never" lazy="false" name="idKmPorAnio" type="java.lang.Integer">
+   <column name="idKmPorAnio"/>
+  </property>
+  <property generated="never" lazy="false" name="idMedidasSeguridad" type="java.lang.Integer">
+   <column name="idMedidasSeguridad"/>
+  </property>
+  <property generated="never" lazy="false" name="idEstado" type="java.lang.Integer">
+   <column name="idEstado"/>
+  </property>
+  <property generated="never" lazy="false" name="idEstadoCliente" type="java.lang.Integer">
+   <column name="idEstadoCliente"/>
+  </property>
+  <property generated="never" lazy="false" name="nroPoliza" type="java.lang.Integer">
+   <column name="nroPoliza"/>
+  </property>
+  <property generated="never" lazy="false" name="idVehiculo" type="java.lang.Integer">
+   <column name="idVehiculo"/>
+  </property>
+  <property generated="never" lazy="false" name="idParametrosGenerales" type="java.lang.Integer">
+   <column name="idParametrosGenerales"/>
+  </property>
+  <property generated="never" lazy="false" name="idFormasDePago" type="java.lang.Integer">
+   <column name="idFormasDePago"/>
+  </property>
+  <property generated="never" lazy="false" name="idTipoCobertura" type="java.lang.Integer">
+   <column name="idTipoCobertura"/>
+  </property>
+  <property generated="never" lazy="false" name="idCuotas" type="java.lang.Integer">
+   <column name="idCuotas"/>
+  </property>
+  <property generated="never" lazy="false" name="idDatosHijo" type="java.lang.Integer">
+   <column name="idDatosHijo"/>
+  </property>
+  <property generated="never" lazy="false" name="idFacUsados" type="java.lang.Integer">
+   <column name="idFacUsados"/>
+  </property>
+  <property generated="never" lazy="false" name="idSiniestro" type="java.lang.Integer">
+   <column name="idSiniestro"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaInicioVigencia" type="date">
+   <column length="10" name="fechaInicioVigencia"/>
+  </property>
+  <property generated="never" lazy="false" name="fechaFinVigencia" type="date">
+   <column length="10" name="fechaFinVigencia"/>
+  </property>
+  <property generated="never" lazy="false" name="sumaAsegurada" type="java.lang.Float">
+   <column name="sumaAsegurada" precision="6"/>
+  </property>
+  <property generated="never" lazy="false" name="nroSiniestro" type="java.lang.Character">
+   <column length="1" name="nroSiniestro"/>
+  </property>
+  <property generated="never" lazy="false" name="cantidad" type="java.lang.Integer">
+   <column name="cantidad"/>
+  </property>
+ </class>
+</hibernate-mapping>

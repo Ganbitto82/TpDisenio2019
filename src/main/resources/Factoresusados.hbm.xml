@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4"
+  name="ar.TpDisenio2019.Modelo.Factoresusados" table="factoresusados">
+  <id name="idFacUsados" type="int">
+   <column name="idFacUsados"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idMedPorc" type="int">
+   <column name="idMedPorc" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="porcentajeCobertura" type="java.lang.Float">
+   <column name="porcentajeCobertura" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="porcentajePorRiesgoDeDomicilio" type="java.lang.Float">
+   <column name="porcentajePorRiesgoDeDomicilio" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="porcentajePorKm" type="java.lang.Float">
+   <column name="porcentajePorKm" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="porcentajePorModeloVehiculo" type="java.lang.Float">
+   <column name="porcentajePorModeloVehiculo" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="porcentajePorMedidasDeSeguridad" type="java.lang.Float">
+   <column name="porcentajePorMedidasDeSeguridad" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="porcentajePorSiniestro" type="java.lang.Float">
+   <column name="porcentajePorSiniestro" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="porcentajePorHijo" type="java.lang.Float">
+   <column name="porcentajePorHijo" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="importePorDescuentosPagoSemestral" type="java.lang.Float">
+   <column name="importePorDescuentosPagoSemestral" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="descuentoPorUnidad" type="java.lang.Float">
+   <column name="descuentoPorUnidad" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="montoTotal" type="java.lang.Float">
+   <column name="montoTotal" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="prima" type="java.lang.Float">
+   <column name="prima" precision="12" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>

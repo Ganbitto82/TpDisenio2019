@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+ <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Cuota" table="cuota">
+  <id name="idCuotas" type="int">
+   <column name="idCuotas"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="idRecibo" type="java.lang.Integer">
+   <column name="idRecibo"/>
+  </property>
+  <property generated="never" lazy="false" name="cuotasPagas" type="java.lang.Integer">
+   <column name="cuotasPagas"/>
+  </property>
+  <property generated="never" lazy="false" name="vencimiento" type="date">
+   <column length="10" name="vencimiento"/>
+  </property>
+  <property generated="never" lazy="false" name="valorOriginal" type="java.lang.Float">
+   <column name="valorOriginal" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="valorPorMora" type="java.lang.Float">
+   <column name="valorPorMora" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="valorTotalaPagar" type="java.lang.Float">
+   <column name="valorTotalaPagar" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="bonificacion" type="java.lang.Float">
+   <column name="bonificacion" precision="12" scale="0"/>
+  </property>
+  <property generated="never" lazy="false" name="recargoPorMora" type="java.lang.Float">
+   <column name="recargoPorMora" precision="12" scale="0"/>
+  </property>
+ </class>
+</hibernate-mapping>
