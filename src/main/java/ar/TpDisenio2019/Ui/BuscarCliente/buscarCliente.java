@@ -137,7 +137,7 @@ public class buscarCliente extends JFrame {
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null }, },
-				new String[] { "Nro DTOCliente", "Apellido", "Nombre", "Tipo", "Nro Documento" }));
+				new String[] { "Nro Cliente", "Apellido", "Nombre", "Tipo", "Nro Documento" }));
 		scrollPane.setColumnHeaderView(table);
 		panel_3.setLayout(gl_panel_3);
 
@@ -286,12 +286,18 @@ public class buscarCliente extends JFrame {
 		// *******************Lista los tipos de documentos
 
 		JComboBox<String> comboBoxTipoDocumento = new JComboBox<String>();
-
 		dtoListaTipoDocumento = GestorListasDesplegables.buscarDtosTipoDeDocumento();
+		List<String> listatipoDocumento = new ArrayList<>();
+		listatipoDocumento.add(" ");
 
 		for (DTOTipodedocumento tipo : dtoListaTipoDocumento)
+			listatipoDocumento.add(tipo.getNombre().toString());
 
-			comboBoxTipoDocumento.addItem(tipo.getNombre().toString());
+		for (String nombre : listatipoDocumento)
+
+			comboBoxTipoDocumento.addItem(nombre.toString());
+
+		comboBoxTipoDocumento.addKeyListener(new KeyAdapterModificado());
 
 		// ***** verifica los tipos de documentos con sus cantidades de digitos
 
@@ -318,7 +324,7 @@ public class buscarCliente extends JFrame {
 							labelAclaracionSobreNumeroDeDocumento
 									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
 
-						//labelAclaracionSobreNumeroDeDocumento.setVisible(true);
+						// labelAclaracionSobreNumeroDeDocumento.setVisible(true);
 					}
 				}
 			}
@@ -342,80 +348,74 @@ public class buscarCliente extends JFrame {
 
 		comboBoxTipoDocumento.setBackground(Color.WHITE);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addComponent(lblNroCliente)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(nroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		gl_panel_5.setHorizontalGroup(gl_panel_5.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_5
+				.createSequentialGroup().addContainerGap()
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5.createSequentialGroup().addComponent(lblNroCliente)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(nroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
 						.addComponent(labelAclaracionSobreNumerodeCliente))
-					.addGap(46)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addComponent(label)
-							.addGap(18)
-							.addComponent(nombreCliente, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-							.addComponent(lblTipo)
-							.addGap(18)
-							.addComponent(comboBoxTipoDocumento, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-							.addGap(39))
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(labelAclaracionSobreNombres)
-								.addGroup(gl_panel_5.createSequentialGroup()
-									.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_5.createSequentialGroup()
-											.addComponent(label_1)
-											.addGap(18)
-											.addComponent(apellidoCliente, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-											.addGap(79)
-											.addComponent(lblNroDocumento))
-										.addComponent(labelAclaracionSobreApellido))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-										.addComponent(labelAclaracionSobreNumeroDeDocumento)
-										.addComponent(docCliente, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-									.addGap(14)))
-							.addPreferredGap(ComponentPlacement.RELATED, 139, Short.MAX_VALUE)))
-					.addGap(0))
-		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGap(29)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-							.addComponent(label)
-							.addComponent(nombreCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGap(46)
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_5.createSequentialGroup()
+						.addComponent(label).addGap(18)
+						.addComponent(nombreCliente, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE).addComponent(lblTipo)
+						.addGap(18)
+						.addComponent(comboBoxTipoDocumento, GroupLayout.PREFERRED_SIZE, 193,
+								GroupLayout.PREFERRED_SIZE)
+						.addGap(39))
+						.addGroup(gl_panel_5.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(labelAclaracionSobreNombres)
+										.addGroup(gl_panel_5.createSequentialGroup().addGroup(gl_panel_5
+												.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_5.createSequentialGroup().addComponent(label_1)
+														.addGap(18)
+														.addComponent(apellidoCliente, GroupLayout.PREFERRED_SIZE, 121,
+																GroupLayout.PREFERRED_SIZE)
+														.addGap(79).addComponent(lblNroDocumento))
+												.addComponent(labelAclaracionSobreApellido))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+														.addComponent(labelAclaracionSobreNumeroDeDocumento)
+														.addComponent(docCliente, GroupLayout.PREFERRED_SIZE, 128,
+																GroupLayout.PREFERRED_SIZE))
+												.addGap(14)))
+								.addPreferredGap(ComponentPlacement.RELATED, 139, Short.MAX_VALUE)))
+				.addGap(0)));
+		gl_panel_5.setVerticalGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_5
+				.createSequentialGroup().addGap(29)
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(label).addComponent(
+								nombreCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblTipo)
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblNroCliente)
-							.addComponent(nroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(comboBoxTipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-						.addComponent(labelAclaracionSobreNombres)
+						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(lblNroCliente)
+								.addComponent(nroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxTipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(labelAclaracionSobreNombres)
 						.addComponent(labelAclaracionSobreNumerodeCliente))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-							.addComponent(docCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblNroDocumento))
+								.addComponent(docCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNroDocumento))
 						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-							.addComponent(apellidoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(label_1)))
-					.addGap(11)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-						.addComponent(labelAclaracionSobreApellido)
-						.addComponent(labelAclaracionSobreNumeroDeDocumento, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
-		);
+								.addComponent(apellidoCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_1)))
+				.addGap(11)
+				.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(labelAclaracionSobreApellido)
+						.addComponent(labelAclaracionSobreNumeroDeDocumento, GroupLayout.PREFERRED_SIZE, 14,
+								GroupLayout.PREFERRED_SIZE))));
 		panel_5.setLayout(gl_panel_5);
 
+		
 		// *******BOTON BUSCAR*******/
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -426,16 +426,17 @@ public class buscarCliente extends JFrame {
 				int banderaNumCliente = 0;
 				int banderaNombre = 0;
 				int banderaApellido = 0;
+				int banderaTipoDocumento=0;
 
 				String numeroCliente = nroCliente.getText();
 
 				if (numeroCliente.compareTo("  -        ") != 0) {
-					System.out.println("entra en 1");
+					
 					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
-						System.out.println("entra en 2");
+						
 						labelAclaracionSobreNumerodeCliente.setVisible(true);
 					} else {
-						System.out.println("entra en ");
+						
 						banderaNumCliente++;
 					}
 				}
@@ -462,7 +463,11 @@ public class buscarCliente extends JFrame {
 				}
 
 				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
-
+                 
+				if(tipoDeDocumento.compareTo(" ") != 0)
+	                       	banderaTipoDocumento++;
+				
+				
 				String númeroDeDocumento = docCliente.getText();
 
 				if (númeroDeDocumento.length() > 0 && (tipoDeDocumento.compareTo(" ") != 0)) {
@@ -490,7 +495,7 @@ public class buscarCliente extends JFrame {
 				// List<DTOCliente> listaDtosCliente;
 
 				/*
-				 * if(banderas == 0) { listaDtosCliente = GestorCliente.buscarClientes(apellido,
+				 * if(banderas == 0) { listaDtosCliente = GestorBDCliente.buscarClientes(apellido,
 				 * nombre, tipoDeDocumento, númeroDeDocumento);
 				 * 
 				 * if(listaDtosCliente.size() == 0) {

@@ -9,11 +9,10 @@ import ar.TpDisenio2019.Modelo.Tipodedocumento;
 
 public class GestorListasDesplegables {
   
-
+	static GestorListasBDDesplegable gestionListaDesplegable =new GestorListasBDDesplegable();
+	
+	
 	public static List<DTOTipodedocumento> buscarDtosTipoDeDocumento() {
-		
-		GestorListasBDDesplegable gestionListaDesplegable =new GestorListasBDDesplegable();
-		
 		
 		List<Tipodedocumento> listaTiposDocumento = new ArrayList<Tipodedocumento>();
 		

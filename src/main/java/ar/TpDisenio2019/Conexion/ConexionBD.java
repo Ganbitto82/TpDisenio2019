@@ -2,10 +2,15 @@ package ar.TpDisenio2019.Conexion;
 
 
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import com.mysql.jdbc.Connection;
 
 
 public class ConexionBD {
