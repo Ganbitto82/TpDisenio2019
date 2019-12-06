@@ -13,5 +13,7 @@ public interface ClienteDao {
     public void guardar (Cliente cliente);
     
     public List<Cliente> obtenerTodas();
+    
+    public List<Cliente> obtenerCliente(String numeroCliente, String apellido, String nombre, String tipoDocumento , String nroDoc);
 }
 
