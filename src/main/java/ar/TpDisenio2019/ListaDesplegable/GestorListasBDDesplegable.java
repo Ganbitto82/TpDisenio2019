@@ -10,19 +10,16 @@ import ar.TpDisenio2019.Dao.TipodedocumentoDaoImp;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
 
 
-
 public class GestorListasBDDesplegable {
 	
 	
-	private ConexionBD session =new ConexionBD();
+	private ConexionBD session;
 	
 	private TipodedocumentoDao tipodedocumentoDao;
 	
 	public GestorListasBDDesplegable() {
-		 
+		 session= new ConexionBD();
 		 this.tipodedocumentoDao= new TipodedocumentoDaoImp( session.Conexion());
-		
-		
 	}
 	
     public List<Tipodedocumento> ObtenerTiposDocumento() {
@@ -32,6 +29,7 @@ public class GestorListasBDDesplegable {
          	
 		return listaTipos;
 	}
+   
 }
 
 	

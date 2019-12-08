@@ -1,7 +1,5 @@
 package ar.TpDisenio2019.Ui.DardeAltaPoliza;
 
-
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,10 +19,16 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
 import ar.TpDisenio2019.Controladores.PantallaBuscarCliente;
+import ar.TpDisenio2019.DTO.DTODatosdehijo;
+import ar.TpDisenio2019.DTO.DTOTipodedocumento;
+import ar.TpDisenio2019.Ui.BuscarCliente.buscarCliente;
 
 
 
@@ -32,21 +36,31 @@ import ar.TpDisenio2019.Controladores.PantallaBuscarCliente;
 
 public class darDeAltaPoliza extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4830170090194723214L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textField_KmPorAnio;
+	private JTextField textField_Motor;
+	private JTextField textField_Chasis;
+	private JTextField textField_Patente;
+	private JTextField textField_SumaAsegurada;
+	private JTextField textField_CantHijos;
+	private JTextField textfield_NroCliente;
+	private JTextField textField_Apellido;
 	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
+	private JTextField textField_Tipo;
+	private JTextField textField_NroDocumento;
+	private JTextField textField_Provincia;
+	private JTextField textField_Localidad;
 
+	private JPanel pnl_BuscarCliente;
+	private JPanel pnl_DatosDelCliente;
+	private JPanel pnl_IngresoDatosGeneral;
+	private JPanel pnl_IngresoDeDatos;
+	
+	private List<DTODatosdehijo> listaDTOHijos = new ArrayList<DTODatosdehijo>();
 
 	/**
 	 * Create the frame.
@@ -60,12 +74,13 @@ public class darDeAltaPoliza extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(5, 283, 771, 416);
+		pnl_IngresoDatosGeneral = new JPanel();
+		pnl_IngresoDatosGeneral.setBounds(5, 283, 771, 416);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 94, 771, 63);
-		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		/*SECTOR BUSCAR CLIENTE*/
+		pnl_BuscarCliente = new JPanel();
+		pnl_BuscarCliente.setBounds(5, 94, 771, 63);
+		pnl_BuscarCliente.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
 		lblSeleccioneUnCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -75,48 +90,49 @@ public class darDeAltaPoliza extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				new PantallaBuscarCliente();
-				
+	
 			}
 		});
 
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		GroupLayout gl_pnl_BuscarCliente = new GroupLayout(pnl_BuscarCliente);
+		gl_pnl_BuscarCliente.setHorizontalGroup(
+			gl_pnl_BuscarCliente.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnl_BuscarCliente.createSequentialGroup()
 					.addGap(23)
 					.addComponent(lblSeleccioneUnCliente, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnBuscarCliente, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(480, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		gl_pnl_BuscarCliente.setVerticalGroup(
+			gl_pnl_BuscarCliente.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnl_BuscarCliente.createSequentialGroup()
 					.addGap(20)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_pnl_BuscarCliente.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnBuscarCliente)
 						.addComponent(lblSeleccioneUnCliente))
 					.addContainerGap(16, Short.MAX_VALUE))
 		);
-		panel_1.setLayout(gl_panel_1);
+		pnl_BuscarCliente.setLayout(gl_pnl_BuscarCliente);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(5, 163, 771, 114);
-		panel_5.setBorder(new TitledBorder(null, "DATOS DEL CLIENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		/*Datos del Cliente*/
+		pnl_DatosDelCliente = new JPanel();
+		pnl_DatosDelCliente.setBounds(5, 163, 771, 114);
+		pnl_DatosDelCliente.setBorder(new TitledBorder(null, "DATOS DEL CLIENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblNroCliente = new JLabel("Nro DTOCliente");
+		JLabel lblNroCliente = new JLabel("Nro Cliente");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		textField_6.setColumns(10);
+		textfield_NroCliente = new JTextField();
+		textfield_NroCliente.setEditable(false);
+		textfield_NroCliente.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_7 = new JTextField();
-		textField_7.setEditable(false);
-		textField_7.setColumns(10);
+		textField_Apellido = new JTextField();
+		textField_Apellido.setEditable(false);
+		textField_Apellido.setColumns(10);
 		
 		JLabel lblNobre = new JLabel("Nombre");
 		lblNobre.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -128,106 +144,108 @@ public class darDeAltaPoliza extends JFrame {
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_9 = new JTextField();
-		textField_9.setEditable(false);
-		textField_9.setColumns(10);
+		textField_Tipo = new JTextField();
+		textField_Tipo.setEditable(false);
+		textField_Tipo.setColumns(10);
 		
 		JLabel lblNroDocumento = new JLabel("Nro Documento");
 		lblNroDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_10 = new JTextField();
-		textField_10.setEditable(false);
-		textField_10.setColumns(10);
+		textField_NroDocumento = new JTextField();
+		textField_NroDocumento.setEditable(false);
+		textField_NroDocumento.setColumns(10);
 		
-		JLabel lblProvincia = new JLabel("DTOProvincia");
+		JLabel lblProvincia = new JLabel("Provincia");
 		lblProvincia.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_11 = new JTextField();
-		textField_11.setEditable(false);
-		textField_11.setColumns(10);
+		textField_Provincia = new JTextField();
+		textField_Provincia.setEditable(false);
+		textField_Provincia.setColumns(10);
 		
-		JLabel lblLocalidad = new JLabel("DTOLocalidad");
+		JLabel lblLocalidad = new JLabel("Localidad");
 		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_12 = new JTextField();
-		textField_12.setEditable(false);
-		textField_12.setColumns(10);
-		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_5.createSequentialGroup()
+		textField_Localidad = new JTextField();
+		textField_Localidad.setEditable(false);
+		textField_Localidad.setColumns(10);
+		GroupLayout gl_pnl_DatosDelCliente = new GroupLayout(pnl_DatosDelCliente);
+		gl_pnl_DatosDelCliente.setHorizontalGroup(
+			gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_pnl_DatosDelCliente.createSequentialGroup()
 					.addGap(53)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_panel_5.createSequentialGroup()
+					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addComponent(lblProvincia)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_5.createSequentialGroup()
+							.addComponent(textField_Provincia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addComponent(lblTipo)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_5.createSequentialGroup()
+							.addComponent(textField_Tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addComponent(lblNroCliente)
 							.addGap(18)
-							.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textfield_NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
+							.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblLocalidad)
 								.addComponent(lblNroDocumento)
 								.addComponent(lblApellido))
 							.addGap(18)
-							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_5.createSequentialGroup()
-									.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
+									.addComponent(textField_Apellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(56)
 									.addComponent(lblNobre)
 									.addGap(18)
 									.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel_5.createSequentialGroup()
+								.addComponent(textField_Localidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addGap(93)
-							.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textField_NroDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(42))
 		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+		gl_pnl_DatosDelCliente.setVerticalGroup(
+			gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
+					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNroCliente)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textfield_NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblApellido)
 						.addComponent(lblNobre)
 						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textField_Apellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipo)
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_Tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_NroDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNroDocumento))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblProvincia)
-							.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+							.addComponent(textField_Provincia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblLocalidad)
-							.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textField_Localidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		panel_5.setLayout(gl_panel_5);
+		pnl_DatosDelCliente.setLayout(gl_pnl_DatosDelCliente);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "INGRESO DE DATOS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[]{41, 81, 112, 44, 92, 118, 43, 0, 112, 33, 0};
-		gbl_panel_3.rowHeights = new int[]{32, 32, 24, 32, 32, 32, 26, 78, 32, 32, 26, 0};
-		gbl_panel_3.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_3.setLayout(gbl_panel_3);
+		/*INGRESO DE DATOS PARA LA PÓLIZA*/
+		pnl_IngresoDeDatos = new JPanel();
+		pnl_IngresoDeDatos.setBorder(new TitledBorder(null, "INGRESO DE DATOS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagLayout gbl_pnl_IngresoDeDatos = new GridBagLayout();
+		gbl_pnl_IngresoDeDatos.columnWidths = new int[]{41, 81, 112, 44, 92, 118, 43, 0, 112, 33, 0};
+		gbl_pnl_IngresoDeDatos.rowHeights = new int[]{32, 32, 24, 32, 32, 32, 26, 78, 32, 32, 26, 0};
+		gbl_pnl_IngresoDeDatos.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnl_IngresoDeDatos.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		pnl_IngresoDeDatos.setLayout(gbl_pnl_IngresoDeDatos);
 		
+		/*INGRESO DE DOMICILIO DE RIESGO*/
 		JLabel lblDomicilioDeRiesgo = new JLabel("DOMICILIO DE RIESGO");
 		lblDomicilioDeRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblDomicilioDeRiesgo = new GridBagConstraints();
@@ -236,53 +254,54 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblDomicilioDeRiesgo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDomicilioDeRiesgo.gridx = 1;
 		gbc_lblDomicilioDeRiesgo.gridy = 0;
-		panel_3.add(lblDomicilioDeRiesgo, gbc_lblDomicilioDeRiesgo);
+		pnl_IngresoDeDatos.add(lblDomicilioDeRiesgo, gbc_lblDomicilioDeRiesgo);
 		
-		JLabel label_2 = new JLabel("DTOProvincia(*)");
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.anchor = GridBagConstraints.WEST;
-		gbc_label_2.insets = new Insets(0, 0, 5, 5);
-		gbc_label_2.gridx = 1;
-		gbc_label_2.gridy = 1;
-		panel_3.add(label_2, gbc_label_2);
+		JLabel lblProvinciaRiesgo = new JLabel("Provincia(*)");
+		lblProvinciaRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblProvinciaRiesgo = new GridBagConstraints();
+		gbc_lblProvinciaRiesgo.anchor = GridBagConstraints.WEST;
+		gbc_lblProvinciaRiesgo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblProvinciaRiesgo.gridx = 1;
+		gbc_lblProvinciaRiesgo.gridy = 1;
+		pnl_IngresoDeDatos.add(lblProvinciaRiesgo, gbc_lblProvinciaRiesgo);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setForeground(Color.BLACK);
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox.addItem("");
-		comboBox.addItem("Santa Fe");
-		comboBox.addItem("Cordoba");
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 1;
-		panel_3.add(comboBox, gbc_comboBox);
+		JComboBox<String> cbxProvinciaRiesgo = new JComboBox<String>();
+		cbxProvinciaRiesgo.setBackground(Color.WHITE);
+		cbxProvinciaRiesgo.setForeground(Color.BLACK);
+		cbxProvinciaRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		JLabel label_3 = new JLabel("DTOLocalidad(*)");
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_3 = new GridBagConstraints();
-		gbc_label_3.anchor = GridBagConstraints.WEST;
-		gbc_label_3.insets = new Insets(0, 0, 5, 5);
-		gbc_label_3.gridx = 4;
-		gbc_label_3.gridy = 1;
-		panel_3.add(label_3, gbc_label_3);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBackground(Color.WHITE);
-		comboBox_1.setForeground(Color.BLACK);
-		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_1.addItem("");
-		comboBox_1.addItem("Santo Tome");
-		comboBox_1.addItem("Rosario");
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_1.gridx = 5;
-		gbc_comboBox_1.gridy = 1;
-		panel_3.add(comboBox_1, gbc_comboBox_1);
+		GridBagConstraints gbc_cbxProvinciaRiesgo = new GridBagConstraints();
+		gbc_cbxProvinciaRiesgo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxProvinciaRiesgo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxProvinciaRiesgo.gridx = 2;
+		gbc_cbxProvinciaRiesgo.gridy = 1;
+		pnl_IngresoDeDatos.add(cbxProvinciaRiesgo, gbc_cbxProvinciaRiesgo);
+		
+		JLabel lblLocalidadRiesgo = new JLabel("Localidad(*)");
+		lblLocalidadRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblLocalidadRiesgo = new GridBagConstraints();
+		gbc_lblLocalidadRiesgo.anchor = GridBagConstraints.WEST;
+		gbc_lblLocalidadRiesgo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLocalidadRiesgo.gridx = 4;
+		gbc_lblLocalidadRiesgo.gridy = 1;
+		pnl_IngresoDeDatos.add(lblLocalidadRiesgo, gbc_lblLocalidadRiesgo);
+		
+		/* LOCALIDAD DE RIESGO */
+		JComboBox<String> cbxLocalidadRiesgo = new JComboBox<String>();
+		cbxLocalidadRiesgo.setBackground(Color.WHITE);
+		cbxLocalidadRiesgo.setForeground(Color.BLACK);
+		cbxLocalidadRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				
+		cbxLocalidadRiesgo.addItem("");
+		cbxLocalidadRiesgo.addItem("Santo Tome");
+		cbxLocalidadRiesgo.addItem("Rosario");
+		GridBagConstraints gbc_cbxLocalidadRiesgo = new GridBagConstraints();
+		gbc_cbxLocalidadRiesgo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxLocalidadRiesgo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxLocalidadRiesgo.gridx = 5;
+		gbc_cbxLocalidadRiesgo.gridy = 1;
+		pnl_IngresoDeDatos.add(cbxLocalidadRiesgo, gbc_cbxLocalidadRiesgo);
 		
 		JLabel lblDatosDelVehculo = new JLabel("DATOS DEL VEH\u00CDCULO");
 		lblDatosDelVehculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -292,171 +311,171 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblDatosDelVehculo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDatosDelVehculo.gridx = 1;
 		gbc_lblDatosDelVehculo.gridy = 2;
-		panel_3.add(lblDatosDelVehculo, gbc_lblDatosDelVehculo);
+		pnl_IngresoDeDatos.add(lblDatosDelVehculo, gbc_lblDatosDelVehculo);
 		
-		JLabel lblMarca = new JLabel("DTOMarca(*)");
+		JLabel lblMarca = new JLabel("Marca(*)");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblMarca = new GridBagConstraints();
 		gbc_lblMarca.anchor = GridBagConstraints.WEST;
 		gbc_lblMarca.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMarca.gridx = 1;
 		gbc_lblMarca.gridy = 3;
-		panel_3.add(lblMarca, gbc_lblMarca);
+		pnl_IngresoDeDatos.add(lblMarca, gbc_lblMarca);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBackground(Color.WHITE);
-		comboBox_2.setForeground(Color.BLACK);
-		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_2.addItem("");
-		comboBox_2.addItem("Aston Martin");
-		comboBox_2.addItem("Audi");
-		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
-		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_2.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_2.gridx = 2;
-		gbc_comboBox_2.gridy = 3;
-		panel_3.add(comboBox_2, gbc_comboBox_2);
+		JComboBox<String> cbxMarca = new JComboBox<String>();
+		cbxMarca.setBackground(Color.WHITE);
+		cbxMarca.setForeground(Color.BLACK);
+		cbxMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxMarca.addItem("");
+		cbxMarca.addItem("Aston Martin");
+		cbxMarca.addItem("Audi");
+		GridBagConstraints gbc_cbxMarca = new GridBagConstraints();
+		gbc_cbxMarca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxMarca.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxMarca.gridx = 2;
+		gbc_cbxMarca.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxMarca, gbc_cbxMarca);
 		
-		JLabel lblModelo = new JLabel("DTOModelo(*)");
+		JLabel lblModelo = new JLabel("Modelo(*)");
 		lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblModelo = new GridBagConstraints();
 		gbc_lblModelo.anchor = GridBagConstraints.WEST;
 		gbc_lblModelo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblModelo.gridx = 4;
 		gbc_lblModelo.gridy = 3;
-		panel_3.add(lblModelo, gbc_lblModelo);
+		pnl_IngresoDeDatos.add(lblModelo, gbc_lblModelo);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setForeground(Color.BLACK);
-		comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_3.setBackground(Color.WHITE);
-		comboBox_3.addItem("");
-		comboBox_3.addItem("2019");
-		comboBox_3.addItem("2009");
-		GridBagConstraints gbc_comboBox_3 = new GridBagConstraints();
-		gbc_comboBox_3.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_3.gridx = 5;
-		gbc_comboBox_3.gridy = 3;
-		panel_3.add(comboBox_3, gbc_comboBox_3);
+		JComboBox<String> cbxModelo = new JComboBox<String>();
+		cbxModelo.setForeground(Color.BLACK);
+		cbxModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxModelo.setBackground(Color.WHITE);
+		cbxModelo.addItem("");
+		cbxModelo.addItem("2019");
+		cbxModelo.addItem("2009");
+		GridBagConstraints gbc_cbxModelo = new GridBagConstraints();
+		gbc_cbxModelo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxModelo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxModelo.gridx = 5;
+		gbc_cbxModelo.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxModelo, gbc_cbxModelo);
 		
-		JLabel label_7 = new JLabel("A\u00F1o del Veh\u00EDculo(*)");
-		label_7.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_7 = new GridBagConstraints();
-		gbc_label_7.anchor = GridBagConstraints.WEST;
-		gbc_label_7.insets = new Insets(0, 0, 5, 5);
-		gbc_label_7.gridx = 7;
-		gbc_label_7.gridy = 3;
-		panel_3.add(label_7, gbc_label_7);
+		JLabel lblAnioVehiculo = new JLabel("A\u00F1o del Veh\u00EDculo(*)");
+		lblAnioVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblAnioVehiculo = new GridBagConstraints();
+		gbc_lblAnioVehiculo.anchor = GridBagConstraints.WEST;
+		gbc_lblAnioVehiculo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAnioVehiculo.gridx = 7;
+		gbc_lblAnioVehiculo.gridy = 3;
+		pnl_IngresoDeDatos.add(lblAnioVehiculo, gbc_lblAnioVehiculo);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBackground(Color.WHITE);
-		comboBox_4.setForeground(Color.BLACK);
-		comboBox_4.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_4.addItem("");
-		comboBox_4.addItem("2019");
-		comboBox_4.addItem("2009");
-		GridBagConstraints gbc_comboBox_4 = new GridBagConstraints();
-		gbc_comboBox_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_4.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_4.gridx = 8;
-		gbc_comboBox_4.gridy = 3;
-		panel_3.add(comboBox_4, gbc_comboBox_4);
+		JComboBox<String> cbxAnioVehiculo = new JComboBox<String>();
+		cbxAnioVehiculo.setBackground(Color.WHITE);
+		cbxAnioVehiculo.setForeground(Color.BLACK);
+		cbxAnioVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxAnioVehiculo.addItem("");
+		cbxAnioVehiculo.addItem("2019");
+		cbxAnioVehiculo.addItem("2009");
+		GridBagConstraints gbc_cbxAnioVehiculo = new GridBagConstraints();
+		gbc_cbxAnioVehiculo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxAnioVehiculo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxAnioVehiculo.gridx = 8;
+		gbc_cbxAnioVehiculo.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxAnioVehiculo, gbc_cbxAnioVehiculo);
 		
-		JLabel label_9 = new JLabel("Motor(*)");
-		label_9.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_9 = new GridBagConstraints();
-		gbc_label_9.anchor = GridBagConstraints.WEST;
-		gbc_label_9.insets = new Insets(0, 0, 5, 5);
-		gbc_label_9.gridx = 1;
-		gbc_label_9.gridy = 4;
-		panel_3.add(label_9, gbc_label_9);
+		JLabel lblMotor = new JLabel("Motor(*)");
+		lblMotor.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblMotor = new GridBagConstraints();
+		gbc_lblMotor.anchor = GridBagConstraints.WEST;
+		gbc_lblMotor.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMotor.gridx = 1;
+		gbc_lblMotor.gridy = 4;
+		pnl_IngresoDeDatos.add(lblMotor, gbc_lblMotor);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 4;
-		panel_3.add(textField_1, gbc_textField_1);
+		textField_Motor = new JTextField();
+		textField_Motor.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_Motor.setColumns(10);
+		GridBagConstraints gbc_textField_Motor = new GridBagConstraints();
+		gbc_textField_Motor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_Motor.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_Motor.gridx = 2;
+		gbc_textField_Motor.gridy = 4;
+		pnl_IngresoDeDatos.add(textField_Motor, gbc_textField_Motor);
 		
-		JLabel label_8 = new JLabel("Km por A\u00F1o(*)");
-		label_8.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_8 = new GridBagConstraints();
-		gbc_label_8.anchor = GridBagConstraints.WEST;
-		gbc_label_8.insets = new Insets(0, 0, 5, 5);
-		gbc_label_8.gridx = 4;
-		gbc_label_8.gridy = 4;
-		panel_3.add(label_8, gbc_label_8);
+		JLabel lblKmPorAnio = new JLabel("Km por A\u00F1o(*)");
+		lblKmPorAnio.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblKmPorAnio = new GridBagConstraints();
+		gbc_lblKmPorAnio.anchor = GridBagConstraints.WEST;
+		gbc_lblKmPorAnio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblKmPorAnio.gridx = 4;
+		gbc_lblKmPorAnio.gridy = 4;
+		pnl_IngresoDeDatos.add(lblKmPorAnio, gbc_lblKmPorAnio);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 5;
-		gbc_textField.gridy = 4;
-		panel_3.add(textField, gbc_textField);
+		textField_KmPorAnio = new JTextField();
+		textField_KmPorAnio.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_KmPorAnio.setColumns(10);
+		GridBagConstraints gbc_textField_KmPorAnio = new GridBagConstraints();
+		gbc_textField_KmPorAnio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_KmPorAnio.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_KmPorAnio.gridx = 5;
+		gbc_textField_KmPorAnio.gridy = 4;
+		pnl_IngresoDeDatos.add(textField_KmPorAnio, gbc_textField_KmPorAnio);
 		
-		JLabel label_10 = new JLabel("Chasis(*)");
-		label_10.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_10 = new GridBagConstraints();
-		gbc_label_10.anchor = GridBagConstraints.WEST;
-		gbc_label_10.insets = new Insets(0, 0, 5, 5);
-		gbc_label_10.gridx = 7;
-		gbc_label_10.gridy = 4;
-		panel_3.add(label_10, gbc_label_10);
+		JLabel lblChasis = new JLabel("Chasis(*)");
+		lblChasis.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblChasis = new GridBagConstraints();
+		gbc_lblChasis.anchor = GridBagConstraints.WEST;
+		gbc_lblChasis.insets = new Insets(0, 0, 5, 5);
+		gbc_lblChasis.gridx = 7;
+		gbc_lblChasis.gridy = 4;
+		pnl_IngresoDeDatos.add(lblChasis, gbc_lblChasis);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_2.setColumns(10);
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.gridx = 8;
-		gbc_textField_2.gridy = 4;
-		panel_3.add(textField_2, gbc_textField_2);
+		textField_Chasis = new JTextField();
+		textField_Chasis.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_Chasis.setColumns(10);
+		GridBagConstraints gbc_textField_Chasis = new GridBagConstraints();
+		gbc_textField_Chasis.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_Chasis.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_Chasis.gridx = 8;
+		gbc_textField_Chasis.gridy = 4;
+		pnl_IngresoDeDatos.add(textField_Chasis, gbc_textField_Chasis);
 		
-		JLabel label_11 = new JLabel("Patente:");
-		label_11.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_11 = new GridBagConstraints();
-		gbc_label_11.anchor = GridBagConstraints.WEST;
-		gbc_label_11.insets = new Insets(0, 0, 5, 5);
-		gbc_label_11.gridx = 1;
-		gbc_label_11.gridy = 5;
-		panel_3.add(label_11, gbc_label_11);
+		JLabel lblPatente = new JLabel("Patente:");
+		lblPatente.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblPatente = new GridBagConstraints();
+		gbc_lblPatente.anchor = GridBagConstraints.WEST;
+		gbc_lblPatente.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPatente.gridx = 1;
+		gbc_lblPatente.gridy = 5;
+		pnl_IngresoDeDatos.add(lblPatente, gbc_lblPatente);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_3.setColumns(10);
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 5;
-		panel_3.add(textField_3, gbc_textField_3);
+		textField_Patente = new JTextField();
+		textField_Patente.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_Patente.setColumns(10);
+		GridBagConstraints gbc_textField_Patente = new GridBagConstraints();
+		gbc_textField_Patente.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_Patente.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_Patente.gridx = 2;
+		gbc_textField_Patente.gridy = 5;
+		pnl_IngresoDeDatos.add(textField_Patente, gbc_textField_Patente);
 		
-		JLabel label_12 = new JLabel("Suma Asegurada:");
-		label_12.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_12 = new GridBagConstraints();
-		gbc_label_12.anchor = GridBagConstraints.WEST;
-		gbc_label_12.insets = new Insets(0, 0, 5, 5);
-		gbc_label_12.gridx = 4;
-		gbc_label_12.gridy = 5;
-		panel_3.add(label_12, gbc_label_12);
+		JLabel lblSumaAsegurada = new JLabel("Suma Asegurada:");
+		lblSumaAsegurada.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblSumaAsegurada = new GridBagConstraints();
+		gbc_lblSumaAsegurada.anchor = GridBagConstraints.WEST;
+		gbc_lblSumaAsegurada.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSumaAsegurada.gridx = 4;
+		gbc_lblSumaAsegurada.gridy = 5;
+		pnl_IngresoDeDatos.add(lblSumaAsegurada, gbc_lblSumaAsegurada);
 		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_4.setColumns(10);
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.gridx = 5;
-		gbc_textField_4.gridy = 5;
-		panel_3.add(textField_4, gbc_textField_4);
+		textField_SumaAsegurada = new JTextField();
+		textField_SumaAsegurada.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_SumaAsegurada.setColumns(10);
+		GridBagConstraints gbc_textField_SumaAsegurada = new GridBagConstraints();
+		gbc_textField_SumaAsegurada.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_SumaAsegurada.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_SumaAsegurada.gridx = 5;
+		gbc_textField_SumaAsegurada.gridy = 5;
+		pnl_IngresoDeDatos.add(textField_SumaAsegurada, gbc_textField_SumaAsegurada);
 		
 		JLabel lblMedidasDeSeguridad = new JLabel("MEDIDAS DE SEGURIDAD");
 		lblMedidasDeSeguridad.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -466,120 +485,124 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblMedidasDeSeguridad.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMedidasDeSeguridad.gridx = 1;
 		gbc_lblMedidasDeSeguridad.gridy = 6;
-		panel_3.add(lblMedidasDeSeguridad, gbc_lblMedidasDeSeguridad);
+		pnl_IngresoDeDatos.add(lblMedidasDeSeguridad, gbc_lblMedidasDeSeguridad);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setForeground(Color.WHITE);
-		panel_4.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_4.setBackground(Color.WHITE);
-		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.fill = GridBagConstraints.BOTH;
-		gbc_panel_4.gridwidth = 6;
-		gbc_panel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_4.gridx = 2;
-		gbc_panel_4.gridy = 7;
-		panel_3.add(panel_4, gbc_panel_4);
+		JPanel pnl_CheckMedidasSeguridad = new JPanel();
+		pnl_CheckMedidasSeguridad.setForeground(Color.WHITE);
+		pnl_CheckMedidasSeguridad.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		pnl_CheckMedidasSeguridad.setBackground(Color.WHITE);
+		GridBagConstraints gbc_pnl_CheckMedidasSeguridad = new GridBagConstraints();
+		gbc_pnl_CheckMedidasSeguridad.fill = GridBagConstraints.BOTH;
+		gbc_pnl_CheckMedidasSeguridad.gridwidth = 6;
+		gbc_pnl_CheckMedidasSeguridad.insets = new Insets(0, 0, 5, 5);
+		gbc_pnl_CheckMedidasSeguridad.gridx = 2;
+		gbc_pnl_CheckMedidasSeguridad.gridy = 7;
+		pnl_IngresoDeDatos.add(pnl_CheckMedidasSeguridad, gbc_pnl_CheckMedidasSeguridad);
 		
-		JCheckBox checkBox = new JCheckBox("\u00BFSe guarda en garage?");
-		checkBox.setForeground(Color.BLACK);
-		checkBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		checkBox.setBackground(Color.WHITE);
+		JCheckBox chbxGarage = new JCheckBox("\u00BFSe guarda en garage?");
+		chbxGarage.setForeground(Color.BLACK);
+		chbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		chbxGarage.setBackground(Color.WHITE);
 		
-		JCheckBox checkBox_1 = new JCheckBox("\u00BFTiene alarma?");
-		checkBox_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		checkBox_1.setBackground(Color.WHITE);
+		JCheckBox chbxAlarma = new JCheckBox("\u00BFTiene alarma?");
+		chbxAlarma.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		chbxAlarma.setBackground(Color.WHITE);
 		
-		JCheckBox checkBox_2 = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
-		checkBox_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		checkBox_2.setBackground(Color.WHITE);
+		JCheckBox chbxTuercas = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
+		chbxTuercas.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		chbxTuercas.setBackground(Color.WHITE);
 		
-		JCheckBox checkBox_3 = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
-		checkBox_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		checkBox_3.setBackground(Color.WHITE);
-		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
+		JCheckBox chbxRastreo = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
+		chbxRastreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		chbxRastreo.setBackground(Color.WHITE);
+		GroupLayout gl_pnl_CheckMedidasSeguridad = new GroupLayout(pnl_CheckMedidasSeguridad);
+		gl_pnl_CheckMedidasSeguridad.setHorizontalGroup(
+			gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnl_CheckMedidasSeguridad.createSequentialGroup()
 					.addGap(28)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addComponent(checkBox)
-						.addComponent(checkBox_1))
+					.addGroup(gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.LEADING)
+						.addComponent(chbxGarage)
+						.addComponent(chbxAlarma))
 					.addGap(18)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addComponent(checkBox_2)
-						.addComponent(checkBox_3))
+					.addGroup(gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.LEADING)
+						.addComponent(chbxTuercas)
+						.addComponent(chbxRastreo))
 					.addContainerGap(62, Short.MAX_VALUE))
 		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_4.createSequentialGroup()
+		gl_pnl_CheckMedidasSeguridad.setVerticalGroup(
+			gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_pnl_CheckMedidasSeguridad.createSequentialGroup()
 					.addContainerGap(20, Short.MAX_VALUE)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(checkBox)
-						.addComponent(checkBox_3))
+					.addGroup(gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.TRAILING)
+						.addComponent(chbxGarage)
+						.addComponent(chbxRastreo))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-						.addComponent(checkBox_2)
-						.addComponent(checkBox_1))
+					.addGroup(gl_pnl_CheckMedidasSeguridad.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chbxTuercas)
+						.addComponent(chbxAlarma))
 					.addContainerGap())
 		);
-		panel_4.setLayout(gl_panel_4);
+		pnl_CheckMedidasSeguridad.setLayout(gl_pnl_CheckMedidasSeguridad);
 		
-		JLabel label_14 = new JLabel("Nro de Siniestros(*)");
-		label_14.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_14 = new GridBagConstraints();
-		gbc_label_14.gridwidth = 2;
-		gbc_label_14.anchor = GridBagConstraints.WEST;
-		gbc_label_14.insets = new Insets(0, 0, 5, 5);
-		gbc_label_14.gridx = 1;
-		gbc_label_14.gridy = 8;
-		panel_3.add(label_14, gbc_label_14);
+		JLabel lblSiniestros = new JLabel("Nro de Siniestros(*)");
+		lblSiniestros.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblSiniestros = new GridBagConstraints();
+		gbc_lblSiniestros.gridwidth = 2;
+		gbc_lblSiniestros.anchor = GridBagConstraints.WEST;
+		gbc_lblSiniestros.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSiniestros.gridx = 1;
+		gbc_lblSiniestros.gridy = 8;
+		pnl_IngresoDeDatos.add(lblSiniestros, gbc_lblSiniestros);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBackground(Color.WHITE);
-		comboBox_5.setForeground(Color.BLACK);
-		comboBox_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_5.addItem("");
-		comboBox_5.addItem("Niguno");
-		comboBox_5.addItem("Uno");
-		comboBox_5.addItem("Dos");
-		comboBox_5.addItem("M�s de dos");
-		GridBagConstraints gbc_comboBox_5 = new GridBagConstraints();
-		gbc_comboBox_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_5.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_5.gridx = 5;
-		gbc_comboBox_5.gridy = 8;
-		panel_3.add(comboBox_5, gbc_comboBox_5);
+		JComboBox<String> cbxSiniestros = new JComboBox<String>();
+		cbxSiniestros.setBackground(Color.WHITE);
+		cbxSiniestros.setForeground(Color.BLACK);
+		cbxSiniestros.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxSiniestros.addItem("");
+		cbxSiniestros.addItem("Niguno");
+		cbxSiniestros.addItem("Uno");
+		cbxSiniestros.addItem("Dos");
+		cbxSiniestros.addItem("M�s de dos");
+		GridBagConstraints gbc_cbxSiniestros = new GridBagConstraints();
+		gbc_cbxSiniestros.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxSiniestros.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxSiniestros.gridx = 5;
+		gbc_cbxSiniestros.gridy = 8;
+		pnl_IngresoDeDatos.add(cbxSiniestros, gbc_cbxSiniestros);
 		
-		JLabel label_15 = new JLabel("Cantidad de Hijos entre 18 y 30 a\u00F1os:");
-		label_15.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_15 = new GridBagConstraints();
-		gbc_label_15.anchor = GridBagConstraints.WEST;
-		gbc_label_15.gridwidth = 3;
-		gbc_label_15.insets = new Insets(0, 0, 5, 5);
-		gbc_label_15.gridx = 1;
-		gbc_label_15.gridy = 9;
-		panel_3.add(label_15, gbc_label_15);
+		JLabel lblCantHijos = new JLabel("Cantidad de Hijos entre 18 y 30 a\u00F1os:");
+		lblCantHijos.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblCantHijos = new GridBagConstraints();
+		gbc_lblCantHijos.anchor = GridBagConstraints.WEST;
+		gbc_lblCantHijos.gridwidth = 3;
+		gbc_lblCantHijos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCantHijos.gridx = 1;
+		gbc_lblCantHijos.gridy = 9;
+		pnl_IngresoDeDatos.add(lblCantHijos, gbc_lblCantHijos);
 		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_5.setColumns(10);
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.gridx = 4;
-		gbc_textField_5.gridy = 9;
-		panel_3.add(textField_5, gbc_textField_5);
+		textField_CantHijos = new JTextField();
+		textField_CantHijos.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_CantHijos.setColumns(10);
+		GridBagConstraints gbc_textField_CantHijos = new GridBagConstraints();
+		gbc_textField_CantHijos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_CantHijos.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_CantHijos.gridx = 4;
+		gbc_textField_CantHijos.gridy = 9;
+		pnl_IngresoDeDatos.add(textField_CantHijos, gbc_textField_CantHijos);
 		
-		JButton button = new JButton("Completar");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nro = textField_5.getText();
-				int numero = Integer.valueOf(nro);
 				
-				if(numero >= 18 && numero <= 30)
+		JButton btnCompletarHijos = new JButton("Completar");
+		btnCompletarHijos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nroHijos = textField_CantHijos.getText();
+				int numeroHijos = Integer.valueOf(nroHijos);
+				
+				new PantallaAgregarHijos(numeroHijos);
+
+						
+				if(numeroHijos >= 18 && numeroHijos <= 30)
 				{
-					if(e.getSource() == button)
+					if(e.getSource() == btnCompletarHijos)
 					{
 						darDeAltaPoliza22 b = new darDeAltaPoliza22();
 						b.setVisible(true);
@@ -590,102 +613,102 @@ public class darDeAltaPoliza extends JFrame {
 				
 			}
 		});
-		button.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.fill = GridBagConstraints.HORIZONTAL;
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 5;
-		gbc_button.gridy = 9;
-		panel_3.add(button, gbc_button);
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.TRAILING)
-				.addComponent(panel_3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 771, Short.MAX_VALUE)
+		btnCompletarHijos.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_btnCompletarHijos = new GridBagConstraints();
+		gbc_btnCompletarHijos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCompletarHijos.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCompletarHijos.gridx = 5;
+		gbc_btnCompletarHijos.gridy = 9;
+		pnl_IngresoDeDatos.add(btnCompletarHijos, gbc_btnCompletarHijos);
+		GroupLayout gl_pnl_IngresoDatosGeneral = new GroupLayout(pnl_IngresoDatosGeneral);
+		gl_pnl_IngresoDatosGeneral.setHorizontalGroup(
+			gl_pnl_IngresoDatosGeneral.createParallelGroup(Alignment.TRAILING)
+				.addComponent(pnl_IngresoDeDatos, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 771, Short.MAX_VALUE)
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		gl_pnl_IngresoDatosGeneral.setVerticalGroup(
+			gl_pnl_IngresoDatosGeneral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pnl_IngresoDatosGeneral.createSequentialGroup()
+					.addComponent(pnl_IngresoDeDatos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(22, Short.MAX_VALUE))
 		);
 		
-		JLabel label_16 = new JLabel("(*) Campos Obligatorios.");
-		label_16.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_label_16 = new GridBagConstraints();
-		gbc_label_16.gridwidth = 2;
-		gbc_label_16.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_label_16.insets = new Insets(0, 0, 0, 5);
-		gbc_label_16.gridx = 1;
-		gbc_label_16.gridy = 10;
-		panel_3.add(label_16, gbc_label_16);
+		JLabel lblCamposObligatorios = new JLabel("(*) Campos Obligatorios.");
+		lblCamposObligatorios.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_lblCamposObligatorios = new GridBagConstraints();
+		gbc_lblCamposObligatorios.gridwidth = 2;
+		gbc_lblCamposObligatorios.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblCamposObligatorios.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCamposObligatorios.gridx = 1;
+		gbc_lblCamposObligatorios.gridy = 10;
+		pnl_IngresoDeDatos.add(lblCamposObligatorios, gbc_lblCamposObligatorios);
 		
-		JButton button_1 = new JButton("Aceptar");
-		button_1.addActionListener(new ActionListener() {
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(e.getSource() == button_1)
+				if(e.getSource() == btnAceptar)
 				{
-				String kmxAnio = textField.getText();
-				String motor = textField_1.getText();
-				String chasis = textField_2.getText();
-				String provincia = comboBox.getSelectedItem().toString();
-				String localidad = comboBox_1.getSelectedItem().toString();
-				String marca = comboBox_2.getSelectedItem().toString();
-				String modelo = comboBox_3.getSelectedItem().toString();
-				String anio = comboBox_4.getSelectedItem().toString();
-				String nroSiniestro = comboBox_5.getSelectedItem().toString();
+				String kmxAnio = textField_KmPorAnio.getText();
+				String motor = textField_Motor.getText();
+				String chasis = textField_Chasis.getText();
+				String provincia = cbxProvinciaRiesgo.getSelectedItem().toString();
+				String localidad = cbxLocalidadRiesgo.getSelectedItem().toString();
+				String marca = cbxMarca.getSelectedItem().toString();
+				String modelo = cbxModelo.getSelectedItem().toString();
+				String anio = cbxAnioVehiculo.getSelectedItem().toString();
+				String nroSiniestro = cbxSiniestros.getSelectedItem().toString();
 				
 				if(kmxAnio.equals("") || motor.equals("") || chasis.equals("") || provincia.equals("") || localidad.equals("") || marca.equals("") || modelo.equals("") || anio.equals("") || nroSiniestro.equals("") )
 				{
 					if(kmxAnio.equals(""))
 					{
-						label_8.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblKmPorAnio.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_8.setForeground(Color.black);
+						lblKmPorAnio.setForeground(Color.black);
 					}
 					if(motor.equals(""))
 					{
-						label_9.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblMotor.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_9.setForeground(Color.black);
+						lblMotor.setForeground(Color.black);
 					}
 					if(chasis.equals(""))
 					{
-						label_10.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblChasis.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_10.setForeground(Color.black);
+						lblChasis.setForeground(Color.black);
 					}
 					if(provincia.equals(""))
 					{
-						label_2.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblProvinciaRiesgo.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_2.setForeground(Color.black);
+						lblProvinciaRiesgo.setForeground(Color.black);
 					}
 					if(localidad.equals(""))
 					{
-						label_3.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblLocalidadRiesgo.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_3.setForeground(Color.black);
+						lblLocalidadRiesgo.setForeground(Color.black);
 					}
 					if(marca.equals(""))
 					{
 						lblMarca.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
@@ -694,7 +717,7 @@ public class darDeAltaPoliza extends JFrame {
 					if(modelo.equals(""))
 					{
 						lblModelo.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
@@ -702,26 +725,26 @@ public class darDeAltaPoliza extends JFrame {
 					}
 					if(anio.equals(""))
 					{
-						label_7.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblAnioVehiculo.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_7.setForeground(Color.black);
+						lblAnioVehiculo.setForeground(Color.black);
 					}
 					if(nroSiniestro.equals(""))
 					{
-						label_14.setForeground(Color.red);
-						label_16.setForeground(Color.red);
+						lblSiniestros.setForeground(Color.red);
+						lblCamposObligatorios.setForeground(Color.red);
 					}
 					else 
 					{
-						label_14.setForeground(Color.black);
+						lblSiniestros.setForeground(Color.black);
 					}
 				}
 				else 
 				{
-					label_16.setForeground(Color.black);
+					lblCamposObligatorios.setForeground(Color.black);
 					darDeAltaPoliza1 b = new darDeAltaPoliza1();
 					b.setVisible(true);
 					b.setResizable(false);
@@ -730,65 +753,66 @@ public class darDeAltaPoliza extends JFrame {
 				}
 			}
 		});
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_button_1 = new GridBagConstraints();
-		gbc_button_1.anchor = GridBagConstraints.NORTH;
-		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_button_1.insets = new Insets(0, 0, 0, 5);
-		gbc_button_1.gridx = 7;
-		gbc_button_1.gridy = 10;
-		panel_3.add(button_1, gbc_button_1);
+		btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.anchor = GridBagConstraints.NORTH;
+		gbc_btnAceptar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAceptar.gridx = 7;
+		gbc_btnAceptar.gridy = 10;
+		pnl_IngresoDeDatos.add(btnAceptar, gbc_btnAceptar);
 		
-		JButton button_3 = new JButton("Cancelar");
-		button_3.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == button_3)
+				if(e.getSource() == btnCancelar)
 				{
 					hide();
 				}
 			}
 		});
 		contentPane.setLayout(null);
-		button_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GridBagConstraints gbc_button_3 = new GridBagConstraints();
-		gbc_button_3.anchor = GridBagConstraints.NORTH;
-		gbc_button_3.insets = new Insets(0, 0, 0, 5);
-		gbc_button_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_button_3.gridx = 8;
-		gbc_button_3.gridy = 10;
-		panel_3.add(button_3, gbc_button_3);
-		panel_2.setLayout(gl_panel_2);
-		contentPane.add(panel_2);
-		contentPane.add(panel_5);
-		contentPane.add(panel_1);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancelar.gridx = 8;
+		gbc_btnCancelar.gridy = 10;
+		pnl_IngresoDeDatos.add(btnCancelar, gbc_btnCancelar);
+		pnl_IngresoDatosGeneral.setLayout(gl_pnl_IngresoDatosGeneral);
+		contentPane.add(pnl_IngresoDatosGeneral);
+		contentPane.add(pnl_DatosDelCliente);
+		contentPane.add(pnl_BuscarCliente);
 		
-		JPanel panel = new JPanel();
-		panel.setToolTipText("jgj");
-		panel.setBackground(new Color(255, 0, 51));
-		panel.setBounds(0, 0, 784, 83);
-		contentPane.add(panel);
+		JPanel pnl_encabezado = new JPanel();
+		pnl_encabezado.setToolTipText("jgj");
+		pnl_encabezado.setBackground(new Color(255, 0, 51));
+		pnl_encabezado.setBounds(0, 0, 784, 83);
+		contentPane.add(pnl_encabezado);
 		
 		JLabel label = new JLabel("EL ASEGURADO");
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Tahoma", Font.BOLD, 20));
 		label.setBackground(Color.WHITE);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+		GroupLayout gl_pnl_encabezado = new GroupLayout(pnl_encabezado);
+		gl_pnl_encabezado.setHorizontalGroup(
+			gl_pnl_encabezado.createParallelGroup(Alignment.LEADING)
 				.addGap(0, 771, Short.MAX_VALUE)
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(gl_pnl_encabezado.createSequentialGroup()
 					.addGap(314)
 					.addComponent(label)
 					.addContainerGap(296, Short.MAX_VALUE))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+		gl_pnl_encabezado.setVerticalGroup(
+			gl_pnl_encabezado.createParallelGroup(Alignment.TRAILING)
 				.addGap(0, 83, Short.MAX_VALUE)
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(gl_pnl_encabezado.createSequentialGroup()
 					.addContainerGap(29, Short.MAX_VALUE)
 					.addComponent(label)
 					.addGap(25))
 		);
-		panel.setLayout(gl_panel);
+		pnl_encabezado.setLayout(gl_pnl_encabezado);
 	}
 }
