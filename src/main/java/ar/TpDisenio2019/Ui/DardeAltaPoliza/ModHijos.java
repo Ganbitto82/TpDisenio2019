@@ -15,7 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
@@ -25,12 +27,16 @@ import java.awt.FlowLayout;
 
 import java.awt.CardLayout;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.text.MaskFormatter;
 
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -38,6 +44,7 @@ public class ModHijos extends JFrame {
 
 	private JTable table;
 	private Object[][] datosDeLaTablaPrincipal;
+	private DefaultTableModel modelo;
 	
 
 	/**
@@ -154,64 +161,67 @@ public class ModHijos extends JFrame {
 					.addContainerGap(38, Short.MAX_VALUE))
 		);
 		
-		table = new JTable();
-		
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-						//{null, null, null},
-				}, new String[] {
-						"Fecha de Nacimiento", "Sexo", "Estado Civil"
-				}
-		));
-		
-		if(numeroHijos > 0)
-		{	
-						
-			//El actor podría reordenar este vector tantas veces como quiera
-				datosDeLaTablaPrincipal = new Object[numeroHijos][3];
-							
-				for(int i = 0; i < numeroHijos; i++)
-				{	
-					datosDeLaTablaPrincipal[i][0]= null;
-					datosDeLaTablaPrincipal[i][1]= null;
-					datosDeLaTablaPrincipal[i][2]= null;
-					
-				}
-			
-				table.setModel(new DefaultTableModel(datosDeLaTablaPrincipal, new String[] {
-						"Fecha de Nacimiento", "Sexo", "Estado Civil"
-					}
-					));
-				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				
-				
-			
+		Date hoy= new Date();
+		SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+		MaskFormatter mascara = null;
+		try {
+		mascara = new MaskFormatter("##/##/####");
+		} catch (ParseException ex) {
 		}
-		/*
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Fecha de Nacimiento", "Sexo", "Estado Civil"
+		JFormattedTextField textoFecha = new JFormattedTextField(mascara);
+		textoFecha.setValue("");
+		try {
+		textoFecha.commitEdit();
+		} catch (ParseException ex1) {
+		}
+		
+		 JComboBox<String> sexo;
+		 JComboBox<String> estadoCivil;
+		 modelo = null;
+		 String nomcols[]={"Fecha de Nacimiento", "Sexo", "Estado Civil"};
+		  
+		  if(numeroHijos > 0)
+			{	
+				datosDeLaTablaPrincipal = new Object[numeroHijos][3];
+								
+					for(int i = 0; i < numeroHijos; i++)
+					{
+						
+						datosDeLaTablaPrincipal[i][0]= null;
+						datosDeLaTablaPrincipal[i][1]= null;
+						datosDeLaTablaPrincipal[i][2]= null;
+						
+					}
+				
 			}
-		));
-		*/
+		  else {
+			  String s[]={"",""," "};
+			  modelo.addRow(s);  
+		  }
+		 
+		  modelo=new DefaultTableModel(datosDeLaTablaPrincipal,nomcols);
+		  
+		  table=new JTable(modelo);
+		  
+		  
+		  TableColumn colFechaNacimiento=table.getColumnModel().getColumn(0);
+		  TableColumn colSexo=table.getColumnModel().getColumn(1);
+		  TableColumn colEstadoCivil=table.getColumnModel().getColumn(2);
+		  
+		  
+		  String opSexo[]={"Femenino","Masculino"};
+		  String opEstadoCivil[]= {"Soltero/a.","Comprometido/a.","Casado/a.","Unión libre o unión de hecho.","Separado/a.","Divorciado/a.","Viudo/a."};
+		  
+		  sexo=new JComboBox<String>(opSexo);
+		  estadoCivil=new JComboBox<String>(opEstadoCivil);
+		  
+		  colFechaNacimiento.setCellEditor(new DefaultCellEditor(textoFecha));
+		  colSexo.setCellEditor(new DefaultCellEditor(sexo));
+		  colEstadoCivil.setCellEditor(new DefaultCellEditor(estadoCivil));
+		  
+		
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		scrollPane.setViewportView(table);
 		panel_TablaHijos.setLayout(gl_panel_TablaHijos);
 		panel_contenido.setLayout(gl_panel_contenido);
