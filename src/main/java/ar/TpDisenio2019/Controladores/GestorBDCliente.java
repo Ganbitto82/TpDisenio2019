@@ -8,32 +8,49 @@ import java.util.List;
 import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.Dao.ClienteDao;
 import ar.TpDisenio2019.Dao.ClienteDaoImp;
-
+import ar.TpDisenio2019.Dao.DireccionDao;
+import ar.TpDisenio2019.Dao.DireccionDaoImp;
+import ar.TpDisenio2019.Dao.LocalidadDao;
+import ar.TpDisenio2019.Dao.LocalidadDaoImp;
+import ar.TpDisenio2019.Dao.ProvinciaDao;
+import ar.TpDisenio2019.Dao.ProvinciaDaoImp;
+import ar.TpDisenio2019.Dao.TipodedocumentoDao;
+import ar.TpDisenio2019.Dao.TipodedocumentoDaoImp;
+import ar.TpDisenio2019.Modelo.Tipodedocumento;
 import ar.TpDisenio2019.Modelo.Cliente;
+import ar.TpDisenio2019.Modelo.Direccion;
+import ar.TpDisenio2019.Modelo.Localidad;
+import ar.TpDisenio2019.Modelo.Provincia;
 
 
 public class GestorBDCliente {
 
      private ConexionBD session =new ConexionBD();
-	 private  ClienteDao clienteDao;
-	
+	 private ClienteDao clienteDao;
+
 	public GestorBDCliente() {
 		 
 		 this.clienteDao= new ClienteDaoImp(session.Conexion());
-		
+	
+		 
 		}
 	
 		
 	public  List<Cliente> buscarCliente(String numeroCliente, String apellido, String nombre, String tipoDocumento , String nroDoc)
 	{
-	
-		
+			
 			List<Cliente> listaCliente =clienteDao.obtenerCliente(numeroCliente, apellido, nombre, tipoDocumento, nroDoc);
      	
 		return listaCliente;
 			
 	}
+
 		
+		
+		
+	}
+		
+
 	
 
 		/*List<Cliente> listaCliente = new ArrayList<>();
@@ -82,5 +99,5 @@ public class GestorBDCliente {
 				}
 			}
 			*/
-}
+
 

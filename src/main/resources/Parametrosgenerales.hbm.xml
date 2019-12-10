@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 10/12/2019 03:54:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
  <class catalog="dbelaseguradov4"
   name="ar.TpDisenio2019.Modelo.Parametrosgenerales" table="parametrosgenerales">
-  <id name="idParametrosGenerales" type="int">
+  <id name="idParametrosGenerales" type="java.lang.Integer">
    <column name="idParametrosGenerales"/>
-   <generator class="assigned"/>
+   <generator class="identity"/>
   </id>
   <property generated="never" lazy="false" name="derechosDeEmision" type="java.lang.Float">
    <column name="derechosDeEmision" precision="12" scale="0"/>

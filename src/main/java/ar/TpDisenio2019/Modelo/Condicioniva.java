@@ -1,9 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +19,27 @@ import javax.persistence.Table;
 @Table(name = "condicioniva", catalog = "dbelaseguradov4")
 public class Condicioniva  {
 
-	private int idCondicionIva;
+	private Integer idCondicionIva;
 	private String nombre;
+
 
 	public Condicioniva() {
 	}
 
-	public Condicioniva(int idCondicionIva) {
-		this.idCondicionIva = idCondicionIva;
-	}
-
-	public Condicioniva(int idCondicionIva, String nombre) {
-		this.idCondicionIva = idCondicionIva;
+	public Condicioniva(String nombre) {
 		this.nombre = nombre;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "idCondicionIva", unique = true, nullable = false)
-	public int getIdCondicionIva() {
+	@Column(name = "idCondicionIVA", unique = true, nullable = false)
+	public Integer getIdCondicionIva() {
 		return this.idCondicionIva;
 	}
 
-	public void setIdCondicionIva(int idCondicionIva) {
+	public void setIdCondicionIva(Integer idCondicionIva) {
 		this.idCondicionIva = idCondicionIva;
 	}
 
@@ -47,5 +51,7 @@ public class Condicioniva  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }

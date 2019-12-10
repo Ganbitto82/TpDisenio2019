@@ -1,9 +1,17 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
+
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,47 +21,48 @@ import javax.persistence.Table;
 @Table(name = "vehiculo", catalog = "dbelaseguradov4")
 public class Vehiculo  {
 
-	private int idVehiculo;
-	private Modelo idModelo;
+	private Integer idVehiculo;
+	private Modelo modelo;
 	private String motor;
 	private String chasis;
 	private Integer anio;
 	private String patente;
+	
+	
 
 	public Vehiculo() {
 	}
 
-	public Vehiculo(int idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
-
-	public Vehiculo(int idVehiculo, Modelo idModelo, String motor, String chasis, Integer anio, String patente) {
-		this.idVehiculo = idVehiculo;
-		this.idModelo = idModelo;
+	public Vehiculo(Modelo modelo, String motor, String chasis, Integer anio, String patente,
+			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
+		this.modelo = modelo;
 		this.motor = motor;
 		this.chasis = chasis;
 		this.anio = anio;
 		this.patente = patente;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idVehiculo", unique = true, nullable = false)
-	public int getIdVehiculo() {
+	public Integer getIdVehiculo() {
 		return this.idVehiculo;
 	}
 
-	public void setIdVehiculo(int idVehiculo) {
+	public void setIdVehiculo(Integer idVehiculo) {
 		this.idVehiculo = idVehiculo;
 	}
 
-	@Column(name = "idModelo")
-	public Modelo getIdModelo() {
-		return this.idModelo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idModelo")
+	public Modelo getModelo() {
+		return this.modelo;
 	}
 
-	public void setIdModelo(Modelo idModelo) {
-		this.idModelo = idModelo;
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
 	}
 
 	@Column(name = "motor", length = 20)
@@ -91,5 +100,9 @@ public class Vehiculo  {
 	public void setPatente(String patente) {
 		this.patente = patente;
 	}
+
+	
+
+	
 
 }

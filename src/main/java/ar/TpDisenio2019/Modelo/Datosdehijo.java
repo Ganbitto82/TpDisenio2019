@@ -1,10 +1,17 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,45 +23,44 @@ import javax.persistence.TemporalType;
 @Table(name = "datosdehijo", catalog = "dbelaseguradov4")
 public class Datosdehijo  {
 
-	private int idDatosHijo;
-	private Estadocivil idEstadoCivil;
+	private Integer idDatosHijo;
+	private Estadocivil estadocivil;
 	private Date fecha;
 	private String sexo;
 	private Float porcentaje;
+	
 
 	public Datosdehijo() {
 	}
 
-	public Datosdehijo(int idDatosHijo) {
-		this.idDatosHijo = idDatosHijo;
-	}
-
-	public Datosdehijo(int idDatosHijo, Estadocivil idEstadoCivil, Date fecha, String sexo, Float porcentaje) {
-		this.idDatosHijo = idDatosHijo;
-		this.idEstadoCivil = idEstadoCivil;
+	public Datosdehijo(Estadocivil estadocivil, Date fecha, String sexo, Float porcentaje) {
+		this.estadocivil = estadocivil;
 		this.fecha = fecha;
 		this.sexo = sexo;
 		this.porcentaje = porcentaje;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idDatosHijo", unique = true, nullable = false)
-	public int getIdDatosHijo() {
+	public Integer getIdDatosHijo() {
 		return this.idDatosHijo;
 	}
 
-	public void setIdDatosHijo(int idDatosHijo) {
+	public void setIdDatosHijo(Integer idDatosHijo) {
 		this.idDatosHijo = idDatosHijo;
 	}
 
-	@Column(name = "idEstadoCivil")
-	public Estadocivil getIdEstadoCivil() {
-		return this.idEstadoCivil;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idEstadoCivil")
+	public Estadocivil getEstadocivil() {
+		return this.estadocivil;
 	}
 
-	public void setIdEstadoCivil(Estadocivil idEstadoCivil) {
-		this.idEstadoCivil = idEstadoCivil;
+	public void setEstadocivil(Estadocivil estadocivil) {
+		this.estadocivil = estadocivil;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -84,5 +90,7 @@ public class Datosdehijo  {
 	public void setPorcentaje(Float porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+
 
 }

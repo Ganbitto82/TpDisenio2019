@@ -1,10 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,29 +22,26 @@ import javax.persistence.TemporalType;
 @Table(name = "aniodevehiculo", catalog = "dbelaseguradov4")
 public class Aniodevehiculo  {
 
-	private int idAnioDeVehiculo;
+	private Integer idAnioDeVehiculo;
 	private Date anio;
+	
 
 	public Aniodevehiculo() {
 	}
-
-	public Aniodevehiculo(int idAnioDeVehiculo) {
-		this.idAnioDeVehiculo = idAnioDeVehiculo;
+	public Aniodevehiculo(Integer idAnioDeVehiculo,Date anio) {
+		this.idAnioDeVehiculo=idAnioDeVehiculo;
+		this.anio=anio;
 	}
-
-	public Aniodevehiculo(int idAnioDeVehiculo, Date anio) {
-		this.idAnioDeVehiculo = idAnioDeVehiculo;
-		this.anio = anio;
-	}
-
+	
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idAnioDeVehiculo", unique = true, nullable = false)
-	public int getIdAnioDeVehiculo() {
+	public Integer getIdAnioDeVehiculo() {
 		return this.idAnioDeVehiculo;
 	}
 
-	public void setIdAnioDeVehiculo(int idAnioDeVehiculo) {
+	public void setIdAnioDeVehiculo(Integer idAnioDeVehiculo) {
 		this.idAnioDeVehiculo = idAnioDeVehiculo;
 	}
 
@@ -51,5 +54,7 @@ public class Aniodevehiculo  {
 	public void setAnio(Date anio) {
 		this.anio = anio;
 	}
+
+	
 
 }

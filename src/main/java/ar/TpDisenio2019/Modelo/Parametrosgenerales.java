@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,34 +18,31 @@ import javax.persistence.Table;
 @Table(name = "parametrosgenerales", catalog = "dbelaseguradov4")
 public class Parametrosgenerales  {
 
-	private int idParametrosGenerales;
+	private Integer idParametrosGenerales;
 	private Float derechosDeEmision;
 	private Float tasaDeInteres;
 	private Float tasaDeDescuento;
+	
 
 	public Parametrosgenerales() {
 	}
 
-	public Parametrosgenerales(int idParametrosGenerales) {
-		this.idParametrosGenerales = idParametrosGenerales;
-	}
-
-	public Parametrosgenerales(int idParametrosGenerales, Float derechosDeEmision, Float tasaDeInteres,
-			Float tasaDeDescuento) {
-		this.idParametrosGenerales = idParametrosGenerales;
+	public Parametrosgenerales(Float derechosDeEmision, Float tasaDeInteres, Float tasaDeDescuento) {
 		this.derechosDeEmision = derechosDeEmision;
 		this.tasaDeInteres = tasaDeInteres;
 		this.tasaDeDescuento = tasaDeDescuento;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idParametrosGenerales", unique = true, nullable = false)
-	public int getIdParametrosGenerales() {
+	public Integer getIdParametrosGenerales() {
 		return this.idParametrosGenerales;
 	}
 
-	public void setIdParametrosGenerales(int idParametrosGenerales) {
+	public void setIdParametrosGenerales(Integer idParametrosGenerales) {
 		this.idParametrosGenerales = idParametrosGenerales;
 	}
 
@@ -70,5 +72,8 @@ public class Parametrosgenerales  {
 	public void setTasaDeDescuento(Float tasaDeDescuento) {
 		this.tasaDeDescuento = tasaDeDescuento;
 	}
+
+
+
 
 }

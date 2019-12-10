@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +18,27 @@ import javax.persistence.Table;
 @Table(name = "formasdepago", catalog = "dbelaseguradov4")
 public class Formasdepago  {
 
-	private int idFormasDePago;
+	private Integer idFormasDePago;
 	private String nombre;
+	
 
 	public Formasdepago() {
 	}
 
-	public Formasdepago(int idFormasDePago) {
-		this.idFormasDePago = idFormasDePago;
-	}
-
-	public Formasdepago(int idFormasDePago, String nombre) {
-		this.idFormasDePago = idFormasDePago;
+	public Formasdepago(String nombre) {
 		this.nombre = nombre;
+
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idFormasDePago", unique = true, nullable = false)
-	public int getIdFormasDePago() {
+	public Integer getIdFormasDePago() {
 		return this.idFormasDePago;
 	}
 
-	public void setIdFormasDePago(int idFormasDePago) {
+	public void setIdFormasDePago(Integer idFormasDePago) {
 		this.idFormasDePago = idFormasDePago;
 	}
 
@@ -47,5 +50,7 @@ public class Formasdepago  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }

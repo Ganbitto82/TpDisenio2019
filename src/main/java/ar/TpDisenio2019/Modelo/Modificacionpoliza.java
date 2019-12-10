@@ -1,10 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,12 +21,12 @@ import javax.persistence.TemporalType;
 @Table(name = "modificacionpoliza", catalog = "dbelaseguradov4")
 public class Modificacionpoliza  {
 
-	private int idModificacionPoliza;
-	private Vehiculo idVehiculo;
-	private Medidasdeseguridad idMedidasSeguridad;
-	private Datosdehijo idDatosHijo;
-	private Tipocobertura idTipoCobertura;
-	private Poliza identNroPoliza;
+	private Integer idModificacionPoliza;
+	private Datosdehijo datosdehijo;
+	private Medidasdeseguridad medidasdeseguridad;
+	private Poliza poliza;
+	private Tipocobertura tipocobertura;
+	private Vehiculo vehiculo;
 	private Date anio;
 	private String patente;
 	private String motor;
@@ -33,25 +38,23 @@ public class Modificacionpoliza  {
 	public Modificacionpoliza() {
 	}
 
-	public Modificacionpoliza(int idModificacionPoliza, Vehiculo idVehiculo, Medidasdeseguridad idMedidasSeguridad, Datosdehijo idDatosHijo,
-			Tipocobertura idTipoCobertura, Poliza identNroPoliza) {
-		this.idModificacionPoliza = idModificacionPoliza;
-		this.idVehiculo = idVehiculo;
-		this.idMedidasSeguridad = idMedidasSeguridad;
-		this.idDatosHijo = idDatosHijo;
-		this.idTipoCobertura = idTipoCobertura;
-		this.identNroPoliza = identNroPoliza;
+	public Modificacionpoliza(Datosdehijo datosdehijo, Medidasdeseguridad medidasdeseguridad, Poliza poliza,
+			Tipocobertura tipocobertura, Vehiculo vehiculo) {
+		this.datosdehijo = datosdehijo;
+		this.medidasdeseguridad = medidasdeseguridad;
+		this.poliza = poliza;
+		this.tipocobertura = tipocobertura;
+		this.vehiculo = vehiculo;
 	}
 
-	public Modificacionpoliza(int idModificacionPoliza, Vehiculo idVehiculo, Medidasdeseguridad idMedidasSeguridad, Datosdehijo idDatosHijo,
-			Tipocobertura idTipoCobertura, Poliza identNroPoliza, Date anio, String patente, String motor, String chasis,
+	public Modificacionpoliza(Datosdehijo datosdehijo, Medidasdeseguridad medidasdeseguridad, Poliza poliza,
+			Tipocobertura tipocobertura, Vehiculo vehiculo, Date anio, String patente, String motor, String chasis,
 			String nroSiniestro, Integer kmPorAnio, Float montoTotal) {
-		this.idModificacionPoliza = idModificacionPoliza;
-		this.idVehiculo = idVehiculo;
-		this.idMedidasSeguridad = idMedidasSeguridad;
-		this.idDatosHijo = idDatosHijo;
-		this.idTipoCobertura = idTipoCobertura;
-		this.identNroPoliza = identNroPoliza;
+		this.datosdehijo = datosdehijo;
+		this.medidasdeseguridad = medidasdeseguridad;
+		this.poliza = poliza;
+		this.tipocobertura = tipocobertura;
+		this.vehiculo = vehiculo;
 		this.anio = anio;
 		this.patente = patente;
 		this.motor = motor;
@@ -62,59 +65,65 @@ public class Modificacionpoliza  {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idModificacionPoliza", unique = true, nullable = false)
-	public int getIdModificacionPoliza() {
+	public Integer getIdModificacionPoliza() {
 		return this.idModificacionPoliza;
 	}
 
-	public void setIdModificacionPoliza(int idModificacionPoliza) {
+	public void setIdModificacionPoliza(Integer idModificacionPoliza) {
 		this.idModificacionPoliza = idModificacionPoliza;
 	}
 
-	@Column(name = "idVehiculo", nullable = false)
-	public Vehiculo getIdVehiculo() {
-		return this.idVehiculo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idDatosHijo", nullable = false)
+	public Datosdehijo getDatosdehijo() {
+		return this.datosdehijo;
 	}
 
-	public void setIdVehiculo(Vehiculo idVehiculo) {
-		this.idVehiculo = idVehiculo;
+	public void setDatosdehijo(Datosdehijo datosdehijo) {
+		this.datosdehijo = datosdehijo;
 	}
 
-	@Column(name = "idMedidasSeguridad", nullable = false)
-	public Medidasdeseguridad getIdMedidasSeguridad() {
-		return this.idMedidasSeguridad;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idMedidasSeguridad", nullable = false)
+	public Medidasdeseguridad getMedidasdeseguridad() {
+		return this.medidasdeseguridad;
 	}
 
-	public void setIdMedidasSeguridad(Medidasdeseguridad idMedidasSeguridad) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
+	public void setMedidasdeseguridad(Medidasdeseguridad medidasdeseguridad) {
+		this.medidasdeseguridad = medidasdeseguridad;
 	}
 
-	@Column(name = "idDatosHijo", nullable = false)
-	public Datosdehijo getIdDatosHijo() {
-		return this.idDatosHijo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "identNroPoliza", nullable = false)
+	public Poliza getPoliza() {
+		return this.poliza;
 	}
 
-	public void setIdDatosHijo(Datosdehijo idDatosHijo) {
-		this.idDatosHijo = idDatosHijo;
+	public void setPoliza(Poliza poliza) {
+		this.poliza = poliza;
 	}
 
-	@Column(name = "idTipoCobertura", nullable = false)
-	public Tipocobertura getIdTipoCobertura() {
-		return this.idTipoCobertura;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTipoCobertura", nullable = false)
+	public Tipocobertura getTipocobertura() {
+		return this.tipocobertura;
 	}
 
-	public void setIdTipoCobertura(Tipocobertura idTipoCobertura) {
-		this.idTipoCobertura = idTipoCobertura;
+	public void setTipocobertura(Tipocobertura tipocobertura) {
+		this.tipocobertura = tipocobertura;
 	}
 
-	@Column(name = "identNroPoliza", nullable = false)
-	public Poliza getIdentNroPoliza() {
-		return this.identNroPoliza;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idVehiculo", nullable = false)
+	public Vehiculo getVehiculo() {
+		return this.vehiculo;
 	}
 
-	public void setIdentNroPoliza(Poliza identNroPoliza) {
-		this.identNroPoliza = identNroPoliza;
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
 	@Temporal(TemporalType.DATE)

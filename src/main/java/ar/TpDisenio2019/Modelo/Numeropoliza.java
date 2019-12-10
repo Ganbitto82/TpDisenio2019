@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -11,31 +16,34 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "numeropoliza", catalog = "dbelaseguradov4")
-public class Numeropoliza  {
+public class Numeropoliza {
 
-	private int nroPoliza;
+	private Integer nroPoliza;
 	private int nroSucursal;
 	private int aleatorio;
 	private int secuencia;
 
+
 	public Numeropoliza() {
 	}
 
-	public Numeropoliza(int nroPoliza, int nroSucursal, int aleatorio, int secuencia) {
-		this.nroPoliza = nroPoliza;
+	public Numeropoliza(int nroSucursal, int aleatorio, int secuencia) {
 		this.nroSucursal = nroSucursal;
 		this.aleatorio = aleatorio;
 		this.secuencia = secuencia;
 	}
 
+
+
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "nroPoliza", unique = true, nullable = false)
-	public int getNroPoliza() {
+	public Integer getNroPoliza() {
 		return this.nroPoliza;
 	}
 
-	public void setNroPoliza(int nroPoliza) {
+	public void setNroPoliza(Integer nroPoliza) {
 		this.nroPoliza = nroPoliza;
 	}
 
@@ -65,5 +73,7 @@ public class Numeropoliza  {
 	public void setSecuencia(int secuencia) {
 		this.secuencia = secuencia;
 	}
+
+
 
 }

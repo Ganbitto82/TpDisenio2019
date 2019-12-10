@@ -1,9 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +19,27 @@ import javax.persistence.Table;
 @Table(name = "estadocivil", catalog = "dbelaseguradov4")
 public class Estadocivil  {
 
-	private int idEstadoCivil;
+	private Integer idEstadoCivil;
 	private String nombre;
+
 
 	public Estadocivil() {
 	}
 
-	public Estadocivil(int idEstadoCivil) {
-		this.idEstadoCivil = idEstadoCivil;
-	}
-
-	public Estadocivil(int idEstadoCivil, String nombre) {
-		this.idEstadoCivil = idEstadoCivil;
+	public Estadocivil(String nombre) {
 		this.nombre = nombre;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idEstadoCivil", unique = true, nullable = false)
-	public int getIdEstadoCivil() {
+	public Integer getIdEstadoCivil() {
 		return this.idEstadoCivil;
 	}
 
-	public void setIdEstadoCivil(int idEstadoCivil) {
+	public void setIdEstadoCivil(Integer idEstadoCivil) {
 		this.idEstadoCivil = idEstadoCivil;
 	}
 
@@ -47,5 +51,7 @@ public class Estadocivil  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }

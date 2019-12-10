@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +18,27 @@ import javax.persistence.Table;
 @Table(name = "medidasdeseguridadporc", catalog = "dbelaseguradov4")
 public class Medidasdeseguridadporc  {
 
-	private int idMedPorc;
+	private Integer idMedPorc;
 	private Float porcentaje;
+	
 
 	public Medidasdeseguridadporc() {
 	}
 
-	public Medidasdeseguridadporc(int idMedPorc) {
-		this.idMedPorc = idMedPorc;
-	}
-
-	public Medidasdeseguridadporc(int idMedPorc, Float porcentaje) {
-		this.idMedPorc = idMedPorc;
+	public Medidasdeseguridadporc(Float porcentaje) {
 		this.porcentaje = porcentaje;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedPorc", unique = true, nullable = false)
-	public int getIdMedPorc() {
+	public Integer getIdMedPorc() {
 		return this.idMedPorc;
 	}
 
-	public void setIdMedPorc(int idMedPorc) {
+	public void setIdMedPorc(Integer idMedPorc) {
 		this.idMedPorc = idMedPorc;
 	}
 
@@ -47,5 +50,9 @@ public class Medidasdeseguridadporc  {
 	public void setPorcentaje(Float porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+
+
+
 
 }

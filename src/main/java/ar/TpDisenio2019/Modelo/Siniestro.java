@@ -1,9 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -11,33 +15,31 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "siniestro", catalog = "dbelaseguradov4")
-public class Siniestro {
+public class Siniestro  {
 
-	private int idSiniestro;
+	private Integer idSiniestro;
 	private Float porcentaje;
 	private Integer cantidad;
+	
 
 	public Siniestro() {
 	}
 
-	public Siniestro(int idSiniestro) {
-		this.idSiniestro = idSiniestro;
-	}
-
-	public Siniestro(int idSiniestro, Float porcentaje, Integer cantidad) {
-		this.idSiniestro = idSiniestro;
+	public Siniestro(Float porcentaje, Integer cantidad) {
 		this.porcentaje = porcentaje;
 		this.cantidad = cantidad;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idSiniestro", unique = true, nullable = false)
-	public int getIdSiniestro() {
+	public Integer getIdSiniestro() {
 		return this.idSiniestro;
 	}
 
-	public void setIdSiniestro(int idSiniestro) {
+	public void setIdSiniestro(Integer idSiniestro) {
 		this.idSiniestro = idSiniestro;
 	}
 
@@ -58,5 +60,7 @@ public class Siniestro {
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
+
+
 
 }

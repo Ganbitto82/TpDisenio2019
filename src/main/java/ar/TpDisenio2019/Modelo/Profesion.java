@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -11,31 +16,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "profesion", catalog = "dbelaseguradov4")
-public class Profesion  {
+public class Profesion {
 
-	private int idProfesion;
+	private Integer idProfesion;
 	private String nombre;
+
 
 	public Profesion() {
 	}
 
-	public Profesion(int idProfesion) {
-		this.idProfesion = idProfesion;
-	}
-
-	public Profesion(int idProfesion, String nombre) {
-		this.idProfesion = idProfesion;
+	public Profesion(String nombre) {
 		this.nombre = nombre;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idProfesion", unique = true, nullable = false)
-	public int getIdProfesion() {
+	public Integer getIdProfesion() {
 		return this.idProfesion;
 	}
 
-	public void setIdProfesion(int idProfesion) {
+	public void setIdProfesion(Integer idProfesion) {
 		this.idProfesion = idProfesion;
 	}
 
@@ -47,5 +50,7 @@ public class Profesion  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }

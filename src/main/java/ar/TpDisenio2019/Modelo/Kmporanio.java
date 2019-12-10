@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -11,31 +16,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "kmporanio", catalog = "dbelaseguradov4")
-public class Kmporanio  {
+public class Kmporanio {
 
-	private int idKmPorAnio;
+	private Integer idKmPorAnio;
 	private Float porcentaje;
+	
 
 	public Kmporanio() {
 	}
 
-	public Kmporanio(int idKmPorAnio) {
-		this.idKmPorAnio = idKmPorAnio;
-	}
-
-	public Kmporanio(int idKmPorAnio, Float porcentaje) {
-		this.idKmPorAnio = idKmPorAnio;
+	public Kmporanio(Float porcentaje) {
 		this.porcentaje = porcentaje;
+
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idKmPorAnio", unique = true, nullable = false)
-	public int getIdKmPorAnio() {
+	public Integer getIdKmPorAnio() {
 		return this.idKmPorAnio;
 	}
 
-	public void setIdKmPorAnio(int idKmPorAnio) {
+	public void setIdKmPorAnio(Integer idKmPorAnio) {
 		this.idKmPorAnio = idKmPorAnio;
 	}
 
@@ -47,5 +50,7 @@ public class Kmporanio  {
 	public void setPorcentaje(Float porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+
 
 }

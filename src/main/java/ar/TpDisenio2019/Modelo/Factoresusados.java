@@ -1,9 +1,17 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,8 +21,8 @@ import javax.persistence.Table;
 @Table(name = "factoresusados", catalog = "dbelaseguradov4")
 public class Factoresusados  {
 
-	private int idFacUsados;
-	private Medidasdeseguridadporc idMedPorc;
+	private Integer idFacUsados;
+	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private Float porcentajeCobertura;
 	private Float porcentajePorRiesgoDeDomicilio;
 	private Float porcentajePorKm;
@@ -26,21 +34,20 @@ public class Factoresusados  {
 	private Float descuentoPorUnidad;
 	private Float montoTotal;
 	private Float prima;
+	
 
 	public Factoresusados() {
 	}
 
-	public Factoresusados(int idFacUsados, Medidasdeseguridadporc idMedPorc) {
-		this.idFacUsados = idFacUsados;
-		this.idMedPorc = idMedPorc;
+	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Factoresusados(int idFacUsados, Medidasdeseguridadporc idMedPorc, Float porcentajeCobertura,
+	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc, Float porcentajeCobertura,
 			Float porcentajePorRiesgoDeDomicilio, Float porcentajePorKm, Float porcentajePorModeloVehiculo,
 			Float porcentajePorMedidasDeSeguridad, Float porcentajePorSiniestro, Float porcentajePorHijo,
 			Float importePorDescuentosPagoSemestral, Float descuentoPorUnidad, Float montoTotal, Float prima) {
-		this.idFacUsados = idFacUsados;
-		this.idMedPorc = idMedPorc;
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.porcentajeCobertura = porcentajeCobertura;
 		this.porcentajePorRiesgoDeDomicilio = porcentajePorRiesgoDeDomicilio;
 		this.porcentajePorKm = porcentajePorKm;
@@ -52,26 +59,29 @@ public class Factoresusados  {
 		this.descuentoPorUnidad = descuentoPorUnidad;
 		this.montoTotal = montoTotal;
 		this.prima = prima;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idFacUsados", unique = true, nullable = false)
-	public int getIdFacUsados() {
+	public Integer getIdFacUsados() {
 		return this.idFacUsados;
 	}
 
-	public void setIdFacUsados(int idFacUsados) {
+	public void setIdFacUsados(Integer idFacUsados) {
 		this.idFacUsados = idFacUsados;
 	}
 
-	@Column(name = "idMedPorc", nullable = false)
-	public Medidasdeseguridadporc getIdMedPorc() {
-		return this.idMedPorc;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idMedPorc", nullable = false)
+	public Medidasdeseguridadporc getMedidasdeseguridadporc() {
+		return this.medidasdeseguridadporc;
 	}
 
-	public void setIdMedPorc(Medidasdeseguridadporc idMedPorc) {
-		this.idMedPorc = idMedPorc;
+	public void setMedidasdeseguridadporc(Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
 	@Column(name = "porcentajeCobertura", precision = 12, scale = 0)
@@ -172,5 +182,7 @@ public class Factoresusados  {
 	public void setPrima(Float prima) {
 		this.prima = prima;
 	}
+
+
 
 }

@@ -1,10 +1,17 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,50 +23,49 @@ import javax.persistence.TemporalType;
 @Table(name = "recibo", catalog = "dbelaseguradov4")
 public class Recibo  {
 
-	private int idRecibo;
-	private Operador idOperador;
+	private Integer idRecibo;
+	private Operador operador;
 	private Integer nroRecibo;
 	private Date fecha;
 	private Integer hora;
 	private Date ultimoDiaDePago;
 	private Float importeTotal;
+	
 
 	public Recibo() {
 	}
 
-	public Recibo(int idRecibo) {
-		this.idRecibo = idRecibo;
-	}
-
-	public Recibo(int idRecibo, Operador idOperador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
+	public Recibo(Operador operador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
 			Float importeTotal) {
-		this.idRecibo = idRecibo;
-		this.idOperador = idOperador;
+		this.operador = operador;
 		this.nroRecibo = nroRecibo;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.ultimoDiaDePago = ultimoDiaDePago;
 		this.importeTotal = importeTotal;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idRecibo", unique = true, nullable = false)
-	public int getIdRecibo() {
+	public Integer getIdRecibo() {
 		return this.idRecibo;
 	}
 
-	public void setIdRecibo(int idRecibo) {
+	public void setIdRecibo(Integer idRecibo) {
 		this.idRecibo = idRecibo;
 	}
 
-	@Column(name = "idOperador")
-	public Operador getIdOperador() {
-		return this.idOperador;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idOperador")
+	public Operador getOperador() {
+		return this.operador;
 	}
 
-	public void setIdOperador(Operador idOperador) {
-		this.idOperador = idOperador;
+	public void setOperador(Operador operador) {
+		this.operador = operador;
 	}
 
 	@Column(name = "nroRecibo")
@@ -108,5 +114,7 @@ public class Recibo  {
 	public void setImporteTotal(Float importeTotal) {
 		this.importeTotal = importeTotal;
 	}
+
+
 
 }

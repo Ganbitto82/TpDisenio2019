@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import ar.TpDisenio2019.Controladores.GestorCliente;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
@@ -39,7 +40,7 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 import java.awt.event.ActionEvent;
 
 import javax.swing.border.TitledBorder;
@@ -49,7 +50,6 @@ public class buscarCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
 	private JTextField apellidoCliente;
 	private JTextField nombreCliente;
 	private JTextField docCliente;
@@ -58,7 +58,12 @@ public class buscarCliente extends JFrame {
 	List<DTOTipodedocumento> dtoListaTipoDocumento = new ArrayList<DTOTipodedocumento>();
 
 	private JLabel labelAclaracionSobreNumerodeCliente;
-	private DTOCliente dtoCliente;
+
+	private JScrollPane scrollPane;
+	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Doc",
+			"Nro de Documento" };
+	private Object[][] datosDeLaTabla;
+	private JTable tabla;
 
 	public buscarCliente() {
 
@@ -75,11 +80,9 @@ public class buscarCliente extends JFrame {
 		setContentPane(contentPane);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(5, 309, 774, 377);
+		panel_3.setBounds(15, 303, 764, 377);
 
-		JScrollPane scrollPane = new JScrollPane();
-
-		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un DTOCliente");
+		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
 
 		JButton button_1 = new JButton("Aceptar");
 		button_1.addActionListener(new ActionListener() {
@@ -104,41 +107,33 @@ public class buscarCliente extends JFrame {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-				gl_panel_3.createSequentialGroup().addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_3.createSequentialGroup().addContainerGap().addComponent(scrollPane,
-								GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING,
-								gl_panel_3.createSequentialGroup().addContainerGap(572, Short.MAX_VALUE)
-										.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 87,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83,
-												GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING,
-								gl_panel_3.createSequentialGroup().addGap(27).addComponent(lblSeleccioneUnCliente)))
-						.addContainerGap()));
-		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_3.createSequentialGroup().addGap(21).addComponent(lblSeleccioneUnCliente).addGap(18)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 268, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-								.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-						.addGap(24)));
 
-		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null }, },
-				new String[] { "Nro Cliente", "Apellido", "Nombre", "Tipo", "Nro Documento" }));
-		scrollPane.setColumnHeaderView(table);
+		// datos de tabla
+		scrollPane = new JScrollPane();
+		datosDeLaTabla = new Object[24][5];
+		tabla = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+
+		tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
+		tabla.getColumnModel().getColumn(3).setPreferredWidth(118);
+		scrollPane.setViewportView(tabla);
+
+		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap(87, Short.MAX_VALUE)
+						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE).addGap(45)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
+				.addGroup(gl_panel_3.createSequentialGroup().addGap(19).addComponent(lblSeleccioneUnCliente)
+						.addContainerGap(644, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup().addContainerGap()
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE).addContainerGap()));
+		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup().addGap(20).addComponent(lblSeleccioneUnCliente)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+						.addGap(19)));
 		panel_3.setLayout(gl_panel_3);
 
 		JPanel panel_1 = new JPanel();
@@ -200,8 +195,19 @@ public class buscarCliente extends JFrame {
 
 		apellidoCliente = new JTextField();
 		apellidoCliente.setColumns(10);
+		//
+		MaskFormatter mascaraNroDoc = null;
 
-		docCliente = new JTextField();
+		try {
+			mascaraNroDoc = new MaskFormatter("####################");
+			mascaraNroDoc.setPlaceholderCharacter(' ');
+		}
+
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		docCliente = new JFormattedTextField(mascaraNroDoc);
 		docCliente.setColumns(10);
 
 		// ********** Verifica el numero de cliente
@@ -303,12 +309,12 @@ public class buscarCliente extends JFrame {
 
 		docCliente.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent arg0) {
-				String númeroDeDocumento = docCliente.getText();
+				String numeroDeDocumento = docCliente.getText();
 
 				String tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
 
-				if (númeroDeDocumento.length() > 0 && tipoDeDocumento.compareTo("") != 0) {
-					if (Validaciones.validarNúmeroDeDocumento(númeroDeDocumento, tipoDeDocumento) == false) {
+				if (numeroDeDocumento.length() > 0 && tipoDeDocumento.compareTo("") != 0) {
+					if (Validaciones.validarNúmeroDeDocumento(numeroDeDocumento, tipoDeDocumento) == false) {
 
 						if (tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 8)");
@@ -415,7 +421,6 @@ public class buscarCliente extends JFrame {
 								GroupLayout.PREFERRED_SIZE))));
 		panel_5.setLayout(gl_panel_5);
 
-		
 		// *******BOTON BUSCAR*******/
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -423,21 +428,15 @@ public class buscarCliente extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int banderaNumCliente = 0;
-				int banderaNombre = 0;
-				int banderaApellido = 0;
-				int banderaTipoDocumento=0;
-
+				int bandera = 0;
 				String numeroCliente = nroCliente.getText();
 
 				if (numeroCliente.compareTo("  -        ") != 0) {
-					
+
 					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
-						
+
 						labelAclaracionSobreNumerodeCliente.setVisible(true);
-					} else {
-						
-						banderaNumCliente++;
+						bandera++;
 					}
 				}
 
@@ -447,8 +446,9 @@ public class buscarCliente extends JFrame {
 					if (Validaciones.validarApellidoONombre(nombre) == false) {
 
 						labelAclaracionSobreNombres.setVisible(true);
-					} else
-						banderaNombre++;
+						bandera++;
+					}
+
 				}
 
 				String apellido = apellidoCliente.getText();
@@ -457,22 +457,18 @@ public class buscarCliente extends JFrame {
 					if (Validaciones.validarApellidoONombre(apellido) == false) {
 
 						labelAclaracionSobreApellido.setVisible(true);
-					} else
-						banderaApellido++;
+						bandera++;
+					}
 
 				}
 
 				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
-                 
-				if(tipoDeDocumento.compareTo(" ") != 0)
-	                       	banderaTipoDocumento++;
-				
-				
-				String númeroDeDocumento = docCliente.getText();
 
-				if (númeroDeDocumento.length() > 0 && (tipoDeDocumento.compareTo(" ") != 0)) {
-					if (Validaciones.validarNúmeroDeDocumento(númeroDeDocumento, tipoDeDocumento) == false) {
+				String numeroDeDocumento = docCliente.getText();
 
+				if (numeroDeDocumento.length() > 0 && (tipoDeDocumento.compareTo(" ") != 0)) {
+					if (Validaciones.validarNúmeroDeDocumento(numeroDeDocumento, tipoDeDocumento) == false) {
+						bandera++;
 						if (tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 8)");
 
@@ -488,40 +484,44 @@ public class buscarCliente extends JFrame {
 									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
 
 						labelAclaracionSobreNumeroDeDocumento.setVisible(true);
-					} else
-						banderaApellido++;
+
+					}
 				}
 
-				// List<DTOCliente> listaDtosCliente;
+				List<DTOCliente> listaDtosCliente;
 
-				/*
-				 * if(banderas == 0) { listaDtosCliente = GestorBDCliente.buscarClientes(apellido,
-				 * nombre, tipoDeDocumento, númeroDeDocumento);
-				 * 
-				 * if(listaDtosCliente.size() == 0) {
-				 * 
-				 * dispose(); }
-				 * 
-				 * else { datosDeLaTabla = new Object[listaDtosCliente.size()][4];
-				 * 
-				 * for(int i = 0; i < listaDtosCliente.size(); i++) { datosDeLaTabla[i][0] =
-				 * listaDtosCliente.get(i).getApellido(); datosDeLaTabla[i][1] =
-				 * listaDtosCliente.get(i).getNombres(); datosDeLaTabla[i][2] =
-				 * listaDtosCliente.get(i).getDtoTipoDeDocumento().getNombre();
-				 * datosDeLaTabla[i][3] = listaDtosCliente.get(i).getNúmeroDeDocumento(); }
-				 * 
-				 * tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
-				 * tabla.getColumnModel().getColumn(3).setPreferredWidth(156);
-				 * tabla.setColumnSelectionAllowed(true);
-				 * 
-				 * tabla.setModel(new DefaultTableModel(datosDeLaTabla, new String[] {
-				 * "Apellido", "Nombre", "Tipo de Documento", "N\u00FAmero de Documento" } ));
-				 * 
-				 * scrollPane.setViewportView(tabla);
-				 * 
-				 * 
-				 * } }
-				 */
+				if (bandera == 0) {
+					listaDtosCliente = GestorCliente.buscarCliente(nroCliente.getText(), nombreCliente.getText(),
+							apellidoCliente.getText(), tipoDeDocumento, numeroDeDocumento);
+
+					if (listaDtosCliente.size() == 0) {
+
+						setTitle("AltaPoliza");
+						dispose();
+					}
+
+					else {
+						datosDeLaTabla = new Object[listaDtosCliente.size()][5];
+
+						for (int i = 0; i < listaDtosCliente.size(); i++) {
+							datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente();
+							datosDeLaTabla[i][1] = listaDtosCliente.get(i).getNombre();
+							datosDeLaTabla[i][2] = listaDtosCliente.get(i).getApellido();
+							datosDeLaTabla[i][3] = listaDtosCliente.get(i).getTipodedocumento().getNombre();
+							datosDeLaTabla[i][4] = listaDtosCliente.get(i).getNroDocumento();
+						}
+
+						tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
+						tabla.getColumnModel().getColumn(3).setPreferredWidth(156);
+						tabla.setColumnSelectionAllowed(true);
+
+						tabla.setModel(new DefaultTableModel(datosDeLaTabla, new String[] { "Apellido", "Nombre",
+								"Tipo de Documento", "N\u00FAmero de Documento" }));
+
+						scrollPane.setViewportView(tabla);
+
+					}
+				}
 
 			}
 		});

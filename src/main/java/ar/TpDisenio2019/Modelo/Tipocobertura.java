@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,33 +18,31 @@ import javax.persistence.Table;
 @Table(name = "tipocobertura", catalog = "dbelaseguradov4")
 public class Tipocobertura  {
 
-	private int idTipoCobertura;
+	private Integer idTipoCobertura;
 	private String tipo;
 	private Float porcentaje;
 	private String descripcion;
+	
 
 	public Tipocobertura() {
 	}
 
-	public Tipocobertura(int idTipoCobertura) {
-		this.idTipoCobertura = idTipoCobertura;
-	}
-
-	public Tipocobertura(int idTipoCobertura, String tipo, Float porcentaje, String descripcion) {
-		this.idTipoCobertura = idTipoCobertura;
+	public Tipocobertura(String tipo, Float porcentaje, String descripcion) {
 		this.tipo = tipo;
 		this.porcentaje = porcentaje;
 		this.descripcion = descripcion;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idTipoCobertura", unique = true, nullable = false)
-	public int getIdTipoCobertura() {
+	public Integer getIdTipoCobertura() {
 		return this.idTipoCobertura;
 	}
 
-	public void setIdTipoCobertura(int idTipoCobertura) {
+	public void setIdTipoCobertura(Integer idTipoCobertura) {
 		this.idTipoCobertura = idTipoCobertura;
 	}
 
@@ -69,5 +72,7 @@ public class Tipocobertura  {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
 
 }

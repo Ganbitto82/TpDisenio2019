@@ -1,10 +1,18 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,106 +24,198 @@ import javax.persistence.TemporalType;
 @Table(name = "poliza", catalog = "dbelaseguradov4")
 public class Poliza  {
 
-	private int identNroPoliza;
-	private Cliente idCliente;
-	private Kmporanio idKmPorAnio;
-	private Medidasdeseguridad idMedidasSeguridad;
-	private Estado idEstado;
+	private Integer identNroPoliza;
+	private Cliente cliente;
+	private Cuota cuota;
+	private Datosdehijo datosdehijo;
+	private Estado estado;
+	private Factoresusados factoresusados;
+	private Formasdepago formasdepago;
+	private Kmporanio kmporanio;
+	private Medidasdeseguridad medidasdeseguridad;
+	private Numeropoliza numeropoliza;
+	private Parametrosgenerales parametrosgenerales;
+	private Siniestro siniestro;
+	private Tipocobertura tipocobertura;
+	private Vehiculo vehiculo;
 	private Integer idEstadoCliente;
-	private Numeropoliza nroPoliza;
-	private Vehiculo idVehiculo;
-	private Parametrosgenerales idParametrosGenerales;
-	private Formasdepago idFormasDePago;
-	private Tipocobertura idTipoCobertura;
-	private Cuota idCuotas;
-	private Datosdehijo idDatosHijo;
-	private Factoresusados idFacUsados;
-	private Siniestro idSiniestro;
 	private Date fechaInicioVigencia;
 	private Date fechaFinVigencia;
 	private Float sumaAsegurada;
 	private Character nroSiniestro;
 	private Integer cantidad;
+	
 
 	public Poliza() {
 	}
 
-	public Poliza(int identNroPoliza) {
-		this.identNroPoliza = identNroPoliza;
-	}
-
-	public Poliza(int identNroPoliza, Cliente idCliente, Kmporanio idKmPorAnio, Medidasdeseguridad idMedidasSeguridad,
-			Estado idEstado, Integer idEstadoCliente, Numeropoliza nroPoliza,Vehiculo idVehiculo,
-			Parametrosgenerales idParametrosGenerales,Formasdepago idFormasDePago, Tipocobertura idTipoCobertura, Cuota idCuotas,
-			Datosdehijo idDatosHijo, Factoresusados idFacUsados, Siniestro idSiniestro, Date fechaInicioVigencia,
+	public Poliza(Cliente cliente, Cuota cuota, Datosdehijo datosdehijo, Estado estado, Factoresusados factoresusados,
+			Formasdepago formasdepago, Kmporanio kmporanio, Medidasdeseguridad medidasdeseguridad,
+			Numeropoliza numeropoliza, Parametrosgenerales parametrosgenerales, Siniestro siniestro,
+			Tipocobertura tipocobertura, Vehiculo vehiculo, Integer idEstadoCliente, Date fechaInicioVigencia,
 			Date fechaFinVigencia, Float sumaAsegurada, Character nroSiniestro, Integer cantidad) {
-		this.identNroPoliza = identNroPoliza;
-		this.idCliente = idCliente;
-		this.idKmPorAnio = idKmPorAnio;
-		this.idMedidasSeguridad = idMedidasSeguridad;
-		this.idEstado = idEstado;
+		this.cliente = cliente;
+		this.cuota = cuota;
+		this.datosdehijo = datosdehijo;
+		this.estado = estado;
+		this.factoresusados = factoresusados;
+		this.formasdepago = formasdepago;
+		this.kmporanio = kmporanio;
+		this.medidasdeseguridad = medidasdeseguridad;
+		this.numeropoliza = numeropoliza;
+		this.parametrosgenerales = parametrosgenerales;
+		this.siniestro = siniestro;
+		this.tipocobertura = tipocobertura;
+		this.vehiculo = vehiculo;
 		this.idEstadoCliente = idEstadoCliente;
-		this.nroPoliza = nroPoliza;
-		this.idVehiculo = idVehiculo;
-		this.idParametrosGenerales = idParametrosGenerales;
-		this.idFormasDePago = idFormasDePago;
-		this.idTipoCobertura = idTipoCobertura;
-		this.idCuotas = idCuotas;
-		this.idDatosHijo = idDatosHijo;
-		this.idFacUsados = idFacUsados;
-		this.idSiniestro = idSiniestro;
 		this.fechaInicioVigencia = fechaInicioVigencia;
 		this.fechaFinVigencia = fechaFinVigencia;
 		this.sumaAsegurada = sumaAsegurada;
 		this.nroSiniestro = nroSiniestro;
 		this.cantidad = cantidad;
+
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "identNroPoliza", unique = true, nullable = false)
-	public int getIdentNroPoliza() {
+	public Integer getIdentNroPoliza() {
 		return this.identNroPoliza;
 	}
 
-	public void setIdentNroPoliza(int identNroPoliza) {
+	public void setIdentNroPoliza(Integer identNroPoliza) {
 		this.identNroPoliza = identNroPoliza;
 	}
 
-	@Column(name = "idCliente")
-	public Cliente getIdCliente() {
-		return this.idCliente;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCliente")
+	public Cliente getCliente() {
+		return this.cliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	@Column(name = "idKmPorAnio")
-	public Kmporanio getIdKmPorAnio() {
-		return this.idKmPorAnio;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCuotas")
+	public Cuota getCuota() {
+		return this.cuota;
 	}
 
-	public void setIdKmPorAnio(Kmporanio idKmPorAnio) {
-		this.idKmPorAnio = idKmPorAnio;
+	public void setCuota(Cuota cuota) {
+		this.cuota = cuota;
 	}
 
-	@Column(name = "idMedidasSeguridad")
-	public Medidasdeseguridad getIdMedidasSeguridad() {
-		return this.idMedidasSeguridad;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idDatosHijo")
+	public Datosdehijo getDatosdehijo() {
+		return this.datosdehijo;
 	}
 
-	public void setIdMedidasSeguridad(Medidasdeseguridad idMedidasSeguridad) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
+	public void setDatosdehijo(Datosdehijo datosdehijo) {
+		this.datosdehijo = datosdehijo;
 	}
 
-	@Column(name = "idEstado")
-	public Estado getIdEstado() {
-		return this.idEstado;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idEstado")
+	public Estado getEstado() {
+		return this.estado;
 	}
 
-	public void setIdEstado(Estado idEstado) {
-		this.idEstado = idEstado;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idFacUsados")
+	public Factoresusados getFactoresusados() {
+		return this.factoresusados;
+	}
+
+	public void setFactoresusados(Factoresusados factoresusados) {
+		this.factoresusados = factoresusados;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idFormasDePago")
+	public Formasdepago getFormasdepago() {
+		return this.formasdepago;
+	}
+
+	public void setFormasdepago(Formasdepago formasdepago) {
+		this.formasdepago = formasdepago;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idKmPorAnio")
+	public Kmporanio getKmporanio() {
+		return this.kmporanio;
+	}
+
+	public void setKmporanio(Kmporanio kmporanio) {
+		this.kmporanio = kmporanio;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idMedidasSeguridad")
+	public Medidasdeseguridad getMedidasdeseguridad() {
+		return this.medidasdeseguridad;
+	}
+
+	public void setMedidasdeseguridad(Medidasdeseguridad medidasdeseguridad) {
+		this.medidasdeseguridad = medidasdeseguridad;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "nroPoliza")
+	public Numeropoliza getNumeropoliza() {
+		return this.numeropoliza;
+	}
+
+	public void setNumeropoliza(Numeropoliza numeropoliza) {
+		this.numeropoliza = numeropoliza;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idParametrosGenerales")
+	public Parametrosgenerales getParametrosgenerales() {
+		return this.parametrosgenerales;
+	}
+
+	public void setParametrosgenerales(Parametrosgenerales parametrosgenerales) {
+		this.parametrosgenerales = parametrosgenerales;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idSiniestro")
+	public Siniestro getSiniestro() {
+		return this.siniestro;
+	}
+
+	public void setSiniestro(Siniestro siniestro) {
+		this.siniestro = siniestro;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTipoCobertura")
+	public Tipocobertura getTipocobertura() {
+		return this.tipocobertura;
+	}
+
+	public void setTipocobertura(Tipocobertura tipocobertura) {
+		this.tipocobertura = tipocobertura;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idVehiculo")
+	public Vehiculo getVehiculo() {
+		return this.vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
 	@Column(name = "idEstadoCliente")
@@ -125,87 +225,6 @@ public class Poliza  {
 
 	public void setIdEstadoCliente(Integer idEstadoCliente) {
 		this.idEstadoCliente = idEstadoCliente;
-	}
-
-	@Column(name = "nroPoliza")
-	public Numeropoliza getNroPoliza() {
-		return this.nroPoliza;
-	}
-
-	public void setNroPoliza(Numeropoliza nroPoliza) {
-		this.nroPoliza = nroPoliza;
-	}
-
-	@Column(name = "idVehiculo")
-	public Vehiculo getIdVehiculo() {
-		return this.idVehiculo;
-	}
-
-	public void setIdVehiculo(Vehiculo idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
-
-	@Column(name = "idParametrosGenerales")
-	public Parametrosgenerales getIdParametrosGenerales() {
-		return this.idParametrosGenerales;
-	}
-
-	public void setIdParametrosGenerales(Parametrosgenerales idParametrosGenerales) {
-		this.idParametrosGenerales = idParametrosGenerales;
-	}
-
-	@Column(name = "idFormasDePago")
-	public Formasdepago getIdFormasDePago() {
-		return this.idFormasDePago;
-	}
-
-	public void setIdFormasDePago(Formasdepago idFormasDePago) {
-		this.idFormasDePago = idFormasDePago;
-	}
-
-	@Column(name = "idTipoCobertura")
-	public Tipocobertura getIdTipoCobertura() {
-		return this.idTipoCobertura;
-	}
-
-	public void setIdTipoCobertura(Tipocobertura idTipoCobertura) {
-		this.idTipoCobertura = idTipoCobertura;
-	}
-
-	@Column(name = "idCuotas")
-	public Cuota getIdCuotas() {
-		return this.idCuotas;
-	}
-
-	public void setIdCuotas(Cuota idCuotas) {
-		this.idCuotas = idCuotas;
-	}
-
-	@Column(name = "idDatosHijo")
-	public Datosdehijo getIdDatosHijo() {
-		return this.idDatosHijo;
-	}
-
-	public void setIdDatosHijo(Datosdehijo idDatosHijo) {
-		this.idDatosHijo = idDatosHijo;
-	}
-
-	@Column(name = "idFacUsados")
-	public Factoresusados getIdFacUsados() {
-		return this.idFacUsados;
-	}
-
-	public void setIdFacUsados(Factoresusados idFacUsados) {
-		this.idFacUsados = idFacUsados;
-	}
-
-	@Column(name = "idSiniestro")
-	public Siniestro getIdSiniestro() {
-		return this.idSiniestro;
-	}
-
-	public void setIdSiniestro(Siniestro idSiniestro) {
-		this.idSiniestro = idSiniestro;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -255,4 +274,5 @@ public class Poliza  {
 		this.cantidad = cantidad;
 	}
 
+	
 }

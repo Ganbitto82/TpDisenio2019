@@ -1,10 +1,18 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,13 +24,13 @@ import javax.persistence.TemporalType;
 @Table(name = "cliente", catalog = "dbelaseguradov4")
 public class Cliente  {
 
-	private int idCliente;
-	private Estadocivil idEstadoCivil;
-	private Profesion idProfesion;
-	private Direccion idDireccion;
-	private Condicioniva idCondicionIva;
-	private Tipodedocumento idTipoDeDocumento;
-	private Estadocliente idEstadoCliente;
+	private Integer idCliente;
+	private Condicioniva condicioniva;
+	private Direccion direccion;
+	private Estadocivil estadocivil;
+	private Estadocliente estadocliente;
+	private Profesion profesion;
+	private Tipodedocumento tipodedocumento;
 	private String nombre;
 	private String apellido;
 	private Integer nroDocumento;
@@ -31,23 +39,19 @@ public class Cliente  {
 	private Integer nroCuil;
 	private Integer nroCliente;
 
+
 	public Cliente() {
 	}
 
-	public Cliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public Cliente(int idCliente, Estadocivil idEstadoCivil, Profesion idProfesion, Direccion idDireccion,
-			Condicioniva idCondicionIva, Tipodedocumento idTipoDeDocumento, Estadocliente idEstadoCliente, String nombre, String apellido,
-			Integer nroDocumento, String correoElectronico, Date anioDeRegistro, Integer nroCuil, Integer nroCliente) {
-		this.idCliente = idCliente;
-		this.idEstadoCivil = idEstadoCivil;
-		this.idProfesion = idProfesion;
-		this.idDireccion = idDireccion;
-		this.idCondicionIva = idCondicionIva;
-		this.idTipoDeDocumento = idTipoDeDocumento;
-		this.idEstadoCliente = idEstadoCliente;
+	public Cliente(Condicioniva condicioniva, Direccion direccion, Estadocivil estadocivil, Estadocliente estadocliente,
+			Profesion profesion, Tipodedocumento tipodedocumento, String nombre, String apellido, Integer nroDocumento,
+			String correoElectronico, Date anioDeRegistro, Integer nroCuil, Integer nroCliente) {
+		this.condicioniva = condicioniva;
+		this.direccion = direccion;
+		this.estadocivil = estadocivil;
+		this.estadocliente = estadocliente;
+		this.profesion = profesion;
+		this.tipodedocumento = tipodedocumento;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nroDocumento = nroDocumento;
@@ -55,71 +59,79 @@ public class Cliente  {
 		this.anioDeRegistro = anioDeRegistro;
 		this.nroCuil = nroCuil;
 		this.nroCliente = nroCliente;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idCliente", unique = true, nullable = false)
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return this.idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
-	@Column(name = "idEstadoCivil")
-	public Estadocivil getIdEstadoCivil() {
-		return this.idEstadoCivil;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCondicionIVA")
+	public Condicioniva getCondicioniva() {
+		return this.condicioniva;
 	}
 
-	public void setIdEstadoCivil(Estadocivil idEstadoCivil) {
-		this.idEstadoCivil = idEstadoCivil;
+	public void setCondicioniva(Condicioniva condicioniva) {
+		this.condicioniva = condicioniva;
 	}
 
-	@Column(name = "idProfesion")
-	public Profesion getIdProfesion() {
-		return this.idProfesion;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idDireccion")
+	public Direccion getDireccion() {
+		return this.direccion;
 	}
 
-	public void setIdProfesion(Profesion idProfesion) {
-		this.idProfesion = idProfesion;
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 
-	@Column(name = "idDireccion")
-	public Direccion getIdDireccion() {
-		return this.idDireccion;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idEstadoCivil")
+	public Estadocivil getEstadocivil() {
+		return this.estadocivil;
 	}
 
-	public void setIdDireccion(Direccion idDireccion) {
-		this.idDireccion = idDireccion;
+	public void setEstadocivil(Estadocivil estadocivil) {
+		this.estadocivil = estadocivil;
 	}
 
-	@Column(name = "idCondicionIva")
-	public Condicioniva getIdCondicionIva() {
-		return this.idCondicionIva;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idEstadoCliente")
+	public Estadocliente getEstadocliente() {
+		return this.estadocliente;
 	}
 
-	public void setIdCondicionIva(Condicioniva idCondicionIva) {
-		this.idCondicionIva = idCondicionIva;
+	public void setEstadocliente(Estadocliente estadocliente) {
+		this.estadocliente = estadocliente;
 	}
 
-	@Column(name = "idTipoDeDocumento")
-	public Tipodedocumento getIdTipoDeDocumento() {
-		return this.idTipoDeDocumento;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idProfesion")
+	public Profesion getProfesion() {
+		return this.profesion;
 	}
 
-	public void setIdTipoDeDocumento(Tipodedocumento idTipoDeDocumento) {
-		this.idTipoDeDocumento = idTipoDeDocumento;
+	public void setProfesion(Profesion profesion) {
+		this.profesion = profesion;
 	}
 
-	@Column(name = "idEstadoCliente")
-	public Estadocliente getIdEstadoCliente() {
-		return this.idEstadoCliente;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTipoDeDocumento")
+	public Tipodedocumento getTipodedocumento() {
+		return this.tipodedocumento;
 	}
 
-	public void setIdEstadoCliente(Estadocliente idEstadoCliente) {
-		this.idEstadoCliente = idEstadoCliente;
+	public void setTipodedocumento(Tipodedocumento tipodedocumento) {
+		this.tipodedocumento = tipodedocumento;
 	}
 
 	@Column(name = "nombre", length = 50)
@@ -185,5 +197,7 @@ public class Cliente  {
 	public void setNroCliente(Integer nroCliente) {
 		this.nroCliente = nroCliente;
 	}
+
+
 
 }

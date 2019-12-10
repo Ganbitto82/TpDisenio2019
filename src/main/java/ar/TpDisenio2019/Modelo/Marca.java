@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +18,30 @@ import javax.persistence.Table;
 @Table(name = "marca", catalog = "dbelaseguradov4")
 public class Marca  {
 
-	private int idMarca;
+	private Integer idMarca;
 	private String marca;
+	
 
 	public Marca() {
 	}
 
-	public Marca(int idMarca) {
-		this.idMarca = idMarca;
-	}
-
-	public Marca(int idMarca, String marca) {
-		this.idMarca = idMarca;
+	public Marca(Integer idMarca,String marca) {
 		this.marca = marca;
+		this.idMarca = idMarca;
+	}public Marca(String marca) {
+		this.marca = marca;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMarca", unique = true, nullable = false)
-	public int getIdMarca() {
+	public Integer getIdMarca() {
 		return this.idMarca;
 	}
 
-	public void setIdMarca(int idMarca) {
+	public void setIdMarca(Integer idMarca) {
 		this.idMarca = idMarca;
 	}
 
@@ -47,5 +53,7 @@ public class Marca  {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+
+
 
 }

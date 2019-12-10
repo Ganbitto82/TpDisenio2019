@@ -1,9 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,41 +20,40 @@ import javax.persistence.Table;
 @Table(name = "provincia", catalog = "dbelaseguradov4")
 public class Provincia  {
 
-	private int idProvincia;
-	private Pais idPais;
+	private Integer idProvincia;
+	private Pais pais;
 	private String nombre;
+	
 
 	public Provincia() {
 	}
 
-	public Provincia(int idProvincia) {
-		this.idProvincia = idProvincia;
-	}
-
-	public Provincia(int idProvincia, Pais idPais, String nombre) {
-		this.idProvincia = idProvincia;
-		this.idPais = idPais;
+	public Provincia(Pais pais, String nombre) {
+		this.pais = pais;
 		this.nombre = nombre;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idProvincia", unique = true, nullable = false)
-	public int getIdProvincia() {
+	public Integer getIdProvincia() {
 		return this.idProvincia;
 	}
 
-	public void setIdProvincia(int idProvincia) {
+	public void setIdProvincia(Integer idProvincia) {
 		this.idProvincia = idProvincia;
 	}
 
-	@Column(name = "idPais")
-	public Pais getIdPais() {
-		return this.idPais;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idPais")
+	public Pais getPais() {
+		return this.pais;
 	}
 
-	public void setIdPais(Pais idPais) {
-		this.idPais = idPais;
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Column(name = "nombre", length = 50)
@@ -58,5 +64,7 @@ public class Provincia  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	
 
 }

@@ -1,9 +1,17 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,44 +21,46 @@ import javax.persistence.Table;
 @Table(name = "medidasdeseguridad", catalog = "dbelaseguradov4")
 public class Medidasdeseguridad  {
 
-	private int idMedidasSeguridad;
-	private Medidasdeseguridadporc idMedPorc;
+	private Integer idMedidasSeguridad;
+	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private String nombre;
 	private Float porcentaje;
+
 
 	public Medidasdeseguridad() {
 	}
 
-	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc idMedPorc) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
-		this.idMedPorc = idMedPorc;
+	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc idMedPorc, String nombre, Float porcentaje) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
-		this.idMedPorc = idMedPorc;
+	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc, String nombre, Float porcentaje) {
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;
+
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedidasSeguridad", unique = true, nullable = false)
-	public int getIdMedidasSeguridad() {
+	public Integer getIdMedidasSeguridad() {
 		return this.idMedidasSeguridad;
 	}
 
-	public void setIdMedidasSeguridad(int idMedidasSeguridad) {
+	public void setIdMedidasSeguridad(Integer idMedidasSeguridad) {
 		this.idMedidasSeguridad = idMedidasSeguridad;
 	}
 
-	@Column(name = "idMedPorc", nullable = false)
-	public Medidasdeseguridadporc getIdMedPorc() {
-		return this.idMedPorc;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idMedPorc", nullable = false)
+	public Medidasdeseguridadporc getMedidasdeseguridadporc() {
+		return this.medidasdeseguridadporc;
 	}
 
-	public void setIdMedPorc(Medidasdeseguridadporc idMedPorc) {
-		this.idMedPorc = idMedPorc;
+	public void setMedidasdeseguridadporc(Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
 	@Column(name = "nombre", length = 50)
@@ -70,5 +80,7 @@ public class Medidasdeseguridad  {
 	public void setPorcentaje(Float porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+
 
 }

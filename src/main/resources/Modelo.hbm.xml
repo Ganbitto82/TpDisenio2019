@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 10/12/2019 03:54:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
  <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Modelo" table="modelo">
-  <id name="idModelo" type="int">
+  <id name="idModelo" type="java.lang.Integer">
    <column name="idModelo"/>
-   <generator class="assigned"/>
+   <generator class="identity"/>
   </id>
-  <property generated="never" lazy="false" name="idMarca" type="int">
-   <column name="idMarca" not-null="true"/>
-  </property>
-  <property generated="never" lazy="false" name="idAnioDeVehiculo" type="java.lang.Integer">
+  <many-to-one class="ar.TpDisenio2019.Modelo.Aniodevehiculo"
+   fetch="select" name="aniodevehiculo">
    <column name="idAnioDeVehiculo"/>
-  </property>
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Marca" fetch="select" name="marca">
+   <column name="idMarca" not-null="true"/>
+  </many-to-one>
   <property generated="never" lazy="false" name="nombre" type="string">
    <column length="40" name="nombre"/>
   </property>

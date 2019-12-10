@@ -1,9 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,55 +20,57 @@ import javax.persistence.Table;
 @Table(name = "modelo", catalog = "dbelaseguradov4")
 public class Modelo  {
 
-	private int idModelo;
-	private Marca idMarca;
-	private Aniodevehiculo idAnioDeVehiculo;
+	private Integer idModelo;
+	private Aniodevehiculo aniodevehiculo;
+	private Marca marca;
 	private String nombre;
 	private Float porcentaje;
-
+	
 	public Modelo() {
 	}
 
-	public Modelo(int idModelo, Marca idMarca) {
-		this.idModelo = idModelo;
-		this.idMarca = idMarca;
+	public Modelo(Marca marca) {
+		this.marca = marca;
 	}
 
-	public Modelo(int idModelo, Marca idMarca, Aniodevehiculo idAnioDeVehiculo, String nombre, Float porcentaje) {
-		this.idModelo = idModelo;
-		this.idMarca = idMarca;
-		this.idAnioDeVehiculo = idAnioDeVehiculo;
+	public Modelo(Aniodevehiculo aniodevehiculo, Marca marca, String nombre, Float porcentaje) {
+		this.aniodevehiculo = aniodevehiculo;
+		this.marca = marca;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idModelo", unique = true, nullable = false)
-	public int getIdModelo() {
+	public Integer getIdModelo() {
 		return this.idModelo;
 	}
 
-	public void setIdModelo(int idModelo) {
+	public void setIdModelo(Integer idModelo) {
 		this.idModelo = idModelo;
 	}
 
-	@Column(name = "idMarca", nullable = false)
-	public Marca getIdMarca() {
-		return this.idMarca;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idAnioDeVehiculo")
+	public Aniodevehiculo getAniodevehiculo() {
+		return this.aniodevehiculo;
 	}
 
-	public void setIdMarca(Marca idMarca) {
-		this.idMarca = idMarca;
+	public void setAniodevehiculo(Aniodevehiculo aniodevehiculo) {
+		this.aniodevehiculo = aniodevehiculo;
 	}
 
-	@Column(name = "idAnioDeVehiculo")
-	public Aniodevehiculo getIdAnioDeVehiculo() {
-		return this.idAnioDeVehiculo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idMarca", nullable = false)
+	public Marca getMarca() {
+		return this.marca;
 	}
 
-	public void setIdAnioDeVehiculo(Aniodevehiculo idAnioDeVehiculo) {
-		this.idAnioDeVehiculo = idAnioDeVehiculo;
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	@Column(name = "nombre", length = 40)
@@ -81,5 +90,7 @@ public class Modelo  {
 	public void setPorcentaje(Float porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+	
 
 }

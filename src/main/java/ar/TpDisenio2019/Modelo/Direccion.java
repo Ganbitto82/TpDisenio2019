@@ -1,9 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,48 +20,46 @@ import javax.persistence.Table;
 @Table(name = "direccion", catalog = "dbelaseguradov4")
 public class Direccion  {
 
-	private int idDireccion;
-	private Localidad idLocalidad;
+	private Integer idDireccion;
+	private Localidad localidad;
 	private String calle;
 	private Integer numero;
 	private Integer piso;
 	private String departamento;
+	
 
 	public Direccion() {
 	}
 
-	public Direccion(int idDireccion) {
-		this.idDireccion = idDireccion;
-	}
-
-	public Direccion(int idDireccion, Localidad idLocalidad, String calle, Integer numero, Integer piso,
-			String departamento) {
-		this.idDireccion = idDireccion;
-		this.idLocalidad = idLocalidad;
+	public Direccion(Localidad localidad, String calle, Integer numero, Integer piso, String departamento) {
+		this.localidad = localidad;
 		this.calle = calle;
 		this.numero = numero;
 		this.piso = piso;
 		this.departamento = departamento;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idDireccion", unique = true, nullable = false)
-	public int getIdDireccion() {
+	public Integer getIdDireccion() {
 		return this.idDireccion;
 	}
 
-	public void setIdDireccion(int idDireccion) {
+	public void setIdDireccion(Integer idDireccion) {
 		this.idDireccion = idDireccion;
 	}
 
-	@Column(name = "idLocalidad")
-	public Localidad getIdLocalidad() {
-		return this.idLocalidad;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idLocalidad")
+	public Localidad getLocalidad() {
+		return this.localidad;
 	}
 
-	public void setIdLocalidad(Localidad idLocalidad) {
-		this.idLocalidad = idLocalidad;
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
 	}
 
 	@Column(name = "calle", length = 50)
@@ -92,5 +97,6 @@ public class Direccion  {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
+
 
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 10/12/2019 03:54:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
  <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Marca" table="marca">
-  <id name="idMarca" type="int">
+  <id name="idMarca" type="java.lang.Integer">
    <column name="idMarca"/>
-   <generator class="assigned"/>
+   <generator class="identity"/>
   </id>
   <property generated="never" lazy="false" name="marca" type="string">
    <column length="50" name="marca"/>

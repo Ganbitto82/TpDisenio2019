@@ -1,31 +1,35 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03/12/2019 17:43:42 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 10/12/2019 03:54:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
  <class catalog="dbelaseguradov4" name="ar.TpDisenio2019.Modelo.Cliente" table="cliente">
-  <id name="idCliente" type="int">
+  <id name="idCliente" type="java.lang.Integer">
    <column name="idCliente"/>
-   <generator class="assigned"/>
+   <generator class="identity"/>
   </id>
-  <property generated="never" lazy="false" name="idEstadoCivil" type="java.lang.Integer">
-   <column name="idEstadoCivil"/>
-  </property>
-  <property generated="never" lazy="false" name="idProfesion" type="java.lang.Integer">
-   <column name="idProfesion"/>
-  </property>
-  <property generated="never" lazy="false" name="idDireccion" type="java.lang.Integer">
+  <many-to-one class="ar.TpDisenio2019.Modelo.Condicioniva"
+   fetch="select" name="condicioniva">
+   <column name="idCondicionIVA"/>
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Direccion" fetch="select" name="direccion">
    <column name="idDireccion"/>
-  </property>
-  <property generated="never" lazy="false" name="idCondicionIva" type="java.lang.Integer">
-   <column name="idCondicionIva"/>
-  </property>
-  <property generated="never" lazy="false" name="idTipoDeDocumento" type="java.lang.Integer">
-   <column name="idTipoDeDocumento"/>
-  </property>
-  <property generated="never" lazy="false" name="idEstadoCliente" type="java.lang.Integer">
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Estadocivil"
+   fetch="select" name="estadocivil">
+   <column name="idEstadoCivil"/>
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Estadocliente"
+   fetch="select" name="estadocliente">
    <column name="idEstadoCliente"/>
-  </property>
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Profesion" fetch="select" name="profesion">
+   <column name="idProfesion"/>
+  </many-to-one>
+  <many-to-one class="ar.TpDisenio2019.Modelo.Tipodedocumento"
+   fetch="select" name="tipodedocumento">
+   <column name="idTipoDeDocumento"/>
+  </many-to-one>
   <property generated="never" lazy="false" name="nombre" type="string">
    <column length="50" name="nombre"/>
   </property>

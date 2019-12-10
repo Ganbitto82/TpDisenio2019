@@ -1,9 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 /**
@@ -13,41 +20,40 @@ import javax.persistence.Table;
 @Table(name = "localidad", catalog = "dbelaseguradov4")
 public class Localidad  {
 
-	private int idLocalidad;
-	private Provincia idProvincia;
+	private Integer idLocalidad;
+	private Provincia provincia;
 	private String nombre;
+	
 
 	public Localidad() {
 	}
 
-	public Localidad(int idLocalidad) {
-		this.idLocalidad = idLocalidad;
-	}
-
-	public Localidad(int idLocalidad, Provincia idProvincia, String nombre) {
-		this.idLocalidad = idLocalidad;
-		this.idProvincia = idProvincia;
+	public Localidad(Provincia provincia, String nombre) {
+		this.provincia = provincia;
 		this.nombre = nombre;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idLocalidad", unique = true, nullable = false)
-	public int getIdLocalidad() {
+	public Integer getIdLocalidad() {
 		return this.idLocalidad;
 	}
 
-	public void setIdLocalidad(int idLocalidad) {
+	public void setIdLocalidad(Integer idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
 
-	@Column(name = "idProvincia")
-	public Provincia getIdProvincia() {
-		return this.idProvincia;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idProvincia")
+	public Provincia getProvincia() {
+		return this.provincia;
 	}
 
-	public void setIdProvincia(Provincia idProvincia) {
-		this.idProvincia = idProvincia;
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 
 	@Column(name = "nombre", length = 50)
@@ -58,5 +64,7 @@ public class Localidad  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }

@@ -1,10 +1,18 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,8 +24,8 @@ import javax.persistence.TemporalType;
 @Table(name = "cuota", catalog = "dbelaseguradov4")
 public class Cuota  {
 
-	private int idCuotas;
-	private Recibo idRecibo;
+	private Integer idCuotas;
+	private Recibo recibo;
 	private Integer cuotasPagas;
 	private Date vencimiento;
 	private Float valorOriginal;
@@ -26,17 +34,13 @@ public class Cuota  {
 	private Float bonificacion;
 	private Float recargoPorMora;
 
+
 	public Cuota() {
 	}
 
-	public Cuota(int idCuotas) {
-		this.idCuotas = idCuotas;
-	}
-
-	public Cuota(int idCuotas, Recibo idRecibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal,
-			Float valorPorMora, Float valorTotalaPagar, Float bonificacion, Float recargoPorMora) {
-		this.idCuotas = idCuotas;
-		this.idRecibo = idRecibo;
+	public Cuota(Recibo recibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal, Float valorPorMora,
+			Float valorTotalaPagar, Float bonificacion, Float recargoPorMora) {
+		this.recibo = recibo;
 		this.cuotasPagas = cuotasPagas;
 		this.vencimiento = vencimiento;
 		this.valorOriginal = valorOriginal;
@@ -44,26 +48,29 @@ public class Cuota  {
 		this.valorTotalaPagar = valorTotalaPagar;
 		this.bonificacion = bonificacion;
 		this.recargoPorMora = recargoPorMora;
+		
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idCuotas", unique = true, nullable = false)
-	public int getIdCuotas() {
+	public Integer getIdCuotas() {
 		return this.idCuotas;
 	}
 
-	public void setIdCuotas(int idCuotas) {
+	public void setIdCuotas(Integer idCuotas) {
 		this.idCuotas = idCuotas;
 	}
 
-	@Column(name = "idRecibo")
-	public Recibo getIdRecibo() {
-		return this.idRecibo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idRecibo")
+	public Recibo getRecibo() {
+		return this.recibo;
 	}
 
-	public void setIdRecibo(Recibo idRecibo) {
-		this.idRecibo = idRecibo;
+	public void setRecibo(Recibo recibo) {
+		this.recibo = recibo;
 	}
 
 	@Column(name = "cuotasPagas")
@@ -129,5 +136,6 @@ public class Cuota  {
 	public void setRecargoPorMora(Float recargoPorMora) {
 		this.recargoPorMora = recargoPorMora;
 	}
+
 
 }

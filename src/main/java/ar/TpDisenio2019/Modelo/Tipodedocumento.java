@@ -1,9 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 3/12/2019 07:40:53 AM by Hibernate Tools 4.3.5.Final
+// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
 
 /**
@@ -13,29 +18,27 @@ import javax.persistence.Table;
 @Table(name = "tipodedocumento", catalog = "dbelaseguradov4")
 public class Tipodedocumento  {
 
-	private int idTipoDeDocumento;
+	private Integer idTipoDeDocumento;
 	private String nombre;
+
 
 	public Tipodedocumento() {
 	}
 
-	public Tipodedocumento(int idTipoDeDocumento) {
-		this.idTipoDeDocumento = idTipoDeDocumento;
-	}
-
-	public Tipodedocumento(int idTipoDeDocumento, String nombre) {
-		this.idTipoDeDocumento = idTipoDeDocumento;
+	public Tipodedocumento(String nombre) {
 		this.nombre = nombre;
+	
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idTipoDeDocumento", unique = true, nullable = false)
-	public int getIdTipoDeDocumento() {
+	public Integer getIdTipoDeDocumento() {
 		return this.idTipoDeDocumento;
 	}
 
-	public void setIdTipoDeDocumento(int idTipoDeDocumento) {
+	public void setIdTipoDeDocumento(Integer idTipoDeDocumento) {
 		this.idTipoDeDocumento = idTipoDeDocumento;
 	}
 
@@ -47,5 +50,7 @@ public class Tipodedocumento  {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 }
