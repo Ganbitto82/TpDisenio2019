@@ -1,17 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,9 +17,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "factoresusados", catalog = "dbelaseguradov4")
-public class Factoresusados  {
+public class Factoresusados implements java.io.Serializable {
 
-	private Integer idFacUsados;
+	private int idFacUsados;
 	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private Float porcentajeCobertura;
 	private Float porcentajePorRiesgoDeDomicilio;
@@ -34,19 +32,22 @@ public class Factoresusados  {
 	private Float descuentoPorUnidad;
 	private Float montoTotal;
 	private Float prima;
-	
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Factoresusados() {
 	}
 
-	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc) {
+	public Factoresusados(int idFacUsados, Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.idFacUsados = idFacUsados;
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc, Float porcentajeCobertura,
+	public Factoresusados(int idFacUsados, Medidasdeseguridadporc medidasdeseguridadporc, Float porcentajeCobertura,
 			Float porcentajePorRiesgoDeDomicilio, Float porcentajePorKm, Float porcentajePorModeloVehiculo,
 			Float porcentajePorMedidasDeSeguridad, Float porcentajePorSiniestro, Float porcentajePorHijo,
-			Float importePorDescuentosPagoSemestral, Float descuentoPorUnidad, Float montoTotal, Float prima) {
+			Float importePorDescuentosPagoSemestral, Float descuentoPorUnidad, Float montoTotal, Float prima,
+			Set<Poliza> polizas) {
+		this.idFacUsados = idFacUsados;
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.porcentajeCobertura = porcentajeCobertura;
 		this.porcentajePorRiesgoDeDomicilio = porcentajePorRiesgoDeDomicilio;
@@ -59,18 +60,17 @@ public class Factoresusados  {
 		this.descuentoPorUnidad = descuentoPorUnidad;
 		this.montoTotal = montoTotal;
 		this.prima = prima;
-	
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idFacUsados", unique = true, nullable = false)
-	public Integer getIdFacUsados() {
+	public int getIdFacUsados() {
 		return this.idFacUsados;
 	}
 
-	public void setIdFacUsados(Integer idFacUsados) {
+	public void setIdFacUsados(int idFacUsados) {
 		this.idFacUsados = idFacUsados;
 	}
 
@@ -183,6 +183,13 @@ public class Factoresusados  {
 		this.prima = prima;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "factoresusados")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

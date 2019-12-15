@@ -1,9 +1,9 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "poliza", catalog = "dbelaseguradov4")
-public class Poliza  {
+public class Poliza implements java.io.Serializable {
 
 	private Integer identNroPoliza;
 	private Cliente cliente;
@@ -44,7 +44,7 @@ public class Poliza  {
 	private Float sumaAsegurada;
 	private Character nroSiniestro;
 	private Integer cantidad;
-	
+	private Set<Modificacionpoliza> modificacionpolizas = new HashSet<Modificacionpoliza>(0);
 
 	public Poliza() {
 	}
@@ -53,7 +53,8 @@ public class Poliza  {
 			Formasdepago formasdepago, Kmporanio kmporanio, Medidasdeseguridad medidasdeseguridad,
 			Numeropoliza numeropoliza, Parametrosgenerales parametrosgenerales, Siniestro siniestro,
 			Tipocobertura tipocobertura, Vehiculo vehiculo, Integer idEstadoCliente, Date fechaInicioVigencia,
-			Date fechaFinVigencia, Float sumaAsegurada, Character nroSiniestro, Integer cantidad) {
+			Date fechaFinVigencia, Float sumaAsegurada, Character nroSiniestro, Integer cantidad,
+			Set<Modificacionpoliza> modificacionpolizas) {
 		this.cliente = cliente;
 		this.cuota = cuota;
 		this.datosdehijo = datosdehijo;
@@ -73,7 +74,7 @@ public class Poliza  {
 		this.sumaAsegurada = sumaAsegurada;
 		this.nroSiniestro = nroSiniestro;
 		this.cantidad = cantidad;
-
+		this.modificacionpolizas = modificacionpolizas;
 	}
 
 	@Id
@@ -274,5 +275,13 @@ public class Poliza  {
 		this.cantidad = cantidad;
 	}
 
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poliza")
+	public Set<Modificacionpoliza> getModificacionpolizas() {
+		return this.modificacionpolizas;
+	}
+
+	public void setModificacionpolizas(Set<Modificacionpoliza> modificacionpolizas) {
+		this.modificacionpolizas = modificacionpolizas;
+	}
+
 }

@@ -1,17 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,37 +17,41 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "medidasdeseguridad", catalog = "dbelaseguradov4")
-public class Medidasdeseguridad  {
+public class Medidasdeseguridad implements java.io.Serializable {
 
-	private Integer idMedidasSeguridad;
+	private int idMedidasSeguridad;
 	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private String nombre;
 	private Float porcentaje;
-
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
+	private Set<Modificacionpoliza> modificacionpolizas = new HashSet<Modificacionpoliza>(0);
 
 	public Medidasdeseguridad() {
 	}
 
-	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc) {
+	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc medidasdeseguridadporc) {
+		this.idMedidasSeguridad = idMedidasSeguridad;
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc, String nombre, Float porcentaje) {
+	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc medidasdeseguridadporc, String nombre,
+			Float porcentaje, Set<Poliza> polizas, Set<Modificacionpoliza> modificacionpolizas) {
+		this.idMedidasSeguridad = idMedidasSeguridad;
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;
-
+		this.polizas = polizas;
+		this.modificacionpolizas = modificacionpolizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedidasSeguridad", unique = true, nullable = false)
-	public Integer getIdMedidasSeguridad() {
+	public int getIdMedidasSeguridad() {
 		return this.idMedidasSeguridad;
 	}
 
-	public void setIdMedidasSeguridad(Integer idMedidasSeguridad) {
+	public void setIdMedidasSeguridad(int idMedidasSeguridad) {
 		this.idMedidasSeguridad = idMedidasSeguridad;
 	}
 
@@ -81,6 +83,22 @@ public class Medidasdeseguridad  {
 		this.porcentaje = porcentaje;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medidasdeseguridad")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medidasdeseguridad")
+	public Set<Modificacionpoliza> getModificacionpolizas() {
+		return this.modificacionpolizas;
+	}
+
+	public void setModificacionpolizas(Set<Modificacionpoliza> modificacionpolizas) {
+		this.modificacionpolizas = modificacionpolizas;
+	}
 
 }

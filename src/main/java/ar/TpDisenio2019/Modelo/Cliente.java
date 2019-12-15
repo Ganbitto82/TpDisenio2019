@@ -1,9 +1,9 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "cliente", catalog = "dbelaseguradov4")
-public class Cliente  {
+public class Cliente implements java.io.Serializable {
 
 	private Integer idCliente;
 	private Condicioniva condicioniva;
@@ -36,16 +36,16 @@ public class Cliente  {
 	private Integer nroDocumento;
 	private String correoElectronico;
 	private Date anioDeRegistro;
-	private Integer nroCuil;
-	private Integer nroCliente;
-
+	private Long nroCuil;
+	private Long nroCliente;
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Cliente() {
 	}
 
 	public Cliente(Condicioniva condicioniva, Direccion direccion, Estadocivil estadocivil, Estadocliente estadocliente,
 			Profesion profesion, Tipodedocumento tipodedocumento, String nombre, String apellido, Integer nroDocumento,
-			String correoElectronico, Date anioDeRegistro, Integer nroCuil, Integer nroCliente) {
+			String correoElectronico, Date anioDeRegistro, Long nroCuil, Long nroCliente, Set<Poliza> polizas) {
 		this.condicioniva = condicioniva;
 		this.direccion = direccion;
 		this.estadocivil = estadocivil;
@@ -59,7 +59,7 @@ public class Cliente  {
 		this.anioDeRegistro = anioDeRegistro;
 		this.nroCuil = nroCuil;
 		this.nroCliente = nroCliente;
-		
+		this.polizas = polizas;
 	}
 
 	@Id
@@ -181,23 +181,30 @@ public class Cliente  {
 	}
 
 	@Column(name = "nroCuil")
-	public Integer getNroCuil() {
+	public Long getNroCuil() {
 		return this.nroCuil;
 	}
 
-	public void setNroCuil(Integer nroCuil) {
+	public void setNroCuil(Long nroCuil) {
 		this.nroCuil = nroCuil;
 	}
 
 	@Column(name = "nroCliente")
-	public Integer getNroCliente() {
+	public Long getNroCliente() {
 		return this.nroCliente;
 	}
 
-	public void setNroCliente(Integer nroCliente) {
+	public void setNroCliente(Long nroCliente) {
 		this.nroCliente = nroCliente;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

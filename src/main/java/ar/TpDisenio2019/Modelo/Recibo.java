@@ -1,17 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,40 +20,44 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "recibo", catalog = "dbelaseguradov4")
-public class Recibo  {
+public class Recibo implements java.io.Serializable {
 
-	private Integer idRecibo;
+	private int idRecibo;
 	private Operador operador;
 	private Integer nroRecibo;
 	private Date fecha;
 	private Integer hora;
 	private Date ultimoDiaDePago;
 	private Float importeTotal;
-	
+	private Set<Cuota> cuotas = new HashSet<Cuota>(0);
 
 	public Recibo() {
 	}
 
-	public Recibo(Operador operador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
-			Float importeTotal) {
+	public Recibo(int idRecibo) {
+		this.idRecibo = idRecibo;
+	}
+
+	public Recibo(int idRecibo, Operador operador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
+			Float importeTotal, Set<Cuota> cuotas) {
+		this.idRecibo = idRecibo;
 		this.operador = operador;
 		this.nroRecibo = nroRecibo;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.ultimoDiaDePago = ultimoDiaDePago;
 		this.importeTotal = importeTotal;
-	
+		this.cuotas = cuotas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idRecibo", unique = true, nullable = false)
-	public Integer getIdRecibo() {
+	public int getIdRecibo() {
 		return this.idRecibo;
 	}
 
-	public void setIdRecibo(Integer idRecibo) {
+	public void setIdRecibo(int idRecibo) {
 		this.idRecibo = idRecibo;
 	}
 
@@ -115,6 +118,13 @@ public class Recibo  {
 		this.importeTotal = importeTotal;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recibo")
+	public Set<Cuota> getCuotas() {
+		return this.cuotas;
+	}
 
+	public void setCuotas(Set<Cuota> cuotas) {
+		this.cuotas = cuotas;
+	}
 
 }

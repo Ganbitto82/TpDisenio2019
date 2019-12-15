@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,33 +15,40 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipocobertura", catalog = "dbelaseguradov4")
-public class Tipocobertura  {
+public class Tipocobertura implements java.io.Serializable {
 
-	private Integer idTipoCobertura;
+	private int idTipoCobertura;
 	private String tipo;
 	private Float porcentaje;
 	private String descripcion;
-	
+	private Set<Modificacionpoliza> modificacionpolizas = new HashSet<Modificacionpoliza>(0);
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Tipocobertura() {
 	}
 
-	public Tipocobertura(String tipo, Float porcentaje, String descripcion) {
+	public Tipocobertura(int idTipoCobertura) {
+		this.idTipoCobertura = idTipoCobertura;
+	}
+
+	public Tipocobertura(int idTipoCobertura, String tipo, Float porcentaje, String descripcion,
+			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
+		this.idTipoCobertura = idTipoCobertura;
 		this.tipo = tipo;
 		this.porcentaje = porcentaje;
 		this.descripcion = descripcion;
-		
+		this.modificacionpolizas = modificacionpolizas;
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idTipoCobertura", unique = true, nullable = false)
-	public Integer getIdTipoCobertura() {
+	public int getIdTipoCobertura() {
 		return this.idTipoCobertura;
 	}
 
-	public void setIdTipoCobertura(Integer idTipoCobertura) {
+	public void setIdTipoCobertura(int idTipoCobertura) {
 		this.idTipoCobertura = idTipoCobertura;
 	}
 
@@ -73,6 +79,22 @@ public class Tipocobertura  {
 		this.descripcion = descripcion;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipocobertura")
+	public Set<Modificacionpoliza> getModificacionpolizas() {
+		return this.modificacionpolizas;
+	}
 
+	public void setModificacionpolizas(Set<Modificacionpoliza> modificacionpolizas) {
+		this.modificacionpolizas = modificacionpolizas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipocobertura")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
+
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

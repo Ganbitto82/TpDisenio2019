@@ -1,18 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,9 +20,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "cuota", catalog = "dbelaseguradov4")
-public class Cuota  {
+public class Cuota implements java.io.Serializable {
 
-	private Integer idCuotas;
+	private int idCuotas;
 	private Recibo recibo;
 	private Integer cuotasPagas;
 	private Date vencimiento;
@@ -33,13 +31,18 @@ public class Cuota  {
 	private Float valorTotalaPagar;
 	private Float bonificacion;
 	private Float recargoPorMora;
-
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Cuota() {
 	}
 
-	public Cuota(Recibo recibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal, Float valorPorMora,
-			Float valorTotalaPagar, Float bonificacion, Float recargoPorMora) {
+	public Cuota(int idCuotas) {
+		this.idCuotas = idCuotas;
+	}
+
+	public Cuota(int idCuotas, Recibo recibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal,
+			Float valorPorMora, Float valorTotalaPagar, Float bonificacion, Float recargoPorMora, Set<Poliza> polizas) {
+		this.idCuotas = idCuotas;
 		this.recibo = recibo;
 		this.cuotasPagas = cuotasPagas;
 		this.vencimiento = vencimiento;
@@ -48,18 +51,17 @@ public class Cuota  {
 		this.valorTotalaPagar = valorTotalaPagar;
 		this.bonificacion = bonificacion;
 		this.recargoPorMora = recargoPorMora;
-		
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idCuotas", unique = true, nullable = false)
-	public Integer getIdCuotas() {
+	public int getIdCuotas() {
 		return this.idCuotas;
 	}
 
-	public void setIdCuotas(Integer idCuotas) {
+	public void setIdCuotas(int idCuotas) {
 		this.idCuotas = idCuotas;
 	}
 
@@ -137,5 +139,13 @@ public class Cuota  {
 		this.recargoPorMora = recargoPorMora;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cuota")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
+
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

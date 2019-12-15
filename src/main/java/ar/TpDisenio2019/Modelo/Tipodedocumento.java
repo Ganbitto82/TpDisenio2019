@@ -1,14 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,18 +17,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipodedocumento", catalog = "dbelaseguradov4")
-public class Tipodedocumento  {
+public class Tipodedocumento implements java.io.Serializable {
 
 	private Integer idTipoDeDocumento;
 	private String nombre;
-
+	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 
 	public Tipodedocumento() {
 	}
 
-	public Tipodedocumento(String nombre) {
+	public Tipodedocumento(String nombre, Set<Cliente> clientes) {
 		this.nombre = nombre;
-	
+		this.clientes = clientes;
 	}
 
 	@Id
@@ -51,6 +52,13 @@ public class Tipodedocumento  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipodedocumento")
+	public Set<Cliente> getClientes() {
+		return this.clientes;
+	}
 
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 
 }

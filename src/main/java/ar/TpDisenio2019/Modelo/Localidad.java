@@ -1,7 +1,8 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,20 +19,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "localidad", catalog = "dbelaseguradov4")
-public class Localidad  {
+public class Localidad implements java.io.Serializable {
 
 	private Integer idLocalidad;
 	private Provincia provincia;
 	private String nombre;
-	
+	private Set<Direccion> direccions = new HashSet<Direccion>(0);
 
 	public Localidad() {
 	}
 
-	public Localidad(Provincia provincia, String nombre) {
+	public Localidad(Provincia provincia, String nombre, Set<Direccion> direccions) {
 		this.provincia = provincia;
 		this.nombre = nombre;
-		
+		this.direccions = direccions;
 	}
 
 	@Id
@@ -65,6 +66,13 @@ public class Localidad  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localidad")
+	public Set<Direccion> getDireccions() {
+		return this.direccions;
+	}
 
+	public void setDireccions(Set<Direccion> direccions) {
+		this.direccions = direccions;
+	}
 
 }

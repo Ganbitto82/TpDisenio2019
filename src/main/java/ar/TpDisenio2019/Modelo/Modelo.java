@@ -1,16 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,38 +17,41 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "modelo", catalog = "dbelaseguradov4")
-public class Modelo  {
+public class Modelo implements java.io.Serializable {
 
-	private Integer idModelo;
+	private int idModelo;
 	private Aniodevehiculo aniodevehiculo;
 	private Marca marca;
 	private String nombre;
 	private Float porcentaje;
-	
+	private Set<Vehiculo> vehiculos = new HashSet<Vehiculo>(0);
+
 	public Modelo() {
 	}
 
-	public Modelo(Marca marca) {
+	public Modelo(int idModelo, Marca marca) {
+		this.idModelo = idModelo;
 		this.marca = marca;
 	}
 
-	public Modelo(Aniodevehiculo aniodevehiculo, Marca marca, String nombre, Float porcentaje) {
+	public Modelo(int idModelo, Aniodevehiculo aniodevehiculo, Marca marca, String nombre, Float porcentaje,
+			Set<Vehiculo> vehiculos) {
+		this.idModelo = idModelo;
 		this.aniodevehiculo = aniodevehiculo;
 		this.marca = marca;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;
-	
+		this.vehiculos = vehiculos;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idModelo", unique = true, nullable = false)
-	public Integer getIdModelo() {
+	public int getIdModelo() {
 		return this.idModelo;
 	}
 
-	public void setIdModelo(Integer idModelo) {
+	public void setIdModelo(int idModelo) {
 		this.idModelo = idModelo;
 	}
 
@@ -91,6 +93,13 @@ public class Modelo  {
 		this.porcentaje = porcentaje;
 	}
 
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modelo")
+	public Set<Vehiculo> getVehiculos() {
+		return this.vehiculos;
+	}
+
+	public void setVehiculos(Set<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
 
 }

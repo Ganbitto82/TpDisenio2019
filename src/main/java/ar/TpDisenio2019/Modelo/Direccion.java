@@ -1,7 +1,8 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "direccion", catalog = "dbelaseguradov4")
-public class Direccion  {
+public class Direccion implements java.io.Serializable {
 
 	private Integer idDireccion;
 	private Localidad localidad;
@@ -26,18 +27,19 @@ public class Direccion  {
 	private Integer numero;
 	private Integer piso;
 	private String departamento;
-	
+	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 
 	public Direccion() {
 	}
 
-	public Direccion(Localidad localidad, String calle, Integer numero, Integer piso, String departamento) {
+	public Direccion(Localidad localidad, String calle, Integer numero, Integer piso, String departamento,
+			Set<Cliente> clientes) {
 		this.localidad = localidad;
 		this.calle = calle;
 		this.numero = numero;
 		this.piso = piso;
 		this.departamento = departamento;
-		
+		this.clientes = clientes;
 	}
 
 	@Id
@@ -98,5 +100,13 @@ public class Direccion  {
 		this.departamento = departamento;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "direccion")
+	public Set<Cliente> getClientes() {
+		return this.clientes;
+	}
+
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 
 }

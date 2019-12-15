@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "modificacionpoliza", catalog = "dbelaseguradov4")
-public class Modificacionpoliza  {
+public class Modificacionpoliza implements java.io.Serializable {
 
 	private Integer idModificacionPoliza;
 	private Datosdehijo datosdehijo;

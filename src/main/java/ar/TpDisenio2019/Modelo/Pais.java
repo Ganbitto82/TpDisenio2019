@@ -1,15 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,18 +17,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pais", catalog = "dbelaseguradov4")
-public class Pais  {
+public class Pais implements java.io.Serializable {
 
 	private Integer idPais;
 	private String nombre;
-	
+	private Set<Provincia> provincias = new HashSet<Provincia>(0);
 
 	public Pais() {
 	}
 
-	public Pais(String nombre) {
+	public Pais(String nombre, Set<Provincia> provincias) {
 		this.nombre = nombre;
-		
+		this.provincias = provincias;
 	}
 
 	@Id
@@ -52,6 +52,13 @@ public class Pais  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pais")
+	public Set<Provincia> getProvincias() {
+		return this.provincias;
+	}
 
+	public void setProvincias(Set<Provincia> provincias) {
+		this.provincias = provincias;
+	}
 
 }

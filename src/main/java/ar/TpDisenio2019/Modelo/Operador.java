@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,29 +15,33 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "operador", catalog = "dbelaseguradov4")
-public class Operador  {
+public class Operador implements java.io.Serializable {
 
-	private Integer idOperador;
+	private int idOperador;
 	private String nombre;
-	
+	private Set<Recibo> recibos = new HashSet<Recibo>(0);
 
 	public Operador() {
 	}
 
-	public Operador(String nombre) {
+	public Operador(int idOperador) {
+		this.idOperador = idOperador;
+	}
+
+	public Operador(int idOperador, String nombre, Set<Recibo> recibos) {
+		this.idOperador = idOperador;
 		this.nombre = nombre;
-		
+		this.recibos = recibos;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idOperador", unique = true, nullable = false)
-	public Integer getIdOperador() {
+	public int getIdOperador() {
 		return this.idOperador;
 	}
 
-	public void setIdOperador(Integer idOperador) {
+	public void setIdOperador(int idOperador) {
 		this.idOperador = idOperador;
 	}
 
@@ -51,6 +54,13 @@ public class Operador  {
 		this.nombre = nombre;
 	}
 
-	
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "operador")
+	public Set<Recibo> getRecibos() {
+		return this.recibos;
+	}
+
+	public void setRecibos(Set<Recibo> recibos) {
+		this.recibos = recibos;
+	}
+
 }

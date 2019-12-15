@@ -1,9 +1,6 @@
 package ar.TpDisenio2019.Controladores;
 
-
-
-import ar.TpDisenio2019.Ui.BuscarCliente.buscarCliente;
-
+import ar.TpDisenio2019.Ui.buscarCliente;
 
 public class PantallaBuscarCliente {
 

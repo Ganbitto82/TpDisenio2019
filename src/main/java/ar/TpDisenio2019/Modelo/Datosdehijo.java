@@ -1,17 +1,16 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,35 +20,42 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "datosdehijo", catalog = "dbelaseguradov4")
-public class Datosdehijo  {
+public class Datosdehijo implements java.io.Serializable {
 
-	private Integer idDatosHijo;
+	private int idDatosHijo;
 	private Estadocivil estadocivil;
 	private Date fecha;
 	private String sexo;
 	private Float porcentaje;
-	
+	private Set<Modificacionpoliza> modificacionpolizas = new HashSet<Modificacionpoliza>(0);
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Datosdehijo() {
 	}
 
-	public Datosdehijo(Estadocivil estadocivil, Date fecha, String sexo, Float porcentaje) {
+	public Datosdehijo(int idDatosHijo) {
+		this.idDatosHijo = idDatosHijo;
+	}
+
+	public Datosdehijo(int idDatosHijo, Estadocivil estadocivil, Date fecha, String sexo, Float porcentaje,
+			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
+		this.idDatosHijo = idDatosHijo;
 		this.estadocivil = estadocivil;
 		this.fecha = fecha;
 		this.sexo = sexo;
 		this.porcentaje = porcentaje;
-	
+		this.modificacionpolizas = modificacionpolizas;
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idDatosHijo", unique = true, nullable = false)
-	public Integer getIdDatosHijo() {
+	public int getIdDatosHijo() {
 		return this.idDatosHijo;
 	}
 
-	public void setIdDatosHijo(Integer idDatosHijo) {
+	public void setIdDatosHijo(int idDatosHijo) {
 		this.idDatosHijo = idDatosHijo;
 	}
 
@@ -91,6 +97,22 @@ public class Datosdehijo  {
 		this.porcentaje = porcentaje;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datosdehijo")
+	public Set<Modificacionpoliza> getModificacionpolizas() {
+		return this.modificacionpolizas;
+	}
 
+	public void setModificacionpolizas(Set<Modificacionpoliza> modificacionpolizas) {
+		this.modificacionpolizas = modificacionpolizas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datosdehijo")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
+
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

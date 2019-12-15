@@ -36,31 +36,31 @@ public class Validaciones {
 		}
 		
 		//númeroDeDocumento y tipoDeDocumento deben ser distintos a la cadena vacía
-		public static boolean validarNúmeroDeDocumento(String númeroDeDocumento, String tipoDeDocumento)
+		public static boolean validarNumeroDeDocumento(String numeroDeDocumento, String tipoDeDocumento)
 		{
-			if(númeroDeDocumento.length() > 15)
+			if(numeroDeDocumento.length() > 15)
 				return false;
 				
-			Pattern patrónParaPasaporteYOtro = Pattern.compile("\\x20|\\p{Upper}|\\p{Digit}");
+			Pattern patronParaPasaporteYOtro = Pattern.compile("\\x20|\\p{Upper}|\\p{Digit}");
 			Matcher matcher;
 				
 			if(tipoDeDocumento.compareTo("DNI") == 0)
-				return validarCampoNuméricoEstático(númeroDeDocumento, 8);
+				return validarCampoNumericoEstatico(numeroDeDocumento, 8);
 		
 			else if(tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
-				return validarCampoNuméricoEstático(númeroDeDocumento, 7);
+				return validarCampoNumericoEstatico(numeroDeDocumento, 7);
 		
 			else if(tipoDeDocumento.compareTo("Pasaporte") == 0)
 			{	
-				if(númeroDeDocumento.length() > 9)
+				if(numeroDeDocumento.length() > 9)
 					return false;
 					
-				int cantidadDeEvaluaciones = númeroDeDocumento.length();
+				int cantidadDeEvaluaciones = numeroDeDocumento.length();
 				int cantidadDeAciertos = 0;
 					
 				for(int i = 0; i < cantidadDeEvaluaciones; i++)
 				{	
-					matcher = patrónParaPasaporteYOtro.matcher(númeroDeDocumento.substring(i, i + 1));
+					matcher = patronParaPasaporteYOtro.matcher(numeroDeDocumento.substring(i, i + 1));
 					if(matcher.matches())
 						cantidadDeAciertos++;
 				}	
@@ -73,12 +73,12 @@ public class Validaciones {
 					
 			else if(tipoDeDocumento.compareTo("Otro") == 0)
 			{	
-				int cantidadDeEvaluaciones = númeroDeDocumento.length();
+				int cantidadDeEvaluaciones = numeroDeDocumento.length();
 				int cantidadDeAciertos = 0;
 					
 				for(int i = 0; i < cantidadDeEvaluaciones; i++)
 				{	
-					matcher = patrónParaPasaporteYOtro.matcher(númeroDeDocumento.substring(i, i + 1));
+					matcher = patronParaPasaporteYOtro.matcher(numeroDeDocumento.substring(i, i + 1));
 					if(matcher.matches())
 						cantidadDeAciertos++;
 				}	
@@ -94,16 +94,16 @@ public class Validaciones {
 		
 		
 		//valorDelCampo no debe ser la cadena vacía; valorMáximoPermitido debe ser mayor que 0
-		public static boolean validarCampoNuméricoEstático(String valorDelCampo, int valorMáximoPermitido)
+		public static boolean validarCampoNumericoEstatico(String valorDelCampo, int valorMaximoPermitido)
 		{
-			if(valorDelCampo.length() > valorMáximoPermitido)
+			if(valorDelCampo.length() > valorMaximoPermitido)
 				return false;
 				
-			Integer valorMáximo = new Integer(valorMáximoPermitido);
-			String valorMáx = valorMáximo.toString();
+			Integer valorMaximo = new Integer(valorMaximoPermitido);
+			String valorMax = valorMaximo.toString();
 				
-			Pattern patrón = Pattern.compile("\\d{" + valorMáx + "}");
-			Matcher matcher = patrón.matcher(valorDelCampo);
+			Pattern patron = Pattern.compile("\\d{" + valorMax + "}");
+			Matcher matcher = patron.matcher(valorDelCampo);
 			return matcher.matches();
 		}
 		

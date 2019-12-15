@@ -2,40 +2,41 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
+ <session-factory>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">cabj</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbelaseguradov4</property>
   <property name="hibernate.connection.username">root</property>
-  <mapping resource="Aniodevehiculo.hbm.xml"/>
-  <mapping resource="Marca.hbm.xml"/>
-  <mapping resource="Modelo.hbm.xml"/>
-  <mapping resource="Vehiculo.hbm.xml"/>
-  <mapping resource="Condicioniva.hbm.xml"/>
-  <mapping resource="Pais.hbm.xml"/>
-  <mapping resource="Provincia.hbm.xml"/>
-  <mapping resource="Localidad.hbm.xml"/>
-  <mapping resource="Direccion.hbm.xml"/>
-  <mapping resource="Estadocivil.hbm.xml"/>
-  <mapping resource="Profesion.hbm.xml"/>
-  <mapping resource="Tipodedocumento.hbm.xml"/>
-  <mapping resource="Estadocliente.hbm.xml"/>
-  <mapping resource="Datosdehijo.hbm.xml"/>
-  <mapping resource="Medidasdeseguridadporc.hbm.xml"/>
-  <mapping resource="Factoresusados.hbm.xml"/>
-  <mapping resource="Medidasdeseguridad.hbm.xml"/>
-  <mapping resource="Tipocobertura.hbm.xml"/>
-  <mapping resource="Siniestro.hbm.xml"/>
-  <mapping resource="Parametrosgenerales.hbm.xml"/>
-  <mapping resource="Operador.hbm.xml"/>
-  <mapping resource="Recibo.hbm.xml"/>
-  <mapping resource="Cuota.hbm.xml"/>
-  <mapping resource="Formasdepago.hbm.xml"/>
-  <mapping resource="Estado.hbm.xml"/>
-  <mapping resource="Kmporanio.hbm.xml"/>
-  <mapping resource="Numeropoliza.hbm.xml"/>
-  <mapping resource="Cliente.hbm.xml"/>
-  <mapping resource="Poliza.hbm.xml"/>
-  <mapping resource="Modificacionpoliza.hbm.xml"/>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <mapping class="ar.TpDisenio2019.Modelo.Aniodevehiculo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Cliente"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Cuota"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Datosdehijo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Direccion"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Estado"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Estadocivil"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Estadocliente"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Factoresusados"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Formasdepago"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Kmporanio"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Localidad"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Marca"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Medidasdeseguridad"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Medidasdeseguridadporc"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Modelo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Modificacionpoliza"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Numeropoliza"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Operador"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Pais"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Parametrosgenerales"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Poliza"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Profesion"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Provincia"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Recibo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Siniestro"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Tipocobertura"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Tipodedocumento"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Vehiculo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Condicioniva"/>
  </session-factory>
 </hibernate-configuration>

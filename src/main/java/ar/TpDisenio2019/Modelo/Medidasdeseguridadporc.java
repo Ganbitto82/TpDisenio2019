@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,29 +15,36 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "medidasdeseguridadporc", catalog = "dbelaseguradov4")
-public class Medidasdeseguridadporc  {
+public class Medidasdeseguridadporc implements java.io.Serializable {
 
-	private Integer idMedPorc;
+	private int idMedPorc;
 	private Float porcentaje;
-	
+	private Set<Medidasdeseguridad> medidasdeseguridads = new HashSet<Medidasdeseguridad>(0);
+	private Set<Factoresusados> factoresusadoses = new HashSet<Factoresusados>(0);
 
 	public Medidasdeseguridadporc() {
 	}
 
-	public Medidasdeseguridadporc(Float porcentaje) {
+	public Medidasdeseguridadporc(int idMedPorc) {
+		this.idMedPorc = idMedPorc;
+	}
+
+	public Medidasdeseguridadporc(int idMedPorc, Float porcentaje, Set<Medidasdeseguridad> medidasdeseguridads,
+			Set<Factoresusados> factoresusadoses) {
+		this.idMedPorc = idMedPorc;
 		this.porcentaje = porcentaje;
-		
+		this.medidasdeseguridads = medidasdeseguridads;
+		this.factoresusadoses = factoresusadoses;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedPorc", unique = true, nullable = false)
-	public Integer getIdMedPorc() {
+	public int getIdMedPorc() {
 		return this.idMedPorc;
 	}
 
-	public void setIdMedPorc(Integer idMedPorc) {
+	public void setIdMedPorc(int idMedPorc) {
 		this.idMedPorc = idMedPorc;
 	}
 
@@ -51,8 +57,22 @@ public class Medidasdeseguridadporc  {
 		this.porcentaje = porcentaje;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medidasdeseguridadporc")
+	public Set<Medidasdeseguridad> getMedidasdeseguridads() {
+		return this.medidasdeseguridads;
+	}
 
+	public void setMedidasdeseguridads(Set<Medidasdeseguridad> medidasdeseguridads) {
+		this.medidasdeseguridads = medidasdeseguridads;
+	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medidasdeseguridadporc")
+	public Set<Factoresusados> getFactoresusadoses() {
+		return this.factoresusadoses;
+	}
 
+	public void setFactoresusadoses(Set<Factoresusados> factoresusadoses) {
+		this.factoresusadoses = factoresusadoses;
+	}
 
 }

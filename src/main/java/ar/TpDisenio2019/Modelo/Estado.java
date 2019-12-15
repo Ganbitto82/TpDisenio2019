@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,29 +15,33 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "estado", catalog = "dbelaseguradov4")
-public class Estado  {
+public class Estado implements java.io.Serializable {
 
-	private Integer idEstado;
+	private int idEstado;
 	private String tipo;
-
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Estado() {
 	}
 
-	public Estado(String tipo) {
+	public Estado(int idEstado) {
+		this.idEstado = idEstado;
+	}
+
+	public Estado(int idEstado, String tipo, Set<Poliza> polizas) {
+		this.idEstado = idEstado;
 		this.tipo = tipo;
-		
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idEstado", unique = true, nullable = false)
-	public Integer getIdEstado() {
+	public int getIdEstado() {
 		return this.idEstado;
 	}
 
-	public void setIdEstado(Integer idEstado) {
+	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
 
@@ -51,6 +54,13 @@ public class Estado  {
 		this.tipo = tipo;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

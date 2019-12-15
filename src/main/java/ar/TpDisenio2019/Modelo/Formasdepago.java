@@ -1,14 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,18 +17,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "formasdepago", catalog = "dbelaseguradov4")
-public class Formasdepago  {
+public class Formasdepago implements java.io.Serializable {
 
 	private Integer idFormasDePago;
 	private String nombre;
-	
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Formasdepago() {
 	}
 
-	public Formasdepago(String nombre) {
+	public Formasdepago(String nombre, Set<Poliza> polizas) {
 		this.nombre = nombre;
-
+		this.polizas = polizas;
 	}
 
 	@Id
@@ -51,6 +52,13 @@ public class Formasdepago  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formasdepago")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

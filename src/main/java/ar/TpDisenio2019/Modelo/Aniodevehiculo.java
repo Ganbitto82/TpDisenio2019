@@ -1,16 +1,14 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,28 +18,33 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "aniodevehiculo", catalog = "dbelaseguradov4")
-public class Aniodevehiculo  {
+public class Aniodevehiculo implements java.io.Serializable {
 
-	private Integer idAnioDeVehiculo;
+	private int idAnioDeVehiculo;
 	private Date anio;
-	
+	private Set<Modelo> modelos = new HashSet<Modelo>(0);
 
 	public Aniodevehiculo() {
 	}
-	public Aniodevehiculo(Integer idAnioDeVehiculo,Date anio) {
-		this.idAnioDeVehiculo=idAnioDeVehiculo;
-		this.anio=anio;
+
+	public Aniodevehiculo(int idAnioDeVehiculo) {
+		this.idAnioDeVehiculo = idAnioDeVehiculo;
 	}
-	
+
+	public Aniodevehiculo(int idAnioDeVehiculo, Date anio, Set<Modelo> modelos) {
+		this.idAnioDeVehiculo = idAnioDeVehiculo;
+		this.anio = anio;
+		this.modelos = modelos;
+	}
+
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idAnioDeVehiculo", unique = true, nullable = false)
-	public Integer getIdAnioDeVehiculo() {
+	public int getIdAnioDeVehiculo() {
 		return this.idAnioDeVehiculo;
 	}
 
-	public void setIdAnioDeVehiculo(Integer idAnioDeVehiculo) {
+	public void setIdAnioDeVehiculo(int idAnioDeVehiculo) {
 		this.idAnioDeVehiculo = idAnioDeVehiculo;
 	}
 
@@ -55,6 +58,13 @@ public class Aniodevehiculo  {
 		this.anio = anio;
 	}
 
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "aniodevehiculo")
+	public Set<Modelo> getModelos() {
+		return this.modelos;
+	}
+
+	public void setModelos(Set<Modelo> modelos) {
+		this.modelos = modelos;
+	}
 
 }

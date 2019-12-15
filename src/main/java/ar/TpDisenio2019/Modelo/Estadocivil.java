@@ -1,15 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,18 +17,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "estadocivil", catalog = "dbelaseguradov4")
-public class Estadocivil  {
+public class Estadocivil implements java.io.Serializable {
 
 	private Integer idEstadoCivil;
 	private String nombre;
-
+	private Set<Datosdehijo> datosdehijos = new HashSet<Datosdehijo>(0);
+	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 
 	public Estadocivil() {
 	}
 
-	public Estadocivil(String nombre) {
+	public Estadocivil(String nombre, Set<Datosdehijo> datosdehijos, Set<Cliente> clientes) {
 		this.nombre = nombre;
-	
+		this.datosdehijos = datosdehijos;
+		this.clientes = clientes;
 	}
 
 	@Id
@@ -52,6 +54,22 @@ public class Estadocivil  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estadocivil")
+	public Set<Datosdehijo> getDatosdehijos() {
+		return this.datosdehijos;
+	}
 
+	public void setDatosdehijos(Set<Datosdehijo> datosdehijos) {
+		this.datosdehijos = datosdehijos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estadocivil")
+	public Set<Cliente> getClientes() {
+		return this.clientes;
+	}
+
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 
 }

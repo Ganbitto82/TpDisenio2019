@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,29 +15,33 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "kmporanio", catalog = "dbelaseguradov4")
-public class Kmporanio {
+public class Kmporanio implements java.io.Serializable {
 
-	private Integer idKmPorAnio;
+	private int idKmPorAnio;
 	private Float porcentaje;
-	
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Kmporanio() {
 	}
 
-	public Kmporanio(Float porcentaje) {
-		this.porcentaje = porcentaje;
+	public Kmporanio(int idKmPorAnio) {
+		this.idKmPorAnio = idKmPorAnio;
+	}
 
+	public Kmporanio(int idKmPorAnio, Float porcentaje, Set<Poliza> polizas) {
+		this.idKmPorAnio = idKmPorAnio;
+		this.porcentaje = porcentaje;
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idKmPorAnio", unique = true, nullable = false)
-	public Integer getIdKmPorAnio() {
+	public int getIdKmPorAnio() {
 		return this.idKmPorAnio;
 	}
 
-	public void setIdKmPorAnio(Integer idKmPorAnio) {
+	public void setIdKmPorAnio(int idKmPorAnio) {
 		this.idKmPorAnio = idKmPorAnio;
 	}
 
@@ -51,6 +54,13 @@ public class Kmporanio {
 		this.porcentaje = porcentaje;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "kmporanio")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

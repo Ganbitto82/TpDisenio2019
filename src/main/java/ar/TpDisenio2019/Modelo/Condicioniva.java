@@ -1,15 +1,15 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,18 +17,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "condicioniva", catalog = "dbelaseguradov4")
-public class Condicioniva  {
+public class Condicioniva implements java.io.Serializable {
 
 	private Integer idCondicionIva;
 	private String nombre;
-
+	private Set<Cliente> clientes = new HashSet<Cliente>(0);
 
 	public Condicioniva() {
 	}
 
-	public Condicioniva(String nombre) {
+	public Condicioniva(String nombre, Set<Cliente> clientes) {
 		this.nombre = nombre;
-	
+		this.clientes = clientes;
 	}
 
 	@Id
@@ -52,6 +52,13 @@ public class Condicioniva  {
 		this.nombre = nombre;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "condicioniva")
+	public Set<Cliente> getClientes() {
+		return this.clientes;
+	}
 
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
+	}
 
 }

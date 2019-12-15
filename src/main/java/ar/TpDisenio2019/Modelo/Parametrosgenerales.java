@@ -1,14 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 10/12/2019 00:35:33 by Hibernate Tools 4.3.5.Final
+// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
 
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,33 +15,38 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "parametrosgenerales", catalog = "dbelaseguradov4")
-public class Parametrosgenerales  {
+public class Parametrosgenerales implements java.io.Serializable {
 
-	private Integer idParametrosGenerales;
+	private int idParametrosGenerales;
 	private Float derechosDeEmision;
 	private Float tasaDeInteres;
 	private Float tasaDeDescuento;
-	
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Parametrosgenerales() {
 	}
 
-	public Parametrosgenerales(Float derechosDeEmision, Float tasaDeInteres, Float tasaDeDescuento) {
+	public Parametrosgenerales(int idParametrosGenerales) {
+		this.idParametrosGenerales = idParametrosGenerales;
+	}
+
+	public Parametrosgenerales(int idParametrosGenerales, Float derechosDeEmision, Float tasaDeInteres,
+			Float tasaDeDescuento, Set<Poliza> polizas) {
+		this.idParametrosGenerales = idParametrosGenerales;
 		this.derechosDeEmision = derechosDeEmision;
 		this.tasaDeInteres = tasaDeInteres;
 		this.tasaDeDescuento = tasaDeDescuento;
-		
+		this.polizas = polizas;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idParametrosGenerales", unique = true, nullable = false)
-	public Integer getIdParametrosGenerales() {
+	public int getIdParametrosGenerales() {
 		return this.idParametrosGenerales;
 	}
 
-	public void setIdParametrosGenerales(Integer idParametrosGenerales) {
+	public void setIdParametrosGenerales(int idParametrosGenerales) {
 		this.idParametrosGenerales = idParametrosGenerales;
 	}
 
@@ -73,7 +77,13 @@ public class Parametrosgenerales  {
 		this.tasaDeDescuento = tasaDeDescuento;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parametrosgenerales")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
 
-
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
+	}
 
 }

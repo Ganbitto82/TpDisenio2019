@@ -1,8 +1,6 @@
 package ar.TpDisenio2019.Controladores;
 
-
-
-import ar.TpDisenio2019.Ui.DardeAltaPoliza.darDeAltaPoliza;
+import ar.TpDisenio2019.Ui.darDeAltaPoliza;
 
 public class PantallaDarAltaPoliza {
 
