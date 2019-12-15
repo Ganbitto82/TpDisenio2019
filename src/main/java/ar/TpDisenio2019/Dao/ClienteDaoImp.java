@@ -87,7 +87,7 @@ public class ClienteDaoImp implements ClienteDao {
 			
 			session.beginTransaction();
 			
-			String consulta = new String("SELECT  c.tipoDoc, c.nroDoc, c.nombre, c.apellido, c.nroCandidato FROM Candidato c WHERE ");
+			String consulta = new String("SELECT  c.tipoDoc, c.nroDoc, c.nombre, c.apellido, c.nroCandidato FROM Cliente c WHERE ");
 			if(numero != null) consulta += "CAST(nroCandidato as string) LIKE :numero";
 			if (numero != null && nombre != null) consulta += " AND ";
 			if (nombre != null) consulta += "nombre LIKE :nombre";
