@@ -14,8 +14,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.Modelo.Cliente;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
+
 
 
 
@@ -69,53 +71,71 @@ public class ClienteDaoImp implements ClienteDao {
     }
     
   
-	@SuppressWarnings("rawtypes")
-	public List<Cliente> buscarCliente(DTOCliente cliente){
+    @SuppressWarnings("unchecked")
+	public List<Cliente> buscarCliente(DTOCliente dtoCliente){
+		
     	
     	Session session = sessionFactory.openSession();
-    	int numeroCliente=cliente.getNroCliente();
-		String nombre = cliente.getNombre();
-		String apellido = cliente.getApellido();
+    	
+    	Long n= dtoCliente.getNroCliente();
+		String nombre = dtoCliente.getNombre();
+		String apellido =dtoCliente.getApellido();
+		int numDoc=dtoCliente.getNroDocumento();
+		DTOTipodedocumento dtoTipo= new DTOTipodedocumento();
 		
-		String numero;
-		if(numeroCliente==-1) numero=null;
-		else numero= String.valueOf(numeroCliente);
+		String tipo= dtoCliente.getTipodedocumento().getNombre();
 		
-
+		String numeroCliente;
+		String mumeroDoc;
+		
+		if(n==-1) numeroCliente=null;
+		else numeroCliente= String.valueOf(n);
+		
+		if(numDoc==-1) mumeroDoc=null;
+		else mumeroDoc= String.valueOf(n);
+		
+		
 		
 		try{
 			
 			session.beginTransaction();
 			
-			String consulta = new String("SELECT  c.tipoDoc, c.nroDoc, c.nombre, c.apellido, c.nroCandidato FROM Cliente c WHERE ");
-			if(numero != null) consulta += "CAST(nroCandidato as string) LIKE :numero";
-			if (numero != null && nombre != null) consulta += " AND ";
-			if (nombre != null) consulta += "nombre LIKE :nombre";
-			if ((nombre != null || numero != null) && apellido != null) consulta += " AND ";
-			if (apellido != null) consulta += "apellido LIKE :apellido";
+			String consulta = new String("select t.nombre, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento from Cliente c ,Tipodedocumento t where ");
+			if(numeroCliente != null) consulta += "CAST(c.numeroCliente as string) LIKE :numeroCliente";
+			if (numeroCliente != null && nombre != null) consulta += " AND ";
+			if (nombre != null) consulta += "c.nombre LIKE :nombre";
+			if ((nombre != null || numeroCliente != null) && apellido != null) consulta += " AND ";
+			if (apellido != null) consulta += "c.apellido LIKE :apellido";
+			if ((nombre != null || numeroCliente != null ||apellido != null) && tipo != null) consulta += " AND ";
+			if (tipo != null) consulta += "t.nombre LIKE :tipo";
+			if ((nombre != null || numeroCliente != null ||apellido != null || tipo != null) && mumeroDoc != null) consulta += " AND ";
+			if (mumeroDoc != null) consulta += "c.mumeroDoc LIKE :mumeroDoc";
 			consulta += " AND eliminado = 'N'"; //Ni idea por qué funciona esto cuando no le pasas nada pero funciona
 			
-			org.hibernate.query.Query q =  session.createQuery(consulta);
-			if(numero != null) q.setParameter("numero","%" +  numero + "%");
-			if(nombre != null) q.setParameter("nombre","%" +  nombre + "%");
-			if(apellido != null) q.setParameter("apellido","%" +  apellido + "%");
+			Query q = (Query) session.createQuery(consulta);
+			if(numeroCliente != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("numero","%" +  numeroCliente + "%");
+			if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
+			if(apellido != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("apellido","%" +  apellido + "%");
 			
 			
-			List<Cliente> results = q.getResultList();
+			List<Cliente> results = ((org.hibernate.query.Query<Cliente>) q).getResultList();
 			List<Cliente> clientes = new ArrayList<Cliente>();
 			
 			for(Cliente aux : results){
 				
 				Cliente c = new Cliente();
-				Tipodedocumento tipo=new Tipodedocumento (); 
 				
-				c.setTipodedocumento(tipodedocumento);((String) aux[0]);
-				c.setNroDoc((int) aux[1]);
-				c.setNombre((String) aux[2]);
-				c.setApellido((String) aux[3]);
-				c.setNroCandidato((int) aux[4]); 
+				Tipodedocumento tipoDoc =new Tipodedocumento(); 
+				tipoDoc.setIdTipoDeDocumento(aux.getTipodedocumento().getIdTipoDeDocumento());
+				tipoDoc.setNombre(aux.getTipodedocumento().getNombre());
+				c.setTipodedocumento(tipoDoc);
+				c.setNroDocumento(aux.getNroDocumento());
+				c.setNombre(aux.getNombre());
+				c.setApellido(aux.getApellido());
+				c.setNroCliente(aux.getNroCliente());
+							 
 				
-				cliente.add(c);
+				clientes.add(c);
 			}
 		
 		return clientes;
@@ -124,12 +144,15 @@ public class ClienteDaoImp implements ClienteDao {
 			System.out.println("Problema al buscar");
 			throw re;
 		}finally{
-			s.close();
+			session.close();
 		}
-    	
-    
-    }
-    
+		
+	}
  
 }
-
+/*	select t.nombre, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento from Cliente c ,tipodedocumento t where
+CAST(nrCliente as string) LIKE :numero
+ AND c.nombre LIKE :nombre
+ AND c.apellido LIKE :apellido
+ AND c.nroDocumento like : nroDocumento
+ AND t.nombre like : tipo*/

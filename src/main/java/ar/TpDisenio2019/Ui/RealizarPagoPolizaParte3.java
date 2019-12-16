@@ -65,6 +65,7 @@ public class RealizarPagoPolizaParte3 {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 		frmElAsegurado = new JFrame();
 		frmElAsegurado.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
@@ -386,6 +387,7 @@ public class RealizarPagoPolizaParte3 {
 					.addContainerGap(72, Short.MAX_VALUE))
 		);
 		
+		@SuppressWarnings("rawtypes")
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
 			

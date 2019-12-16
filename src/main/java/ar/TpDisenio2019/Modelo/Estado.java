@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,31 +19,27 @@ import javax.persistence.Table;
 @Table(name = "estado", catalog = "dbelaseguradov4")
 public class Estado implements java.io.Serializable {
 
-	private int idEstado;
+	private Integer idEstado;
 	private String tipo;
 	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Estado() {
 	}
 
-	public Estado(int idEstado) {
-		this.idEstado = idEstado;
-	}
-
-	public Estado(int idEstado, String tipo, Set<Poliza> polizas) {
-		this.idEstado = idEstado;
+	public Estado(String tipo, Set<Poliza> polizas) {
 		this.tipo = tipo;
 		this.polizas = polizas;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idEstado", unique = true, nullable = false)
-	public int getIdEstado() {
+	public Integer getIdEstado() {
 		return this.idEstado;
 	}
 
-	public void setIdEstado(int idEstado) {
+	public void setIdEstado(Integer idEstado) {
 		this.idEstado = idEstado;
 	}
 

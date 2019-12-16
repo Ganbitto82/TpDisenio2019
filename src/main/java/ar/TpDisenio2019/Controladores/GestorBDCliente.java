@@ -15,7 +15,7 @@ public class GestorBDCliente {
 	
 	private ConexionBD session =new ConexionBD();
 	
-	private ClienteDao clienteDao;
+	private static ClienteDao clienteDao;
 	
 	public GestorBDCliente() {
 		 

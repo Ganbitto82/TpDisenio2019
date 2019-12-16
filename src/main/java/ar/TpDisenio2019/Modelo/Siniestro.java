@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "siniestro", catalog = "dbelaseguradov4")
 public class Siniestro implements java.io.Serializable {
 
-	private int idSiniestro;
+	private Integer idSiniestro;
 	private Float porcentaje;
 	private Integer cantidad;
 	private Set<Poliza> polizas = new HashSet<Poliza>(0);
@@ -25,25 +27,21 @@ public class Siniestro implements java.io.Serializable {
 	public Siniestro() {
 	}
 
-	public Siniestro(int idSiniestro) {
-		this.idSiniestro = idSiniestro;
-	}
-
-	public Siniestro(int idSiniestro, Float porcentaje, Integer cantidad, Set<Poliza> polizas) {
-		this.idSiniestro = idSiniestro;
+	public Siniestro(Float porcentaje, Integer cantidad, Set<Poliza> polizas) {
 		this.porcentaje = porcentaje;
 		this.cantidad = cantidad;
 		this.polizas = polizas;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idSiniestro", unique = true, nullable = false)
-	public int getIdSiniestro() {
+	public Integer getIdSiniestro() {
 		return this.idSiniestro;
 	}
 
-	public void setIdSiniestro(int idSiniestro) {
+	public void setIdSiniestro(Integer idSiniestro) {
 		this.idSiniestro = idSiniestro;
 	}
 

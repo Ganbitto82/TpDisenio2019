@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "factoresusados", catalog = "dbelaseguradov4")
 public class Factoresusados implements java.io.Serializable {
 
-	private int idFacUsados;
+	private Integer idFacUsados;
 	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private Float porcentajeCobertura;
 	private Float porcentajePorRiesgoDeDomicilio;
@@ -37,17 +39,15 @@ public class Factoresusados implements java.io.Serializable {
 	public Factoresusados() {
 	}
 
-	public Factoresusados(int idFacUsados, Medidasdeseguridadporc medidasdeseguridadporc) {
-		this.idFacUsados = idFacUsados;
+	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc) {
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Factoresusados(int idFacUsados, Medidasdeseguridadporc medidasdeseguridadporc, Float porcentajeCobertura,
+	public Factoresusados(Medidasdeseguridadporc medidasdeseguridadporc, Float porcentajeCobertura,
 			Float porcentajePorRiesgoDeDomicilio, Float porcentajePorKm, Float porcentajePorModeloVehiculo,
 			Float porcentajePorMedidasDeSeguridad, Float porcentajePorSiniestro, Float porcentajePorHijo,
 			Float importePorDescuentosPagoSemestral, Float descuentoPorUnidad, Float montoTotal, Float prima,
 			Set<Poliza> polizas) {
-		this.idFacUsados = idFacUsados;
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.porcentajeCobertura = porcentajeCobertura;
 		this.porcentajePorRiesgoDeDomicilio = porcentajePorRiesgoDeDomicilio;
@@ -64,13 +64,14 @@ public class Factoresusados implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idFacUsados", unique = true, nullable = false)
-	public int getIdFacUsados() {
+	public Integer getIdFacUsados() {
 		return this.idFacUsados;
 	}
 
-	public void setIdFacUsados(int idFacUsados) {
+	public void setIdFacUsados(Integer idFacUsados) {
 		this.idFacUsados = idFacUsados;
 	}
 

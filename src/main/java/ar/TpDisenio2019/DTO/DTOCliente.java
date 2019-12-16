@@ -19,26 +19,14 @@ public class DTOCliente {
 	private Integer nroDocumento;
 	private String correoElectronico;
 	private Date anioDeRegistro;
-	private Integer nroCuil;
-	private Integer nroCliente;
+	private Long nroCuil;
+	private Long nroCliente;
 	
 	public DTOCliente() {}
 
-	public DTOCliente(int idCliente, Integer nroCliente ,String nombre, String apellido,Integer nroDocumento,DTOTipodedocumento tipo) {
-		super();
-		this.idCliente = idCliente;
-		this.nroCliente = nroCliente;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.nroDocumento = nroDocumento;
-		this.tipodedocumento=tipo;
-		
-		
-	}
-	
 	public DTOCliente(int idCliente, DTOEstadocivil idEstadoCivil, DTOProfesion idProfesion, DTODireccion idDireccion,
 			DTOCondicioniva idCondicionIva, DTOTipodedocumento idTipoDeDocumento, DTOEstadocliente idEstadoCliente, String nombre, String apellido,
-			Integer nroDocumento, String correoElectronico, Date anioDeRegistro, Integer nroCuil, Integer nroCliente) {
+			Integer nroDocumento, String correoElectronico, Date anioDeRegistro, Long nroCuil, Long nroCliente) {
 		super();
 		this.idCliente = idCliente;
 		this.estadoCivil = idEstadoCivil;
@@ -157,19 +145,19 @@ public class DTOCliente {
 	}
 
 
-	public Integer getNroCuil() {
+	public Long getNroCuil() {
 		return this.nroCuil;
 	}
 
-	public void setNroCuil(Integer nroCuil) {
+	public void setNroCuil(Long nroCuil) {
 		this.nroCuil = nroCuil;
 	}
 
-	public Integer getNroCliente() {
+	public Long getNroCliente() {
 		return this.nroCliente;
 	}
 
-	public void setNroCliente(Integer nroCliente) {
+	public void setNroCliente(Long nroCliente) {
 		this.nroCliente = nroCliente;
 	}
 

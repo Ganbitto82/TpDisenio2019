@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "medidasdeseguridad", catalog = "dbelaseguradov4")
 public class Medidasdeseguridad implements java.io.Serializable {
 
-	private int idMedidasSeguridad;
+	private Integer idMedidasSeguridad;
 	private Medidasdeseguridadporc medidasdeseguridadporc;
 	private String nombre;
 	private Float porcentaje;
@@ -29,14 +31,12 @@ public class Medidasdeseguridad implements java.io.Serializable {
 	public Medidasdeseguridad() {
 	}
 
-	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc medidasdeseguridadporc) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
+	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc) {
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 	}
 
-	public Medidasdeseguridad(int idMedidasSeguridad, Medidasdeseguridadporc medidasdeseguridadporc, String nombre,
-			Float porcentaje, Set<Poliza> polizas, Set<Modificacionpoliza> modificacionpolizas) {
-		this.idMedidasSeguridad = idMedidasSeguridad;
+	public Medidasdeseguridad(Medidasdeseguridadporc medidasdeseguridadporc, String nombre, Float porcentaje,
+			Set<Poliza> polizas, Set<Modificacionpoliza> modificacionpolizas) {
 		this.medidasdeseguridadporc = medidasdeseguridadporc;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;
@@ -45,13 +45,14 @@ public class Medidasdeseguridad implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedidasSeguridad", unique = true, nullable = false)
-	public int getIdMedidasSeguridad() {
+	public Integer getIdMedidasSeguridad() {
 		return this.idMedidasSeguridad;
 	}
 
-	public void setIdMedidasSeguridad(int idMedidasSeguridad) {
+	public void setIdMedidasSeguridad(Integer idMedidasSeguridad) {
 		this.idMedidasSeguridad = idMedidasSeguridad;
 	}
 

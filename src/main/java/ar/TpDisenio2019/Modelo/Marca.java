@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,31 +19,27 @@ import javax.persistence.Table;
 @Table(name = "marca", catalog = "dbelaseguradov4")
 public class Marca implements java.io.Serializable {
 
-	private int idMarca;
+	private Integer idMarca;
 	private String marca;
 	private Set<Modelo> modelos = new HashSet<Modelo>(0);
 
 	public Marca() {
 	}
 
-	public Marca(int idMarca) {
-		this.idMarca = idMarca;
-	}
-
-	public Marca(int idMarca, String marca, Set<Modelo> modelos) {
-		this.idMarca = idMarca;
+	public Marca(String marca, Set<Modelo> modelos) {
 		this.marca = marca;
 		this.modelos = modelos;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMarca", unique = true, nullable = false)
-	public int getIdMarca() {
+	public Integer getIdMarca() {
 		return this.idMarca;
 	}
 
-	public void setIdMarca(int idMarca) {
+	public void setIdMarca(Integer idMarca) {
 		this.idMarca = idMarca;
 	}
 

@@ -26,13 +26,12 @@ public class GestorCliente {
 				
 				DTOTipodedocumento dtoTipoDeDocumento =new DTOTipodedocumento(cliente.getTipodedocumento().getIdTipoDeDocumento(),cliente.getTipodedocumento().getNombre());
 				DTOCliente dtoCliente = new DTOCliente();
+				dtoCliente.setTipodedocumento(dtoTipoDeDocumento);
 				dtoCliente.setIdCliente(cliente.getIdCliente());
 				dtoCliente.setNroCliente(cliente.getNroCliente());
 				dtoCliente.setNombre(cliente.getNombre());
 				dtoCliente.setApellido(cliente.getApellido());
 				dtoCliente.setNroDocumento(cliente.getNroDocumento());
-				dtoCliente.setTipodedocumento(dtoTipoDeDocumento);
-				
 				
 				dtoListaCliente.add(dtoCliente);
 			}

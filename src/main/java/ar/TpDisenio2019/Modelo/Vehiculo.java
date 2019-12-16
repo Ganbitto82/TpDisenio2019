@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "vehiculo", catalog = "dbelaseguradov4")
 public class Vehiculo implements java.io.Serializable {
 
-	private int idVehiculo;
+	private Integer idVehiculo;
 	private Modelo modelo;
 	private String motor;
 	private String chasis;
@@ -31,13 +33,8 @@ public class Vehiculo implements java.io.Serializable {
 	public Vehiculo() {
 	}
 
-	public Vehiculo(int idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
-
-	public Vehiculo(int idVehiculo, Modelo modelo, String motor, String chasis, Integer anio, String patente,
+	public Vehiculo(Modelo modelo, String motor, String chasis, Integer anio, String patente,
 			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
-		this.idVehiculo = idVehiculo;
 		this.modelo = modelo;
 		this.motor = motor;
 		this.chasis = chasis;
@@ -48,13 +45,14 @@ public class Vehiculo implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idVehiculo", unique = true, nullable = false)
-	public int getIdVehiculo() {
+	public Integer getIdVehiculo() {
 		return this.idVehiculo;
 	}
 
-	public void setIdVehiculo(int idVehiculo) {
+	public void setIdVehiculo(Integer idVehiculo) {
 		this.idVehiculo = idVehiculo;
 	}
 

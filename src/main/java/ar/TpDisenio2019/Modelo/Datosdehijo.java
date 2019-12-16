@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name = "datosdehijo", catalog = "dbelaseguradov4")
 public class Datosdehijo implements java.io.Serializable {
 
-	private int idDatosHijo;
+	private Integer idDatosHijo;
 	private Estadocivil estadocivil;
 	private Date fecha;
 	private String sexo;
@@ -33,13 +35,8 @@ public class Datosdehijo implements java.io.Serializable {
 	public Datosdehijo() {
 	}
 
-	public Datosdehijo(int idDatosHijo) {
-		this.idDatosHijo = idDatosHijo;
-	}
-
-	public Datosdehijo(int idDatosHijo, Estadocivil estadocivil, Date fecha, String sexo, Float porcentaje,
+	public Datosdehijo(Estadocivil estadocivil, Date fecha, String sexo, Float porcentaje,
 			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
-		this.idDatosHijo = idDatosHijo;
 		this.estadocivil = estadocivil;
 		this.fecha = fecha;
 		this.sexo = sexo;
@@ -49,13 +46,14 @@ public class Datosdehijo implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idDatosHijo", unique = true, nullable = false)
-	public int getIdDatosHijo() {
+	public Integer getIdDatosHijo() {
 		return this.idDatosHijo;
 	}
 
-	public void setIdDatosHijo(int idDatosHijo) {
+	public void setIdDatosHijo(Integer idDatosHijo) {
 		this.idDatosHijo = idDatosHijo;
 	}
 

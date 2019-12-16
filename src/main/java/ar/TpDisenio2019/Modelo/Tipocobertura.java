@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "tipocobertura", catalog = "dbelaseguradov4")
 public class Tipocobertura implements java.io.Serializable {
 
-	private int idTipoCobertura;
+	private Integer idTipoCobertura;
 	private String tipo;
 	private Float porcentaje;
 	private String descripcion;
@@ -27,13 +29,8 @@ public class Tipocobertura implements java.io.Serializable {
 	public Tipocobertura() {
 	}
 
-	public Tipocobertura(int idTipoCobertura) {
-		this.idTipoCobertura = idTipoCobertura;
-	}
-
-	public Tipocobertura(int idTipoCobertura, String tipo, Float porcentaje, String descripcion,
-			Set<Modificacionpoliza> modificacionpolizas, Set<Poliza> polizas) {
-		this.idTipoCobertura = idTipoCobertura;
+	public Tipocobertura(String tipo, Float porcentaje, String descripcion, Set<Modificacionpoliza> modificacionpolizas,
+			Set<Poliza> polizas) {
 		this.tipo = tipo;
 		this.porcentaje = porcentaje;
 		this.descripcion = descripcion;
@@ -42,13 +39,14 @@ public class Tipocobertura implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idTipoCobertura", unique = true, nullable = false)
-	public int getIdTipoCobertura() {
+	public Integer getIdTipoCobertura() {
 		return this.idTipoCobertura;
 	}
 
-	public void setIdTipoCobertura(int idTipoCobertura) {
+	public void setIdTipoCobertura(Integer idTipoCobertura) {
 		this.idTipoCobertura = idTipoCobertura;
 	}
 

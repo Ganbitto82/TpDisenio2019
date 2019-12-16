@@ -494,7 +494,7 @@ public class buscarCliente extends JFrame {
 					
 					DTOCliente buscarCliente= new DTOCliente();
 					DTOTipodedocumento tipo= new DTOTipodedocumento();
-					int numero= Integer.parseInt(nroCliente.getText());
+					Long numero= Long.parseLong(nroCliente.getText());
 					buscarCliente.setNroCliente(numero);
 					buscarCliente.setNombre(nombreCliente.getText());
 					buscarCliente.setApellido(apellidoCliente.getText());

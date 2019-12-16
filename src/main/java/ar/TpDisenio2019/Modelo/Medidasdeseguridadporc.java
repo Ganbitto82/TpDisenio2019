@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "medidasdeseguridadporc", catalog = "dbelaseguradov4")
 public class Medidasdeseguridadporc implements java.io.Serializable {
 
-	private int idMedPorc;
+	private Integer idMedPorc;
 	private Float porcentaje;
 	private Set<Medidasdeseguridad> medidasdeseguridads = new HashSet<Medidasdeseguridad>(0);
 	private Set<Factoresusados> factoresusadoses = new HashSet<Factoresusados>(0);
@@ -25,26 +27,22 @@ public class Medidasdeseguridadporc implements java.io.Serializable {
 	public Medidasdeseguridadporc() {
 	}
 
-	public Medidasdeseguridadporc(int idMedPorc) {
-		this.idMedPorc = idMedPorc;
-	}
-
-	public Medidasdeseguridadporc(int idMedPorc, Float porcentaje, Set<Medidasdeseguridad> medidasdeseguridads,
+	public Medidasdeseguridadporc(Float porcentaje, Set<Medidasdeseguridad> medidasdeseguridads,
 			Set<Factoresusados> factoresusadoses) {
-		this.idMedPorc = idMedPorc;
 		this.porcentaje = porcentaje;
 		this.medidasdeseguridads = medidasdeseguridads;
 		this.factoresusadoses = factoresusadoses;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idMedPorc", unique = true, nullable = false)
-	public int getIdMedPorc() {
+	public Integer getIdMedPorc() {
 		return this.idMedPorc;
 	}
 
-	public void setIdMedPorc(int idMedPorc) {
+	public void setIdMedPorc(Integer idMedPorc) {
 		this.idMedPorc = idMedPorc;
 	}
 

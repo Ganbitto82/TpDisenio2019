@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 14/12/2019 22:14:56 by Hibernate Tools 4.3.5.Final
+// Generated 16/12/2019 02:56:06 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "parametrosgenerales", catalog = "dbelaseguradov4")
 public class Parametrosgenerales implements java.io.Serializable {
 
-	private int idParametrosGenerales;
+	private Integer idParametrosGenerales;
 	private Float derechosDeEmision;
 	private Float tasaDeInteres;
 	private Float tasaDeDescuento;
@@ -26,13 +28,8 @@ public class Parametrosgenerales implements java.io.Serializable {
 	public Parametrosgenerales() {
 	}
 
-	public Parametrosgenerales(int idParametrosGenerales) {
-		this.idParametrosGenerales = idParametrosGenerales;
-	}
-
-	public Parametrosgenerales(int idParametrosGenerales, Float derechosDeEmision, Float tasaDeInteres,
-			Float tasaDeDescuento, Set<Poliza> polizas) {
-		this.idParametrosGenerales = idParametrosGenerales;
+	public Parametrosgenerales(Float derechosDeEmision, Float tasaDeInteres, Float tasaDeDescuento,
+			Set<Poliza> polizas) {
 		this.derechosDeEmision = derechosDeEmision;
 		this.tasaDeInteres = tasaDeInteres;
 		this.tasaDeDescuento = tasaDeDescuento;
@@ -40,13 +37,14 @@ public class Parametrosgenerales implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idParametrosGenerales", unique = true, nullable = false)
-	public int getIdParametrosGenerales() {
+	public Integer getIdParametrosGenerales() {
 		return this.idParametrosGenerales;
 	}
 
-	public void setIdParametrosGenerales(int idParametrosGenerales) {
+	public void setIdParametrosGenerales(Integer idParametrosGenerales) {
 		this.idParametrosGenerales = idParametrosGenerales;
 	}
 
