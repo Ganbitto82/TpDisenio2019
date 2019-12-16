@@ -110,8 +110,8 @@ public class ClienteDaoImp implements ClienteDao {
 			if (tipo != null) consulta += "t.nombre LIKE :tipo";
 			if ((nombre != null || numeroCliente != null ||apellido != null || tipo != null) && mumeroDoc != null) consulta += " AND ";
 			if (mumeroDoc != null) consulta += "c.mumeroDoc LIKE :mumeroDoc";
-			consulta += " AND eliminado = 'N'"; //Ni idea por qué funciona esto cuando no le pasas nada pero funciona
-			
+			consulta += " AND eliminado = 'N'";
+
 			Query q = (Query) session.createQuery(consulta);
 			if(numeroCliente != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("numero","%" +  numeroCliente + "%");
 			if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
@@ -150,9 +150,3 @@ public class ClienteDaoImp implements ClienteDao {
 	}
  
 }
-/*	select t.nombre, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento from Cliente c ,tipodedocumento t where
-CAST(nrCliente as string) LIKE :numero
- AND c.nombre LIKE :nombre
- AND c.apellido LIKE :apellido
- AND c.nroDocumento like : nroDocumento
- AND t.nombre like : tipo*/

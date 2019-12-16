@@ -1,6 +1,6 @@
 package ar.TpDisenio2019.Ui;
 
-
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,37 +11,38 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
-
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-
+import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
-
-
+import java.awt.CardLayout;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.text.MaskFormatter;
 
+import ar.TpDisenio2019.DTO.DTODatosdehijo;
+import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ModHijos extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private Object[][] datosDeLaTablaPrincipal;
 	private DefaultTableModel modelo;
@@ -96,11 +97,13 @@ public class ModHijos extends JFrame {
 		JPanel panel_TablaHijos = new JPanel();
 		
 		JButton btnAgregar = new JButton("Agregar");
+/*
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
-		
+*/		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +181,7 @@ public class ModHijos extends JFrame {
 		 JComboBox<String> sexo;
 		 JComboBox<String> estadoCivil;
 		 modelo = null;
-		 String nomcols[]={"Fecha de Nacimiento", "Sexo", "DTOEstado Civil"};
+		 String nomcols[]={"Fecha de Nacimiento", "Sexo", "Estado Civil"};
 		  
 		  if(numeroHijos > 0)
 			{	
@@ -219,11 +222,56 @@ public class ModHijos extends JFrame {
 		  colSexo.setCellEditor(new DefaultCellEditor(sexo));
 		  colEstadoCivil.setCellEditor(new DefaultCellEditor(estadoCivil));
 		  
-		
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+		//  table.addKeyListener(new KeyAdapterModificado());
+	
+		  table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		panel_TablaHijos.setLayout(gl_panel_TablaHijos);
 		panel_contenido.setLayout(gl_panel_contenido);
+		
+		
+		btnAgregar.addActionListener(new ActionListener(){
+			   public void actionPerformed(ActionEvent arg0) {
+			    String s[]={""," "," "};
+			    modelo.addRow(s);
+			   }
+			   
+			  });
+		
+		btnModificar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				int seleccionada=table.getSelectedRow();
+				if(seleccionada==-1)
+				{	
+					
+				}
+				
+				else
+				{
+					modelo.setValueAt("", seleccionada, 0);
+				}
+			}
+		});
+		
+	//	btnModificar.addKeyListener(new KeyAdapterModificado());
+		
+		btnEliminar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				int seleccionada=table.getSelectedRow();
+				modelo.removeRow(seleccionada);
+			}
+		});
+		btnCancelar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				dispose();
+			}
+		
+		});
 	}
 }

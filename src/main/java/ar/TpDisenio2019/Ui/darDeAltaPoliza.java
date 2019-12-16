@@ -26,6 +26,8 @@ import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
+import ar.TpDisenio2019.DTO.DTOProvincia;
+import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 
 
 
@@ -55,6 +57,8 @@ public class darDeAltaPoliza extends JFrame {
 	private JPanel pnl_DatosDelCliente;
 	private JPanel pnl_IngresoDatosGeneral;
 	private JPanel pnl_IngresoDeDatos;
+	
+	private List<DTOProvincia> dtoListaProvincia= new ArrayList();
 	
 	private List<DTODatosdehijo> listaDTOHijos = new ArrayList<DTODatosdehijo>();
 
@@ -272,6 +276,14 @@ public class darDeAltaPoliza extends JFrame {
 		cbxProvinciaRiesgo.setBackground(Color.WHITE);
 		cbxProvinciaRiesgo.setForeground(Color.BLACK);
 		cbxProvinciaRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		dtoListaProvincia= GestorListasDesplegables.buscarDtosProvincia();
+		
+		for(DTOProvincia provinciaRiesgo :  dtoListaProvincia) 
+		
+			cbxProvinciaRiesgo .addItem(provinciaRiesgo.getNombre().toString());
+		
+		cbxProvinciaRiesgo.setSelectedItem(null);
 		
 		
 		GridBagConstraints gbc_cbxProvinciaRiesgo = new GridBagConstraints();

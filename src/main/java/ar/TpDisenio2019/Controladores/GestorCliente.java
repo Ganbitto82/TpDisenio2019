@@ -39,32 +39,3 @@ public class GestorCliente {
 	}
 
 }
-/*
- * 
- * 
- * public class GestorCandidato {
-	public static List <DTOCandidato> buscarCandidatos(DTOCandidato cand){
-		
-		List<Candidato> resultado = CandidatoDAO.finder(cand);
-		
-		List <DTOCandidato> candidatos = new ArrayList<DTOCandidato>();
-		for(Candidato aux : resultado){
-			DTOCandidato c = new DTOCandidato();
-			c.setApellido(aux.getApellido());
-			c.setNombre(aux.getNombre());
-			c.setNroDoc(aux.getNroDoc());
-			c.setTipoDoc(aux.getTipoDoc());
-			c.setNroCandidato(aux.getNroCandidato());
-			candidatos.add(c);
-		}
-		
-		return candidatos;
-	}
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * */
