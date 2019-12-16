@@ -215,6 +215,7 @@ public class buscarCliente extends JFrame {
 		nroCliente.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent arg0) {
 				String numeroCliente = nroCliente.getText();
+				
 
 				if (numeroCliente.compareTo("  -        ") != 0) {
 					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
@@ -430,16 +431,19 @@ public class buscarCliente extends JFrame {
 
 				int bandera = 0;
 				String numeroCliente = nroCliente.getText();
-
+				
 				if (numeroCliente.compareTo("  -        ") != 0) {
-
-					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
+				if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
 
 						labelAclaracionSobreNumerodeCliente.setVisible(true);
 						bandera++;
 					}
+				
 				}
-
+				else {
+					numeroCliente=" ";
+					bandera++;				
+				}
 				String nombre = nombreCliente.getText();
 
 				if (nombre.length() > 0) {
@@ -471,18 +475,18 @@ public class buscarCliente extends JFrame {
 						bandera++;
 						if (tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (maximo 8)");
-
+						else
 						if (tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (maximo 7)");
-
+						else
 						if (tipoDeDocumento.compareTo("Pasaporte") == 0)
 							labelAclaracionSobreNumeroDeDocumento
 									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 9)");
-
+						else
 						if (tipoDeDocumento.compareTo("Otro") == 0)
 							labelAclaracionSobreNumeroDeDocumento
 									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 15)");
-
+						else
 						labelAclaracionSobreNumeroDeDocumento.setVisible(true);
 
 					}
@@ -490,14 +494,31 @@ public class buscarCliente extends JFrame {
 				
 
 				List<DTOCliente> listaDtosCliente= new ArrayList<DTOCliente>();	
-				if (bandera == 0) {
+				
+				if (bandera != 0) {
+					 btnBuscar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							if (e.getSource() ==  btnBuscar) {
+                                                dispose();
+												buscarCliente m = new buscarCliente();
+												m.setVisible(true);
+												m.setResizable(false);
+												m.setLocationRelativeTo(null);
+												
+										}
+									}
+						
+							});
 					
+				}
+				else {
 					DTOCliente buscarCliente= new DTOCliente();
 					DTOTipodedocumento tipo= new DTOTipodedocumento();
-					Long numero= Long.parseLong(nroCliente.getText());
+					Long numero= Long.parseLong( numeroCliente);
 					buscarCliente.setNroCliente(numero);
-					buscarCliente.setNombre(nombreCliente.getText());
-					buscarCliente.setApellido(apellidoCliente.getText());
+					buscarCliente.setNombre(nombre);
+					buscarCliente.setApellido(apellido);
 					tipo.setNombre(tipoDeDocumento);
 					buscarCliente.setTipodedocumento( tipo);
 					int nrodoc=Integer.parseInt(numeroDeDocumento);
