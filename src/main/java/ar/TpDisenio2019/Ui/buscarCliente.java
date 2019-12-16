@@ -495,7 +495,7 @@ public class buscarCliente extends JFrame {
 				}
 
 				List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
-
+				bandera = 0;
 				if (bandera != 0) {
 					btnBuscar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -515,14 +515,14 @@ public class buscarCliente extends JFrame {
 				} else {
 					DTOCliente buscarCliente = new DTOCliente();
 					DTOTipodedocumento tipo = new DTOTipodedocumento();
-					Long numero = Long.parseLong(numeroCliente);
-					buscarCliente.setNroCliente(numero);
+					//Long numero = Long.parseLong(numeroCliente);
+					//buscarCliente.setNroCliente(numero);
 					buscarCliente.setNombre(nombre);
 					buscarCliente.setApellido(apellido);
 					tipo.setNombre(tipoDeDocumento);
 					buscarCliente.setTipodedocumento(tipo);
-					int nrodoc = Integer.parseInt(numeroDeDocumento);
-					buscarCliente.setNroDocumento(nrodoc);
+					//int nrodoc = Integer.parseInt(numeroDeDocumento);
+					//buscarCliente.setNroDocumento(nrodoc);
 					listaDtosCliente = GestorCliente.buscarDtoscliente(buscarCliente);
 
 					if (listaDtosCliente.size() == 0) {

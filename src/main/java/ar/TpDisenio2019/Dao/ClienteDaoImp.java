@@ -77,10 +77,10 @@ public class ClienteDaoImp implements ClienteDao {
     	
     	Session session = sessionFactory.openSession();
     	
-    	Long n= dtoCliente.getNroCliente();
+    	int n= 1;//dtoCliente.getNroCliente();
 		String nombre = dtoCliente.getNombre();
 		String apellido =dtoCliente.getApellido();
-		int numDoc=dtoCliente.getNroDocumento();
+		int numDoc= 1; //dtoCliente.getNroDocumento();
 		DTOTipodedocumento dtoTipo= new DTOTipodedocumento();
 		
 		String tipo= dtoCliente.getTipodedocumento().getNombre();
