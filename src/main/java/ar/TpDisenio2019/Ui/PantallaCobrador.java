@@ -3,8 +3,6 @@ package ar.TpDisenio2019.Ui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.border.BevelBorder;
 
 import ar.TpDisenio2019.Utilitario.ImagenProductor;
@@ -25,20 +23,6 @@ public class PantallaCobrador extends JFrame{
 	public PantallaCobrador() {
 		initialize();
 	}
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaCobrador frame = new PantallaCobrador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 
 	private void initialize() {
 	
@@ -104,8 +88,10 @@ public class PantallaCobrador extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 			
-				RealizarPagoPoliza pago = new RealizarPagoPoliza();
-				//.setVisible(true);
+				RealizarPagoPolizaVacio pago = new RealizarPagoPolizaVacio();
+				pago.setVisible(true);
+				pago.setResizable(false);
+				pago.setLocationRelativeTo(null);
 			}
 		});
 		btnRegistrarPagoPoliza.setBackground(new Color(255, 0, 51));

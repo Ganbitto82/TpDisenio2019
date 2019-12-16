@@ -1,7 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -9,6 +7,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.JFormattedTextField;
@@ -21,9 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 
-public class RealizarPagoPolizaVacio {
+public class RealizarPagoPolizaVacio extends JFrame{
 
-	private JFrame frmElAsegurado;
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -34,37 +35,15 @@ public class RealizarPagoPolizaVacio {
 	private JTextField textField_7;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RealizarPagoPolizaVacio window = new RealizarPagoPolizaVacio();
-					window.frmElAsegurado.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public RealizarPagoPolizaVacio() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-		frmElAsegurado = new JFrame();
-		frmElAsegurado.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
-		frmElAsegurado.setBounds(0, 0, 800, 730);
-		frmElAsegurado.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
+		this.setBounds(0, 0, 800, 730);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 0, 51));
@@ -277,18 +256,40 @@ public class RealizarPagoPolizaVacio {
 		
 		JPanel panel_6 = new JPanel();
 		
-		JButton button_2 = new JButton("Confirmar Pago");
-		button_2.setEnabled(false);
+		JButton btnConfirmar = new JButton("Confirmar Pago");
+		btnConfirmar.setEnabled(false);
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnConfirmar)
+				{
+					RealizarPagoPoliza pago = new RealizarPagoPoliza();
+					pago.setVisible(true);
+					pago.setResizable(false);
+					pago.setLocationRelativeTo(null);
+				}
+			}
+		});
 		
-		JButton button_3 = new JButton("Cancelar");
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnCancelar)
+				{
+					setVisible(false);
+					dispose();
+				}
+			}
+		});
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panel_6.createSequentialGroup()
 					.addContainerGap(531, Short.MAX_VALUE)
-					.addComponent(button_2)
+					.addComponent(btnConfirmar)
 					.addGap(18)
-					.addComponent(button_3)
+					.addComponent(btnCancelar)
 					.addGap(31))
 		);
 		gl_panel_6.setVerticalGroup(
@@ -296,12 +297,12 @@ public class RealizarPagoPolizaVacio {
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_6.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_3)
-						.addComponent(button_2))
+						.addComponent(btnCancelar)
+						.addComponent(btnConfirmar))
 					.addGap(33))
 		);
 		panel_6.setLayout(gl_panel_6);
-		GroupLayout groupLayout = new GroupLayout(frmElAsegurado.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -449,7 +450,7 @@ public class RealizarPagoPolizaVacio {
 					.addGap(15))
 		);
 		panel_2.setLayout(gl_panel_2);
-		frmElAsegurado.getContentPane().setLayout(groupLayout);
+		this.getContentPane().setLayout(groupLayout);
 		
 		
 	}

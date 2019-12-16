@@ -10,6 +10,5 @@ public class PantallaDarAltaPoliza {
 		frame.setVisible(true);
 	}
 
-	Dispose()
 
 }

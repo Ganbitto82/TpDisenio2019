@@ -3,7 +3,6 @@ package ar.TpDisenio2019.Ui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.border.BevelBorder;
 
@@ -24,19 +23,6 @@ public class PantallaGerencia extends JFrame{
 
 	public PantallaGerencia() {
 		initialize();
-	}
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaGerencia frame = new PantallaGerencia();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 	
 	private void initialize() {

@@ -1,7 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,6 +11,9 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -23,9 +24,9 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 
-public class RealizarPagoPolizaParte2 {
+public class RealizarPagoPolizaParte2 extends JFrame{
 
-	private JFrame frmElAsegurado;
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField txtAaaaaaaaaaaaaa;
 	private JTextField txtAaaaaaaaaaaaaaa_1;
@@ -38,38 +39,15 @@ public class RealizarPagoPolizaParte2 {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RealizarPagoPolizaParte2 window = new RealizarPagoPolizaParte2();
-					window.frmElAsegurado.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public RealizarPagoPolizaParte2() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-		frmElAsegurado = new JFrame();
-		frmElAsegurado.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
-		frmElAsegurado.setBounds(100, 0, 800, 730);
-		frmElAsegurado.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
+		this.setBounds(100, 0, 800, 730);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 0, 51));
@@ -293,7 +271,29 @@ public class RealizarPagoPolizaParte2 {
 		
 		JButton btnRegistrarPago = new JButton("Registrar Pago");
 		
-		JButton button_3 = new JButton("Cancelar");
+		btnRegistrarPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnRegistrarPago)
+				{
+					RealizarPagoPolizaParte3 pago = new RealizarPagoPolizaParte3();
+					pago.setVisible(true);
+					pago.setResizable(false);
+					pago.setLocationRelativeTo(null);
+				}
+			}
+		});
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnCancelar)
+				{
+					setVisible(false);
+					dispose();
+				}
+			}
+		});
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
@@ -301,7 +301,7 @@ public class RealizarPagoPolizaParte2 {
 					.addContainerGap(543, Short.MAX_VALUE)
 					.addComponent(btnRegistrarPago)
 					.addGap(18)
-					.addComponent(button_3)
+					.addComponent(btnCancelar)
 					.addGap(23))
 		);
 		gl_panel_6.setVerticalGroup(
@@ -309,12 +309,12 @@ public class RealizarPagoPolizaParte2 {
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_6.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_3)
+						.addComponent(btnCancelar)
 						.addComponent(btnRegistrarPago))
 					.addGap(33))
 		);
 		panel_6.setLayout(gl_panel_6);
-		GroupLayout groupLayout = new GroupLayout(frmElAsegurado.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -489,6 +489,6 @@ public class RealizarPagoPolizaParte2 {
 					.addContainerGap())
 		);
 		panel_2.setLayout(gl_panel_2);
-		frmElAsegurado.getContentPane().setLayout(groupLayout);
+		this.getContentPane().setLayout(groupLayout);
 	}
 }

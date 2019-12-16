@@ -1,22 +1,19 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.JTextField;
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import javax.swing.border.TitledBorder;
-
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -24,9 +21,9 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 
-public class RealizarPagoPolizaParte3 {
+public class RealizarPagoPolizaParte3 extends JFrame{
 
-	private JFrame frmElAsegurado;
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField txtAaaaaaaaaaaaaa;
 	private JTextField txtAaaaaaaaaaaaaaa_1;
@@ -38,39 +35,15 @@ public class RealizarPagoPolizaParte3 {
 	private JTextField textField_5;
 	private JTextField txtMaraMontenegro;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RealizarPagoPolizaParte3 window = new RealizarPagoPolizaParte3();
-					window.frmElAsegurado.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public RealizarPagoPolizaParte3() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
-		frmElAsegurado = new JFrame();
-		frmElAsegurado.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
-		frmElAsegurado.setBounds(50, 0, 800, 730);
-		frmElAsegurado.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
+		this.setBounds(50, 0, 800, 730);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 0, 51));
@@ -193,7 +166,26 @@ public class RealizarPagoPolizaParte3 {
 		
 		JButton btnRegistrarPago = new JButton("Emitir Recibo de Pago");
 		
-		JButton button_3 = new JButton("Cancelar");
+		btnRegistrarPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnRegistrarPago)
+				{
+					setVisible(false);
+					dispose();
+				}
+			}
+		});
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnCancelar)
+				{
+					setVisible(false);
+					dispose();
+				}
+			}
+		});
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
@@ -201,7 +193,7 @@ public class RealizarPagoPolizaParte3 {
 					.addContainerGap(504, Short.MAX_VALUE)
 					.addComponent(btnRegistrarPago)
 					.addGap(18)
-					.addComponent(button_3)
+					.addComponent(btnCancelar)
 					.addContainerGap())
 		);
 		gl_panel_6.setVerticalGroup(
@@ -209,12 +201,12 @@ public class RealizarPagoPolizaParte3 {
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_6.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_3)
+						.addComponent(btnCancelar)
 						.addComponent(btnRegistrarPago))
 					.addGap(33))
 		);
 		panel_6.setLayout(gl_panel_6);
-		GroupLayout groupLayout = new GroupLayout(frmElAsegurado.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -387,10 +379,11 @@ public class RealizarPagoPolizaParte3 {
 					.addContainerGap(72, Short.MAX_VALUE))
 		);
 		
-		@SuppressWarnings("rawtypes")
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			
+			/**
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
 			String[] values = new String[] {"01 / 2019", "02 / 2019", "03 / 2019", "04 / 2019"};
 			public int getSize() {
@@ -402,6 +395,6 @@ public class RealizarPagoPolizaParte3 {
 		});
 		scrollPane.setViewportView(list);
 		panel_2.setLayout(gl_panel_2);
-		frmElAsegurado.getContentPane().setLayout(groupLayout);
+		this.getContentPane().setLayout(groupLayout);
 	}
 }

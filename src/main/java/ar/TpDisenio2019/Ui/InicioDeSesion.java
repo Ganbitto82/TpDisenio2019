@@ -15,13 +15,11 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
-
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.Validaciones;
 
@@ -29,23 +27,13 @@ import ar.TpDisenio2019.Utilitario.Validaciones;
 
 public class InicioDeSesion extends JFrame {
 
-	//List<DTOUsuario>  dtoListaUsuario = new ArrayList<DTOUsuario>();
+	
+//	List<DTOUsuario>  dtoListaUsuario = new ArrayList<DTOUsuario>();
 	private static final long serialVersionUID = 0001L;
 	private JTextField usuario_textField;
 	private JPasswordField contrasenia_textField;
-	// private final UsuarioDao
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InicioDeSesion frame = new InicioDeSesion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	// private final UsuarioDao                    
+    
 	public InicioDeSesion() {
 		setTitle("Iniciar Sesi\u00F3n");
 		setBounds(100, 100, 500, 380);
