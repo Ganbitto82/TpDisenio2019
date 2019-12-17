@@ -77,43 +77,31 @@ public class ClienteDaoImp implements ClienteDao {
     	
     	Session session = sessionFactory.openSession();
     	
-    	int n= 1;//dtoCliente.getNroCliente();
+    	long numeroCliente= dtoCliente.getNroCliente();
 		String nombre = dtoCliente.getNombre();
 		String apellido =dtoCliente.getApellido();
-		int numDoc= 1; //dtoCliente.getNroDocumento();
-		DTOTipodedocumento dtoTipo= new DTOTipodedocumento();
-		
+		int nunmDoc =dtoCliente.getNroDocumento();
+				
 		String tipo= dtoCliente.getTipodedocumento().getNombre();
 		
-		String numeroCliente;
-		String mumeroDoc;
-		
-		if(n==-1) numeroCliente=null;
-		else numeroCliente= String.valueOf(n);
-		
-		if(numDoc==-1) mumeroDoc=null;
-		else mumeroDoc= String.valueOf(n);
-		
-		
-		
+				
 		try{
-			
 			session.beginTransaction();
 			
 			String consulta = new String("select t.nombre, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento from Cliente c ,Tipodedocumento t where ");
-			if(numeroCliente != null) consulta += "CAST(c.numeroCliente as string) LIKE :numeroCliente";
-			if (numeroCliente != null && nombre != null) consulta += " AND ";
-			if (nombre != null) consulta += "c.nombre LIKE :nombre";
-			if ((nombre != null || numeroCliente != null) && apellido != null) consulta += " AND ";
-			if (apellido != null) consulta += "c.apellido LIKE :apellido";
-			if ((nombre != null || numeroCliente != null ||apellido != null) && tipo != null) consulta += " AND ";
-			if (tipo != null) consulta += "t.nombre LIKE :tipo";
-			if ((nombre != null || numeroCliente != null ||apellido != null || tipo != null) && mumeroDoc != null) consulta += " AND ";
-			if (mumeroDoc != null) consulta += "c.mumeroDoc LIKE :mumeroDoc";
-			consulta += " AND eliminado = 'N'";
+			if(numeroCliente != 0) consulta += "CAST(c.numeroCliente as string) LIKE :numeroCliente";
+			if (numeroCliente != 0 && nombre != "") consulta += " AND ";
+			if (nombre != "") consulta += "c.nombre LIKE :nombre";
+			if ((nombre != "" || numeroCliente != 0) && apellido != "") consulta += " AND ";
+			if (apellido != "") consulta += "c.apellido LIKE :apellido";
+			else if ((nombre != "" || numeroCliente != 0 ||apellido != "") && tipo != "") consulta += " AND ";
+			else if (tipo != "") consulta += "t.nombre = :tipo";
+			else if ((nombre != "" || numeroCliente != 0||apellido != "" || tipo != "") && nunmDoc != 0) consulta += " AND ";
+			else if (nunmDoc!= 0) consulta += "c.mumeroDoc LIKE :mumeroDoc";
+			//consulta += " AND eliminado = 'N'";
 
 			Query q = (Query) session.createQuery(consulta);
-			if(numeroCliente != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("numero","%" +  numeroCliente + "%");
+			if(numeroCliente != 0) ((org.hibernate.query.Query<Cliente>) q).setParameter("numero","%" +  numeroCliente + "%");
 			if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
 			if(apellido != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("apellido","%" +  apellido + "%");
 			

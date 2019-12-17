@@ -12,7 +12,7 @@ import ar.TpDisenio2019.Modelo.Cliente;
 
 public class GestorCliente {
 
-
+	static GestorBDCliente gestionCliente = new GestorBDCliente();
 
 	public static List<DTOCliente> buscarDtoscliente(DTOCliente Cli) {
 
@@ -20,7 +20,7 @@ public class GestorCliente {
 
 		List<DTOCliente> dtoListaCliente = new ArrayList<DTOCliente>();
 
-		listacliente = GestorBDCliente.buscarCliente( Cli);
+		listacliente = gestionCliente.buscarCliente(Cli);
 
 			for(Cliente cliente :listacliente) {
 				

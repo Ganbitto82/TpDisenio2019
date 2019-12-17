@@ -2,7 +2,6 @@ package ar.TpDisenio2019.ListaDesplegable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import ar.TpDisenio2019.DTO.DTOEstadocivil;
 import ar.TpDisenio2019.DTO.DTOLocalidad;

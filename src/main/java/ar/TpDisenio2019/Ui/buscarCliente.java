@@ -64,6 +64,8 @@ public class buscarCliente extends JFrame {
 			"Nro de Documento" };
 	private Object[][] datosDeLaTabla;
 	private JTable tabla;
+	Long numCliente;
+	int numeroDoc;
 
 	public buscarCliente() {
 
@@ -446,9 +448,23 @@ public class buscarCliente extends JFrame {
 					}
 
 				} else {
-					numeroCliente = " ";
-					bandera++;
+					String[] parts = numeroCliente.split("-");
+					String part1 = parts[0]; 
+					String part2 = parts[1];
+				    numeroCliente=part1.concat(part2);
+				    if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
+
+				    	numCliente= 0L;
+					
+				    
+				    else 
+				    	
+				    	 numCliente = Long.parseLong(numeroCliente);
+				    
+				        	
+					
 				}
+				
 				String nombre = nombreCliente.getText();
 
 				if (nombre.length() > 0) {
@@ -474,10 +490,12 @@ public class buscarCliente extends JFrame {
 				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
 
 				String numeroDeDocumento = docCliente.getText();
-
-				if (numeroDeDocumento.length() > 0 && (tipoDeDocumento.compareTo(" ") != 0)) {
+				
+				
+				if (Validaciones.validarNumeroDeCliente(numeroDeDocumento) != true) {
+				       if ( (tipoDeDocumento.compareTo(" ") != 0)) {
 					if (Validaciones.validarNumeroDeDocumento(numeroDeDocumento, tipoDeDocumento) == false) {
-						bandera++;
+						
 						if (tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (maximo 8)");
 						else if (tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
@@ -490,12 +508,29 @@ public class buscarCliente extends JFrame {
 									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 15)");
 						else
 							labelAclaracionSobreNumeroDeDocumento.setVisible(true);
+						bandera++;
 
 					}
+					}}
+				
+				else {
+					
+					if (Validaciones.validarNumeroDeCliente(numeroDeDocumento) == true) 
+
+				    	numeroDoc= 0;
+					
+				    
+				    else 
+				    	
+				    	numeroDoc = Integer.parseInt( numeroDeDocumento );
+					
+					
 				}
+					
+				
+		
 
 				List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
-				bandera = 0;
 				if (bandera != 0) {
 					btnBuscar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -515,14 +550,13 @@ public class buscarCliente extends JFrame {
 				} else {
 					DTOCliente buscarCliente = new DTOCliente();
 					DTOTipodedocumento tipo = new DTOTipodedocumento();
-					//Long numero = Long.parseLong(numeroCliente);
-					//buscarCliente.setNroCliente(numero);
+					buscarCliente.setNroCliente(numCliente);
 					buscarCliente.setNombre(nombre);
 					buscarCliente.setApellido(apellido);
 					tipo.setNombre(tipoDeDocumento);
 					buscarCliente.setTipodedocumento(tipo);
-					//int nrodoc = Integer.parseInt(numeroDeDocumento);
-					//buscarCliente.setNroDocumento(nrodoc);
+					buscarCliente.setNroDocumento(numeroDoc);
+					
 					listaDtosCliente = GestorCliente.buscarDtoscliente(buscarCliente);
 
 					if (listaDtosCliente.size() == 0) {
