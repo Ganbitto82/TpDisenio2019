@@ -6,6 +6,7 @@ import java.util.List;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.Modelo.Cliente;
+import ar.TpDisenio2019.Modelo.Tipodedocumento;
 
 
 
@@ -24,28 +25,26 @@ public class GestorCliente {
 
 			for(Cliente cliente :listacliente) {
 				
-				System.out.println(cliente.getIdCliente().toString());
-				System.out.println(cliente.getNombre().toString());
-				System.out.println(cliente.getApellido().toString());
-				
-				System.out.println(cliente.getTipodedocumento().getIdTipoDeDocumento().toString());
-//				System.out.println(cliente.getTipodedocumento().getNombre().toString());
-				
 				DTOCliente dtoCliente = new DTOCliente();
+				DTOTipodedocumento dtotipo= new DTOTipodedocumento(); 
+				
 				dtoCliente.setIdCliente(cliente.getIdCliente());
 				dtoCliente.setNroCliente(cliente.getNroCliente());
 				dtoCliente.setNombre(cliente.getNombre());
 				dtoCliente.setApellido(cliente.getApellido());
+				dtoCliente.setNroDocumento(cliente.getNroDocumento());								
 				
-								
-				DTOTipodedocumento dtoTipoDeDocumento =new DTOTipodedocumento(cliente.getTipodedocumento().getIdTipoDeDocumento(),cliente.getTipodedocumento().getNombre());
+				Tipodedocumento tipodocumento = gestionCliente.buscarPorId(cliente.getTipodedocumento().getIdTipoDeDocumento());
 				
-				dtoCliente.setNroDocumento(cliente.getNroDocumento());
+				dtotipo.setIdTipoDeDocumento(tipodocumento.getIdTipoDeDocumento());
+				dtotipo.setNombre(tipodocumento.getNombre());
 				
-				dtoCliente.setTipodedocumento(dtoTipoDeDocumento);
+				dtoCliente.setTipodedocumento(dtotipo);
 				dtoListaCliente.add(dtoCliente);
 			}
+			
 			return dtoListaCliente;
+			
 	}
 
 }
