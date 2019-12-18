@@ -64,7 +64,7 @@ public class buscarCliente extends JFrame {
 			"Nro de Documento" };
 	private Object[][] datosDeLaTabla;
 	private JTable tabla;
-	Long numCliente;
+	long numCliente;
 	int numeroDoc;
 
 	public buscarCliente() {
@@ -441,13 +441,14 @@ public class buscarCliente extends JFrame {
 				String numeroCliente = nroCliente.getText();
 
 				if (numeroCliente.compareTo("  -        ") != 0) {
-					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
+					
+					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
+					   {
 
 						labelAclaracionSobreNumerodeCliente.setVisible(true);
 						bandera++;
-					}
-
-				} else {
+					    }
+				    else {
 					String[] parts = numeroCliente.split("-");
 					String part1 = parts[0]; 
 					String part2 = parts[1];
@@ -455,15 +456,10 @@ public class buscarCliente extends JFrame {
 				    if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
 
 				    	numCliente= 0L;
-					
-				    
+								    
 				    else 
-				    	
-				    	 numCliente = Long.parseLong(numeroCliente);
-				    
-				        	
-					
-				}
+				    	numCliente = Long.parseLong(numeroCliente);
+				    }}
 				
 				String nombre = nombreCliente.getText();
 
