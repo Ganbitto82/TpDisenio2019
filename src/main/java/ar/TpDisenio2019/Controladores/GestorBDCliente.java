@@ -19,15 +19,15 @@ public class GestorBDCliente {
 	
 	public GestorBDCliente() {
 		 
-		this.clienteDao= new ClienteDaoImp( session.Conexion());
+		GestorBDCliente.clienteDao= new ClienteDaoImp( session.Conexion());
 		
 		
 	}
 	
-    public static List<Cliente> buscarCliente(DTOCliente dtocliente) {
+    public List<Cliente>  obtenerTodas() {
   
     	
-    	List<Cliente> listaCliente =clienteDao.buscarCliente(dtocliente);
+    	List<Cliente> listaCliente =clienteDao.obtenerTodas();
          	
 		return listaCliente;
 	}

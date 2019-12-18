@@ -21,32 +21,35 @@ public class PruebaConeccion {
 
          long numeroCliente=0155555551;
          DTOTipodedocumento dtoTipo =new DTOTipodedocumento();
-         
+         List<Cliente> listaclientes = new ArrayList<Cliente>();
+         System.out.println(""+numeroCliente);
 		//Cliente c=new Cliente();
 	  	DTOCliente dtoCliente =new DTOCliente();		 
 		dtoCliente.setNroCliente(numeroCliente);
+		
 	  	dtoCliente.setNombre("ANA MARIA"); 
 		dtoCliente.setApellido("ALVAREZ");
 		dtoTipo.setNombre("DNI");
 		dtoCliente.setTipodedocumento(dtoTipo);
 		
-		 buscarCliente
+		listaclientes =buscarCliente(dtoCliente);
 				 
 		 
 	}
 
 	
 	   @SuppressWarnings("unchecked")
-		public List<Cliente> buscarCliente(DTOCliente dtoCliente){
+		public static List<Cliente> buscarCliente(DTOCliente dtoCliente){
 			
 	    	ConexionBD conexion = new ConexionBD();
 	    	
-	    	Session session = (Session) conexion.Conexion();
+	    	Session session = conexion.Conexion().openSession();
 	    	
 	    	long numeroCliente= dtoCliente.getNroCliente();
+	    	
 			String nombre = dtoCliente.getNombre();
 			String apellido =dtoCliente.getApellido();
-			int nunmDoc =dtoCliente.getNroDocumento();
+			//int nunmDoc =dtoCliente.getNroDocumento();
 					
 			String tipo= dtoCliente.getTipodedocumento().getNombre();
 			
@@ -54,28 +57,15 @@ public class PruebaConeccion {
 			try{
 					
 				String consulta = new String("select c.idCliente, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento ,t.idTipoDeDocumento,"
-						+ "t.nombre from Cliente c , Tipodedocumento t where ");
-				if(numeroCliente != 0) consulta += "c.nroCliente = numeroCliente";
-				
-				
-				/*if (numeroCliente != 0 && nombre != "") consulta += " AND ";
-				if (nombre != "") consulta += "c.nombre LIKE :nombre";
-				if ((nombre != "" || numeroCliente != 0) && apellido != "") consulta += " AND ";
-				if (apellido != "") consulta += "c.apellido LIKE :apellido";
-				else if ((nombre != "" || numeroCliente != 0 ||apellido != "") && tipo != "") consulta += " AND ";
-				else if (tipo != "") consulta += "t.nombre = :tipo";
-				else if ((nombre != "" || numeroCliente != 0||apellido != "" || tipo != "") && nunmDoc != 0) consulta += " AND ";
-				else if (nunmDoc!= 0) consulta += "c.mumeroDoc LIKE :mumeroDoc";
-				//consulta += " AND eliminado = 'N'";*/
-
+						+ "t.nombre from Cliente c , Tipodedocumento  ");
+				//if(numeroCliente != 0) consulta += "c.nroCliente = numeroCliente";
+								
 				Query q = (Query) session.createQuery(consulta);
-				if(numeroCliente != 0)  ((org.hibernate.query.Query<Cliente>) q).setParameter("numeroCliente","%" +  numeroCliente + "%");
-				//if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
-				//if(apellido != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("apellido","%" +  apellido + "%");
+				//if(numeroCliente != 0)  ((org.hibernate.query.Query<Cliente>) q).setParameter("nroCliente",numeroCliente );
 				
 				
-				List<String> results = ((org.hibernate.query.Query<String>) q).getResultList();
-				//List<Cliente> clientes = new ArrayList<Cliente>();
+			 	List<String> results = ((org.hibernate.query.Query<String>) q).getResultList();
+			    List<Cliente> clientes = new ArrayList<Cliente>();
 				
 				for(String aux : results)
 					System.out.println(aux);
@@ -106,5 +96,5 @@ public class PruebaConeccion {
 				session.close();
 			}
 			
-		}
+	   }}
     

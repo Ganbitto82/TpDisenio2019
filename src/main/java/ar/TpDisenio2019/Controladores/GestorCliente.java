@@ -20,19 +20,29 @@ public class GestorCliente {
 
 		List<DTOCliente> dtoListaCliente = new ArrayList<DTOCliente>();
 
-		listacliente = gestionCliente.buscarCliente(Cli);
+		listacliente = gestionCliente.obtenerTodas();
 
 			for(Cliente cliente :listacliente) {
 				
-				DTOTipodedocumento dtoTipoDeDocumento =new DTOTipodedocumento(cliente.getTipodedocumento().getIdTipoDeDocumento(),cliente.getTipodedocumento().getNombre());
+				System.out.println(cliente.getIdCliente().toString());
+				System.out.println(cliente.getNombre().toString());
+				System.out.println(cliente.getApellido().toString());
+				
+				System.out.println(cliente.getTipodedocumento().getIdTipoDeDocumento().toString());
+//				System.out.println(cliente.getTipodedocumento().getNombre().toString());
+				
 				DTOCliente dtoCliente = new DTOCliente();
-				dtoCliente.setTipodedocumento(dtoTipoDeDocumento);
 				dtoCliente.setIdCliente(cliente.getIdCliente());
 				dtoCliente.setNroCliente(cliente.getNroCliente());
 				dtoCliente.setNombre(cliente.getNombre());
 				dtoCliente.setApellido(cliente.getApellido());
+				
+								
+				DTOTipodedocumento dtoTipoDeDocumento =new DTOTipodedocumento(cliente.getTipodedocumento().getIdTipoDeDocumento(),cliente.getTipodedocumento().getNombre());
+				
 				dtoCliente.setNroDocumento(cliente.getNroDocumento());
 				
+				dtoCliente.setTipodedocumento(dtoTipoDeDocumento);
 				dtoListaCliente.add(dtoCliente);
 			}
 			return dtoListaCliente;

@@ -66,6 +66,7 @@ public class buscarCliente extends JFrame {
 	private JTable tabla;
 	long numCliente;
 	int numeroDoc;
+	int numeroDeDocumento;
 
 	public buscarCliente() {
 
@@ -488,26 +489,31 @@ public class buscarCliente extends JFrame {
 				String numeroDeDocumento = docCliente.getText();
 				
 				
-				if (Validaciones.validarNumeroDeCliente(numeroDeDocumento) != true) {
-				       if ( (tipoDeDocumento.compareTo(" ") != 0)) {
+				if (numeroDeDocumento.length() > 0 && tipoDeDocumento.compareTo("") != 0) {
 					if (Validaciones.validarNumeroDeDocumento(numeroDeDocumento, tipoDeDocumento) == false) {
-						
+                      
 						if (tipoDeDocumento.compareTo("DNI") == 0)
-							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (maximo 8)");
-						else if (tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
-							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (maximo 7)");
-						else if (tipoDeDocumento.compareTo("Pasaporte") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 8)");
+
+						if (tipoDeDocumento.compareTo("L.E") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 7)");
+
+						if (tipoDeDocumento.compareTo("REG. UNICO DE CONTRIBUYENTES") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 11)");
+
+						if (tipoDeDocumento.compareTo("PASAPORTE") == 0)
 							labelAclaracionSobreNumeroDeDocumento
-									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 9)");
-						else if (tipoDeDocumento.compareTo("Otro") == 0)
+									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 12)");
+
+						if (tipoDeDocumento.compareTo("PART. DE NACIMIENTO-IDENTIDAD") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 15)");
+
+						if (tipoDeDocumento.compareTo("OTROS") == 0)
 							labelAclaracionSobreNumeroDeDocumento
-									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 15)");
-						else
-							labelAclaracionSobreNumeroDeDocumento.setVisible(true);
-						bandera++;
+									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
 
 					}
-					}}
+				}
 				
 				else {
 					
