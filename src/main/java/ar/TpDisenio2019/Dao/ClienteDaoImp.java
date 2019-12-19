@@ -13,10 +13,19 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTODireccion;
+import ar.TpDisenio2019.DTO.DTOLocalidad;
+import ar.TpDisenio2019.DTO.DTOPais;
+import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.Modelo.Cliente;
+import ar.TpDisenio2019.Modelo.Localidad;
+import ar.TpDisenio2019.Modelo.Pais;
+import ar.TpDisenio2019.Modelo.Provincia;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
+
 
 
 
@@ -72,143 +81,78 @@ public class ClienteDaoImp implements ClienteDao {
     }
     
     
-   /* public  List<Cliente> finder(DTOCliente dtocliente){
-
-    	Session session = sessionFactory.openSession();
-    	
-    	long n= dtocliente.getNroCliente();
-		String nombre = dtocliente.getNombre();
-		String apellido =dtocliente.getApellido();
-		int numDoc =dtocliente.getNroDocumento();
-				
-		String tipo= dtocliente.getTipodedocumento().getNombre();
-		
-		String numero;
-		if(n==-1) numero=null;
-		else numero= String.valueOf(n);
-		
-		
-		
-		try{
-			session.beginTransaction();
-			
-			
-			String consulta = new String("select c.idCliente, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento ,t.idTipoDeDocumento,"
-					+ "t.nombre from Cliente c , Tipodedocumento t where ");
-			if(numero != null) consulta += "CAST(nroCandidato as string) LIKE :numero";
-			if (numero != null && nombre != null) consulta += " AND ";
-			if (nombre != null) consulta += "nombre LIKE :nombre";
-			if ((nombre != null || numero != null) && apellido != null) consulta += " AND ";
-			if (apellido != null) consulta += "apellido LIKE :apellido";
-			consulta += " AND eliminado = 'N'"; //Ni idea por qué funciona esto cuando no le pasas nada pero funciona
-			
-			Query q = (Query) session.createQuery(consulta);
-			if(numero != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("numero","%" +  numero + "%");
-			if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
-			if(apellido != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("apellido","%" +  apellido + "%");
-			
-			
-			
-			List<Cliente> results = ((org.hibernate.query.Query<Cliente>) q).getResultList();
-			List<Cliente> candidatos = new ArrayList<Cliente>();
-			
-			for(Cliente aux : results){
-				
-				Cliente c = new Cliente();
-				
-				Tipodedocumento tipoDoc =new Tipodedocumento(); 
-				tipoDoc.setIdTipoDeDocumento(c.setTipodedocumento(tipodedocumento););
-				tipoDoc.setNombre(aux.getTipodedocumento().getNombre());
-				c.setTipodedocumento(tipoDoc);
-				c.setNroDocumento(aux.getNroDocumento());
-				c.setNombre(aux.getNombre());
-				c.setApellido(aux.getApellido());
-				c.setNroCliente(aux.getNroCliente());
-				clientes.add(c);
-			}
-		
-		return candidatos;
-		
-		} catch (RuntimeException re) {
-			System.out.println("Problema al buscar");
-			throw re;
-		}finally{
-			session.close();
-		}
-		
-	}*/
-	
-    
+   /*
+    * 
+    * public List<ClienteDTO> getClientesDTO(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<ClienteDTO> resultado = new ArrayList<>();
+        List<Cliente> e = (List<Cliente>) session.createCriteria(Cliente.class).list();
+        ClienteDTO nuevo;
+        TipoDocumentoDTO tipoDocumento;
+        Pais p; PaisDTO pdto;
+        Provincia prov; ProvinciaDTO provdto;
+        Localidad loc; LocalidadDTO locdto;
+        DomicilioDTO dom;
+        for(Cliente m : e){
+            tipoDocumento = new TipoDocumentoDTO(m.getTipoDocumento().getId(),m.getTipoDocumento().getTipo());
+            p = m.getDomicilio().getLocalidad().getProvincia().getPais();
+            pdto = new PaisDTO(p.getId(),p.getNombre());
+            prov= m.getDomicilio().getLocalidad().getProvincia();
+            provdto= new ProvinciaDTO(prov.getId(),prov.getNombre(),pdto);
+            loc = m.getDomicilio().getLocalidad();
+            locdto = new LocalidadDTO(loc.getId(),loc.getNombre(),provdto);
+            dom = new DomicilioDTO(m.getDomicilio().getNombreCalle(),m.getDomicilio().getNumero(),m.getDomicilio().getPiso(),m.getDomicilio().getDepartamento(),m.getDomicilio().getCodigoPostal(),locdto,m.getDomicilio().getId());
+            nuevo = new ClienteDTO(m.getNroCliente(),m.getId(),m.getNroDocumento(),m.getNombre(),m.getApellido(),tipoDocumento,dom);
+            resultado.add(nuevo);
+        }
+        session.close();
+        return resultado;  
+   }
+    * 
+    * 
+    * 
+    * 
+    * 
+    * */
   
-   @SuppressWarnings("unchecked")
-	public List<Cliente> buscarCliente(DTOCliente dtoCliente){
-		
-    	
-    	Session session = sessionFactory.openSession();
-    	
-    	long numeroCliente= dtoCliente.getNroCliente();
-		String nombre = dtoCliente.getNombre();
-		String apellido =dtoCliente.getApellido();
-		int nunmDoc =dtoCliente.getNroDocumento();
-				
-		String tipo= dtoCliente.getTipodedocumento().getNombre();
-		
-				
-		try{
-				
-			String consulta = new String("select c.idCliente, c.nombre, c.apellido ,c.nroCliente ,c.nroDocumento ,t.idTipoDeDocumento,"
-					+ "t.nombre from Cliente c , Tipodedocumento t where ");
-			if(numeroCliente != 0) consulta += "c.nroCliente = numeroCliente";
-			
-			
-			/*if (numeroCliente != 0 && nombre != "") consulta += " AND ";
-			if (nombre != "") consulta += "c.nombre LIKE :nombre";
-			if ((nombre != "" || numeroCliente != 0) && apellido != "") consulta += " AND ";
-			if (apellido != "") consulta += "c.apellido LIKE :apellido";
-			else if ((nombre != "" || numeroCliente != 0 ||apellido != "") && tipo != "") consulta += " AND ";
-			else if (tipo != "") consulta += "t.nombre = :tipo";
-			else if ((nombre != "" || numeroCliente != 0||apellido != "" || tipo != "") && nunmDoc != 0) consulta += " AND ";
-			else if (nunmDoc!= 0) consulta += "c.mumeroDoc LIKE :mumeroDoc";
-			//consulta += " AND eliminado = 'N'";*/
-
-			Query q = (Query) session.createQuery(consulta);
-			if(numeroCliente != 0)  ((org.hibernate.query.Query<Cliente>) q).setParameter("numeroCliente","%" +  numeroCliente + "%");
-			//if(nombre != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("nombre","%" +  nombre + "%");
-			//if(apellido != null) ((org.hibernate.query.Query<Cliente>) q).setParameter("apellido","%" +  apellido + "%");
-			
-			
-			List<String> results = ((org.hibernate.query.Query<String>) q).getResultList();
-			//List<Cliente> clientes = new ArrayList<Cliente>();
-			
-			for(String aux : results)
-				System.out.println(aux);
-			
-			/*for(String aux : results){
-				
-				Cliente c = new Cliente();
-				
-				Tipodedocumento tipoDoc =new Tipodedocumento(); 
-				tipoDoc.setIdTipoDeDocumento(c.setTipodedocumento(tipodedocumento););
-				tipoDoc.setNombre(aux.getTipodedocumento().getNombre());
-				c.setTipodedocumento(tipoDoc);
-				c.setNroDocumento(aux.getNroDocumento());
-				c.setNombre(aux.getNombre());
-				c.setApellido(aux.getApellido());
-				c.setNroCliente(aux.getNroCliente());
-							 
-				
-				clientes.add(c);*/
-			return null;
-		
-		//return clientes;
-		
-		} catch (RuntimeException re) {
-			System.out.println("Problema al buscar");
-			throw re;
-		}finally{
-			session.close();
-		}
-		
-	}
- 
+    public List<DTOCliente> obtenerDTOClientes() {
+        
+   	 Session session = sessionFactory.openSession();
+   	 session.beginTransaction();
+   	 CriteriaQuery<Cliente> cq = session.getCriteriaBuilder().createQuery(Cliente.class);
+	
+   	 cq.from(Cliente.class);
+   	 List<DTOCliente> listaDtoCliente = new ArrayList<>();
+   	 List<Cliente> clientes = session.createQuery(cq).getResultList();
+   	  DTOCliente nuevo;
+   	  DTOTipodedocumento tipoDocumento;
+   	  Pais pais;
+   	  DTOPais dtopais;
+      Provincia provincia; 
+      DTOProvincia dtoprovincia;
+      Localidad localidad; 
+      DTOLocalidad dtolocalidad;
+      DTODireccion direccion;
+      
+      for(Cliente c : clientes){
+          tipoDocumento = new DTOTipodedocumento(c.getTipodedocumento().getIdTipoDeDocumento(),c.getTipodedocumento().getNombre());
+          pais = c.getDireccion().getLocalidad().getProvincia().getPais();
+          dtopais = new DTOPais(pais.getIdPais(),pais.getNombre());
+          provincia= c.getDireccion().getLocalidad().getProvincia();
+          dtoprovincia= new DTOProvincia(provincia.getIdProvincia(),provincia.getNombre(),dtopais);
+          localidad = c.getDireccion().getLocalidad();
+          dtolocalidad = new DTOLocalidad(localidad.getIdLocalidad(),localidad.getNombre(),dtoprovincia);
+          
+          direccion = new DTODireccion(c.getDireccion().getIdDireccion(),c.getDireccion().getCalle(),c.getDireccion().getNumero(),c.getDireccion().getPiso(),c.getDireccion().getDepartamento(),dtolocalidad);
+          
+          
+          nuevo = new DTOCliente(c.getNroCliente(),c.getIdCliente(),c.getNroDocumento(),c.getNombre(),c.getApellido(),tipoDocumento, direccion);
+          listaDtoCliente.add(nuevo);
+      }
+       session.close();
+       
+       return listaDtoCliente;
+   }
+   
 }

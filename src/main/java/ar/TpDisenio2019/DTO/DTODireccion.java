@@ -24,8 +24,8 @@ public class DTODireccion  {
 	}
 	
 	
-	public DTODireccion(int idDireccion, DTOLocalidad idLocalidad, String calle, Integer numero, Integer piso,
-			String departamento) {
+	public DTODireccion(int idDireccion, String calle, Integer numero, Integer piso,
+			String departamento, DTOLocalidad idLocalidad) {
 		super();
 		this.idDireccion = idDireccion;
 		this.localidad = idLocalidad;

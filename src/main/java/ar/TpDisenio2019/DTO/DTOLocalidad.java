@@ -16,7 +16,7 @@ public class DTOLocalidad  {
 	}
 	
 	
-	public DTOLocalidad(int idLocalidad, DTOProvincia idProvincia, String nombre) {
+	public DTOLocalidad(int idLocalidad, String nombre,DTOProvincia idProvincia) {
 		super();
 		this.idLocalidad = idLocalidad;
 		this.provincia = idProvincia;

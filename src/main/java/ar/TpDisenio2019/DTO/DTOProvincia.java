@@ -16,7 +16,7 @@ public class DTOProvincia  {
 	
 	
 	
-	public DTOProvincia(int idProvincia, DTOPais idPais, String nombre) {
+	public DTOProvincia(int idProvincia, String nombre, DTOPais idPais) {
 		super();
 		this.idProvincia = idProvincia;
 		this.pais = idPais;

@@ -28,21 +28,15 @@ public class GestorBDCliente {
 		
 	}
 	
-    public List<Cliente>  obtenerTodas() {
+    public List<DTOCliente>  obtenerDTOCliente() {
   
     	
-    	List<Cliente> listaCliente =clienteDao.obtenerTodas();
+    	List<DTOCliente> listaCliente =clienteDao.obtenerDTOClientes();
          	
 		return listaCliente;
 	}
     
-  public Tipodedocumento buscarPorId (int idTipodedocumento) {
-  
-    	
-	  Tipodedocumento tipo =tipodedocumentoDao.buscarPorId(idTipodedocumento);
-         	
-		return  tipo ;
-	}
+ 
     
     
     

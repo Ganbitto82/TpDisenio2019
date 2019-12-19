@@ -44,6 +44,17 @@ public class DTOCliente {
 		this.nroCliente = nroCliente;
 	}
 
+	public DTOCliente(Long nroCliente, int idCliente,Integer nroDocumento,  String nombre, String apellido,	DTOTipodedocumento idTipoDeDocumento,DTODireccion idDireccion) {
+		super();
+		this.idCliente = idCliente;
+		this.direccion = idDireccion;
+		this.tipodedocumento = idTipoDeDocumento;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nroDocumento = nroDocumento;
+
+		this.nroCliente = nroCliente;
+	}
 	
 	public DTOEstadocivil getEstadoCivil() {
 		return estadoCivil;

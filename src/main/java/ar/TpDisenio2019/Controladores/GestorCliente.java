@@ -17,31 +17,14 @@ public class GestorCliente {
 
 	public static List<DTOCliente> buscarDtoscliente(DTOCliente Cli) {
 
-		List<Cliente> listacliente = new ArrayList<Cliente>();
+		
 
 		List<DTOCliente> dtoListaCliente = new ArrayList<DTOCliente>();
 
-		listacliente = gestionCliente.obtenerTodas();
-
-			for(Cliente cliente :listacliente) {
+		dtoListaCliente = gestionCliente. obtenerDTOCliente();
+	
 				
-				DTOCliente dtoCliente = new DTOCliente();
-				DTOTipodedocumento dtotipo= new DTOTipodedocumento(); 
-				
-				dtoCliente.setIdCliente(cliente.getIdCliente());
-				dtoCliente.setNroCliente(cliente.getNroCliente());
-				dtoCliente.setNombre(cliente.getNombre());
-				dtoCliente.setApellido(cliente.getApellido());
-				dtoCliente.setNroDocumento(cliente.getNroDocumento());								
-				
-				Tipodedocumento tipodocumento = gestionCliente.buscarPorId(cliente.getTipodedocumento().getIdTipoDeDocumento());
-				
-				dtotipo.setIdTipoDeDocumento(tipodocumento.getIdTipoDeDocumento());
-				dtotipo.setNombre(tipodocumento.getNombre());
-				
-				dtoCliente.setTipodedocumento(dtotipo);
-				dtoListaCliente.add(dtoCliente);
-			}
+	
 			
 			return dtoListaCliente;
 			

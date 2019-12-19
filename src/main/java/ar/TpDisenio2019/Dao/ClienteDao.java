@@ -15,7 +15,7 @@ public interface ClienteDao {
     
     public List<Cliente> obtenerTodas();
     
-    public List<Cliente> buscarCliente(DTOCliente cliente);
+    public List<DTOCliente>  obtenerDTOClientes() ;
     
     
 }
