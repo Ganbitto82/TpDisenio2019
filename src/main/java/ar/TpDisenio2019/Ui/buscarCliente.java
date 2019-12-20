@@ -25,7 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
-import ar.TpDisenio2019.Controladores.GestorCliente;
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
@@ -559,7 +559,7 @@ public class buscarCliente extends JFrame {
 					buscarCliente.setTipodedocumento(tipo);
 					buscarCliente.setNroDocumento(numeroDoc);
 					
-					listaDtosCliente = GestorCliente.buscarDtoscliente(buscarCliente);
+					listaDtosCliente = GestorPoliza.buscarDtoscliente(buscarCliente);
 
 					if (listaDtosCliente.size() == 0) {
 

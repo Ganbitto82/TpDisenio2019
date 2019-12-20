@@ -24,6 +24,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOProvincia;
@@ -605,7 +606,7 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_CantHijos.gridy = 9;
 		pnl_IngresoDeDatos.add(textField_CantHijos, gbc_textField_CantHijos);
 		
-				
+						
 		JButton btnCompletarHijos = new JButton("Completar");
 		btnCompletarHijos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -613,8 +614,8 @@ public class darDeAltaPoliza extends JFrame {
 				int numeroHijos = Integer.valueOf(nroHijos);
 				
 				new PantallaAgregarHijos(numeroHijos);
-
-						
+				
+				int cantidadHijosMayores=0;
 				if(numeroHijos >= 18 && numeroHijos <= 30)
 				{
 					if(e.getSource() == btnCompletarHijos)
