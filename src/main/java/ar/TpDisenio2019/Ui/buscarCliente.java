@@ -60,9 +60,9 @@ public class buscarCliente extends JFrame {
 	private JLabel labelAclaracionSobreNumerodeCliente;
 
 	private JScrollPane scrollPane;
-	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Doc",
+	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento",
 			"Nro de Documento" };
-	private Object[][] datosDeLaTabla;
+	private String[][] datosDeLaTabla;
 	private JTable tabla;
 	long numCliente;
 	int numeroDoc;
@@ -113,7 +113,7 @@ public class buscarCliente extends JFrame {
 
 		// datos de tabla
 		scrollPane = new JScrollPane();
-		datosDeLaTabla = new Object[24][5];
+		datosDeLaTabla = new String[24][5];
 		tabla = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
 
 		tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
@@ -568,28 +568,34 @@ public class buscarCliente extends JFrame {
 					}
 
 					else {
-						datosDeLaTabla = new Object[listaDtosCliente.size()][5];
-
-						for (int i = 0; i < listaDtosCliente.size(); i++) {
-							datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente();
-							datosDeLaTabla[i][1] = listaDtosCliente.get(i).getNombre();
-							datosDeLaTabla[i][2] = listaDtosCliente.get(i).getApellido();
-							datosDeLaTabla[i][3] = listaDtosCliente.get(i).getTipodedocumento().getNombre();
-							datosDeLaTabla[i][4] = listaDtosCliente.get(i).getNroDocumento();
-						}
-
-						tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
-						tabla.getColumnModel().getColumn(3).setPreferredWidth(156);
-						tabla.setColumnSelectionAllowed(true);
-
-						tabla.setModel(new DefaultTableModel(datosDeLaTabla, new String[] { "Apellido", "Nombre",
-								"Tipo de Documento", "N\u00FAmero de Documento" }));
-
-						scrollPane.setViewportView(tabla);
+						
+						construirTabla(listaDtosCliente);
+						
 
 					}
 				}
 
+			}
+
+			private void construirTabla(List<DTOCliente> listaDtosCliente) {
+				String[] 	nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento","Nro de Documento" };
+				String informacion[][]=obtenerMatriz(listaDtosCliente); 
+				tabla=new JTable(informacion,nombresDeLasColumnasDeLaTabla);
+				scrollPane.setViewportView(tabla);
+				
+			}
+
+			private String[][] obtenerMatriz(List<DTOCliente> listaDtosCliente) {
+				datosDeLaTabla = new String[listaDtosCliente.size()][5];
+
+				for (int i = 0; i < listaDtosCliente.size(); i++) {
+					datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente() +"";
+					datosDeLaTabla[i][1] = listaDtosCliente.get(i).getNombre()+"";
+					datosDeLaTabla[i][2] = listaDtosCliente.get(i).getApellido()+"";
+					datosDeLaTabla[i][3] = listaDtosCliente.get(i).getTipodedocumento().getNombre()+"";
+					datosDeLaTabla[i][4] = listaDtosCliente.get(i).getNroDocumento()+"";
+				}
+				return datosDeLaTabla;
 			}
 		});
 

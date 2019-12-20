@@ -81,41 +81,7 @@ public class ClienteDaoImp implements ClienteDao {
     }
     
     
-   /*
-    * 
-    * public List<ClienteDTO> getClientesDTO(){
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        List<ClienteDTO> resultado = new ArrayList<>();
-        List<Cliente> e = (List<Cliente>) session.createCriteria(Cliente.class).list();
-        ClienteDTO nuevo;
-        TipoDocumentoDTO tipoDocumento;
-        Pais p; PaisDTO pdto;
-        Provincia prov; ProvinciaDTO provdto;
-        Localidad loc; LocalidadDTO locdto;
-        DomicilioDTO dom;
-        for(Cliente m : e){
-            tipoDocumento = new TipoDocumentoDTO(m.getTipoDocumento().getId(),m.getTipoDocumento().getTipo());
-            p = m.getDomicilio().getLocalidad().getProvincia().getPais();
-            pdto = new PaisDTO(p.getId(),p.getNombre());
-            prov= m.getDomicilio().getLocalidad().getProvincia();
-            provdto= new ProvinciaDTO(prov.getId(),prov.getNombre(),pdto);
-            loc = m.getDomicilio().getLocalidad();
-            locdto = new LocalidadDTO(loc.getId(),loc.getNombre(),provdto);
-            dom = new DomicilioDTO(m.getDomicilio().getNombreCalle(),m.getDomicilio().getNumero(),m.getDomicilio().getPiso(),m.getDomicilio().getDepartamento(),m.getDomicilio().getCodigoPostal(),locdto,m.getDomicilio().getId());
-            nuevo = new ClienteDTO(m.getNroCliente(),m.getId(),m.getNroDocumento(),m.getNombre(),m.getApellido(),tipoDocumento,dom);
-            resultado.add(nuevo);
-        }
-        session.close();
-        return resultado;  
-   }
-    * 
-    * 
-    * 
-    * 
-    * 
-    * */
-  
+   
     public List<DTOCliente> obtenerDTOClientes() {
         
    	 Session session = sessionFactory.openSession();
