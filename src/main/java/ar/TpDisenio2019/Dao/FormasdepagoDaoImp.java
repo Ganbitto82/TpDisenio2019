@@ -2,11 +2,15 @@ package ar.TpDisenio2019.Dao;
 
 
 
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import ar.TpDisenio2019.Modelo.Aniodevehiculo;
 import ar.TpDisenio2019.Modelo.Formasdepago;
 
 
@@ -43,6 +47,21 @@ public class FormasdepagoDaoImp implements FormasdepagoDao  {
         session.getTransaction().commit();
         session.close();
     }
+
+	@Override
+	public List<Formasdepago> obtenerTodas() {
+		// TODO Auto-generated method stub
+		 Session session = sessionFactory.openSession();
+    	 CriteriaQuery<Formasdepago> cq = session.getCriteriaBuilder().createQuery(Formasdepago.class);
+	
+    	 cq.from(Formasdepago.class);
+    	 List<Formasdepago> formasdepago = session.createQuery(cq).getResultList();
+    
+        session.close();
+        
+        return formasdepago;
+
+	}
 
 
 }
