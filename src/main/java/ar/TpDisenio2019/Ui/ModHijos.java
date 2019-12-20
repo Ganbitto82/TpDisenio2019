@@ -37,8 +37,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class ModHijos extends JFrame {
@@ -46,12 +48,16 @@ public class ModHijos extends JFrame {
 	private JTable table;
 	private Object[][] datosDeLaTablaPrincipal;
 	private DefaultTableModel modelo;
-	
+	private JButton btnAgregar = new JButton("Agregar");;
+	private JButton btnModificar = new JButton("Modificar");
+	private JButton btnEliminar = new JButton("Eliminar");
+	private JButton btnAceptar = new JButton("Aceptar");
+	private JButton btnCancelar = new JButton("Cancelar");
 
 	/**
 	 * Create the application.
 	 */
-	public ModHijos( int numeroHijos) {
+	public ModHijos(int numeroHijos) {
 		initialize(numeroHijos);
 	}
 
@@ -96,25 +102,7 @@ public class ModHijos extends JFrame {
 		
 		JPanel panel_TablaHijos = new JPanel();
 		
-		JButton btnAgregar = new JButton("Agregar");
-/*
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-*/		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		
-		JButton btnAceptar = new JButton("Aceptar");
-		
-		JButton btnCancelar = new JButton("Cancelar");
 		GroupLayout gl_panel_contenido = new GroupLayout(panel_contenido);
 		gl_panel_contenido.setHorizontalGroup(
 			gl_panel_contenido.createParallelGroup(Alignment.LEADING)
@@ -183,6 +171,8 @@ public class ModHijos extends JFrame {
 		 modelo = null;
 		 String nomcols[]={"Fecha de Nacimiento", "Sexo", "Estado Civil"};
 		  
+		// GestorPoliza.buscarHijosCliente(idCliente);
+		 
 		  if(numeroHijos > 0)
 			{	
 				datosDeLaTablaPrincipal = new Object[numeroHijos][3];
@@ -229,11 +219,19 @@ public class ModHijos extends JFrame {
 		panel_TablaHijos.setLayout(gl_panel_TablaHijos);
 		panel_contenido.setLayout(gl_panel_contenido);
 		
+		btnCancelar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				dispose();
+			}
+				});
 		
 		btnAgregar.addActionListener(new ActionListener(){
 			   public void actionPerformed(ActionEvent arg0) {
 			    String s[]={""," "," "};
 			    modelo.addRow(s);
+			   
 			   }
 			   
 			  });
@@ -273,5 +271,33 @@ public class ModHijos extends JFrame {
 			}
 		
 		});
+		
+		btnAceptar.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				int banderas = 0;
+								
+				List<DTODatosdehijo> listaDtosHijos=new ArrayList<DTODatosdehijo>();
+				
+				 // GestorPoliza.buscarHijosCliente(idCliente);
+				
+				int filas=modelo.getRowCount();
+						
+				for(int i = 0; i < filas; i++)
+				{	
+					DTODatosdehijo dtoNuevoHijo= new DTODatosdehijo();
+					dtoNuevoHijo.setIdDatosHijo(i);
+					dtoNuevoHijo.setFecha((Date)modelo.getValueAt(i, 0));
+					dtoNuevoHijo.setSexo((String) modelo.getValueAt(i, 1));
+					//DTOEstadoCivil estadoCivilHijo = GestionarPoliza.buscarEstadoCivilPorNombre(modelo.getValueAt(i, 2))
+					//dtoNuevoHijo.setEstadocivil((String) modelo.getValueAt(i, 2));
+					listaDtosHijos.add(dtoNuevoHijo);
+				}
+			}		
+			});
+		//GestorPoliza.agregarDtosHijos(listaDtosHijos);
 	}
 }
+					
+
