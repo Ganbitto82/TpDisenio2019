@@ -30,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.text.MaskFormatter;
 
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 
@@ -294,9 +295,10 @@ public class ModHijos extends JFrame {
 					//dtoNuevoHijo.setEstadocivil((String) modelo.getValueAt(i, 2));
 					listaDtosHijos.add(dtoNuevoHijo);
 				}
+				GestorPoliza.agregarDtosHijos(listaDtosHijos);
 			}		
 			});
-		//GestorPoliza.agregarDtosHijos(listaDtosHijos);
+		
 	}
 }
 					
