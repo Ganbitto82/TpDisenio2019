@@ -12,6 +12,6 @@ public class GestorPoliza {
 
 
 	public static List<DTOCliente> buscarDtoscliente(DTOCliente Cli) {
-		return gestorCliente.buscarDtoscliente(Cli);
+		return GestorCliente.buscarDtoscliente(Cli);
 	}
 }

@@ -17,13 +17,11 @@ public class GestorCliente {
 
 	public static List<DTOCliente> buscarDtoscliente(DTOCliente Cli) {
 
-		
-
 		List<DTOCliente> dtoListaCliente = new ArrayList<DTOCliente>();
 
-		dtoListaCliente = gestionCliente. obtenerDTOCliente();
+		dtoListaCliente = gestionCliente.obtenerDTOCliente();
 	
-				
+			
 	
 			
 			return dtoListaCliente;

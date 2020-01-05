@@ -8,6 +8,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -22,13 +24,14 @@ import javax.swing.border.BevelBorder;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+
 import javax.swing.text.MaskFormatter;
 
 import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
+import ar.TpDisenio2019.Modelo.Cliente;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.Validaciones;
 
@@ -55,19 +58,23 @@ public class buscarCliente extends JFrame {
 	private JTextField docCliente;
 	private JFormattedTextField nroCliente;
 	private String tipoDeDocumento;
-	List<DTOTipodedocumento> dtoListaTipoDocumento = new ArrayList<DTOTipodedocumento>();
-
+	private List<DTOTipodedocumento> dtoListaTipoDocumento = new ArrayList<DTOTipodedocumento>();
+    private  List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
+  
+    
+    
 	private JLabel labelAclaracionSobreNumerodeCliente;
 
 	private JScrollPane scrollPane;
 	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento",
 			"Nro de Documento" };
-	private String[][] datosDeLaTabla;
-	private JTable tabla;
+	private Object[][]datosDeLaTabla;
+	private JTable tablaCliente;
 	long numCliente;
 	int numeroDoc;
 	int numeroDeDocumento;
 
+	
 	public buscarCliente() {
 
 		setTitle("Buscar DTOCliente");
@@ -87,21 +94,7 @@ public class buscarCliente extends JFrame {
 
 		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
 
-		JButton button_1 = new JButton("Aceptar");
-		button_1.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == button_1) {
-					buscarCliente1 b = new buscarCliente1();
-					b.setVisible(true);
-					b.setResizable(false);
-					b.setLocationRelativeTo(null);
-					hide();
-				}
-			}
-		});
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-
+		
 		JButton button_2 = new JButton("Cancelar");
 		button_2.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
@@ -113,32 +106,16 @@ public class buscarCliente extends JFrame {
 
 		// datos de tabla
 		scrollPane = new JScrollPane();
-		datosDeLaTabla = new String[24][5];
-		tabla = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+	
+		datosDeLaTabla = new Object[24][5];
+		 tablaCliente = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+		 tablaCliente.setCellSelectionEnabled(true);
 
-		tabla.getColumnModel().getColumn(2).setPreferredWidth(119);
-		tabla.getColumnModel().getColumn(3).setPreferredWidth(118);
-		scrollPane.setViewportView(tabla);
+		 tablaCliente.getColumnModel().getColumn(2).setPreferredWidth(119);
+		 tablaCliente.getColumnModel().getColumn(3).setPreferredWidth(118);
+		scrollPane.setViewportView( tablaCliente);
 
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap(87, Short.MAX_VALUE)
-						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE).addGap(45)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
-				.addGroup(gl_panel_3.createSequentialGroup().addGap(19).addComponent(lblSeleccioneUnCliente)
-						.addContainerGap(644, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup().addContainerGap()
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE).addContainerGap()));
-		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup().addGap(20).addComponent(lblSeleccioneUnCliente)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
-						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-								.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-						.addGap(19)));
-		panel_3.setLayout(gl_panel_3);
-
+	
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(5, 94, 774, 211);
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -436,6 +413,8 @@ public class buscarCliente extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 
 		btnBuscar.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
 
 				int bandera = 0;
@@ -532,7 +511,7 @@ public class buscarCliente extends JFrame {
 				
 		
 
-				List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
+				
 				if (bandera != 0) {
 					btnBuscar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -560,7 +539,8 @@ public class buscarCliente extends JFrame {
 					buscarCliente.setNroDocumento(numeroDoc);
 					
 					listaDtosCliente = GestorPoliza.buscarDtoscliente(buscarCliente);
-
+		
+					
 					if (listaDtosCliente.size() == 0) {
 
 						setTitle("AltaPoliza");
@@ -570,23 +550,22 @@ public class buscarCliente extends JFrame {
 					else {
 						
 						construirTabla(listaDtosCliente);
-						
-
+					
 					}
 				}
 
 			}
-
+		
 			private void construirTabla(List<DTOCliente> listaDtosCliente) {
 				String[] 	nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento","Nro de Documento" };
-				String informacion[][]=obtenerMatriz(listaDtosCliente); 
-				tabla=new JTable(informacion,nombresDeLasColumnasDeLaTabla);
-				scrollPane.setViewportView(tabla);
+				Object[][] informacion=obtenerMatriz(listaDtosCliente); 
+				 tablaCliente=new JTable(informacion,nombresDeLasColumnasDeLaTabla);
+				scrollPane.setViewportView( tablaCliente);
 				
 			}
 
-			private String[][] obtenerMatriz(List<DTOCliente> listaDtosCliente) {
-				datosDeLaTabla = new String[listaDtosCliente.size()][5];
+			private Object[][] obtenerMatriz(List<DTOCliente> listaDtosCliente) {
+				datosDeLaTabla = new Object[listaDtosCliente.size()][5];
 
 				for (int i = 0; i < listaDtosCliente.size(); i++) {
 					datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente() +"";
@@ -598,6 +577,46 @@ public class buscarCliente extends JFrame {
 				return datosDeLaTabla;
 			}
 		});
+		
+		
+
+		JButton button_Aceptar = new JButton("Aceptar");
+		button_Aceptar.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+              if(e.getSource()==button_Aceptar) {
+				
+            	 
+				int filaSeleccion= tablaCliente.getSelectedRow();
+			
+				
+				try {
+					
+					if (filaSeleccion==-1)
+						JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente","Advertencia",JOptionPane.WARNING_MESSAGE);
+					else 
+					{
+						
+						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion-1));
+						b.setVisible(true);
+						b.setResizable(false);
+						b.setLocationRelativeTo(null);
+						
+						
+					}
+					
+				}catch (Exception e1) {
+					
+					
+					
+				}
+              }
+			}
+		});
+		
+		
+		button_Aceptar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+
 
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1
@@ -615,6 +634,26 @@ public class buscarCliente extends JFrame {
 						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnBuscar).addContainerGap()));
 		panel_1.setLayout(gl_panel_1);
+		
+		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap(87, Short.MAX_VALUE)
+						.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE).addGap(45)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
+				.addGroup(gl_panel_3.createSequentialGroup().addGap(19).addComponent(lblSeleccioneUnCliente)
+						.addContainerGap(644, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup().addContainerGap()
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE).addContainerGap()));
+		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup().addGap(20).addComponent(lblSeleccioneUnCliente)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+						.addGap(19)));
+		panel_3.setLayout(gl_panel_3);
+
 		contentPane.setLayout(null);
 		contentPane.add(panel_3);
 		contentPane.add(panel_1);
