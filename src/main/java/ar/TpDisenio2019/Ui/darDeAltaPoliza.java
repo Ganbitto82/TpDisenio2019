@@ -92,7 +92,7 @@ public class darDeAltaPoliza extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (e.getSource() == btnBuscarCliente) {
-
+                                    dispose();
 									buscarCliente m = new buscarCliente();
 									m.setVisible(true);
 									m.setResizable(false);

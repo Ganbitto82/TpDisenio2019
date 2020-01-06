@@ -77,7 +77,7 @@ public class buscarCliente extends JFrame {
 	
 	public buscarCliente() {
 
-		setTitle("Buscar DTOCliente");
+		setTitle("Buscar Cliente");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
@@ -504,9 +504,7 @@ public class buscarCliente extends JFrame {
 				    else 
 				    	
 				    	numeroDoc = Integer.parseInt( numeroDeDocumento );
-					
-					
-				}
+					}
 					
 				
 		
