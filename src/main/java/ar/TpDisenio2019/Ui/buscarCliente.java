@@ -433,9 +433,11 @@ public class buscarCliente extends JFrame {
 					String part1 = parts[0]; 
 					String part2 = parts[1];
 				    numeroCliente=part1.concat(part2);
-				    if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
+				    if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
 
 				    	numCliente= 0L;
+				    System.out.println("el numero es :" + numCliente);	
+				    }
 								    
 				    else 
 				    	numCliente = Long.parseLong(numeroCliente);
