@@ -596,8 +596,8 @@ public class buscarCliente extends JFrame {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente","Advertencia",JOptionPane.WARNING_MESSAGE);
 					else 
 					{
-						
-						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion-1));
+						dispose();
+						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion));
 						b.setVisible(true);
 						b.setResizable(false);
 						b.setLocationRelativeTo(null);

@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 
 import javax.swing.border.BevelBorder;
 
+import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.Utilitario.ImagenProductor;
 
 import javax.swing.GroupLayout;
@@ -96,8 +97,8 @@ public class PantallaProductorSeguro extends JFrame{
 		btnAltaPoliza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnAltaPoliza) {
-					
-					darDeAltaPoliza darAltaPoliza = new darDeAltaPoliza();
+					DTOCliente dtoCliente= null;
+					darDeAltaPoliza darAltaPoliza = new darDeAltaPoliza(dtoCliente);
 					darAltaPoliza.setVisible(true);
 					darAltaPoliza.setResizable(false);
 					darAltaPoliza.setLocationRelativeTo(null);

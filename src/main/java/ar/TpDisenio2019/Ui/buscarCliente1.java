@@ -8,7 +8,12 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
@@ -75,10 +80,10 @@ public class buscarCliente1 extends JFrame {
 		
 		long nroCliente=dtoCliente.getNroCliente();
 		String strCliente = Long.toString(nroCliente);
-		textField__NroCliente = new JTextField(strCliente);
+		textField__NroCliente = new JTextField();
 		textField__NroCliente.setEditable(false);
 		textField__NroCliente.setColumns(10);
-		//textField__NroCliente.setText(strCliente );
+		textField__NroCliente.setText(strCliente );
 		
 		textField_Apellido = new JTextField();
 		textField_Apellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -220,13 +225,39 @@ public class buscarCliente1 extends JFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JButton button = new JButton("Aceptar");
+		JButton button_Aceptar = new JButton("Aceptar");
+		
+		
+	
+		button_Aceptar.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+              if(e.getSource()==button_Aceptar) {
+				
+            	  dispose();					
+            	  darDeAltaPoliza d = new darDeAltaPoliza(dtoCliente);
+						d.setVisible(true);
+						d.setResizable(false);
+						d.setLocationRelativeTo(null);
+						
+						
+			
+              }
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addComponent(panel, GroupLayout.PREFERRED_SIZE, 784, GroupLayout.PREFERRED_SIZE)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addGap(20))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 743, GroupLayout.PREFERRED_SIZE)
@@ -239,7 +270,7 @@ public class buscarCliente1 extends JFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(button)
+					.addComponent(button_Aceptar)
 					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);

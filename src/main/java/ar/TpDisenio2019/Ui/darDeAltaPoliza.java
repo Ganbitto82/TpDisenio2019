@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
+import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
@@ -46,10 +47,10 @@ public class darDeAltaPoliza extends JFrame {
 	private JTextField textField_Patente;
 	private JTextField textField_SumaAsegurada;
 	private JTextField textField_CantHijos;
-	private JTextField textfield_NroCliente;
+	private JTextField textField__NroCliente;
 	private JTextField textField_Apellido;
-	private JTextField textField_8;
-	private JTextField textField_Tipo;
+	private JTextField textField_Nombre;
+	private JTextField textField_TipoDocumento;
 	private JTextField textField_NroDocumento;
 	private JTextField textField_Provincia;
 	private JTextField textField_Localidad;
@@ -66,7 +67,7 @@ public class darDeAltaPoliza extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public darDeAltaPoliza() {
+	public darDeAltaPoliza(DTOCliente dtoCliente) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
@@ -131,35 +132,40 @@ public class darDeAltaPoliza extends JFrame {
 		JLabel lblNroCliente = new JLabel("Nro Cliente");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textfield_NroCliente = new JTextField();
-		textfield_NroCliente.setEditable(false);
-		textfield_NroCliente.setColumns(10);
+		textField__NroCliente = new JTextField();
+		textField__NroCliente.setEditable(false);
+		textField__NroCliente.setColumns(10);
+		
+		
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Apellido = new JTextField();
+		textField_Apellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Apellido.setEditable(false);
 		textField_Apellido.setColumns(10);
 		
 		JLabel lblNobre = new JLabel("Nombre");
 		lblNobre.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_8 = new JTextField();
-		textField_8.setEditable(false);
-		textField_8.setColumns(10);
+		textField_Nombre = new JTextField();
+		textField_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_Nombre.setEditable(false);
+		textField_Nombre.setColumns(10);
 		
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		textField_Tipo = new JTextField();
-		textField_Tipo.setEditable(false);
-		textField_Tipo.setColumns(10);
+		textField_TipoDocumento = new JTextField();
+		textField_TipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textField_TipoDocumento.setEditable(false);
+		textField_TipoDocumento.setColumns(10);
 		
 		JLabel lblNroDocumento = new JLabel("Nro Documento");
 		lblNroDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		
 		textField_NroDocumento = new JTextField();
+		textField_NroDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_NroDocumento.setEditable(false);
 		textField_NroDocumento.setColumns(10);
 		
@@ -167,6 +173,7 @@ public class darDeAltaPoliza extends JFrame {
 		lblProvincia.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Provincia = new JTextField();
+		textField_Provincia.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Provincia.setEditable(false);
 		textField_Provincia.setColumns(10);
 		
@@ -174,8 +181,35 @@ public class darDeAltaPoliza extends JFrame {
 		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Localidad = new JTextField();
+		textField_Localidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Localidad.setEditable(false);
 		textField_Localidad.setColumns(10);
+		
+		if (dtoCliente!=null) {
+		
+		long nroCliente=dtoCliente.getNroCliente();
+		String strCliente = Long.toString(nroCliente);
+		
+		textField__NroCliente.setText(strCliente );
+				
+		textField_Apellido.setText(dtoCliente.getApellido());
+		
+		
+		textField_Nombre.setText(dtoCliente.getNombre());
+		
+		textField_TipoDocumento.setText(dtoCliente.getTipodedocumento().getNombre());
+		
+		int nroDocumento=dtoCliente.getNroDocumento();
+		String strnNroDocumento =Integer.toString(nroDocumento);
+		
+		textField_NroDocumento.setText( strnNroDocumento );
+				
+		textField_Provincia.setText(dtoCliente.getDireccion().getLocalidad().getProvincia().getNombre());
+		
+		
+		textField_Localidad.setText(dtoCliente.getDireccion().getLocalidad().getNombre());
+		};
+		
 		GroupLayout gl_pnl_DatosDelCliente = new GroupLayout(pnl_DatosDelCliente);
 		gl_pnl_DatosDelCliente.setHorizontalGroup(
 			gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
@@ -189,11 +223,11 @@ public class darDeAltaPoliza extends JFrame {
 						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addComponent(lblTipo)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(textField_Tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(textField_TipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addComponent(lblNroCliente)
 							.addGap(18)
-							.addComponent(textfield_NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textField__NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
 					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
@@ -208,7 +242,7 @@ public class darDeAltaPoliza extends JFrame {
 									.addGap(56)
 									.addComponent(lblNobre)
 									.addGap(18)
-									.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(textField_Nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addComponent(textField_Localidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 							.addGap(93)
@@ -220,15 +254,15 @@ public class darDeAltaPoliza extends JFrame {
 				.addGroup(gl_pnl_DatosDelCliente.createSequentialGroup()
 					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNroCliente)
-						.addComponent(textfield_NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField__NroCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblApellido)
 						.addComponent(lblNobre)
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_Nombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_Apellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_pnl_DatosDelCliente.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipo)
-						.addComponent(textField_Tipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_TipoDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_NroDocumento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNroDocumento))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
