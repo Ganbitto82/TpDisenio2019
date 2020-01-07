@@ -7,11 +7,13 @@ import ar.TpDisenio2019.DTO.DTOEstadocivil;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.DTO.DTOPais;
 import ar.TpDisenio2019.DTO.DTOProvincia;
+import ar.TpDisenio2019.DTO.DTOSiniestro;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.Modelo.Estadocivil;
 import ar.TpDisenio2019.Modelo.Localidad;
 import ar.TpDisenio2019.Modelo.Pais;
 import ar.TpDisenio2019.Modelo.Provincia;
+import ar.TpDisenio2019.Modelo.Siniestro;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasBDDesplegable;
 
@@ -55,6 +57,22 @@ public class GestorListasDesplegables {
 		
 		return listaDtosProvincia;
 	}
+	
+	 public static List<DTOSiniestro> buscarDtosSiniestros()
+		{
+			List<Siniestro> listaSiniestro = new ArrayList<Siniestro>();
+			listaSiniestro = GestorListasBDDesplegable.ObtenerSiniestros();
+			List<DTOSiniestro> listaDtosSiniestro = new ArrayList<DTOSiniestro>();
+			for(int i = 0; i < listaSiniestro.size(); i++)
+			{
+				DTOSiniestro dtoSiniestro = new DTOSiniestro();
+				dtoSiniestro.setIdSiniestro(listaSiniestro.get(i).getIdSiniestro());
+				dtoSiniestro.setCantidad(listaSiniestro.get(i).getCantidad());
+				listaDtosSiniestro.add(dtoSiniestro);
+			}
+			
+			return listaDtosSiniestro;
+		}
 
 	public static DTOPais crearDTOPais(Pais pais) {
 		DTOPais dtoPais = new DTOPais(pais.getIdPais(), pais.getNombre());

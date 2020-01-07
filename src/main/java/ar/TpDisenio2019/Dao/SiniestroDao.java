@@ -7,7 +7,7 @@ import java.util.List;
 import ar.TpDisenio2019.Modelo.Siniestro;
 
 
-public interface SinietroDao {
+public interface SiniestroDao {
     
     public Siniestro buscarPorId (int idSiniestro);
     

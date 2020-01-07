@@ -21,13 +21,13 @@ public class Siniestro implements java.io.Serializable {
 
 	private Integer idSiniestro;
 	private Float porcentaje;
-	private Integer cantidad;
+	private String cantidad;
 	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Siniestro() {
 	}
 
-	public Siniestro(Float porcentaje, Integer cantidad, Set<Poliza> polizas) {
+	public Siniestro(Float porcentaje, String cantidad, Set<Poliza> polizas) {
 		this.porcentaje = porcentaje;
 		this.cantidad = cantidad;
 		this.polizas = polizas;
@@ -55,11 +55,11 @@ public class Siniestro implements java.io.Serializable {
 	}
 
 	@Column(name = "cantidad")
-	public Integer getCantidad() {
+	public String getCantidad() {
 		return this.cantidad;
 	}
 
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(String cantidad) {
 		this.cantidad = cantidad;
 	}
 

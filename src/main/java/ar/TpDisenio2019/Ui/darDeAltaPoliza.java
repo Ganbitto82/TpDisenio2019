@@ -24,21 +24,17 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
-import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOProvincia;
+import ar.TpDisenio2019.DTO.DTOSiniestro;
+import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
-
-
 
 
 public class darDeAltaPoliza extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4830170090194723214L;
 	private JPanel contentPane;
 	private JTextField textField_KmPorAnio;
@@ -60,13 +56,12 @@ public class darDeAltaPoliza extends JFrame {
 	private JPanel pnl_IngresoDatosGeneral;
 	private JPanel pnl_IngresoDeDatos;
 	
-	private List<DTOProvincia> dtoListaProvincia= new ArrayList();
-	
+	private List<DTOProvincia> dtoListaProvincia = new ArrayList();
+//	private List<DTOLocalidad> dtoListaLocalidad = new ArrayList();
+	private List<DTOSiniestro> dtoListaSiniestros = new ArrayList();
+
 	private List<DTODatosdehijo> listaDTOHijos = new ArrayList<DTODatosdehijo>();
 
-	/**
-	 * Create the frame.
-	 */
 	public darDeAltaPoliza(DTOCliente dtoCliente) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,9 +129,7 @@ public class darDeAltaPoliza extends JFrame {
 		
 		textField__NroCliente = new JTextField();
 		textField__NroCliente.setEditable(false);
-		textField__NroCliente.setColumns(10);
-		
-		
+		textField__NroCliente.setColumns(10);		
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -184,31 +177,6 @@ public class darDeAltaPoliza extends JFrame {
 		textField_Localidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Localidad.setEditable(false);
 		textField_Localidad.setColumns(10);
-		
-		if (dtoCliente!=null) {
-		
-		long nroCliente=dtoCliente.getNroCliente();
-		String strCliente = Long.toString(nroCliente);
-		
-		textField__NroCliente.setText(strCliente );
-				
-		textField_Apellido.setText(dtoCliente.getApellido());
-		
-		
-		textField_Nombre.setText(dtoCliente.getNombre());
-		
-		textField_TipoDocumento.setText(dtoCliente.getTipodedocumento().getNombre());
-		
-		int nroDocumento=dtoCliente.getNroDocumento();
-		String strnNroDocumento =Integer.toString(nroDocumento);
-		
-		textField_NroDocumento.setText( strnNroDocumento );
-				
-		textField_Provincia.setText(dtoCliente.getDireccion().getLocalidad().getProvincia().getNombre());
-		
-		
-		textField_Localidad.setText(dtoCliente.getDireccion().getLocalidad().getNombre());
-		};
 		
 		GroupLayout gl_pnl_DatosDelCliente = new GroupLayout(pnl_DatosDelCliente);
 		gl_pnl_DatosDelCliente.setHorizontalGroup(
@@ -308,6 +276,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblProvinciaRiesgo, gbc_lblProvinciaRiesgo);
 		
 		JComboBox<String> cbxProvinciaRiesgo = new JComboBox<String>();
+		cbxProvinciaRiesgo.setEnabled(false);
 		cbxProvinciaRiesgo.setBackground(Color.WHITE);
 		cbxProvinciaRiesgo.setForeground(Color.BLACK);
 		cbxProvinciaRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -319,8 +288,7 @@ public class darDeAltaPoliza extends JFrame {
 			cbxProvinciaRiesgo .addItem(provinciaRiesgo.getNombre().toString());
 		
 		cbxProvinciaRiesgo.setSelectedItem(null);
-		
-		
+
 		GridBagConstraints gbc_cbxProvinciaRiesgo = new GridBagConstraints();
 		gbc_cbxProvinciaRiesgo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxProvinciaRiesgo.insets = new Insets(0, 0, 5, 5);
@@ -339,13 +307,20 @@ public class darDeAltaPoliza extends JFrame {
 		
 		/* LOCALIDAD DE RIESGO */
 		JComboBox<String> cbxLocalidadRiesgo = new JComboBox<String>();
+		cbxLocalidadRiesgo.setEnabled(false);
 		cbxLocalidadRiesgo.setBackground(Color.WHITE);
 		cbxLocalidadRiesgo.setForeground(Color.BLACK);
 		cbxLocalidadRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
 		cbxLocalidadRiesgo.addItem("");
-		cbxLocalidadRiesgo.addItem("Santo Tome");
-		cbxLocalidadRiesgo.addItem("Rosario");
+		
+	/*	dtoListaLocalidad = GestorListasDesplegables.buscarDtosLocalidad(prov);
+		
+		for(DTOLocalidad localidad :  dtoListaLocalidad) 
+		
+			cbxLocalidadRiesgo.addItem(localidad.getNombre().toString());
+		
+		cbxLocalidadRiesgo.setSelectedItem(null);*/
+				
 		GridBagConstraints gbc_cbxLocalidadRiesgo = new GridBagConstraints();
 		gbc_cbxLocalidadRiesgo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxLocalidadRiesgo.insets = new Insets(0, 0, 5, 5);
@@ -373,12 +348,11 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblMarca, gbc_lblMarca);
 		
 		JComboBox<String> cbxMarca = new JComboBox<String>();
+		cbxMarca.setEnabled(false);
 		cbxMarca.setBackground(Color.WHITE);
 		cbxMarca.setForeground(Color.BLACK);
 		cbxMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cbxMarca.addItem("");
-		cbxMarca.addItem("Aston Martin");
-		cbxMarca.addItem("Audi");
 		GridBagConstraints gbc_cbxMarca = new GridBagConstraints();
 		gbc_cbxMarca.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxMarca.insets = new Insets(0, 0, 5, 5);
@@ -396,12 +370,11 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblModelo, gbc_lblModelo);
 		
 		JComboBox<String> cbxModelo = new JComboBox<String>();
+		cbxModelo.setEnabled(false);
 		cbxModelo.setForeground(Color.BLACK);
 		cbxModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cbxModelo.setBackground(Color.WHITE);
 		cbxModelo.addItem("");
-		cbxModelo.addItem("2019");
-		cbxModelo.addItem("2009");
 		GridBagConstraints gbc_cbxModelo = new GridBagConstraints();
 		gbc_cbxModelo.insets = new Insets(0, 0, 5, 5);
 		gbc_cbxModelo.fill = GridBagConstraints.HORIZONTAL;
@@ -419,12 +392,11 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblAnioVehiculo, gbc_lblAnioVehiculo);
 		
 		JComboBox<String> cbxAnioVehiculo = new JComboBox<String>();
+		cbxAnioVehiculo.setEnabled(false);
 		cbxAnioVehiculo.setBackground(Color.WHITE);
 		cbxAnioVehiculo.setForeground(Color.BLACK);
 		cbxAnioVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cbxAnioVehiculo.addItem("");
-		cbxAnioVehiculo.addItem("2019");
-		cbxAnioVehiculo.addItem("2009");
 		GridBagConstraints gbc_cbxAnioVehiculo = new GridBagConstraints();
 		gbc_cbxAnioVehiculo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxAnioVehiculo.insets = new Insets(0, 0, 5, 5);
@@ -442,6 +414,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblMotor, gbc_lblMotor);
 		
 		textField_Motor = new JTextField();
+		textField_Motor.setEnabled(false);
 		textField_Motor.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Motor.setColumns(10);
 		GridBagConstraints gbc_textField_Motor = new GridBagConstraints();
@@ -461,6 +434,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblKmPorAnio, gbc_lblKmPorAnio);
 		
 		textField_KmPorAnio = new JTextField();
+		textField_KmPorAnio.setEnabled(false);
 		textField_KmPorAnio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_KmPorAnio.setColumns(10);
 		GridBagConstraints gbc_textField_KmPorAnio = new GridBagConstraints();
@@ -480,6 +454,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblChasis, gbc_lblChasis);
 		
 		textField_Chasis = new JTextField();
+		textField_Chasis.setEnabled(false);
 		textField_Chasis.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Chasis.setColumns(10);
 		GridBagConstraints gbc_textField_Chasis = new GridBagConstraints();
@@ -499,6 +474,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblPatente, gbc_lblPatente);
 		
 		textField_Patente = new JTextField();
+		textField_Patente.setEnabled(false);
 		textField_Patente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_Patente.setColumns(10);
 		GridBagConstraints gbc_textField_Patente = new GridBagConstraints();
@@ -518,6 +494,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblSumaAsegurada, gbc_lblSumaAsegurada);
 		
 		textField_SumaAsegurada = new JTextField();
+		textField_SumaAsegurada.setEnabled(false);
 		textField_SumaAsegurada.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_SumaAsegurada.setColumns(10);
 		GridBagConstraints gbc_textField_SumaAsegurada = new GridBagConstraints();
@@ -550,19 +527,23 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(pnl_CheckMedidasSeguridad, gbc_pnl_CheckMedidasSeguridad);
 		
 		JCheckBox chbxGarage = new JCheckBox("\u00BFSe guarda en garage?");
+		chbxGarage.setEnabled(false);
 		chbxGarage.setForeground(Color.BLACK);
 		chbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxGarage.setBackground(Color.WHITE);
 		
 		JCheckBox chbxAlarma = new JCheckBox("\u00BFTiene alarma?");
+		chbxAlarma.setEnabled(false);
 		chbxAlarma.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxAlarma.setBackground(Color.WHITE);
 		
 		JCheckBox chbxTuercas = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
+		chbxTuercas.setEnabled(false);
 		chbxTuercas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxTuercas.setBackground(Color.WHITE);
 		
 		JCheckBox chbxRastreo = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
+		chbxRastreo.setEnabled(false);
 		chbxRastreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxRastreo.setBackground(Color.WHITE);
 		GroupLayout gl_pnl_CheckMedidasSeguridad = new GroupLayout(pnl_CheckMedidasSeguridad);
@@ -605,14 +586,20 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblSiniestros, gbc_lblSiniestros);
 		
 		JComboBox<String> cbxSiniestros = new JComboBox<String>();
+		cbxSiniestros.setEnabled(false);
 		cbxSiniestros.setBackground(Color.WHITE);
 		cbxSiniestros.setForeground(Color.BLACK);
 		cbxSiniestros.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cbxSiniestros.addItem("");
-		cbxSiniestros.addItem("Niguno");
-		cbxSiniestros.addItem("Uno");
-		cbxSiniestros.addItem("Dos");
-		cbxSiniestros.addItem("M�s de dos");
+		
+		dtoListaSiniestros = GestorListasDesplegables.buscarDtosSiniestros();
+		
+		for(DTOSiniestro siniestro :  dtoListaSiniestros) 
+		
+			cbxSiniestros.addItem(siniestro.getCantidad().toString());
+		
+		cbxSiniestros.setSelectedItem(null);
+		
 		GridBagConstraints gbc_cbxSiniestros = new GridBagConstraints();
 		gbc_cbxSiniestros.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbxSiniestros.insets = new Insets(0, 0, 5, 5);
@@ -631,6 +618,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblCantHijos, gbc_lblCantHijos);
 		
 		textField_CantHijos = new JTextField();
+		textField_CantHijos.setEnabled(false);
 		textField_CantHijos.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_CantHijos.setColumns(10);
 		GridBagConstraints gbc_textField_CantHijos = new GridBagConstraints();
@@ -642,6 +630,7 @@ public class darDeAltaPoliza extends JFrame {
 		
 						
 		JButton btnCompletarHijos = new JButton("Completar");
+		btnCompletarHijos.setEnabled(false);
 		btnCompletarHijos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nroHijos = textField_CantHijos.getText();
@@ -650,11 +639,12 @@ public class darDeAltaPoliza extends JFrame {
 				new PantallaAgregarHijos(numeroHijos);
 				
 				int cantidadHijosMayores=0;
+				
 				if(numeroHijos >= 18 && numeroHijos <= 30)
 				{
 					if(e.getSource() == btnCompletarHijos)
 					{
-						darDeAltaPoliza22 b = new darDeAltaPoliza22();
+						ModHijos b = new ModHijos(numeroHijos);
 						b.setVisible(true);
 						b.setResizable(false);
 						b.setLocationRelativeTo(null);
@@ -692,12 +682,52 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblCamposObligatorios.gridy = 10;
 		pnl_IngresoDeDatos.add(lblCamposObligatorios, gbc_lblCamposObligatorios);
 		
+		if (dtoCliente!=null) {
+			
+			long nroCliente=dtoCliente.getNroCliente();
+			String strCliente = Long.toString(nroCliente);
+			
+			textField__NroCliente.setText(strCliente );
+					
+			textField_Apellido.setText(dtoCliente.getApellido());	
+			
+			textField_Nombre.setText(dtoCliente.getNombre());
+			
+			textField_TipoDocumento.setText(dtoCliente.getTipodedocumento().getNombre());
+			
+			int nroDocumento=dtoCliente.getNroDocumento();
+			String strnNroDocumento =Integer.toString(nroDocumento);
+			
+			textField_NroDocumento.setText( strnNroDocumento );
+					
+			textField_Provincia.setText(dtoCliente.getDireccion().getLocalidad().getProvincia().getNombre());
+			
+			textField_Localidad.setText(dtoCliente.getDireccion().getLocalidad().getNombre());
+			
+			cbxProvinciaRiesgo.setEnabled(true);
+			cbxLocalidadRiesgo.setEnabled(true);
+			cbxMarca.setEnabled(true);
+			cbxModelo.setEnabled(true);
+			cbxAnioVehiculo.setEnabled(true);
+			textField_Motor.setEnabled(true);
+			textField_KmPorAnio.setEnabled(true);
+			textField_Chasis.setEnabled(true);
+			textField_Patente.setEnabled(true);
+			textField_SumaAsegurada.setEnabled(true);
+			chbxGarage.setEnabled(true);
+			chbxAlarma.setEnabled(true);
+			chbxTuercas.setEnabled(true);
+			chbxRastreo.setEnabled(true);
+			cbxSiniestros.setEnabled(true);
+			textField_CantHijos.setEnabled(true);
+			btnCompletarHijos.setEnabled(true);
+
+		};
+
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(e.getSource() == btnAceptar)
-				{
 				String kmxAnio = textField_KmPorAnio.getText();
 				String motor = textField_Motor.getText();
 				String chasis = textField_Chasis.getText();
@@ -708,6 +738,14 @@ public class darDeAltaPoliza extends JFrame {
 				String anio = cbxAnioVehiculo.getSelectedItem().toString();
 				String nroSiniestro = cbxSiniestros.getSelectedItem().toString();
 				
+				if(e.getSource() == btnAceptar)
+				{
+				
+					if(provincia.equals(""))
+					{
+						System.out.printf("hola");
+					}
+					
 				if(kmxAnio.equals("") || motor.equals("") || chasis.equals("") || provincia.equals("") || localidad.equals("") || marca.equals("") || modelo.equals("") || anio.equals("") || nroSiniestro.equals("") )
 				{
 					if(kmxAnio.equals(""))
@@ -814,11 +852,10 @@ public class darDeAltaPoliza extends JFrame {
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnCancelar)
 				{
-					hide();
+					dispose();
 				}
 			}
 		});

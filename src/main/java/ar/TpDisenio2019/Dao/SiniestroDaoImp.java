@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import ar.TpDisenio2019.Modelo.Siniestro;
 
 
-public class SiniestroDaoImp implements SinietroDao {
+public class SiniestroDaoImp implements SiniestroDao {
     
     private final SessionFactory sessionFactory;
 
