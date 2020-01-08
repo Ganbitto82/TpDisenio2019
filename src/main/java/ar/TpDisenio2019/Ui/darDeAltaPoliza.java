@@ -29,7 +29,6 @@ import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
-import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 
 
@@ -87,17 +86,19 @@ public class darDeAltaPoliza extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (e.getSource() == btnBuscarCliente) {
-                                    dispose();
-									buscarCliente m = new buscarCliente();
-									m.setVisible(true);
-									m.setResizable(false);
-									m.setLocationRelativeTo(null);
+					
+					dispose();
+					buscarCliente m = new buscarCliente();
+					m.setVisible(true);
+					m.setResizable(false);
+					m.setLocationRelativeTo(null);
 									
-							}
-						}
+				}
+			}
 			
-				});
-
+		});
+		
+		
 		GroupLayout gl_pnl_BuscarCliente = new GroupLayout(pnl_BuscarCliente);
 		gl_pnl_BuscarCliente.setHorizontalGroup(
 			gl_pnl_BuscarCliente.createParallelGroup(Alignment.LEADING)
@@ -280,6 +281,7 @@ public class darDeAltaPoliza extends JFrame {
 		cbxProvinciaRiesgo.setBackground(Color.WHITE);
 		cbxProvinciaRiesgo.setForeground(Color.BLACK);
 		cbxProvinciaRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxProvinciaRiesgo.addItem("");
 		
 		dtoListaProvincia= GestorListasDesplegables.buscarDtosProvincia();
 		
@@ -637,9 +639,7 @@ public class darDeAltaPoliza extends JFrame {
 				int numeroHijos = Integer.valueOf(nroHijos);
 				
 				new PantallaAgregarHijos(numeroHijos);
-				
-				int cantidadHijosMayores=0;
-				
+
 				if(numeroHijos >= 18 && numeroHijos <= 30)
 				{
 					if(e.getSource() == btnCompletarHijos)
@@ -723,6 +723,14 @@ public class darDeAltaPoliza extends JFrame {
 			btnCompletarHijos.setEnabled(true);
 
 		};
+		if(cbxProvinciaRiesgo.getSelectedIndex() == -1)
+		{
+			System.out.printf("Seleccione provincia");
+		}
+		else
+		{
+			System.out.printf(cbxProvinciaRiesgo.getSelectedItem().toString());
+		}
 
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -741,11 +749,11 @@ public class darDeAltaPoliza extends JFrame {
 				if(e.getSource() == btnAceptar)
 				{
 				
-					if(provincia.equals(""))
+					/*if((cbxProvinciaRiesgo.getSelectedIndex() != -1) )
 					{
-						System.out.printf("hola");
-					}
+						System.out.printf("Provincia seleccionada");
 					
+					}*/
 				if(kmxAnio.equals("") || motor.equals("") || chasis.equals("") || provincia.equals("") || localidad.equals("") || marca.equals("") || modelo.equals("") || anio.equals("") || nroSiniestro.equals("") )
 				{
 					if(kmxAnio.equals(""))

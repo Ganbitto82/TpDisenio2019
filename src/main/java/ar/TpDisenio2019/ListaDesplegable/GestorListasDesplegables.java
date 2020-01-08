@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.TpDisenio2019.DTO.DTOEstadocivil;
+import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.DTO.DTOPais;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
+import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.Modelo.Estadocivil;
+import ar.TpDisenio2019.Modelo.Formasdepago;
 import ar.TpDisenio2019.Modelo.Localidad;
 import ar.TpDisenio2019.Modelo.Pais;
 import ar.TpDisenio2019.Modelo.Provincia;
 import ar.TpDisenio2019.Modelo.Siniestro;
+import ar.TpDisenio2019.Modelo.Tipocobertura;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasBDDesplegable;
 
@@ -72,6 +76,38 @@ public class GestorListasDesplegables {
 			}
 			
 			return listaDtosSiniestro;
+		}
+	 
+	 public static List<DTOFormasdepago> buscarDtosFormaDePago()
+		{
+			List<Formasdepago> listaFormadepago = new ArrayList<Formasdepago>();
+			listaFormadepago = GestorListasBDDesplegable.ObtenerFormasdepago();
+			List<DTOFormasdepago> listaDtosFormadepago = new ArrayList<DTOFormasdepago>();
+			for(int i = 0; i < listaFormadepago.size(); i++)
+			{
+				DTOFormasdepago dtoFormadepago = new DTOFormasdepago();
+				dtoFormadepago.setIdFormasDePago(listaFormadepago.get(i).getIdFormasDePago());
+				dtoFormadepago.setNombre(listaFormadepago.get(i).getNombre());
+				listaDtosFormadepago.add(dtoFormadepago);
+			}
+			
+			return listaDtosFormadepago;
+		}
+	 
+	 public static List<DTOTipocobertura> buscarDtosTipocobertura()
+		{
+			List<Tipocobertura> listaTipocobertura = new ArrayList<Tipocobertura>();
+			listaTipocobertura = GestorListasBDDesplegable.ObtenerTipocobertura();
+			List<DTOTipocobertura> listaDtosTipocobertura = new ArrayList<DTOTipocobertura>();
+			for(int i = 0; i < listaTipocobertura.size(); i++)
+			{
+				DTOTipocobertura dtoTipocobertura = new DTOTipocobertura();
+				dtoTipocobertura.setIdTipoCobertura(listaTipocobertura.get(i).getIdTipoCobertura());
+				dtoTipocobertura.setTipo(listaTipocobertura.get(i).getTipo());
+				listaDtosTipocobertura.add(dtoTipocobertura);
+			}
+			
+			return listaDtosTipocobertura;
 		}
 
 	public static DTOPais crearDTOPais(Pais pais) {

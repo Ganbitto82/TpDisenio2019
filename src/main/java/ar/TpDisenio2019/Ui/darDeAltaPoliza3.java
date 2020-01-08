@@ -1,23 +1,15 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 
 public class darDeAltaPoliza3 extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -42,25 +35,6 @@ public class darDeAltaPoliza3 extends JFrame {
 	private JTextField textField_13;
 	private JTextField textField_12;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					darDeAltaPoliza3 frame = new darDeAltaPoliza3();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public darDeAltaPoliza3() {
 		setTitle("P\u00F3liza a Generar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,9 +56,9 @@ public class darDeAltaPoliza3 extends JFrame {
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		
-		JLabel lblMarca = new JLabel("DTOMarca");
+		JLabel lblMarca = new JLabel("Marca");
 		
-		JLabel lblModelo = new JLabel("DTOModelo");
+		JLabel lblModelo = new JLabel("Modelo");
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
@@ -227,7 +201,8 @@ public class darDeAltaPoliza3 extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnAceptar)
-				{	
+				{
+					dispose();
 				}
 			}
 		});
@@ -238,7 +213,7 @@ public class darDeAltaPoliza3 extends JFrame {
 				
 				if(e.getSource() == btnCancelar)
 				{	
-					hide();
+					dispose();
 				}
 			}
 		});

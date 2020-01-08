@@ -1,6 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,59 +10,39 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JCheckBox;
-import java.awt.Choice;
-import java.awt.Button;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import ar.TpDisenio2019.DTO.DTOFormasdepago;
+import ar.TpDisenio2019.DTO.DTOProvincia;
+import ar.TpDisenio2019.DTO.DTOTipocobertura;
+import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
+
 import javax.swing.border.EtchedBorder;
 
 public class darDeAltaPoliza1 extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
 	private JTable table_1;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					darDeAltaPoliza1 frame = new darDeAltaPoliza1();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	private List<DTOFormasdepago> dtoListaFormaDePago = new ArrayList();
+	private List<DTOTipocobertura> dtoListaTipodeCobertura = new ArrayList();
+	
 	public darDeAltaPoliza1() {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +65,7 @@ public class darDeAltaPoliza1 extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMPLETE LOS SIGUIENTES DATOS", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JButton btnNewButton = new JButton("Confirmar");
+		JButton confirmar = new JButton("Confirmar");
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -94,7 +73,7 @@ public class darDeAltaPoliza1 extends JFrame {
 			gl_panel_3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap(580, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
+					.addComponent(confirmar)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
@@ -107,7 +86,7 @@ public class darDeAltaPoliza1 extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
-						.addComponent(btnNewButton))
+						.addComponent(confirmar))
 					.addContainerGap())
 		);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
@@ -125,22 +104,26 @@ public class darDeAltaPoliza1 extends JFrame {
 		gbc_lblTipoDeCovertura.gridy = 1;
 		panel_4.add(lblTipoDeCovertura, gbc_lblTipoDeCovertura);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setForeground(Color.BLACK);
-		comboBox.setBackground(Color.WHITE);
-		comboBox.addItem("Resp. Civil");
-		comboBox.addItem("Resp. Civil, Robo o incendio total");
-		comboBox.addItem("Todo Total");
-		comboBox.addItem("Terceros Completos");
-		comboBox.addItem("Todo Riesgo con Franquicia");
-		comboBox.addItem("");
+		JComboBox<String> tipoCobertura_comboBox = new JComboBox<String>();
+		tipoCobertura_comboBox.setForeground(Color.BLACK);
+		tipoCobertura_comboBox.setBackground(Color.WHITE);
+		tipoCobertura_comboBox.addItem("");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 1;
-		panel_4.add(comboBox, gbc_comboBox);
+		panel_4.add(tipoCobertura_comboBox, gbc_comboBox);
+		
+	/*	dtoListaTipodeCobertura = GestorListasDesplegables.buscarDtosTipocobertura();
+		
+		for(DTOTipocobertura cobertura : dtoListaTipodeCobertura) 
+		
+			tipoCobertura_comboBox .addItem(cobertura.getTipo().toString());
+		
+		tipoCobertura_comboBox.setSelectedItem(null);*/
+		
 		
 		JLabel lblFormaDePago = new JLabel("Forma de Pago:");
 		GridBagConstraints gbc_lblFormaDePago = new GridBagConstraints();
@@ -150,18 +133,25 @@ public class darDeAltaPoliza1 extends JFrame {
 		gbc_lblFormaDePago.gridy = 2;
 		panel_4.add(lblFormaDePago, gbc_lblFormaDePago);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.gridwidth = 2;
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox_1.gridx = 3;
-		gbc_comboBox_1.gridy = 2;
-		panel_4.add(comboBox_1, gbc_comboBox_1);
-		comboBox_1.setForeground(Color.BLACK);
-		comboBox_1.setBackground(Color.WHITE);
-		comboBox_1.addItem("Mensual");
-		comboBox_1.addItem("Semestral");
+		JComboBox<String> formaDePago_comboBox = new JComboBox<String>();
+		GridBagConstraints gbc_formaDePago_comboBox = new GridBagConstraints();
+		gbc_formaDePago_comboBox.gridwidth = 2;
+		gbc_formaDePago_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formaDePago_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_formaDePago_comboBox.gridx = 3;
+		gbc_formaDePago_comboBox.gridy = 2;
+		panel_4.add(formaDePago_comboBox, gbc_formaDePago_comboBox);
+		formaDePago_comboBox.setForeground(Color.BLACK);
+		formaDePago_comboBox.setBackground(Color.WHITE);
+		formaDePago_comboBox.addItem("");
+		
+		dtoListaFormaDePago = GestorListasDesplegables.buscarDtosFormaDePago();
+		
+		for(DTOFormasdepago formaDePago : dtoListaFormaDePago) 
+		
+			formaDePago_comboBox .addItem(formaDePago.getNombre().toString());
+		
+		formaDePago_comboBox.setSelectedItem(null);
 		
 		JLabel lblFechaDeInicio = new JLabel("Fecha de Inicio de Vigencia:");
 		GridBagConstraints gbc_lblFechaDeInicio = new GridBagConstraints();

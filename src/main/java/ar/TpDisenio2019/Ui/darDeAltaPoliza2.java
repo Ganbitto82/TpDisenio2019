@@ -1,8 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,33 +9,14 @@ import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 public class darDeAltaPoliza2 extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					darDeAltaPoliza2 frame = new darDeAltaPoliza2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public darDeAltaPoliza2() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 350);
@@ -52,9 +30,9 @@ public class darDeAltaPoliza2 extends JFrame {
 		panel_1.setBounds(10, 82, 564, 218);
 		panel_1.setBorder(new TitledBorder(null, "EL CLIENTE INGRESADO NO EXISTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblDarDeAlta = new JLabel("Dar de Alta DTOCliente:");
+		JLabel lblDarDeAlta = new JLabel("Dar de Alta Cliente:");
 		
-		JButton btnAceptar = new JButton("Alta de DTOCliente");
+		JButton btnAceptar = new JButton("Alta de Cliente");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
