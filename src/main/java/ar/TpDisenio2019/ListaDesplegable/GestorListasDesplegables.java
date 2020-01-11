@@ -3,9 +3,13 @@ package ar.TpDisenio2019.ListaDesplegable;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
+
 import ar.TpDisenio2019.DTO.DTOEstadocivil;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
+import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOModelo;
 import ar.TpDisenio2019.DTO.DTOPais;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
@@ -129,6 +133,45 @@ public class GestorListasDesplegables {
 		DTOEstadocivil dtoEstadoCivil = new DTOEstadocivil(estadoCivil.getIdEstadoCivil(), estadoCivil.getNombre());
 
 		return dtoEstadoCivil;
+	}
+	
+	public static  List<DTOMarca>  obtenerDTOMarca() {
+  
+    	
+    	List<DTOMarca> listaDtoMarca =GestorListasBDDesplegable.obtenerMarca();
+         	
+		return listaDtoMarca;
+	}
+	
+    public static  List<DTOAniodevehiculo>  obtenerDTOAniodeVehiculo() {
+  
+    	
+    	List<DTOAniodevehiculo> listaDtoAniodevehiculo =GestorListasBDDesplegable.obtenerAniodeVehiculo();
+         	
+		return listaDtoAniodevehiculo;
+	}
+	
+    public static List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
+    	
+    	
+    	
+    	List<DTOModelo> listaDtoModelo=GestorListasBDDesplegable.obtenerModelo(dtoMarca, dtoAniodeVehiculo);
+    	
+    	return  listaDtoModelo;
+    	
+    }
+    
+public static List<DTOModelo> buscarDtosModelo(){
+		
+		List<DTOModelo> dtoListaModelo = new ArrayList<DTOModelo>();
+
+		dtoListaModelo = gestionListaDesplegable.ObtenerModelo();
+	
+			
+	
+			
+			return dtoListaModelo;
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package ar.TpDisenio2019.Dao;
 
 import java.util.List;
 
+import ar.TpDisenio2019.DTO.DTOMarca;
 import ar.TpDisenio2019.Modelo.Marca;
 
 
@@ -12,5 +13,5 @@ public interface MarcaDao {
     
     public void guardar (Marca marca);
     
-    public List<Marca> obtenerTodas();
+    public 	List<DTOMarca> obtenerDTOMarca();
 }

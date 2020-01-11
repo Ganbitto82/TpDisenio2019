@@ -3,12 +3,15 @@ package ar.TpDisenio2019.Dao;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import ar.TpDisenio2019.DTO.DTOMarca;
 import ar.TpDisenio2019.Modelo.Marca;
 
 
@@ -47,17 +50,24 @@ public class MarcaDaoImp implements MarcaDao {
     }
     
     @Override
-    public List<Marca> obtenerTodas() {
+    public List<DTOMarca> obtenerDTOMarca() {
         
     	 Session session = sessionFactory.openSession();
     	 CriteriaQuery<Marca> cq = session.getCriteriaBuilder().createQuery(Marca.class);
 	
     	 cq.from(Marca.class);
     	 List<Marca> marcas = session.createQuery(cq).getResultList();
+    	 List<DTOMarca> listaDtoMarca = new ArrayList<>();
+    	 
+    	 DTOMarca dtoMarca;
+         for(Marca m :marcas){
+        	 dtoMarca = new DTOMarca(m.getIdMarca(),m.getMarca());
+        	 listaDtoMarca.add(dtoMarca);
+         }
     
         session.close();
         
-        return marcas;
+        return listaDtoMarca;
     }
     
 }

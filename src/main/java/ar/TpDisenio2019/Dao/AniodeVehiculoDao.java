@@ -3,6 +3,7 @@ package ar.TpDisenio2019.Dao;
 
 import java.util.List;
 
+import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
 import ar.TpDisenio2019.Modelo.Aniodevehiculo;
 
 
@@ -12,6 +13,7 @@ public interface AniodeVehiculoDao {
     
     public void guardar (Aniodevehiculo aniodevehiculo);
     
-    public List<Aniodevehiculo> obtenerTodas();
+   
+	public List<DTOAniodevehiculo> obtenerDTOAnioVehiculo();
 }
 

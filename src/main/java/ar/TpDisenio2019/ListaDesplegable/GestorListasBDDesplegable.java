@@ -4,10 +4,19 @@ import java.util.List;
 
 
 import ar.TpDisenio2019.Conexion.ConexionBD;
+import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
+import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.Dao.AniodeVehiculoDao;
+import ar.TpDisenio2019.Dao.AniodeVehiculoDaoImp;
 import ar.TpDisenio2019.Dao.FormasdepagoDao;
 import ar.TpDisenio2019.Dao.FormasdepagoDaoImp;
 import ar.TpDisenio2019.Dao.LocalidadDao;
 import ar.TpDisenio2019.Dao.LocalidadDaoImp;
+import ar.TpDisenio2019.Dao.MarcaDao;
+import ar.TpDisenio2019.Dao.MarcaDaoImp;
+import ar.TpDisenio2019.Dao.ModeloDao;
+import ar.TpDisenio2019.Dao.ModeloDaoImp;
 import ar.TpDisenio2019.Dao.ProvinciaDao;
 import ar.TpDisenio2019.Dao.TipodedocumentoDao;
 import ar.TpDisenio2019.Dao.TipodedocumentoDaoImp;
@@ -33,6 +42,9 @@ public class GestorListasBDDesplegable {
 	private static SiniestroDao siniestroDao;
 	private static FormasdepagoDao formasdepagoDao;
 	private static TipocoberturaDao tipocoberturaDao;
+	private static MarcaDao marcaDao;
+	private static AniodeVehiculoDao aniodeVehiculoDao;
+	private static ModeloDao modeloDao;
 	
 	public GestorListasBDDesplegable() {
 		 
@@ -42,6 +54,10 @@ public class GestorListasBDDesplegable {
 		 this.siniestroDao = new SiniestroDaoImp( session.Conexion()); 
 		 this.formasdepagoDao = new FormasdepagoDaoImp( session.Conexion()); 
 		 this.tipocoberturaDao = new TipocoberturaDaoImp( session.Conexion()); 
+		 this.marcaDao= new MarcaDaoImp( session.Conexion()); 
+		 this.aniodeVehiculoDao= new AniodeVehiculoDaoImp( session.Conexion()); 
+		 this.modeloDao= new ModeloDaoImp( session.Conexion());
+		 
 	}
 	
     public List<Tipodedocumento> ObtenerTiposDocumento() {
@@ -89,9 +105,38 @@ public class GestorListasBDDesplegable {
          	
 		return listaSiniestro;
 	}
+    
+    public static List<DTOMarca> obtenerMarca(){
+    	
+    	List<DTOMarca> listaDtoMarca = marcaDao.obtenerDTOMarca();
+    	return listaDtoMarca ;
+    	    	
+    }
+    public static List<DTOAniodevehiculo> obtenerAniodeVehiculo(){
+    	
+    	List<DTOAniodevehiculo> listaDtoAniodevehiculo = aniodeVehiculoDao.obtenerDTOAnioVehiculo();
+    	return listaDtoAniodevehiculo ;
+    	
+    	
+    }
+    public static List<DTOModelo> obtenerModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
+    	
+    	List<DTOModelo> listaDtoModelo= modeloDao.obtenerDTOModelo(dtoMarca, dtoAniodeVehiculo);
+    	return listaDtoModelo;
+    	
+    }
+    
+    public List<DTOModelo> ObtenerModelo(){
+    	
+    	List <DTOModelo> listaModelos= modeloDao.obtenerTodas();
+    	return listaModelos;
+    	
+    }
+    
+    
+    
 }
 
-	
 	
 	
 

@@ -3,6 +3,7 @@ package ar.TpDisenio2019.Ui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
@@ -19,17 +20,26 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
+import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
+import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOModelo;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
+import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
+import ar.TpDisenio2019.Utilitario.ObtenerDtoDeUnCombo;
 
 
 public class darDeAltaPoliza extends JFrame {
@@ -58,6 +68,15 @@ public class darDeAltaPoliza extends JFrame {
 	private List<DTOProvincia> dtoListaProvincia = new ArrayList();
 //	private List<DTOLocalidad> dtoListaLocalidad = new ArrayList();
 	private List<DTOSiniestro> dtoListaSiniestros = new ArrayList();
+    private List<DTOMarca> dtoListaMarca;
+    private List<DTOModelo> dtoListaModelo;
+    private List<DTOAniodevehiculo> dtoListaAniodeVehiculo;
+    
+	private List<String> listaAnio= new ArrayList<>();
+	private JComboBox<String> cbxModelo;
+	private JComboBox<String> cbxMarca;
+	private JComboBox<String> cbxAniodevehiculo;
+    
 
 	private List<DTODatosdehijo> listaDTOHijos = new ArrayList<DTODatosdehijo>();
 
@@ -340,7 +359,7 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblDatosDelVehculo.gridy = 2;
 		pnl_IngresoDeDatos.add(lblDatosDelVehculo, gbc_lblDatosDelVehculo);
 		
-		JLabel lblMarca = new JLabel("Marca(*)");
+		JLabel lblMarca = new JLabel("Modelo(*)");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblMarca = new GridBagConstraints();
 		gbc_lblMarca.anchor = GridBagConstraints.WEST;
@@ -349,20 +368,20 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblMarca.gridy = 3;
 		pnl_IngresoDeDatos.add(lblMarca, gbc_lblMarca);
 		
-		JComboBox<String> cbxMarca = new JComboBox<String>();
-		cbxMarca.setEnabled(false);
-		cbxMarca.setBackground(Color.WHITE);
-		cbxMarca.setForeground(Color.BLACK);
-		cbxMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		cbxMarca.addItem("");
-		GridBagConstraints gbc_cbxMarca = new GridBagConstraints();
-		gbc_cbxMarca.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbxMarca.insets = new Insets(0, 0, 5, 5);
-		gbc_cbxMarca.gridx = 2;
-		gbc_cbxMarca.gridy = 3;
-		pnl_IngresoDeDatos.add(cbxMarca, gbc_cbxMarca);
 		
-		JLabel lblModelo = new JLabel("Modelo(*)");
+		cbxModelo = new JComboBox<String>();
+		cbxModelo.setEnabled(false);
+		cbxModelo.setBackground(Color.WHITE);
+		cbxModelo.setForeground(Color.BLACK);
+		cbxModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_cbxModelo = new GridBagConstraints();
+		gbc_cbxModelo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxModelo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxModelo.gridx = 2;
+		gbc_cbxModelo.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxModelo, gbc_cbxModelo);
+		
+		JLabel lblModelo = new JLabel("Año del Vehículo(*)");
 		lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblModelo = new GridBagConstraints();
 		gbc_lblModelo.anchor = GridBagConstraints.WEST;
@@ -371,20 +390,22 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblModelo.gridy = 3;
 		pnl_IngresoDeDatos.add(lblModelo, gbc_lblModelo);
 		
-		JComboBox<String> cbxModelo = new JComboBox<String>();
-		cbxModelo.setEnabled(false);
-		cbxModelo.setForeground(Color.BLACK);
-		cbxModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		cbxModelo.setBackground(Color.WHITE);
-		cbxModelo.addItem("");
-		GridBagConstraints gbc_cbxModelo = new GridBagConstraints();
-		gbc_cbxModelo.insets = new Insets(0, 0, 5, 5);
-		gbc_cbxModelo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbxModelo.gridx = 5;
-		gbc_cbxModelo.gridy = 3;
-		pnl_IngresoDeDatos.add(cbxModelo, gbc_cbxModelo);
+        cbxAniodevehiculo = new JComboBox<String>();
 		
-		JLabel lblAnioVehiculo = new JLabel("A\u00F1o del Veh\u00EDculo(*)");
+		
+		cbxAniodevehiculo.setEnabled(false);
+		cbxAniodevehiculo.setForeground(Color.BLACK);
+		cbxAniodevehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cbxAniodevehiculo.setBackground(Color.WHITE);
+		
+		GridBagConstraints gbc_cbxAniodeVehiculo = new GridBagConstraints();
+		gbc_cbxAniodeVehiculo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxAniodeVehiculo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxAniodeVehiculo.gridx = 5;
+		gbc_cbxAniodeVehiculo.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxAniodevehiculo, gbc_cbxAniodeVehiculo);
+		
+		JLabel lblAnioVehiculo = new JLabel("Marca(*)");
 		lblAnioVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblAnioVehiculo = new GridBagConstraints();
 		gbc_lblAnioVehiculo.anchor = GridBagConstraints.WEST;
@@ -393,18 +414,18 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblAnioVehiculo.gridy = 3;
 		pnl_IngresoDeDatos.add(lblAnioVehiculo, gbc_lblAnioVehiculo);
 		
-		JComboBox<String> cbxAnioVehiculo = new JComboBox<String>();
-		cbxAnioVehiculo.setEnabled(false);
-		cbxAnioVehiculo.setBackground(Color.WHITE);
-		cbxAnioVehiculo.setForeground(Color.BLACK);
-		cbxAnioVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		cbxAnioVehiculo.addItem("");
-		GridBagConstraints gbc_cbxAnioVehiculo = new GridBagConstraints();
-		gbc_cbxAnioVehiculo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbxAnioVehiculo.insets = new Insets(0, 0, 5, 5);
-		gbc_cbxAnioVehiculo.gridx = 8;
-		gbc_cbxAnioVehiculo.gridy = 3;
-		pnl_IngresoDeDatos.add(cbxAnioVehiculo, gbc_cbxAnioVehiculo);
+	    cbxMarca = new JComboBox<String>();
+		cbxMarca.setEnabled(false);
+		cbxMarca.setBackground(Color.WHITE);
+		cbxMarca.setForeground(Color.BLACK);
+		cbxMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		GridBagConstraints gbc_cbxMarca = new GridBagConstraints();
+		gbc_cbxMarca.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbxMarca.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxMarca.gridx = 8;
+		gbc_cbxMarca.gridy = 3;
+		pnl_IngresoDeDatos.add(cbxMarca, gbc_cbxMarca);
 		
 		JLabel lblMotor = new JLabel("Motor(*)");
 		lblMotor.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -414,6 +435,8 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblMotor.gridx = 1;
 		gbc_lblMotor.gridy = 4;
 		pnl_IngresoDeDatos.add(lblMotor, gbc_lblMotor);
+		
+		
 		
 		textField_Motor = new JTextField();
 		textField_Motor.setEnabled(false);
@@ -706,9 +729,61 @@ public class darDeAltaPoliza extends JFrame {
 			
 			cbxProvinciaRiesgo.setEnabled(true);
 			cbxLocalidadRiesgo.setEnabled(true);
-			cbxMarca.setEnabled(true);
+			
 			cbxModelo.setEnabled(true);
-			cbxAnioVehiculo.setEnabled(true);
+			cbxMarca.setEnabled(true);
+			cbxAniodevehiculo.setEnabled(true);
+
+			cbxModelo.addItem("Seleccione Modelo ");
+			cbxMarca.addItem("Seleccione Marca ");
+			cbxAniodevehiculo.addItem("Seleccione Anio");
+			
+			dtoListaModelo= GestorListasDesplegables.buscarDtosModelo();
+			List<String> listaModelo = new ArrayList<>();
+			
+			for (DTOModelo mod:dtoListaModelo)
+				listaModelo.add(mod.getNombre().toString());
+			
+			for(String mod:listaModelo)
+				cbxModelo.addItem(mod);
+			
+			cbxModelo.addItemListener(new ItemListener()
+			{
+				
+				public void itemStateChanged(ItemEvent e)
+				{
+			
+					String itemModelo=cbxModelo.getSelectedItem().toString();
+					
+					
+					DTOMarca dtoMarcaSeleccionado = ObtenerDtoDeUnCombo.ObtenerDTOMarca( itemModelo, dtoListaModelo);   					
+					
+					
+					Calendar calendarDTOModelo_DTOAnio = Calendar.getInstance();	
+					
+									
+					for(DTOModelo dtoModelo:dtoListaModelo) {
+						
+						if(dtoModelo.getNombre().compareTo(itemModelo) == 0) {
+							calendarDTOModelo_DTOAnio.setTime(dtoModelo.getAniodevehiculo().getAnio());
+							int yearDTOModelo_DTOAnio=calendarDTOModelo_DTOAnio.get(Calendar.YEAR);
+							String anio= Integer.toString(yearDTOModelo_DTOAnio);
+							 listaAnio.add(anio);
+										
+						}
+							
+												
+								
+					}
+					    cbxMarca.removeAllItems();
+						cbxMarca.addItem(dtoMarcaSeleccionado.getMarca());
+						cbxAniodevehiculo.removeAllItems();
+						for(String anio:listaAnio)
+							cbxAniodevehiculo.addItem(anio);
+				}
+			});
+					
+			
 			textField_Motor.setEnabled(true);
 			textField_KmPorAnio.setEnabled(true);
 			textField_Chasis.setEnabled(true);
@@ -725,7 +800,7 @@ public class darDeAltaPoliza extends JFrame {
 		};
 		if(cbxProvinciaRiesgo.getSelectedIndex() == -1)
 		{
-			System.out.printf("Seleccione provincia");
+			//System.out.printf("Seleccione provincia");
 		}
 		else
 		{
@@ -741,9 +816,9 @@ public class darDeAltaPoliza extends JFrame {
 				String chasis = textField_Chasis.getText();
 				String provincia = cbxProvinciaRiesgo.getSelectedItem().toString();
 				String localidad = cbxLocalidadRiesgo.getSelectedItem().toString();
-				String marca = cbxMarca.getSelectedItem().toString();
-				String modelo = cbxModelo.getSelectedItem().toString();
-				String anio = cbxAnioVehiculo.getSelectedItem().toString();
+				String marca = cbxModelo.getSelectedItem().toString();
+				String modelo = cbxAniodevehiculo.getSelectedItem().toString();
+				String anio = cbxMarca.getSelectedItem().toString();
 				String nroSiniestro = cbxSiniestros.getSelectedItem().toString();
 				
 				if(e.getSource() == btnAceptar)
