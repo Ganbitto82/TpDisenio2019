@@ -8,15 +8,15 @@ import ar.TpDisenio2019.DTO.DTOModelo;
 
 public class ObtenerDtoDeUnCombo {
 
-	public static DTOMarca ObtenerDTOMarca(String textoSeleccionado, List<DTOModelo> listaDtoModelo)
+	public static DTOMarca ObtenerDTOMarca(String textoSeleccionado, List<DTOMarca> listaDtoMarca)
 	{
 		DTOMarca dtoBuscado = null;
 		
-		for(DTOModelo dtoModelo :listaDtoModelo)
+		for(DTOMarca dtoMarca :listaDtoMarca)
 		{
 			
-			if(dtoModelo.getNombre().compareTo(textoSeleccionado) == 0) {
-				dtoBuscado = dtoModelo.getMarca();
+			if( dtoMarca.getMarca().compareTo(textoSeleccionado) == 0) {
+				dtoBuscado = dtoMarca;
 				break;
 			}
 			
@@ -39,6 +39,22 @@ public class ObtenerDtoDeUnCombo {
 		return dtoBuscado;
 	}
 	
+	public static DTOModelo ObtenerDTOModelo(String textoSeleccionado, List<DTOModelo> listaDtoModelo)
+	{
+		DTOModelo dtoBuscado = null;
+		
+		for(DTOModelo dtoModelo :listaDtoModelo)
+		{
+			
+			if( dtoModelo.getNombre().compareTo(textoSeleccionado) == 0) {
+				dtoBuscado = dtoModelo;
+				break;
+			}
+			
+		}
+			
+		return dtoBuscado;
+	}
 	
 	
 }
