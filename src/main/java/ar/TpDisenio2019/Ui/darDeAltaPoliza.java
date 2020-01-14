@@ -10,6 +10,8 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -44,6 +46,7 @@ import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.ObtenerDtoDeUnCombo;
 import ar.TpDisenio2019.Utilitario.Validaciones;
+
 
 
 public class darDeAltaPoliza extends JFrame {
@@ -83,6 +86,8 @@ public class darDeAltaPoliza extends JFrame {
 	private JComboBox<String> cbxMarca;
 	private JComboBox<String> cbxAniodevehiculo;
 	private JComboBox<String> cbxModelo;
+	
+
     
 
 	private List<DTODatosdehijo> listaDTOHijos = new ArrayList<DTODatosdehijo>();
@@ -741,7 +746,7 @@ public class darDeAltaPoliza extends JFrame {
 			cbxAniodevehiculo.setEnabled(true);
 			cbxModelo.setEnabled(true);
 
-			cbxMarca.addItem("Seleccione Marca ");
+			cbxMarca.addItem("Seleccione Marca");
 			cbxModelo.addItem("Seleccione Modelo");
 			cbxAniodevehiculo.addItem("Seleccione Anio  ");
 			
@@ -755,39 +760,72 @@ public class darDeAltaPoliza extends JFrame {
 			for(String marca:listaMarca)
 				cbxMarca.addItem(marca);
 			
-			
-			cbxMarca.addActionListener(new ActionListener() {
 				
-
-				public void actionPerformed(ActionEvent e) {
-	                      
+		cbxMarca.addItemListener(new ItemListener()
+			{
+				public void itemStateChanged(ItemEvent e)
+				{					
+					if (e.getStateChange() == ItemEvent.SELECTED)  {
 					String itemMarca=cbxMarca.getSelectedItem().toString();
+							    	
 					
+					if (itemMarca.equals("Seleccione Marca") ){
+					
+						 JOptionPane.showMessageDialog(null, "Debe seleccionar una marca");
+						 cbxModelo.removeAllItems();
+						 cbxAniodevehiculo.removeAllItems();
+						 listaModelo.clear();
+						}
+					
+					else {	
+						
 					
 					DTOMarca dtoMarcaSeleccionado = ObtenerDtoDeUnCombo.ObtenerDTOMarca( itemMarca, dtoListaMarca);   					
 			
-									
+							
 					for(DTOModelo dtoModelo:dtoListaModelo) {
 						
 						if( dtoMarcaSeleccionado.getIdMarca()==  dtoModelo.getMarca().getIdMarca() ) 
 							listaModelo.add(dtoModelo.getNombre());						
-															}
+					
+					
+					}
+				    cbxModelo.removeAllItems();
 					for(String modelo:listaModelo)
-						cbxModelo.addItem(modelo);
+					cbxModelo.addItem(modelo);
+					cbxModelo.addItem("Seleccione Modelo");
+					listaModelo.clear();
+					listaAnio.clear();
+						 
+						
+					}
+						
 
-		
-			}});
+				}
+				}
+			});
 			
-		cbxModelo.addActionListener(new ActionListener() {
 				
-
-				public void actionPerformed(ActionEvent e) {
-	                      
-					String itemModelo=cbxModelo.getSelectedItem().toString();
+		cbxModelo.addItemListener(new ItemListener()
+			{
+				public void itemStateChanged(ItemEvent e)
+				{
+									 
+					if (e.getStateChange() == ItemEvent.SELECTED) {
+						
+						
+						String itemModelo=cbxModelo.getSelectedItem().toString();
 					
-					
+						         if (itemModelo.equals("Seleccione Modelo")) {
+							 
+							       JOptionPane.showMessageDialog(null, "Debe seleccionar un Modelo");}
+						
+						         else {	
+						     				   
 					DTOModelo dtoModeloSeleccionado = ObtenerDtoDeUnCombo.ObtenerDTOModelo(itemModelo, dtoListaModelo);  					
-			
+					
+					
+					
 					Calendar calendarDTOModelo_DTOAnio = Calendar.getInstance();				
 					for(DTOModelo dtoModelo:dtoListaModelo) {
 						
@@ -798,16 +836,42 @@ public class darDeAltaPoliza extends JFrame {
 							 listaAnio.add(anio);
 							
 															}}
+					cbxAniodevehiculo.removeAllItems();
 					for(String anio:listaAnio)
-						cbxAniodevehiculo.addItem(anio);
-
+					cbxAniodevehiculo.addItem(anio);
+					cbxAniodevehiculo.addItem("Seleccione anio");	
+					listaAnio.clear();
+					
+					cbxAniodevehiculo.addItemListener(new ItemListener()
+					{
+						public void itemStateChanged(ItemEvent e)
+						{
+											 
+							if (e.getStateChange() == ItemEvent.SELECTED) {
+								
+								
+							}}});
+					 }}}
+					
+				
+			});
 		
-			}});
-			
-	
-			
-			
-			
+		cbxAniodevehiculo.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent e)
+			{
+								 
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					String itemAnio=cbxAniodevehiculo.getSelectedItem().toString();
+					
+			         if (itemAnio.equals("Seleccione anio")) {
+				 
+				       JOptionPane.showMessageDialog(null, "Debe seleccionar un Año");}
+					
+				}}});
+			        
+		
+		
 			textField_Motor.setEnabled(true);
 			textField_KmPorAnio.setEnabled(true);
 			textField_Chasis.setEnabled(true);
