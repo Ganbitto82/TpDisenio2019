@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOPoliza;
 
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -234,9 +235,9 @@ public class buscarCliente1 extends JFrame {
 		
 			public void actionPerformed(ActionEvent e) {
               if(e.getSource()==button_Aceptar) {
-				
+            	  DTOPoliza dtoPoliza=null;
             	  dispose();					
-            	  darDeAltaPoliza d = new darDeAltaPoliza(dtoCliente);
+            	  darDeAltaPoliza d = new darDeAltaPoliza(dtoPoliza,dtoCliente);
 					d.setVisible(true);
 					d.setResizable(false);
 					d.setLocationRelativeTo(null);

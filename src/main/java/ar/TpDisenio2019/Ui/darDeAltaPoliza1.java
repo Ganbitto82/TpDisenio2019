@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
+import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 
@@ -47,7 +48,7 @@ public class darDeAltaPoliza1 extends JFrame {
 	private JComboBox<String> tipoCobertura_comboBox;
 	private JComboBox<String> formaDePago_comboBox;
 	
-	public darDeAltaPoliza1(DTOCliente dtocliente, String modelo, String marca) {
+	public darDeAltaPoliza1(DTOPoliza dtopoliza, DTOCliente dtocliente, String modelo, String marca) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 730);
@@ -227,7 +228,7 @@ public class darDeAltaPoliza1 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				darDeAltaPoliza b = new darDeAltaPoliza(dtocliente);
+				darDeAltaPoliza b = new darDeAltaPoliza(dtopoliza,dtocliente);
 				b.setVisible(true);
 			}
 		});	

@@ -34,6 +34,7 @@ import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.DTO.DTOMarca;
 import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
@@ -85,7 +86,7 @@ public class darDeAltaPoliza extends JFrame {
     private List<String> listaProvincia= new ArrayList<>(); 
     private List<String> listaLocalidad= new ArrayList<>(); 
 
-	public darDeAltaPoliza(DTOCliente dtoCliente) {
+	public darDeAltaPoliza(DTOPoliza dtoPoliza, DTOCliente dtoCliente) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 730);
@@ -638,18 +639,22 @@ public class darDeAltaPoliza extends JFrame {
 				String nroHijos = textField_CantHijos.getText();
 				int numeroHijos = Integer.valueOf(nroHijos);
 				
-				new PantallaAgregarHijos(numeroHijos);
-
-				if(numeroHijos >= 18 && numeroHijos <= 30)
+							
+				if(numeroHijos >= 1 && numeroHijos <= 15)
 				{
 					if(e.getSource() == btnCompletarHijos)
 					{
-						ModHijos b = new ModHijos(numeroHijos);
+						/*
+						new PantallaAgregarHijos(dtoPoliza,numeroHijos);
+						*/
+						ModHijos b = new ModHijos(dtoPoliza,numeroHijos);
 						b.setVisible(true);
 						b.setResizable(false);
 						b.setLocationRelativeTo(null);
+						
 					}
 				}
+				
 				
 			}
 		});
@@ -960,7 +965,7 @@ public class darDeAltaPoliza extends JFrame {
 				{
 					dispose();
 					lblCamposObligatorios.setForeground(Color.black);
-					darDeAltaPoliza1 b = new darDeAltaPoliza1(dtoCliente, modelo, marca);
+					darDeAltaPoliza1 b = new darDeAltaPoliza1(dtoPoliza, dtoCliente, modelo, marca);
 					b.setVisible(true);
 					b.setResizable(false);
 					b.setLocationRelativeTo(null);

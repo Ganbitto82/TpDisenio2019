@@ -1,7 +1,10 @@
 package ar.TpDisenio2019.Utilitario;
 
+import java.sql.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ar.TpDisenio2019.Utilitario.Fechas;
 
 public class Validaciones {
 		
@@ -117,7 +120,93 @@ public class Validaciones {
 			return found;
 			
 		}
-	
-	}
+
+		//Valida que la fecha esté completa y correcta y dentro del rango (01/01/1857 - fecha actual menos un día)
+		public static boolean validarFechaNacimiento(String fecha)
+		{
+			if(fechaCompleta(fecha) == false)
+				return false;
+			
+			if(fechaCorrecta(fecha) == false)
+				return false;
+			
+			Fechas fechas = new Fechas();
+			Date fechaNacimiento = Fechas.convertirCadenaFechaADate(fecha);
+			
+			Date fechaLímiteInferior = new Date(fechas.milisegundosDesde01011920Hasta01011970());
+			Date fechaActualMenosUno = fechas.obtenerFechaActualMenosUnDía();
+			
+			if(fechaNacimiento.before(fechaLímiteInferior) || fechaNacimiento.after(fechaActualMenosUno))
+				return false;
+			else  return true;
+		}
+		
+		//Valida que la fecha esté completa y correcta
+		public boolean validarFecha(String fecha)
+		{
+			if(fechaCompleta(fecha) == false)
+				return false;
+				
+			if(fechaCorrecta(fecha) == false)
+				return false;
+				
+			return true;
+		}
+		
+		//fecha podría ser "dd/mm/aaaa", o con algún u algunos dígitos menos, excepto la cadena "  /  /    "
+		public static boolean fechaCompleta(String fecha)
+		{
+			if(fecha.compareTo("  /  /    ") == 0)
+				return false;
+					
+			else
+			{
+				Pattern patrón = Pattern.compile("\\d{2}" + "/" + "\\d{2}" + "/" + "\\d{4}" );
+				Matcher matcher = patrón.matcher(fecha);
+				return matcher.matches();
+			}
+		}	
+		
+		//fecha debe estar completa (dd/mm/aaaa)
+		public static boolean fechaCorrecta(String fecha)
+		{
+			Integer day = new Integer (fecha.substring(0,2));
+			int día = day.intValue();
+				
+			Integer month = new Integer (fecha.substring(3,5));
+			int mes = month.intValue();
+				
+			Integer year = new Integer (fecha.substring(6,10));
+			int año = year.intValue();
+			
+			if(día > 31)											
+				return false;
+			
+			if(mes > 12)
+				return false;
+			
+			boolean mesCon31 = false;
+			if(((mes % 2 == 1) && mes < 8) || ((mes % 2 == 0) && mes > 7))
+				mesCon31 = true;
+			
+			if(día == 31 && mesCon31 == false)
+				return false;
+			
+			boolean bisiesto = false;
+			
+			if((año % 4 == 0) && (año % 100 != 0))
+				bisiesto = true;
+			
+			if((año % 100 == 0) && (año % 400 == 0))
+				bisiesto = true;
+			
+			if(bisiesto && día == 29 && mes == 2)
+				return true;
+			else if(bisiesto == false && día == 29 && mes == 2)
+				return false;
+			
+			return true;
+		}
+}
 
 
