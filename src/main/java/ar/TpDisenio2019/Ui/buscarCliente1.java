@@ -78,12 +78,13 @@ public class buscarCliente1 extends JFrame {
 		JLabel label_3 = new JLabel("Tipo:");
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		long nroCliente=dtoCliente.getNroCliente();
-		String strCliente = Long.toString(nroCliente);
+		long nroCliente = dtoCliente.getNroCliente();
+		String strCliente =  Long.toString(nroCliente);
+		
 		textField__NroCliente = new JTextField();
 		textField__NroCliente.setEditable(false);
 		textField__NroCliente.setColumns(10);
-		textField__NroCliente.setText(strCliente );
+		textField__NroCliente.setText(strCliente);
 		
 		textField_Apellido = new JTextField();
 		textField_Apellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -236,9 +237,9 @@ public class buscarCliente1 extends JFrame {
 				
             	  dispose();					
             	  darDeAltaPoliza d = new darDeAltaPoliza(dtoCliente);
-						d.setVisible(true);
-						d.setResizable(false);
-						d.setLocationRelativeTo(null);
+					d.setVisible(true);
+					d.setResizable(false);
+					d.setLocationRelativeTo(null);
 						
 						
 			

@@ -5,8 +5,10 @@ import java.util.List;
 
 import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
+import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.DTO.DTOMarca;
 import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.Dao.AniodeVehiculoDao;
 import ar.TpDisenio2019.Dao.AniodeVehiculoDaoImp;
 import ar.TpDisenio2019.Dao.FormasdepagoDao;
@@ -67,16 +69,6 @@ public class GestorListasBDDesplegable {
          	
 		return listaTipos;
 	}
-    
-    public static List<Provincia> ObtenerProvincias() {
-  
-    	
-    	List<Provincia> listaProvincias =provinciaDao.obtenerTodas();
-         	
-		return listaProvincias;
-	}
-    
-    
     public static List<Formasdepago> ObtenerFormasdepago() {
     	
     	List<Formasdepago> listaFormadepago = formasdepagoDao.obtenerTodas();
@@ -104,33 +96,37 @@ public class GestorListasBDDesplegable {
     	List<Siniestro> listaSiniestro = siniestroDao.obtenerTodas();
          	
 		return listaSiniestro;
-	}
-    
+	}  
     public static List<DTOMarca> obtenerMarca(){
     	
     	List<DTOMarca> listaDtoMarca = marcaDao.obtenerDTOMarca();
-    	return listaDtoMarca ;
-    	    	
+    	return listaDtoMarca ; 	    	
     }
     public static List<DTOAniodevehiculo> obtenerAniodeVehiculo(){
     	
     	List<DTOAniodevehiculo> listaDtoAniodevehiculo = aniodeVehiculoDao.obtenerDTOAnioVehiculo();
-    	return listaDtoAniodevehiculo ;
-    	
-    	
+    	return listaDtoAniodevehiculo ;	
     }
     public static List<DTOModelo> obtenerModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
     	
     	List<DTOModelo> listaDtoModelo= modeloDao.obtenerDTOModelo(dtoMarca, dtoAniodeVehiculo);
     	return listaDtoModelo;
-    	
     }
     
     public List<DTOModelo> ObtenerModelo(){
     	
     	List <DTOModelo> listaModelos= modeloDao.obtenerTodas();
-    	return listaModelos;
+    	return listaModelos;	
+    }
+    public static List<DTOProvincia> obtenerProvincia(){
     	
+    	List<DTOProvincia> listaDtoProvincia = provinciaDao.obtenerDTOProvincia();
+    	return listaDtoProvincia ;	    	
+    }
+    public List<DTOLocalidad> ObtenerLocalidad(){
+    	
+    	List <DTOLocalidad> listaLocalidad= localidadDao.obtenerTodas();
+    	return listaLocalidad;	
     }
     
     

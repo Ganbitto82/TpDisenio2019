@@ -21,6 +21,9 @@ public class GestorCliente {
 
 		dtoListaCliente = gestionCliente.obtenerDTOCliente();
 	
+			
+	
+			
 			return dtoListaCliente;
 			
 	}

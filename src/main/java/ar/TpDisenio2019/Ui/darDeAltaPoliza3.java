@@ -14,55 +14,58 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
+
+import ar.TpDisenio2019.DTO.DTOCliente;
+
 import javax.swing.border.EtchedBorder;
 
 public class darDeAltaPoliza3 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField apellido_textField;
+	private JTextField nombre_textField;
+	private JTextField textField_marca;
+	private JTextField textField_modelo;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_9;
-	private JTextField textField_11;
-	private JTextField textField_10;
-	private JTextField textField_13;
-	private JTextField textField_12;
+	private JTextField nombre_textField1;
+	private JTextField nombre_textField0;
+	private JTextField nombre_textField3;
+	private JTextField nombre_textField2;
 
-	public darDeAltaPoliza3() {
+	public darDeAltaPoliza3(DTOCliente dtoCliente, String modelo, String marca) {
 		setTitle("P\u00F3liza a Generar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 730);
+		setBounds(100, 100, 850, 730);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(5, 100, 774, 85);
+		panel_2.setBounds(5, 100, 829, 85);
 		panel_2.setBorder(new TitledBorder(null, "TITULAR DEL SEGURO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(5, 191, 774, 148);
+		panel_3.setBounds(5, 191, 829, 148);
 		panel_3.setBorder(new TitledBorder(null, "DATOS DEL VEH\u00CDCULO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
+		textField_marca = new JTextField(marca);
+		textField_marca.setEditable(false);
+		textField_marca.setColumns(10);
 		
 		JLabel lblMarca = new JLabel("Marca");
 		
 		JLabel lblModelo = new JLabel("Modelo");
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
+		textField_modelo = new JTextField(modelo);
+		textField_modelo.setEditable(false);
+		textField_modelo.setColumns(10);
 		
 		JLabel lblMotor = new JLabel("Motor");
 		
@@ -90,7 +93,7 @@ public class darDeAltaPoliza3 extends JFrame {
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(lblMarca)
 							.addGap(18)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+							.addComponent(textField_marca, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING, false)
 							.addGroup(gl_panel_3.createSequentialGroup()
 								.addComponent(lblMotor)
@@ -105,7 +108,7 @@ public class darDeAltaPoliza3 extends JFrame {
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(lblModelo)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+							.addComponent(textField_modelo, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(lblPatente)
 							.addGap(18)
@@ -120,14 +123,14 @@ public class darDeAltaPoliza3 extends JFrame {
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblModelo)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_modelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPatente)
 								.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_marca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblMarca))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
@@ -142,7 +145,7 @@ public class darDeAltaPoliza3 extends JFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(5, 345, 774, 101);
+		panel_4.setBounds(5, 345, 829, 101);
 		panel_4.setBorder(new TitledBorder(null, "VIGENCIA", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		textField_7 = new JTextField();
@@ -185,7 +188,7 @@ public class darDeAltaPoliza3 extends JFrame {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "INFORMACI\u00D3N", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_5.setBounds(5, 453, 774, 233);
+		panel_5.setBounds(5, 453, 829, 233);
 		
 		JLabel lblSumaAsegurada = new JLabel("Suma Asegurada");
 		
@@ -203,6 +206,7 @@ public class darDeAltaPoliza3 extends JFrame {
 				if(e.getSource() == btnAceptar)
 				{
 					dispose();
+
 				}
 			}
 		});
@@ -222,37 +226,31 @@ public class darDeAltaPoliza3 extends JFrame {
 		textField_9.setEditable(false);
 		textField_9.setColumns(10);
 		
-		textField_11 = new JTextField();
-		textField_11.setEditable(false);
-		textField_11.setColumns(10);
+		nombre_textField1 = new JTextField();
+		nombre_textField1.setEditable(false);
+		nombre_textField1.setColumns(10);
 		
-		textField_10 = new JTextField();
-		textField_10.setEditable(false);
-		textField_10.setColumns(10);
+		nombre_textField0 = new JTextField();
+		nombre_textField0.setEditable(false);
+		nombre_textField0.setColumns(10);
 		
-		textField_13 = new JTextField();
-		textField_13.setEditable(false);
-		textField_13.setColumns(10);
+		nombre_textField3 = new JTextField();
+		nombre_textField3.setEditable(false);
+		nombre_textField3.setColumns(10);
 		
-		textField_12 = new JTextField();
-		textField_12.setEditable(false);
-		textField_12.setColumns(10);
+		nombre_textField2 = new JTextField();
+		nombre_textField2.setEditable(false);
+		nombre_textField2.setColumns(10);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
 		gl_panel_5.setHorizontalGroup(
 			gl_panel_5.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addContainerGap(659, Short.MAX_VALUE)
-					.addComponent(btnAceptar)
-					.addGap(53)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblMontoTotalA)
 							.addGap(18)
-							.addComponent(textField_13, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+							.addComponent(nombre_textField3, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addGap(70)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
@@ -263,16 +261,22 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addGap(18)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
 								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(nombre_textField1, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))))
 					.addGap(70)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblltimoDaDe)
 						.addComponent(lblPremio))
 					.addGap(18)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+						.addComponent(nombre_textField0, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nombre_textField2, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 					.addGap(241))
+				.addGroup(gl_panel_5.createSequentialGroup()
+					.addContainerGap(470, Short.MAX_VALUE)
+					.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+					.addGap(148))
 		);
 		gl_panel_5.setVerticalGroup(
 			gl_panel_5.createParallelGroup(Alignment.LEADING)
@@ -281,14 +285,12 @@ public class darDeAltaPoliza3 extends JFrame {
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(nombre_textField0, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblPremio))
 							.addGap(18)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblltimoDaDe)
-								.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-							.addComponent(btnAceptar))
+								.addComponent(nombre_textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblSumaAsegurada)
@@ -296,13 +298,15 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addGap(18)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblImpPorDescuento)
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(nombre_textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(71)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblMontoTotalA))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCancelar)))
+								.addComponent(nombre_textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblMontoTotalA))))
+					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAceptar)
+						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
 		panel_5.setLayout(gl_panel_5);
@@ -310,17 +314,26 @@ public class darDeAltaPoliza3 extends JFrame {
 		
 		JLabel label_1 = new JLabel("");
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setColumns(10);
+			
+		
+		apellido_textField = new JTextField();
+		apellido_textField.setEditable(false);
+		apellido_textField.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		
 		JLabel lblNombre = new JLabel("Nombre");
+
+		nombre_textField = new JTextField();
+		nombre_textField.setEditable(false);
+		nombre_textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
+		if(dtoCliente != null)
+		{
+			apellido_textField.setText(dtoCliente.getApellido());
+
+			nombre_textField.setText(dtoCliente.getNombre());
+		}
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -333,11 +346,11 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addGap(127)
 							.addComponent(lblApellido)
 							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addComponent(apellido_textField, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 							.addGap(124)
 							.addComponent(lblNombre)
 							.addGap(18)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(nombre_textField, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(135, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
@@ -348,9 +361,9 @@ public class darDeAltaPoliza3 extends JFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNombre)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nombre_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblApellido)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(apellido_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -362,7 +375,7 @@ public class darDeAltaPoliza3 extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setToolTipText("jgj");
 		panel.setBackground(new Color(255, 0, 51));
-		panel.setBounds(0, 0, 784, 87);
+		panel.setBounds(0, 0, 834, 87);
 		contentPane.add(panel);
 		
 		JLabel label = new JLabel("EL ASEGURADO");

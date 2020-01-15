@@ -1,7 +1,6 @@
 package ar.TpDisenio2019.Dao;
 
-
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,7 +9,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.Modelo.Provincia;
 
 
@@ -49,18 +48,24 @@ public class ProvinciaDaoImp implements ProvinciaDao {
     }
 
     @Override
-    public List<Provincia> obtenerTodas() {
+    public List<DTOProvincia> obtenerDTOProvincia() {
         
     	 Session session = sessionFactory.openSession();
     	 CriteriaQuery<Provincia> cq = session.getCriteriaBuilder().createQuery(Provincia.class);
 	
     	 cq.from(Provincia.class);
     	 List<Provincia> provincias = session.createQuery(cq).getResultList();
+    	 List<DTOProvincia> listaDtoProvincia = new ArrayList<>();
+    	 
+    	 DTOProvincia dtoProvincia;
+    	 
+    	 for(Provincia p :provincias){
+    		 dtoProvincia = new DTOProvincia(p.getIdProvincia(),p.getNombre());
+    		 listaDtoProvincia.add(dtoProvincia);
+            }
     
         session.close();
         
-        return provincias;
+        return listaDtoProvincia;
     }
-
-
 }

@@ -83,5 +83,4 @@ public class darDeAltaPoliza2 extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 	}
-
 }

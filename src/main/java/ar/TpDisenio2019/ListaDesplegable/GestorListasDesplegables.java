@@ -47,27 +47,10 @@ public class GestorListasDesplegables {
 		}
 
 		return dtoListaTipos;
-
 	}
 	
-	public static List<DTOProvincia> buscarDtosProvincia( )
-	{
-		List<Provincia> listaProvincias = new ArrayList<Provincia>();
-		listaProvincias = GestorListasBDDesplegable.ObtenerProvincias();
-		List<DTOProvincia> listaDtosProvincia = new ArrayList<DTOProvincia>();
-		for(int i = 0; i < listaProvincias.size(); i++)
-		{
-			DTOProvincia dtoProvincia = new DTOProvincia( );
-			dtoProvincia.setIdProvincia(listaProvincias.get(i).getIdProvincia());
-			dtoProvincia.setNombre(listaProvincias.get(i).getNombre());
-			listaDtosProvincia.add(dtoProvincia);
-		}
-		
-		return listaDtosProvincia;
-	}
-	
-	 public static List<DTOSiniestro> buscarDtosSiniestros()
-		{
+	 public static List<DTOSiniestro> buscarDtosSiniestros(){
+		 
 			List<Siniestro> listaSiniestro = new ArrayList<Siniestro>();
 			listaSiniestro = GestorListasBDDesplegable.ObtenerSiniestros();
 			List<DTOSiniestro> listaDtosSiniestro = new ArrayList<DTOSiniestro>();
@@ -82,8 +65,8 @@ public class GestorListasDesplegables {
 			return listaDtosSiniestro;
 		}
 	 
-	 public static List<DTOFormasdepago> buscarDtosFormaDePago()
-		{
+	 public static List<DTOFormasdepago> buscarDtosFormaDePago(){
+		 
 			List<Formasdepago> listaFormadepago = new ArrayList<Formasdepago>();
 			listaFormadepago = GestorListasBDDesplegable.ObtenerFormasdepago();
 			List<DTOFormasdepago> listaDtosFormadepago = new ArrayList<DTOFormasdepago>();
@@ -95,12 +78,12 @@ public class GestorListasDesplegables {
 				listaDtosFormadepago.add(dtoFormadepago);
 			}
 			
-			return listaDtosFormadepago;
-		}
+		return listaDtosFormadepago;
+	}
 	 
-	 public static List<DTOTipocobertura> buscarDtosTipocobertura()
-		{
-			List<Tipocobertura> listaTipocobertura = new ArrayList<Tipocobertura>();
+	 public static List<DTOTipocobertura> buscarDtosTipocobertura(){
+	
+		 List<Tipocobertura> listaTipocobertura = new ArrayList<Tipocobertura>();
 			listaTipocobertura = GestorListasBDDesplegable.ObtenerTipocobertura();
 			List<DTOTipocobertura> listaDtosTipocobertura = new ArrayList<DTOTipocobertura>();
 			for(int i = 0; i < listaTipocobertura.size(); i++)
@@ -111,8 +94,26 @@ public class GestorListasDesplegables {
 				listaDtosTipocobertura.add(dtoTipocobertura);
 			}
 			
-			return listaDtosTipocobertura;
-		}
+		return listaDtosTipocobertura;
+	}
+	 
+	public static List<DTOLocalidad> buscarDtosLocalidad( ){
+			
+		List<DTOLocalidad> dtoListaLocalidad = new ArrayList<DTOLocalidad>();
+
+		dtoListaLocalidad = gestionListaDesplegable.ObtenerLocalidad();
+				
+		return dtoListaLocalidad;
+	}
+	 
+   public static List<DTOModelo> buscarDtosModelo(){
+			
+		List<DTOModelo> dtoListaModelo = new ArrayList<DTOModelo>();
+
+		dtoListaModelo = gestionListaDesplegable.ObtenerModelo();
+			
+		return dtoListaModelo;
+	}
 
 	public static DTOPais crearDTOPais(Pais pais) {
 		DTOPais dtoPais = new DTOPais(pais.getIdPais(), pais.getNombre());
@@ -136,42 +137,31 @@ public class GestorListasDesplegables {
 	}
 	
 	public static  List<DTOMarca>  obtenerDTOMarca() {
-  
-    	
+	
     	List<DTOMarca> listaDtoMarca =GestorListasBDDesplegable.obtenerMarca();
          	
 		return listaDtoMarca;
 	}
 	
     public static  List<DTOAniodevehiculo>  obtenerDTOAniodeVehiculo() {
-  
-    	
+
     	List<DTOAniodevehiculo> listaDtoAniodevehiculo =GestorListasBDDesplegable.obtenerAniodeVehiculo();
          	
 		return listaDtoAniodevehiculo;
 	}
 	
     public static List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
-    	
-    	
-    	
+
     	List<DTOModelo> listaDtoModelo=GestorListasBDDesplegable.obtenerModelo(dtoMarca, dtoAniodeVehiculo);
     	
-    	return  listaDtoModelo;
-    	
+    	return  listaDtoModelo;	
     }
     
-public static List<DTOModelo> buscarDtosModelo(){
-		
-		List<DTOModelo> dtoListaModelo = new ArrayList<DTOModelo>();
-
-		dtoListaModelo = gestionListaDesplegable.ObtenerModelo();
-	
-			
-	
-			
-			return dtoListaModelo;
-		
+	public static  List<DTOProvincia>  obtenerDTOProvincia() {
+    	
+    	List<DTOProvincia> listaDtoProvincia =GestorListasBDDesplegable.obtenerProvincia();
+         	
+		return listaDtoProvincia;
 	}
 
 }

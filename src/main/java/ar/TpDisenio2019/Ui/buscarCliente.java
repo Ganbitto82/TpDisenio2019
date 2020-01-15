@@ -9,29 +9,21 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
-
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import javax.swing.JTextField;
-
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.text.MaskFormatter;
-
 import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
-import ar.TpDisenio2019.Modelo.Cliente;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.Validaciones;
 
@@ -59,26 +51,26 @@ public class buscarCliente extends JFrame {
 	private JFormattedTextField nroCliente;
 	private String tipoDeDocumento;
 	private List<DTOTipodedocumento> dtoListaTipoDocumento = new ArrayList<DTOTipodedocumento>();
-    private  List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
-  
-    
-    
+    private List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
+    private List<String> listatipoDocumento = new ArrayList<>();
+
 	private JLabel labelAclaracionSobreNumerodeCliente;
+	
+	private  JComboBox<String> comboBoxTipoDocumento;
 
 	private JScrollPane scrollPane;
 	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento",
 			"Nro de Documento" };
 	private Object[][]datosDeLaTabla;
 	private JTable tablaCliente;
+	
 	long numCliente;
 	int numeroDoc;
 	int numeroDeDocumento;
-
 	
 	public buscarCliente() {
 
 		setTitle("Buscar Cliente");
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
 		setLocationRelativeTo(null);
@@ -93,28 +85,24 @@ public class buscarCliente extends JFrame {
 		panel_3.setBounds(15, 303, 764, 377);
 
 		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
-
 		
-		JButton button_2 = new JButton("Cancelar");
-		button_2.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+		JButton buttonCancelar = new JButton("Cancelar");
+		buttonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				hide();
+				dispose();
 			}
 		});
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		// datos de tabla
 		scrollPane = new JScrollPane();
 	
 		datosDeLaTabla = new Object[24][5];
-		 tablaCliente = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
-		 tablaCliente.setCellSelectionEnabled(true);
+		tablaCliente = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+		tablaCliente.setCellSelectionEnabled(true);
 
-		 tablaCliente.getColumnModel().getColumn(2).setPreferredWidth(119);
-		 tablaCliente.getColumnModel().getColumn(3).setPreferredWidth(118);
+		tablaCliente.getColumnModel().getColumn(2).setPreferredWidth(119);
+		tablaCliente.getColumnModel().getColumn(3).setPreferredWidth(118);
 		scrollPane.setViewportView( tablaCliente);
-
 	
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(5, 94, 774, 211);
@@ -169,13 +157,12 @@ public class buscarCliente extends JFrame {
 		nroCliente = new JFormattedTextField(mascara);
 		nroCliente.setColumns(10);
 
-		// ********
 		nombreCliente = new JTextField();
 		nombreCliente.setColumns(10);
 
 		apellidoCliente = new JTextField();
 		apellidoCliente.setColumns(10);
-		//
+
 		MaskFormatter mascaraNroDoc = null;
 
 		try {
@@ -237,7 +224,6 @@ public class buscarCliente extends JFrame {
 				String texto = nombreCliente.getText();
 				nombreCliente.setText(texto.toUpperCase());
 			}
-
 		});
 
 		// ********** Verifica cantidades de digitos de apellido y escribe con
@@ -271,10 +257,12 @@ public class buscarCliente extends JFrame {
 
 		// *******************Lista los tipos de documentos
 
-		JComboBox<String> comboBoxTipoDocumento = new JComboBox<String>();
+		comboBoxTipoDocumento = new JComboBox<String>();
+		comboBoxTipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		comboBoxTipoDocumento.setForeground(Color.BLACK);
 		dtoListaTipoDocumento = GestorListasDesplegables.buscarDtosTipoDeDocumento();
-		List<String> listatipoDocumento = new ArrayList<>();
-		listatipoDocumento.add(" ");
+		
+		listatipoDocumento.add(" --Seleccione-- ");
 
 		for (DTOTipodedocumento tipo : dtoListaTipoDocumento)
 			listatipoDocumento.add(tipo.getNombre().toString());
@@ -299,25 +287,16 @@ public class buscarCliente extends JFrame {
 						if (tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 8)");
 
-						if (tipoDeDocumento.compareTo("L.E") == 0)
+						if (tipoDeDocumento.compareTo("LE") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 7)");
 
-						if (tipoDeDocumento.compareTo("REG. UNICO DE CONTRIBUYENTES") == 0)
+						if (tipoDeDocumento.compareTo("LC") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 11)");
-
-						if (tipoDeDocumento.compareTo("PASAPORTE") == 0)
-							labelAclaracionSobreNumeroDeDocumento
-									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 12)");
-
-						if (tipoDeDocumento.compareTo("PART. DE NACIMIENTO-IDENTIDAD") == 0)
-							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 15)");
-
+						
 						if (tipoDeDocumento.compareTo("OTROS") == 0)
 							labelAclaracionSobreNumeroDeDocumento
 									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
-
 						// labelAclaracionSobreNumeroDeDocumento.setVisible(true);
-
 					}
 				}
 			}
@@ -413,7 +392,6 @@ public class buscarCliente extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 
 		btnBuscar.addActionListener(new ActionListener() {
-			
 
 			public void actionPerformed(ActionEvent e) {
 
@@ -423,11 +401,10 @@ public class buscarCliente extends JFrame {
 				if (numeroCliente.compareTo("  -        ") != 0) {
 					
 					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
-					   {
-
-						labelAclaracionSobreNumerodeCliente.setVisible(true);
-						bandera++;
-					    }
+					{
+							labelAclaracionSobreNumerodeCliente.setVisible(true);
+							bandera++;
+					}
 				    else {
 					String[] parts = numeroCliente.split("-");
 					String part1 = parts[0]; 
@@ -451,9 +428,8 @@ public class buscarCliente extends JFrame {
 						labelAclaracionSobreNombres.setVisible(true);
 						bandera++;
 					}
-
 				}
-
+				
 				String apellido = apellidoCliente.getText();
 
 				if (apellido.length() > 0) {
@@ -462,13 +438,11 @@ public class buscarCliente extends JFrame {
 						labelAclaracionSobreApellido.setVisible(true);
 						bandera++;
 					}
-
 				}
 
 				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
 
 				String numeroDeDocumento = docCliente.getText();
-				
 				
 				if (numeroDeDocumento.length() > 0 && tipoDeDocumento.compareTo("") != 0) {
 					if (Validaciones.validarNumeroDeDocumento(numeroDeDocumento, tipoDeDocumento) == false) {
@@ -483,35 +457,23 @@ public class buscarCliente extends JFrame {
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 11)");
 
 						if (tipoDeDocumento.compareTo("PASAPORTE") == 0)
-							labelAclaracionSobreNumeroDeDocumento
-									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 12)");
+							labelAclaracionSobreNumeroDeDocumento.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 12)");
 
 						if (tipoDeDocumento.compareTo("PART. DE NACIMIENTO-IDENTIDAD") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Sólo se permiten números (máximo 15)");
 
 						if (tipoDeDocumento.compareTo("OTROS") == 0)
-							labelAclaracionSobreNumeroDeDocumento
-									.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
-
+							labelAclaracionSobreNumeroDeDocumento.setText("Carácteres válidos: 0-9, A-Z, espacio (máximo 15)");
 					}
 				}
-				
 				else {
 					
 					if (Validaciones.validarNumeroDeCliente(numeroDeDocumento) == true) 
-
-				    	numeroDoc= 0;
-					
-				    
-				    else 
-				    	
+						numeroDoc= 0;
+				    else 	
 				    	numeroDoc = Integer.parseInt( numeroDeDocumento );
-					}
-					
-				
-		
+				}
 
-				
 				if (bandera != 0) {
 					btnBuscar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -522,13 +484,13 @@ public class buscarCliente extends JFrame {
 								m.setVisible(true);
 								m.setResizable(false);
 								m.setLocationRelativeTo(null);
-
 							}
 						}
 
 					});
-
-				} else {
+					
+				} 
+				else {
 					DTOCliente buscarCliente = new DTOCliente();
 					DTOTipodedocumento tipo = new DTOTipodedocumento();
 					buscarCliente.setNroCliente(numCliente);
@@ -539,7 +501,6 @@ public class buscarCliente extends JFrame {
 					buscarCliente.setNroDocumento(numeroDoc);
 					
 					listaDtosCliente = GestorPoliza.buscarDtoscliente(buscarCliente);
-		
 					
 					if (listaDtosCliente.size() == 0) {
 
@@ -554,14 +515,12 @@ public class buscarCliente extends JFrame {
 					}
 				}
 
-			}
-		
+			}	
 			private void construirTabla(List<DTOCliente> listaDtosCliente) {
 				String[] 	nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento","Nro de Documento" };
 				Object[][] informacion=obtenerMatriz(listaDtosCliente); 
-				 tablaCliente=new JTable(informacion,nombresDeLasColumnasDeLaTabla);
+				tablaCliente = new JTable(informacion,nombresDeLasColumnasDeLaTabla);
 				scrollPane.setViewportView( tablaCliente);
-				
 			}
 
 			private Object[][] obtenerMatriz(List<DTOCliente> listaDtosCliente) {
@@ -577,19 +536,14 @@ public class buscarCliente extends JFrame {
 				return datosDeLaTabla;
 			}
 		});
-		
-		
-
 		JButton button_Aceptar = new JButton("Aceptar");
 		button_Aceptar.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
               if(e.getSource()==button_Aceptar) {
-				
-            	 
+ 
 				int filaSeleccion= tablaCliente.getSelectedRow();
-			
-				
+		
 				try {
 					
 					if (filaSeleccion==-1)
@@ -600,15 +554,11 @@ public class buscarCliente extends JFrame {
 						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion));
 						b.setVisible(true);
 						b.setResizable(false);
-						b.setLocationRelativeTo(null);
-						
-						
+						b.setLocationRelativeTo(null);	
 					}
 					
 				}catch (Exception e1) {
-					
-					
-					
+						
 				}
               }
 			}
@@ -616,8 +566,6 @@ public class buscarCliente extends JFrame {
 		
 		
 		button_Aceptar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-
-
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1
 				.setHorizontalGroup(
@@ -639,7 +587,7 @@ public class buscarCliente extends JFrame {
 		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap(87, Short.MAX_VALUE)
 						.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE).addGap(45)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
+						.addComponent(buttonCancelar, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
 				.addGroup(gl_panel_3.createSequentialGroup().addGap(19).addComponent(lblSeleccioneUnCliente)
 						.addContainerGap(644, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup().addContainerGap()
@@ -650,7 +598,7 @@ public class buscarCliente extends JFrame {
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+								.addComponent(buttonCancelar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 						.addGap(19)));
 		panel_3.setLayout(gl_panel_3);
 

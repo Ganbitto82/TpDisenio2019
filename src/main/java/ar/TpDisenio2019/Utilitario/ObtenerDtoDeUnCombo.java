@@ -5,6 +5,7 @@ import java.util.List;
 import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
 import ar.TpDisenio2019.DTO.DTOMarca;
 import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.DTO.DTOProvincia;
 
 public class ObtenerDtoDeUnCombo {
 
@@ -56,5 +57,18 @@ public class ObtenerDtoDeUnCombo {
 		return dtoBuscado;
 	}
 	
-	
+	public static DTOProvincia ObtenerDTOProvincia(String textoSeleccionado, List<DTOProvincia> listaDtoProvincia)
+	{
+		DTOProvincia dtoBuscado = null;
+		
+		for(DTOProvincia dtoProvincia :listaDtoProvincia)
+		{
+			
+			if(dtoProvincia.getNombre().compareTo(textoSeleccionado) == 0) {
+				dtoBuscado = dtoProvincia;
+				break;
+			}	
+		}
+		return dtoBuscado;
+	}
 }

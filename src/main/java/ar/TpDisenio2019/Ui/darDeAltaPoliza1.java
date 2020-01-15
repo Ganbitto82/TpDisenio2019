@@ -1,7 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +8,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +26,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
-import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 
@@ -40,13 +40,17 @@ public class darDeAltaPoliza1 extends JFrame {
 	private JTextField textField;
 	private JTable table;
 	private JTable table_1;
-	private List<DTOFormasdepago> dtoListaFormaDePago = new ArrayList();
-	private List<DTOTipocobertura> dtoListaTipodeCobertura = new ArrayList();
 	
-	public darDeAltaPoliza1() {
+	private List<DTOFormasdepago> dtoListaFormaDePago;
+	private List<DTOTipocobertura> dtoListaTipodeCobertura;
+	
+	private JComboBox<String> tipoCobertura_comboBox;
+	private JComboBox<String> formaDePago_comboBox;
+	
+	public darDeAltaPoliza1(DTOCliente dtocliente, String modelo, String marca) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 730);
+		setBounds(100, 100, 850, 730);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("Tipos de coberturas");
@@ -54,49 +58,64 @@ public class darDeAltaPoliza1 extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 106, 774, 293);
+		panel_1.setBounds(5, 105, 829, 294);
 		panel_1.setBorder(new TitledBorder(null, "TIPOS DE COBERTURAS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setToolTipText("Tipos de coberturas");
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(5, 405, 774, 281);
+		panel_3.setBounds(5, 405, 829, 281);
 		panel_3.setToolTipText("Tipos de coberturas");
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMPLETE LOS SIGUIENTES DATOS", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JButton confirmar = new JButton("Confirmar");
+		confirmar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblCamposObligatorios = new JLabel("(*) Campos Obligatorios.");
+				
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap(580, Short.MAX_VALUE)
+					.addGap(43)
+					.addComponent(lblCamposObligatorios)
+					.addPreferredGap(ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
 					.addComponent(confirmar)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(18)
 					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addComponent(panel_4, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 774, Short.MAX_VALUE)
+					.addGap(32))
+				.addComponent(panel_4, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 829, Short.MAX_VALUE)
 		);
 		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancelar)
-						.addComponent(confirmar))
+			gl_panel_3.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+							.addComponent(confirmar)
+							.addComponent(btnCancelar))
+						.addComponent(lblCamposObligatorios))
 					.addContainerGap())
 		);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{185, 156, 42, 109, 0, 0, 108, 0, 0, 90, 0, 0, 0};
-		gbl_panel_4.rowHeights = new int[]{15, 53, 45, 38, 0};
+		gbl_panel_4.columnWidths = new int[]{137, 156, 52, 116, 109, 0, 108, 0, 0, 90, 0, 0, 0};
+		gbl_panel_4.rowHeights = new int[]{44, 44, 44, 41, 0};
 		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
-		JLabel lblTipoDeCovertura = new JLabel("Tipo de cobertura:");
+		formaDePago_comboBox = new JComboBox<String>();
+		formaDePago_comboBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		GridBagConstraints gbc_formaDePago_comboBox = new GridBagConstraints();
+		formaDePago_comboBox.addItem(" --Seleccione-- ");
+		
+		JLabel lblTipoDeCovertura = new JLabel("Tipo de cobertura(*):");
+		lblTipoDeCovertura.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblTipoDeCovertura = new GridBagConstraints();
 		gbc_lblTipoDeCovertura.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTipoDeCovertura.anchor = GridBagConstraints.WEST;
@@ -104,38 +123,26 @@ public class darDeAltaPoliza1 extends JFrame {
 		gbc_lblTipoDeCovertura.gridy = 1;
 		panel_4.add(lblTipoDeCovertura, gbc_lblTipoDeCovertura);
 		
-		JComboBox<String> tipoCobertura_comboBox = new JComboBox<String>();
+		tipoCobertura_comboBox = new JComboBox<String>();
+		tipoCobertura_comboBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		tipoCobertura_comboBox.setForeground(Color.BLACK);
 		tipoCobertura_comboBox.setBackground(Color.WHITE);
-		tipoCobertura_comboBox.addItem("");
+		tipoCobertura_comboBox.addItem(" --Seleccione-- ");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 1;
 		panel_4.add(tipoCobertura_comboBox, gbc_comboBox);
 		
-	/*	dtoListaTipodeCobertura = GestorListasDesplegables.buscarDtosTipocobertura();
-		
-		for(DTOTipocobertura cobertura : dtoListaTipodeCobertura) 
-		
-			tipoCobertura_comboBox .addItem(cobertura.getTipo().toString());
-		
-		tipoCobertura_comboBox.setSelectedItem(null);*/
-		
-		
-		JLabel lblFormaDePago = new JLabel("Forma de Pago:");
+		JLabel lblFormaDePago = new JLabel("Forma de Pago(*):");
+		lblFormaDePago.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblFormaDePago = new GridBagConstraints();
 		gbc_lblFormaDePago.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFormaDePago.anchor = GridBagConstraints.WEST;
 		gbc_lblFormaDePago.gridx = 1;
 		gbc_lblFormaDePago.gridy = 2;
 		panel_4.add(lblFormaDePago, gbc_lblFormaDePago);
-		
-		JComboBox<String> formaDePago_comboBox = new JComboBox<String>();
-		GridBagConstraints gbc_formaDePago_comboBox = new GridBagConstraints();
-		gbc_formaDePago_comboBox.gridwidth = 2;
 		gbc_formaDePago_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formaDePago_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_formaDePago_comboBox.gridx = 3;
@@ -143,17 +150,9 @@ public class darDeAltaPoliza1 extends JFrame {
 		panel_4.add(formaDePago_comboBox, gbc_formaDePago_comboBox);
 		formaDePago_comboBox.setForeground(Color.BLACK);
 		formaDePago_comboBox.setBackground(Color.WHITE);
-		formaDePago_comboBox.addItem("");
 		
-		dtoListaFormaDePago = GestorListasDesplegables.buscarDtosFormaDePago();
-		
-		for(DTOFormasdepago formaDePago : dtoListaFormaDePago) 
-		
-			formaDePago_comboBox .addItem(formaDePago.getNombre().toString());
-		
-		formaDePago_comboBox.setSelectedItem(null);
-		
-		JLabel lblFechaDeInicio = new JLabel("Fecha de Inicio de Vigencia:");
+		JLabel lblFechaDeInicio = new JLabel("Fecha de Inicio de Vigencia(*):");
+		lblFechaDeInicio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lblFechaDeInicio = new GridBagConstraints();
 		gbc_lblFechaDeInicio.anchor = GridBagConstraints.WEST;
 		gbc_lblFechaDeInicio.insets = new Insets(0, 0, 0, 5);
@@ -163,7 +162,6 @@ public class darDeAltaPoliza1 extends JFrame {
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 3;
@@ -172,21 +170,83 @@ public class darDeAltaPoliza1 extends JFrame {
 		textField.setColumns(10);
 		panel_3.setLayout(gl_panel_3);
 		
+		dtoListaTipodeCobertura = GestorListasDesplegables.buscarDtosTipocobertura();
+		dtoListaFormaDePago = GestorListasDesplegables.buscarDtosFormaDePago();
+		
+		for(DTOTipocobertura cobertura : dtoListaTipodeCobertura) 
+		
+			tipoCobertura_comboBox .addItem(cobertura.getTipo().toString());
+		
+		for(DTOFormasdepago formaDePago : dtoListaFormaDePago) 
+		
+			formaDePago_comboBox.addItem(formaDePago.getNombre().toString());
+		
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == confirmar)
+				{
+					String formaDePago = formaDePago_comboBox.getSelectedItem().toString();
+					String tipoCobertura = tipoCobertura_comboBox.getSelectedItem().toString();
+					
+					if(formaDePago.equals(" --Seleccione-- ") || tipoCobertura.equals(" --Seleccione-- "))
+					{						
+						if(formaDePago.equals(" --Seleccione-- "))
+						{
+							lblFormaDePago.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+						}
+						else 
+						{
+							lblFormaDePago.setForeground(Color.black);
+						}
+						if(tipoCobertura.equals(" --Seleccione-- "))
+						{
+							lblTipoDeCovertura.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+						}
+						else 
+						{
+							lblTipoDeCovertura.setForeground(Color.black);
+						}
+					}
+					else 
+					{
+						lblCamposObligatorios.setForeground(Color.black);
+						dispose();
+						darDeAltaPoliza3 b = new darDeAltaPoliza3(dtocliente, modelo, marca);
+						b.setVisible(true);
+						b.setResizable(false);
+						b.setLocationRelativeTo(null);	
+					}	
+				}
+			}
+			
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+				darDeAltaPoliza b = new darDeAltaPoliza(dtocliente);
+				b.setVisible(true);
+			}
+		});	
+		
 		JPanel panel_2 = new JPanel();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(18)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 726, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(18, Short.MAX_VALUE))
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addContainerGap(36, Short.MAX_VALUE)
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+					.addContainerGap()
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-					.addGap(94))
+					.addContainerGap(94, Short.MAX_VALUE))
 		);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -195,14 +255,13 @@ public class darDeAltaPoliza1 extends JFrame {
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(27)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 673, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(26, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(78, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
@@ -245,9 +304,9 @@ public class darDeAltaPoliza1 extends JFrame {
 		contentPane.add(panel_3);
 		
 		JPanel panel = new JPanel();
-		panel.setToolTipText("jgj");
+		panel.setToolTipText("");
 		panel.setBackground(new Color(255, 0, 51));
-		panel.setBounds(0, 0, 784, 83);
+		panel.setBounds(0, 0, 834, 83);
 		contentPane.add(panel);
 		
 		JLabel label = new JLabel("EL ASEGURADO");

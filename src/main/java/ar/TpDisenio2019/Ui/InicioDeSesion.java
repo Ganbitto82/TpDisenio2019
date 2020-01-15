@@ -97,7 +97,7 @@ public class InicioDeSesion extends JFrame {
 		Persona_comboBox.setBackground(Color.WHITE);
 		Persona_comboBox.setForeground(Color.BLACK);
 		Persona_comboBox.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Persona_comboBox.addItem("");
+		Persona_comboBox.addItem(" --Seleccione-- ");
 		Persona_comboBox.addItem("Productor de seguro");
 		Persona_comboBox.addItem("Cobrador");
 		Persona_comboBox.addItem("Gerencia");
@@ -179,7 +179,7 @@ public class InicioDeSesion extends JFrame {
 					String contrasenia = contrasenia_textField.getText();
 					
 					if (cargo.equals("") || usuario.equals("") || contrasenia.equals("")) {
-						if (cargo.equals("")) {
+						if (cargo.equals(" --Seleccione-- ")) {
 							lblCargo.setForeground(Color.red);
 						} else {
 							lblCargo.setForeground(Color.black);
