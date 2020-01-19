@@ -10,7 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -27,10 +27,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
+import ar.TpDisenio2019.DTO.DTOVehiculo;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
+import ar.TpDisenio2019.Modelo.Formasdepago;
 
 import javax.swing.border.EtchedBorder;
 
@@ -38,17 +42,20 @@ public class darDeAltaPoliza1 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textField_fecha;
 	private JTable table;
 	private JTable table_1;
 	
 	private List<DTOFormasdepago> dtoListaFormaDePago;
 	private List<DTOTipocobertura> dtoListaTipodeCobertura;
 	
+	private DTOTipocobertura dtoTipoCobertura = new DTOTipocobertura();
+	private DTOFormasdepago dtoFormadepago = new DTOFormasdepago();
+	
 	private JComboBox<String> tipoCobertura_comboBox;
 	private JComboBox<String> formaDePago_comboBox;
 	
-	public darDeAltaPoliza1(DTOPoliza dtopoliza, DTOCliente dtocliente, String modelo, String marca) {
+	public darDeAltaPoliza1(DTOCliente dtocliente, DTOPoliza dtoPoliza, DTOVehiculo dtoVehiculo, DTOMedidasdeseguridad dtoMedidasSeguridad, DTOCuota dtoCuota) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 730);
@@ -161,14 +168,14 @@ public class darDeAltaPoliza1 extends JFrame {
 		gbc_lblFechaDeInicio.gridy = 3;
 		panel_4.add(lblFechaDeInicio, gbc_lblFechaDeInicio);
 		
-		textField = new JTextField();
+		textField_fecha = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 3;
 		gbc_textField.gridy = 3;
-		panel_4.add(textField, gbc_textField);
-		textField.setColumns(10);
+		panel_4.add(textField_fecha, gbc_textField);
+		textField_fecha.setColumns(10);
 		panel_3.setLayout(gl_panel_3);
 		
 		dtoListaTipodeCobertura = GestorListasDesplegables.buscarDtosTipocobertura();
@@ -176,7 +183,7 @@ public class darDeAltaPoliza1 extends JFrame {
 		
 		for(DTOTipocobertura cobertura : dtoListaTipodeCobertura) 
 		
-			tipoCobertura_comboBox .addItem(cobertura.getTipo().toString());
+			tipoCobertura_comboBox.addItem(cobertura.getTipo().toString());
 		
 		for(DTOFormasdepago formaDePago : dtoListaFormaDePago) 
 		
@@ -188,6 +195,7 @@ public class darDeAltaPoliza1 extends JFrame {
 				{
 					String formaDePago = formaDePago_comboBox.getSelectedItem().toString();
 					String tipoCobertura = tipoCobertura_comboBox.getSelectedItem().toString();
+					String fecha = textField_fecha.getText();
 					
 					if(formaDePago.equals(" --Seleccione-- ") || tipoCobertura.equals(" --Seleccione-- "))
 					{						
@@ -199,6 +207,7 @@ public class darDeAltaPoliza1 extends JFrame {
 						else 
 						{
 							lblFormaDePago.setForeground(Color.black);
+							dtoFormadepago.setNombre(formaDePago);
 						}
 						if(tipoCobertura.equals(" --Seleccione-- "))
 						{
@@ -208,13 +217,21 @@ public class darDeAltaPoliza1 extends JFrame {
 						else 
 						{
 							lblTipoDeCovertura.setForeground(Color.black);
+							dtoTipoCobertura.setTipo(tipoCobertura);
 						}
 					}
 					else 
 					{
+						//Date f = Date.parse(fecha);
+						dtoPoliza.setFormasdepago(dtoFormadepago);
+						dtoPoliza.setTipoCobertura(dtoTipoCobertura);
+						//dtoPoliza.setFechaInicioVigencia(fecha);
+						
+						System.out.println("-------------");
+						System.out.println(dtoPoliza.getFormasdepago().getNombre());
 						lblCamposObligatorios.setForeground(Color.black);
 						dispose();
-						darDeAltaPoliza3 b = new darDeAltaPoliza3(dtocliente, modelo, marca);
+						darDeAltaPoliza3 b = new darDeAltaPoliza3(dtocliente, dtoPoliza, dtoVehiculo, dtoMedidasSeguridad, dtoCuota);
 						b.setVisible(true);
 						b.setResizable(false);
 						b.setLocationRelativeTo(null);	
@@ -228,7 +245,7 @@ public class darDeAltaPoliza1 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				darDeAltaPoliza b = new darDeAltaPoliza(dtopoliza,dtocliente);
+				darDeAltaPoliza b = new darDeAltaPoliza(dtocliente);
 				b.setVisible(true);
 			}
 		});	

@@ -89,14 +89,24 @@ public class RealizarPagoPoliza extends JFrame {
 		
 		JLabel label_6 = new JLabel("Nro. P\u00F3liza:");
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField((Object) null);
-		formattedTextField.setText("9999-9999999-99");
-		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setForeground(Color.BLACK);
+		JFormattedTextField nroPolizaTextField = new JFormattedTextField((Object) null);
+		nroPolizaTextField.setText("9999-9999999-99");
+		nroPolizaTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		nroPolizaTextField.setForeground(Color.BLACK);
 		
-		JButton button = new JButton("Buscar");
+		JButton button_buscar = new JButton("Buscar");
+		button_buscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == button_buscar) {
+
+						
+							
+					}
+				}
+
+		});		
 		
-		JButton button_1 = new JButton("Cancelar");
+		JButton button_cancelar = new JButton("Cancelar");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -106,11 +116,11 @@ public class RealizarPagoPoliza extends JFrame {
 					.addGap(18)
 					.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+					.addComponent(nroPolizaTextField, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-					.addComponent(button)
+					.addComponent(button_buscar)
 					.addGap(18)
-					.addComponent(button_1)
+					.addComponent(button_cancelar)
 					.addGap(22))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -119,14 +129,14 @@ public class RealizarPagoPoliza extends JFrame {
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap(16, Short.MAX_VALUE)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_1)
-						.addComponent(button))
+						.addComponent(button_cancelar)
+						.addComponent(button_buscar))
 					.addContainerGap())
 				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_6)
-						.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nroPolizaTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblIngreseLaPliza))
 					.addContainerGap(11, Short.MAX_VALUE))
 		);

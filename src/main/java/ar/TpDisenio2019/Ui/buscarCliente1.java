@@ -1,14 +1,11 @@
 package ar.TpDisenio2019.Ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -36,7 +33,7 @@ public class buscarCliente1 extends JFrame {
 	private JTextField textField_Numero;
 
 	
-	public buscarCliente1(DTOCliente dtoCliente) {
+	public buscarCliente1(DTOCliente dtoCliente, DTOPoliza dtoPoliza) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 400);
 		setLocationRelativeTo(null);
@@ -134,8 +131,7 @@ public class buscarCliente1 extends JFrame {
 		textField_Calle = new JTextField();
 		textField_Calle.setEditable(false);
 		textField_Calle.setColumns(10);
-		textField_Calle.setText(dtoCliente.getDireccion().getCalle());
-		
+		textField_Calle.setText(dtoCliente.getDireccion().getCalle());	
 		
 		int numeroDireccion=dtoCliente.getDireccion().getNumero();
 		String strnNumeroDireccion =Integer.toString( numeroDireccion);
@@ -228,32 +224,24 @@ public class buscarCliente1 extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		JButton button_Aceptar = new JButton("Aceptar");
-		
-		
-	
+
 		button_Aceptar.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
               if(e.getSource()==button_Aceptar) {
-            	  DTOPoliza dtoPoliza=null;
-            	  dispose();					
-            	  darDeAltaPoliza d = new darDeAltaPoliza(dtoPoliza,dtoCliente);
-					d.setVisible(true);
-					d.setResizable(false);
-					d.setLocationRelativeTo(null);
-						
-						
-			
+				
+            	dispose();
+            /*	DTOVehiculo dtoVehiculo = null;
+            	DTOMedidasdeseguridad dtoMedidasSeguridad = null;
+            	DTOCuota dtoCuota = null;*/
+            	darDeAltaPoliza d = new darDeAltaPoliza(dtoCliente);
+				d.setVisible(true);
+				d.setResizable(false);
+				d.setLocationRelativeTo(null);
               }
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
+
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)

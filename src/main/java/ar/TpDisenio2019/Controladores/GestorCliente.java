@@ -18,13 +18,13 @@ public class GestorCliente {
 
 	static GestorBDCliente gestionCliente = new GestorBDCliente();
 
-	public static List<DTOCliente> buscarDtoscliente(DTOCliente Cli) {
+	public static List<DTOCliente> buscarDtoscliente() {
 
 		List<DTOCliente> dtoListaCliente = new ArrayList<DTOCliente>();
 
 		dtoListaCliente = gestionCliente.obtenerDTOCliente();
 	
-		return dtoListaCliente;
+			return dtoListaCliente;
 			
 	}
 	

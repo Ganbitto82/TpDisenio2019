@@ -8,7 +8,6 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -23,21 +22,25 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
-import ar.TpDisenio2019.Controladores.PantallaAgregarHijos;
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOKmporanio;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
 import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOModelo;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOProvincia;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
-import ar.TpDisenio2019.DTO.DTOTipocobertura;
+import ar.TpDisenio2019.DTO.DTOVehiculo;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 import ar.TpDisenio2019.Utilitario.ObtenerDtoDeUnCombo;
 
@@ -58,6 +61,11 @@ public class darDeAltaPoliza extends JFrame {
 	private JTextField textField_NroDocumento;
 	private JTextField textField_Provincia;
 	private JTextField textField_Localidad;
+	
+	private JCheckBox chbxGarage;
+	private JCheckBox chbxAlarma;
+	private JCheckBox chbxTuercas;
+	private JCheckBox chbxRastreo;
 
 	private JPanel pnl_BuscarCliente;
 	private JPanel pnl_DatosDelCliente;
@@ -76,9 +84,16 @@ public class darDeAltaPoliza extends JFrame {
 	private List<DTOProvincia> dtoListaProvincia;
 	private List<DTOLocalidad> dtoListaLocalidad;
 	private List<DTOSiniestro> dtoListaSiniestros;
+	private List<DTOMedidasdeseguridad> dtoListaMedidas;
 	
 	private DTOModelo dtoModeloSeleccionado;
 	private DTOMarca dtoMarcaSeleccionado;
+	private DTOKmporanio dtoKmPorAnio = new DTOKmporanio();
+	private DTOSiniestro dtoSiniestro = new DTOSiniestro();
+	private DTOPoliza dtoPoliza = new DTOPoliza();
+	private DTOMedidasdeseguridad dtoMedidasSeguridad = new DTOMedidasdeseguridad();
+	private DTOCuota dtoCuota = new DTOCuota();
+	private DTOVehiculo dtoVehiculo = new DTOVehiculo();
 	
 	private List<String> listaMarca= new ArrayList<>();
 	private List<String> listaModelo= new ArrayList<>();
@@ -86,7 +101,7 @@ public class darDeAltaPoliza extends JFrame {
     private List<String> listaProvincia= new ArrayList<>(); 
     private List<String> listaLocalidad= new ArrayList<>(); 
 
-	public darDeAltaPoliza(DTOPoliza dtoPoliza, DTOCliente dtoCliente) {
+	public darDeAltaPoliza(DTOCliente dtoCliente) {
 		setTitle("Dar de alta P\u00F3liza");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 730);
@@ -116,11 +131,9 @@ public class darDeAltaPoliza extends JFrame {
 					buscarCliente m = new buscarCliente();
 					m.setVisible(true);
 					m.setResizable(false);
-					m.setLocationRelativeTo(null);
-									
+					m.setLocationRelativeTo(null);					
 				}
 			}
-			
 		});
 		
 		GroupLayout gl_pnl_BuscarCliente = new GroupLayout(pnl_BuscarCliente);
@@ -322,20 +335,11 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_lblLocalidadRiesgo.gridy = 1;
 		pnl_IngresoDeDatos.add(lblLocalidadRiesgo, gbc_lblLocalidadRiesgo);
 		
-		/* LOCALIDAD DE RIESGO */
 		cbxLocalidadRiesgo = new JComboBox<String>();
 		cbxLocalidadRiesgo.setEnabled(false);
 		cbxLocalidadRiesgo.setBackground(Color.WHITE);
 		cbxLocalidadRiesgo.setForeground(Color.BLACK);
 		cbxLocalidadRiesgo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		
-	/*	dtoListaLocalidad = GestorListasDesplegables.buscarDtosLocalidad();
-		
-		for(DTOLocalidad localidad :  dtoListaLocalidad) 
-		
-			cbxLocalidadRiesgo.addItem(localidad.getNombre().toString());
-		
-		cbxLocalidadRiesgo.setSelectedItem(null);*/
 				
 		GridBagConstraints gbc_cbxLocalidadRiesgo = new GridBagConstraints();
 		gbc_cbxLocalidadRiesgo.fill = GridBagConstraints.HORIZONTAL;
@@ -460,6 +464,16 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_Motor.gridy = 4;
 		pnl_IngresoDeDatos.add(textField_Motor, gbc_textField_Motor);
 		
+		textField_Motor.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
+				String texto = textField_Motor.getText();
+				textField_Motor.setText(texto.toUpperCase());
+			}
+			
+		});
+		
 		JLabel lblKmPorAnio = new JLabel("Km por A\u00F1o(*)");
 		lblKmPorAnio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblKmPorAnio = new GridBagConstraints();
@@ -479,6 +493,16 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_KmPorAnio.gridx = 5;
 		gbc_textField_KmPorAnio.gridy = 4;
 		pnl_IngresoDeDatos.add(textField_KmPorAnio, gbc_textField_KmPorAnio);
+		
+		textField_KmPorAnio.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
+				String texto = textField_KmPorAnio.getText();
+				textField_KmPorAnio.setText(texto.toUpperCase());
+			}
+			
+		});
 		
 		JLabel lblChasis = new JLabel("Chasis(*)");
 		lblChasis.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -500,6 +524,16 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_Chasis.gridy = 4;
 		pnl_IngresoDeDatos.add(textField_Chasis, gbc_textField_Chasis);
 		
+		textField_Chasis.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
+				String texto = textField_Chasis.getText();
+				textField_Chasis.setText(texto.toUpperCase());
+			}
+			
+		});
+		
 		JLabel lblPatente = new JLabel("Patente:");
 		lblPatente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblPatente = new GridBagConstraints();
@@ -519,6 +553,16 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_Patente.gridx = 2;
 		gbc_textField_Patente.gridy = 5;
 		pnl_IngresoDeDatos.add(textField_Patente, gbc_textField_Patente);
+		
+		textField_Patente.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
+				String texto = textField_Patente.getText();
+				textField_Patente.setText(texto.toUpperCase());
+			}
+			
+		});
 		
 		JLabel lblSumaAsegurada = new JLabel("Suma Asegurada:");
 		lblSumaAsegurada.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -562,23 +606,26 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_pnl_CheckMedidasSeguridad.gridy = 7;
 		pnl_IngresoDeDatos.add(pnl_CheckMedidasSeguridad, gbc_pnl_CheckMedidasSeguridad);
 		
-		JCheckBox chbxGarage = new JCheckBox("\u00BFSe guarda en garage?");
+		chbxGarage = new JCheckBox("\u00BFSe guarda en garage?");
 		chbxGarage.setEnabled(false);
 		chbxGarage.setForeground(Color.BLACK);
 		chbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxGarage.setBackground(Color.WHITE);
 		
-		JCheckBox chbxAlarma = new JCheckBox("\u00BFTiene alarma?");
+		chbxAlarma = new JCheckBox("\u00BFTiene alarma?");
+		chbxAlarma.setForeground(Color.BLACK);
 		chbxAlarma.setEnabled(false);
 		chbxAlarma.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxAlarma.setBackground(Color.WHITE);
 		
-		JCheckBox chbxTuercas = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
+		chbxTuercas = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
+		chbxTuercas.setForeground(Color.BLACK);
 		chbxTuercas.setEnabled(false);
 		chbxTuercas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxTuercas.setBackground(Color.WHITE);
 		
-		JCheckBox chbxRastreo = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
+		chbxRastreo = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
+		chbxRastreo.setForeground(Color.BLACK);
 		chbxRastreo.setEnabled(false);
 		chbxRastreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxRastreo.setBackground(Color.WHITE);
@@ -638,23 +685,17 @@ public class darDeAltaPoliza extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nroHijos = textField_CantHijos.getText();
 				int numeroHijos = Integer.valueOf(nroHijos);
-				
-							
+			
 				if(numeroHijos >= 1 && numeroHijos <= 15)
 				{
 					if(e.getSource() == btnCompletarHijos)
 					{
-						/*
-						new PantallaAgregarHijos(dtoPoliza,numeroHijos);
-						*/
 						ModHijos b = new ModHijos(dtoPoliza,numeroHijos);
 						b.setVisible(true);
 						b.setResizable(false);
 						b.setLocationRelativeTo(null);
-						
 					}
 				}
-				
 				
 			}
 		});
@@ -688,6 +729,8 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_IngresoDeDatos.add(lblCamposObligatorios, gbc_lblCamposObligatorios);
 		
 		if (dtoCliente!=null) {
+			
+			btnBuscarCliente.setEnabled(false);
 	
 			long nroCliente = dtoCliente.getNroCliente();
 			String strCliente =  Long.toString(nroCliente);
@@ -709,6 +752,17 @@ public class darDeAltaPoliza extends JFrame {
 			cbxMarca.setEnabled(true);
 			cbxAnioVehiculo.setEnabled(true);
 			comboBox_siniestro.setEnabled(true);
+			textField_Motor.setEnabled(true);
+			textField_KmPorAnio.setEnabled(true);
+			textField_Chasis.setEnabled(true);
+			textField_Patente.setEnabled(true);
+			textField_SumaAsegurada.setEnabled(true);
+			textField_CantHijos.setEnabled(true);
+			chbxGarage.setEnabled(true);
+			chbxAlarma.setEnabled(true);
+			chbxTuercas.setEnabled(true);
+			chbxRastreo.setEnabled(true);
+			btnCompletarHijos.setEnabled(true);
 			
 			cbxModelo.addItem(" --Seleccione-- "); 
 			cbxMarca.addItem(" --Seleccione-- ");
@@ -831,10 +885,9 @@ public class darDeAltaPoliza extends JFrame {
 									calendarDTOModelo_DTOAnio.setTime(dtoModelo.getAniodevehiculo().getAnio());
 									int yearDTOModelo_DTOAnio=calendarDTOModelo_DTOAnio.get(Calendar.YEAR);
 									String anio= Integer.toString(yearDTOModelo_DTOAnio);
-									listaAnio.add(anio);
+									listaAnio.add(anio);	
 								}
-							}
-					
+							}	
 							cbxAnioVehiculo.removeAllItems();
 					
 							cbxAnioVehiculo.addItem(" --Seleccione-- ");
@@ -846,18 +899,32 @@ public class darDeAltaPoliza extends JFrame {
 					}
 				});
 			
-			textField_Motor.setEnabled(true);
-			textField_KmPorAnio.setEnabled(true);
-			textField_Chasis.setEnabled(true);
-			textField_Patente.setEnabled(true);
-			textField_SumaAsegurada.setEnabled(true);
-			chbxGarage.setEnabled(true);
-			chbxAlarma.setEnabled(true);
-			chbxTuercas.setEnabled(true);
-			chbxRastreo.setEnabled(true);
-			textField_CantHijos.setEnabled(true);
-			btnCompletarHijos.setEnabled(true);
-
+	/*		String garaje = chbxGarage.getLabel();
+			String alarma = chbxAlarma.getLabel();
+			String tuecas = chbxTuercas.getLabel();
+			String rastreo = chbxRastreo.getLabel();
+			
+			if(chbxGarage.isSelected() || chbxAlarma.isSelected() || chbxTuercas.isSelected() || chbxRastreo.isSelected())
+			{
+				if(chbxGarage.isSelected())
+				{
+					dtoMedidasSeguridad.setNombre(garaje);
+				}
+				if(chbxAlarma.isSelected())
+				{
+					dtoMedidasSeguridad.setNombre(alarma);
+				}
+				if(chbxTuercas.isSelected())
+				{
+					dtoMedidasSeguridad.setNombre(tuecas);
+				}
+				if(chbxRastreo.isSelected())
+				{
+					dtoMedidasSeguridad.setNombre(rastreo);
+				}
+				System.out.println(" ---------------------------- ");
+				System.out.println(dtoMedidasSeguridad.getNombre());
+			}*/
 		};
 	
 		JButton btnAceptar = new JButton("Aceptar");
@@ -865,6 +932,7 @@ public class darDeAltaPoliza extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String kmxAnio = textField_KmPorAnio.getText();
+				String patente = textField_Patente.getText();
 				String motor = textField_Motor.getText();
 				String chasis = textField_Chasis.getText();
 				String provincia = cbxProvinciaRiesgo.getSelectedItem().toString();
@@ -873,6 +941,7 @@ public class darDeAltaPoliza extends JFrame {
 				String modelo = cbxModelo.getSelectedItem().toString();
 				String anio = cbxAnioVehiculo.getSelectedItem().toString();
 				String nroSiniestro = comboBox_siniestro.getSelectedItem().toString();
+				String sumaAsegurada = textField_SumaAsegurada.getText();
 				
 				if(e.getSource() == btnAceptar)
 				{
@@ -892,6 +961,7 @@ public class darDeAltaPoliza extends JFrame {
 					{
 						lblMotor.setForeground(Color.red);
 						lblCamposObligatorios.setForeground(Color.red);
+						
 					}
 					else 
 					{
@@ -960,12 +1030,44 @@ public class darDeAltaPoliza extends JFrame {
 					{
 						lblSiniestros.setForeground(Color.black);
 					}
+					if(sumaAsegurada.equals(""))
+					{
+						dtoPoliza.setSumaAsegurada(null);
+						//System.out.println("----------------------");
+						
+					}
+					else 
+					{
+						float sumaA = Float.parseFloat(sumaAsegurada);
+						dtoPoliza.setSumaAsegurada(sumaA);
+						//System.out.println("----------------------");
+						//System.out.println(sumaA);
+					}
 				}
 				else 
 				{
-					dispose();
+					int anioVehiculo = Integer.parseInt(anio);
+					float km = Float.parseFloat(kmxAnio);
+					
+					dtoVehiculo.setAnio(anioVehiculo);
+					dtoVehiculo.setChasis(chasis);
+					dtoVehiculo.setIdModelo(dtoModeloSeleccionado);
+					dtoVehiculo.setIdVehiculo(1);
+					dtoVehiculo.setMotor(motor);
+					dtoVehiculo.setPatente(patente);
+					
+					dtoKmPorAnio.setPorcentaje(km);
+					dtoSiniestro.setCantidad(nroSiniestro);
+					dtoMedidasSeguridad.setIdMedidasSeguridad(1);
+					dtoPoliza.setCliente(dtoCliente);
+					dtoPoliza.setKmporanio(dtoKmPorAnio);
+					dtoPoliza.setMedidasdeseguridad(dtoMedidasSeguridad);
+					dtoPoliza.setSiniestro(dtoSiniestro);
+					dtoPoliza.setVehiculo(dtoVehiculo);
+	
 					lblCamposObligatorios.setForeground(Color.black);
-					darDeAltaPoliza1 b = new darDeAltaPoliza1(dtoPoliza, dtoCliente, modelo, marca);
+					dispose();
+					darDeAltaPoliza1 b = new darDeAltaPoliza1(dtoCliente, dtoPoliza, dtoVehiculo, dtoMedidasSeguridad, dtoCuota);
 					b.setVisible(true);
 					b.setResizable(false);
 					b.setLocationRelativeTo(null);

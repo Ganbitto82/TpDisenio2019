@@ -15,7 +15,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
+import ar.TpDisenio2019.DTO.DTOPoliza;
+import ar.TpDisenio2019.DTO.DTOVehiculo;
+import ar.TpDisenio2019.Modelo.Cliente;
+import ar.TpDisenio2019.Modelo.Cuota;
+import ar.TpDisenio2019.Modelo.Datosdehijo;
+import ar.TpDisenio2019.Modelo.Factoresusados;
+import ar.TpDisenio2019.Modelo.Formasdepago;
+import ar.TpDisenio2019.Modelo.Kmporanio;
+import ar.TpDisenio2019.Modelo.Medidasdeseguridad;
+import ar.TpDisenio2019.Modelo.Medidasdeseguridadporc;
+import ar.TpDisenio2019.Modelo.Modelo;
+import ar.TpDisenio2019.Modelo.Numeropoliza;
+import ar.TpDisenio2019.Modelo.Poliza;
+import ar.TpDisenio2019.Modelo.Tipocobertura;
+import ar.TpDisenio2019.Modelo.Vehiculo;
 
 import javax.swing.border.EtchedBorder;
 
@@ -27,18 +45,18 @@ public class darDeAltaPoliza3 extends JFrame {
 	private JTextField nombre_textField;
 	private JTextField textField_marca;
 	private JTextField textField_modelo;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textField_motor;
+	private JTextField textField_chasis;
+	private JTextField textField_patente;
 	private JTextField textField_7;
 	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField textField_sumaAsegurada;
 	private JTextField nombre_textField1;
 	private JTextField nombre_textField0;
 	private JTextField nombre_textField3;
 	private JTextField nombre_textField2;
 
-	public darDeAltaPoliza3(DTOCliente dtoCliente, String modelo, String marca) {
+	public darDeAltaPoliza3(DTOCliente dtoCliente, DTOPoliza dtoPoliza, DTOVehiculo dtoVehiculo, DTOMedidasdeseguridad dtoMedidasSeguridad, DTOCuota dtoCuota) {
 		setTitle("P\u00F3liza a Generar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 730);
@@ -55,7 +73,7 @@ public class darDeAltaPoliza3 extends JFrame {
 		panel_3.setBounds(5, 191, 829, 148);
 		panel_3.setBorder(new TitledBorder(null, "DATOS DEL VEH\u00CDCULO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		textField_marca = new JTextField(marca);
+		textField_marca = new JTextField();
 		textField_marca.setEditable(false);
 		textField_marca.setColumns(10);
 		
@@ -63,27 +81,27 @@ public class darDeAltaPoliza3 extends JFrame {
 		
 		JLabel lblModelo = new JLabel("Modelo");
 		
-		textField_modelo = new JTextField(modelo);
+		textField_modelo = new JTextField();
 		textField_modelo.setEditable(false);
 		textField_modelo.setColumns(10);
 		
 		JLabel lblMotor = new JLabel("Motor");
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setColumns(10);
+		textField_motor = new JTextField();
+		textField_motor.setEditable(false);
+		textField_motor.setColumns(10);
 		
 		JLabel lblChasis = new JLabel("Chasis");
 		
-		textField_5 = new JTextField();
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
+		textField_chasis = new JTextField();
+		textField_chasis.setEditable(false);
+		textField_chasis.setColumns(10);
 		
 		JLabel lblPatente = new JLabel("Patente");
 		
-		textField_6 = new JTextField();
-		textField_6.setEditable(false);
-		textField_6.setColumns(10);
+		textField_patente = new JTextField();
+		textField_patente.setEditable(false);
+		textField_patente.setColumns(10);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -98,11 +116,11 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addGroup(gl_panel_3.createSequentialGroup()
 								.addComponent(lblMotor)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_motor, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panel_3.createSequentialGroup()
 								.addComponent(lblChasis)
 								.addGap(18)
-								.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(textField_chasis, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))))
 					.addGap(122)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panel_3.createSequentialGroup()
@@ -112,7 +130,7 @@ public class darDeAltaPoliza3 extends JFrame {
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(lblPatente)
 							.addGap(18)
-							.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textField_patente, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(135, Short.MAX_VALUE))
 		);
 		gl_panel_3.setVerticalGroup(
@@ -127,7 +145,7 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPatente)
-								.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textField_patente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textField_marca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -135,10 +153,10 @@ public class darDeAltaPoliza3 extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblChasis)
-								.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_chasis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_motor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblMotor))))
 					.addContainerGap(26, Short.MAX_VALUE))
 		);
@@ -206,7 +224,6 @@ public class darDeAltaPoliza3 extends JFrame {
 				if(e.getSource() == btnAceptar)
 				{
 					dispose();
-
 				}
 			}
 		});
@@ -222,9 +239,9 @@ public class darDeAltaPoliza3 extends JFrame {
 			}
 		});
 		
-		textField_9 = new JTextField();
-		textField_9.setEditable(false);
-		textField_9.setColumns(10);
+		textField_sumaAsegurada = new JTextField();
+		textField_sumaAsegurada.setEditable(false);
+		textField_sumaAsegurada.setColumns(10);
 		
 		nombre_textField1 = new JTextField();
 		nombre_textField1.setEditable(false);
@@ -260,7 +277,7 @@ public class darDeAltaPoliza3 extends JFrame {
 								.addComponent(lblImpPorDescuento, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
 							.addGap(18)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField_sumaAsegurada, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 								.addComponent(nombre_textField1, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))))
 					.addGap(70)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
@@ -294,7 +311,7 @@ public class darDeAltaPoliza3 extends JFrame {
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblSumaAsegurada)
-								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_sumaAsegurada, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblImpPorDescuento)
@@ -312,9 +329,7 @@ public class darDeAltaPoliza3 extends JFrame {
 		panel_5.setLayout(gl_panel_5);
 		contentPane.setLayout(null);
 		
-		JLabel label_1 = new JLabel("");
-		
-			
+		JLabel label_1 = new JLabel("");		
 		
 		apellido_textField = new JTextField();
 		apellido_textField.setEditable(false);
@@ -328,11 +343,70 @@ public class darDeAltaPoliza3 extends JFrame {
 		nombre_textField.setEditable(false);
 		nombre_textField.setColumns(10);
 		
-		if(dtoCliente != null)
+		if((dtoCliente != null) && (dtoVehiculo != null) && (dtoPoliza != null))
 		{
 			apellido_textField.setText(dtoCliente.getApellido());
-
 			nombre_textField.setText(dtoCliente.getNombre());
+			textField_marca.setText(dtoVehiculo.getIdModelo().getMarca().getMarca());
+			textField_modelo.setText(dtoVehiculo.getIdModelo().getNombre());
+			textField_chasis.setText(dtoVehiculo.getChasis());
+			textField_patente.setText(dtoVehiculo.getPatente());
+			textField_motor.setText(dtoVehiculo.getMotor());
+			//textField_sumaAsegurada.setText(dtoPoliza.getSumaAsegurada().toString());
+			//System.out.println("---------------");
+			//System.out.println(dtoPoliza.getSumaAsegurada());
+			
+			Poliza poliza = new Poliza();
+			Cuota cuota = new Cuota();
+			Datosdehijo datosHijos = new Datosdehijo();
+			Vehiculo vehiculo = new Vehiculo();
+			Numeropoliza num = new Numeropoliza();
+			Factoresusados factores = new Factoresusados();
+			Medidasdeseguridadporc medidasPorc = new Medidasdeseguridadporc();
+			
+			Modelo modelo = new Modelo();
+			Cliente cliente = new Cliente();
+			Formasdepago formaDePago = new Formasdepago();
+			Kmporanio kmxAnio = new Kmporanio();
+			Medidasdeseguridad medidas = new Medidasdeseguridad();
+			Tipocobertura cobertura = new Tipocobertura();
+			
+			modelo.setIdModelo(dtoVehiculo.getIdModelo().getIdModelo());
+			vehiculo.setAnio(dtoVehiculo.getAnio());
+			vehiculo.setChasis(dtoVehiculo.getChasis());
+			vehiculo.setIdVehiculo(dtoVehiculo.getIdVehiculo());
+			vehiculo.setModelo(modelo);
+			vehiculo.setMotor(dtoVehiculo.getMotor());
+			vehiculo.setPatente(dtoVehiculo.getPatente());
+			
+			cliente.setIdCliente(dtoPoliza.getCliente().getIdCliente());
+			formaDePago.setIdFormasDePago(dtoPoliza.getFormasdepago().getIdFormasDePago());	
+			
+			System.out.println("-------------");
+			System.out.println(formaDePago.getIdFormasDePago());
+			System.out.println("-------------");
+			
+			kmxAnio.setIdKmPorAnio(dtoPoliza.getKmporanio().getIdKmPorAnio());			
+			medidas.setIdMedidasSeguridad(dtoPoliza.getMedidasdeseguridad().getIdMedidasSeguridad());			
+			cobertura.setIdTipoCobertura(dtoPoliza.getTipoCobertura().getIdTipoCobertura());
+			
+			poliza.setCliente(cliente);
+			poliza.setFormasdepago(formaDePago);
+			poliza.setKmporanio(kmxAnio);
+			poliza.setMedidasdeseguridad(medidas);
+			poliza.setNroSiniestro(dtoPoliza.getNroSiniestro());
+			//poliza.setSumaAsegurada(sumaAsegurada);
+			poliza.setTipocobertura(cobertura);
+			poliza.setVehiculo(vehiculo);
+			
+			GestorPoliza.guardarVehiculo(vehiculo);
+			//GestorPoliza.guardarModelo(modelo);
+			//GestorPoliza.guardarCliente(cliente);
+			//GestorPoliza.guardarFormaDePago(formaDePago);
+			//GestorPoliza.guardarKm(kmxAnio);
+			//GestorPoliza.guardarMedidas(medidas);
+			//GestorPoliza.guardarCobertura(cobertura);
+			GestorPoliza.guardarPoliza(poliza);
 		}
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(

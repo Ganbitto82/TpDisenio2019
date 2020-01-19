@@ -8,7 +8,10 @@ import java.awt.EventQueue;
 import javax.swing.border.BevelBorder;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
+import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOPoliza;
+import ar.TpDisenio2019.DTO.DTOVehiculo;
 import ar.TpDisenio2019.Utilitario.ImagenProductor;
 
 import javax.swing.GroupLayout;
@@ -99,8 +102,11 @@ public class PantallaProductorSeguro extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnAltaPoliza) {
 					DTOCliente dtoCliente= null;
-					DTOPoliza dtoPoliza= null;
-					darDeAltaPoliza darAltaPoliza = new darDeAltaPoliza(dtoPoliza,dtoCliente);
+				/*	DTOPoliza dtoPoliza= null;
+					DTOVehiculo dtoVehiculo= null;
+					DTOMedidasdeseguridad dtoMedidasSeguridad=null;
+					DTOCuota dtoCuota=null;*/
+					darDeAltaPoliza darAltaPoliza = new darDeAltaPoliza(dtoCliente);
 					darAltaPoliza.setVisible(true);
 					darAltaPoliza.setResizable(false);
 					darAltaPoliza.setLocationRelativeTo(null);
