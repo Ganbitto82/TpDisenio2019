@@ -94,7 +94,7 @@ public class PantallaProductorSeguro extends JFrame{
 		
 		imagenPanel.setLayout(null);
 		
-		JButton btnAltaPoliza = new JButton("Dar de Alta Poliza");
+		JButton btnAltaPoliza = new JButton("Dar de Alta DTOPoliza");
 		btnAltaPoliza.setForeground(Color.WHITE);
 		btnAltaPoliza.setBackground(new Color(255, 0, 51));
 		
@@ -114,7 +114,7 @@ public class PantallaProductorSeguro extends JFrame{
 			}
 		});
 		
-		JButton btnConsultarPliza = new JButton("Consultar Poliza");
+		JButton btnConsultarPliza = new JButton("Consultar DTOPoliza");
 		btnConsultarPliza.setForeground(Color.WHITE);
 		btnConsultarPliza.setBackground(new Color(255, 0, 51));
 		
@@ -152,7 +152,7 @@ public class PantallaProductorSeguro extends JFrame{
 
 		});
 		
-		JButton btnDarDeAlta_1 = new JButton("Dar de Alta Cliente");
+		JButton btnDarDeAlta_1 = new JButton("Dar de Alta DTOCliente");
 		btnDarDeAlta_1.setForeground(Color.WHITE);
 		btnDarDeAlta_1.setBackground(new Color(255, 0, 51));
 			
@@ -170,7 +170,7 @@ public class PantallaProductorSeguro extends JFrame{
 
 		});		
 		
-		JButton btnConsultarCliente = new JButton("Consultar Cliente");
+		JButton btnConsultarCliente = new JButton("Consultar DTOCliente");
 		btnConsultarCliente.setForeground(Color.WHITE);
 		btnConsultarCliente.setBackground(new Color(255, 0, 51));
 		

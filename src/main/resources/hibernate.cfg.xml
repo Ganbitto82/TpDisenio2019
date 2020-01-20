@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
+ <session-factory >
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password">1234</property>
+  <property name="hibernate.connection.password">cabj</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbelaseguradov4</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.current_session_context_class">thread</property>
@@ -13,7 +13,10 @@
   <property name="hibernate.validator.apply_to_ddl">false</property>
   <property name="show_sql">true</property>
   <mapping class="ar.TpDisenio2019.Modelo.Aniodevehiculo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Aniomodelo"/>
+  <mapping class="ar.TpDisenio2019.Modelo.AniomodeloId"/>
   <mapping class="ar.TpDisenio2019.Modelo.Cliente"/>
+  <mapping class="ar.TpDisenio2019.Modelo.Condicioniva"/>
   <mapping class="ar.TpDisenio2019.Modelo.Cuota"/>
   <mapping class="ar.TpDisenio2019.Modelo.Datosdehijo"/>
   <mapping class="ar.TpDisenio2019.Modelo.Direccion"/>
@@ -41,6 +44,5 @@
   <mapping class="ar.TpDisenio2019.Modelo.Tipocobertura"/>
   <mapping class="ar.TpDisenio2019.Modelo.Tipodedocumento"/>
   <mapping class="ar.TpDisenio2019.Modelo.Vehiculo"/>
-  <mapping class="ar.TpDisenio2019.Modelo.Condicioniva"/>
  </session-factory>
 </hibernate-configuration>

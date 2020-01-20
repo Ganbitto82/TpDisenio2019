@@ -30,9 +30,9 @@ public class darDeAltaPoliza2 extends JFrame {
 		panel_1.setBounds(10, 82, 564, 218);
 		panel_1.setBorder(new TitledBorder(null, "EL CLIENTE INGRESADO NO EXISTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblDarDeAlta = new JLabel("Dar de Alta Cliente:");
+		JLabel lblDarDeAlta = new JLabel("Dar de Alta DTOCliente:");
 		
-		JButton btnAceptar = new JButton("Alta de Cliente");
+		JButton btnAceptar = new JButton("Alta de DTOCliente");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)

@@ -77,9 +77,9 @@ public class darDeAltaPoliza3 extends JFrame {
 		textField_marca.setEditable(false);
 		textField_marca.setColumns(10);
 		
-		JLabel lblMarca = new JLabel("Marca");
+		JLabel lblMarca = new JLabel("DTOMarca");
 		
-		JLabel lblModelo = new JLabel("Modelo");
+		JLabel lblModelo = new JLabel("DTOModelo");
 		
 		textField_modelo = new JTextField();
 		textField_modelo.setEditable(false);
@@ -347,8 +347,8 @@ public class darDeAltaPoliza3 extends JFrame {
 		{
 			apellido_textField.setText(dtoCliente.getApellido());
 			nombre_textField.setText(dtoCliente.getNombre());
-			textField_marca.setText(dtoVehiculo.getIdModelo().getMarca().getMarca());
-			textField_modelo.setText(dtoVehiculo.getIdModelo().getNombre());
+			//textField_marca.setText(dtoVehiculo.getIdModelo().getMarca().getMarca());
+			//textField_modelo.setText(dtoVehiculo.getIdModelo().getNombre());
 			textField_chasis.setText(dtoVehiculo.getChasis());
 			textField_patente.setText(dtoVehiculo.getPatente());
 			textField_motor.setText(dtoVehiculo.getMotor());
@@ -371,7 +371,7 @@ public class darDeAltaPoliza3 extends JFrame {
 			Medidasdeseguridad medidas = new Medidasdeseguridad();
 			Tipocobertura cobertura = new Tipocobertura();
 			
-			modelo.setIdModelo(dtoVehiculo.getIdModelo().getIdModelo());
+			//modelo.setIdModelo(dtoVehiculo.getIdModelo().getIdModelo());
 			vehiculo.setAnio(dtoVehiculo.getAnio());
 			vehiculo.setChasis(dtoVehiculo.getChasis());
 			vehiculo.setIdVehiculo(dtoVehiculo.getIdVehiculo());
@@ -388,7 +388,7 @@ public class darDeAltaPoliza3 extends JFrame {
 			
 			kmxAnio.setIdKmPorAnio(dtoPoliza.getKmporanio().getIdKmPorAnio());			
 			medidas.setIdMedidasSeguridad(dtoPoliza.getMedidasdeseguridad().getIdMedidasSeguridad());			
-			cobertura.setIdTipoCobertura(dtoPoliza.getTipoCobertura().getIdTipoCobertura());
+		//	cobertura.setIdTipoCobertura(dtoPoliza.getTipoCobertura().getIdTipoCobertura());
 			
 			poliza.setCliente(cliente);
 			poliza.setFormasdepago(formaDePago);

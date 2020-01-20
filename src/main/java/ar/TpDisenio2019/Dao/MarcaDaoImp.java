@@ -61,8 +61,10 @@ public class MarcaDaoImp implements MarcaDao {
     	 
     	 DTOMarca dtoMarca;
          for(Marca m :marcas){
-        	 dtoMarca = new DTOMarca(m.getIdMarca(),m.getMarca());
-        	 listaDtoMarca.add(dtoMarca);
+        	 dtoMarca = new DTOMarca();
+        	 dtoMarca.setIdMarca(m.getIdMarca());
+        	 dtoMarca.setMarca(m.getMarca());
+           	 listaDtoMarca.add(dtoMarca);
          }
     
         session.close();

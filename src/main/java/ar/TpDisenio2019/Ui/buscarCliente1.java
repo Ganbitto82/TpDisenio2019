@@ -67,7 +67,7 @@ public class buscarCliente1 extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "DATOS DEL CLIENTE", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_1 = new JLabel("Nro Cliente:");
+		JLabel label_1 = new JLabel("Nro DTOCliente:");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JLabel label_2 = new JLabel("Apellido:");

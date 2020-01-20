@@ -82,7 +82,7 @@ public class buscarCliente extends JFrame {
 	
 	public buscarCliente() {
 
-		setTitle("Buscar Cliente");
+		setTitle("Buscar DTOCliente");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
@@ -97,7 +97,7 @@ public class buscarCliente extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(15, 303, 764, 377);
 
-		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
+		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un DTOCliente");
 
 		
 		JButton button_2 = new JButton("Cancelar");
@@ -130,7 +130,7 @@ public class buscarCliente extends JFrame {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"TITULAR DEL SEGURO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		JLabel lblNroCliente = new JLabel("Nro de Cliente:");
+		JLabel lblNroCliente = new JLabel("Nro de DTOCliente:");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		JLabel label = new JLabel("Nombre");

@@ -27,9 +27,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.DTO.DTOAniomodelo;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOKmporanio;
@@ -162,7 +164,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_DatosDelCliente.setBounds(5, 163, 829, 114);
 		pnl_DatosDelCliente.setBorder(new TitledBorder(null, "DATOS DEL CLIENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblNroCliente = new JLabel("Nro Cliente");
+		JLabel lblNroCliente = new JLabel("Nro DTOCliente");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField__NroCliente = new JTextField();
@@ -200,7 +202,7 @@ public class darDeAltaPoliza extends JFrame {
 		textField_NroDocumento.setEditable(false);
 		textField_NroDocumento.setColumns(10);
 		
-		JLabel lblProvincia = new JLabel("Provincia");
+		JLabel lblProvincia = new JLabel("DTOProvincia");
 		lblProvincia.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Provincia = new JTextField();
@@ -208,7 +210,7 @@ public class darDeAltaPoliza extends JFrame {
 		textField_Provincia.setEditable(false);
 		textField_Provincia.setColumns(10);
 		
-		JLabel lblLocalidad = new JLabel("Localidad");
+		JLabel lblLocalidad = new JLabel("DTOLocalidad");
 		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Localidad = new JTextField();
@@ -359,7 +361,7 @@ public class darDeAltaPoliza extends JFrame {
 		
 		pnl_IngresoDeDatos.add(lblDatosDelVehculo, gbc_lblDatosDelVehculo);
 		
-		JLabel lblMarca = new JLabel("Marca(*)");
+		JLabel lblMarca = new JLabel("DTOMarca(*)");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblMarca = new GridBagConstraints();
 		gbc_lblMarca.anchor = GridBagConstraints.WEST;
@@ -380,7 +382,7 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_cbxMarca.gridy = 3;
 		pnl_IngresoDeDatos.add(cbxMarca, gbc_cbxMarca);
 		
-		JLabel lblModelo = new JLabel("Modelo(*)");
+		JLabel lblModelo = new JLabel("DTOModelo(*)");
 		lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblModelo = new GridBagConstraints();
 		gbc_lblModelo.anchor = GridBagConstraints.WEST;
@@ -743,6 +745,7 @@ public class darDeAltaPoliza extends JFrame {
 			textField_Nombre.setText(dtoCliente.getNombre());			
 			textField_TipoDocumento.setText(dtoCliente.getTipodedocumento().getNombre());
 			textField_NroDocumento.setText( strnNroDocumento );				
+			System.out.println(dtoCliente.getDireccion().getLocalidad().getProvincia().getNombre());
 			textField_Provincia.setText(dtoCliente.getDireccion().getLocalidad().getProvincia().getNombre());	
 			textField_Localidad.setText(dtoCliente.getDireccion().getLocalidad().getNombre());
 
@@ -875,19 +878,22 @@ public class darDeAltaPoliza extends JFrame {
 						else {
 							
 							dtoModeloSeleccionado = ObtenerDtoDeUnCombo.ObtenerDTOModelo(itemModelo, dtoListaModelo);  					
-
-							Calendar calendarDTOModelo_DTOAnio = Calendar.getInstance();				
-					
-							for(DTOModelo dtoModelo:dtoListaModelo) {
-						
-								if(  dtoModeloSeleccionado.getIdModelo() ==  dtoModelo.getIdModelo() ) {
-									
-									calendarDTOModelo_DTOAnio.setTime(dtoModelo.getAniodevehiculo().getAnio());
-									int yearDTOModelo_DTOAnio=calendarDTOModelo_DTOAnio.get(Calendar.YEAR);
-									String anio= Integer.toString(yearDTOModelo_DTOAnio);
-									listaAnio.add(anio);	
-								}
-							}	
+							Set<DTOAniomodelo> lista = dtoModeloSeleccionado.getAniomodelos();
+							int idModeloSeleccionado =dtoModeloSeleccionado.getIdModelo();
+							Calendar Anio = Calendar.getInstance();
+							for(DTOAniomodelo l :lista) {
+								
+							if(l.getModelo().getIdModelo().equals(idModeloSeleccionado)) {
+							//System.out.println(l.getModelo().getIdModelo());
+							
+							//System.out.println(l.getAniodevehiculo().getAnio());
+							Anio.setTime(l.getAniodevehiculo().getAnio());
+							int year= Anio.get(Calendar.YEAR);
+							String anio= Integer.toString(year);
+							listaAnio.add(anio);
+							        }
+							}
+							
 							cbxAnioVehiculo.removeAllItems();
 					
 							cbxAnioVehiculo.addItem(" --Seleccione-- ");
@@ -1051,13 +1057,13 @@ public class darDeAltaPoliza extends JFrame {
 					
 					dtoVehiculo.setAnio(anioVehiculo);
 					dtoVehiculo.setChasis(chasis);
-					dtoVehiculo.setIdModelo(dtoModeloSeleccionado);
+				//	dtoVehiculo.setIdModelo(dtoModeloSeleccionado);
 					dtoVehiculo.setIdVehiculo(1);
 					dtoVehiculo.setMotor(motor);
 					dtoVehiculo.setPatente(patente);
 					
 					dtoKmPorAnio.setPorcentaje(km);
-					dtoSiniestro.setCantidad(nroSiniestro);
+					//dtoSiniestro.setCantidad(nroSiniestro);
 					dtoMedidasSeguridad.setIdMedidasSeguridad(1);
 					dtoPoliza.setCliente(dtoCliente);
 					dtoPoliza.setKmporanio(dtoKmPorAnio);

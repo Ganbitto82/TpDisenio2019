@@ -26,19 +26,7 @@ public class ObtenerDtoDeUnCombo {
 		return dtoBuscado;
 	}
 	
-	public static DTOAniodevehiculo ObtenerDTOAnio(String textoSeleccionado, List<DTOModelo> listaDtoModelo)
-	{
-		DTOAniodevehiculo dtoBuscado = null;
-		
-		for(DTOModelo dtoModelo :listaDtoModelo)
-		{
-			if(dtoModelo.getNombre().compareTo(textoSeleccionado) == 0)
-				dtoBuscado = dtoModelo.getAniodevehiculo();
-			break;
-		}
-			
-		return dtoBuscado;
-	}
+
 	
 	public static DTOModelo ObtenerDTOModelo(String textoSeleccionado, List<DTOModelo> listaDtoModelo)
 	{

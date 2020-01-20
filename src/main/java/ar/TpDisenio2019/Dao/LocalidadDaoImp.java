@@ -68,8 +68,11 @@ public class LocalidadDaoImp implements LocalidadDao {
     	 
     	 DTOLocalidad dtoLocalidad;
          for(Localidad l : localidad){
-        	  dtoLocalidad = new DTOLocalidad(l.getIdLocalidad(),l.getNombre(),dtoProvincia);
-        	  listaDtoLocalidad.add(dtoLocalidad);
+        	 dtoLocalidad = new DTOLocalidad();
+        	 dtoLocalidad.setIdLocalidad(l.getIdLocalidad());
+        	 dtoLocalidad.setNombre(l.getNombre());
+        	 dtoLocalidad.setProvincia(dtoProvincia);
+        	 listaDtoLocalidad.add(dtoLocalidad);
          }
         session.close();
         

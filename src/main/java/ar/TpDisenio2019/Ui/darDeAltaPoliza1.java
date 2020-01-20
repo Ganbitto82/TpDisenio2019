@@ -224,7 +224,7 @@ public class darDeAltaPoliza1 extends JFrame {
 					{
 						//Date f = Date.parse(fecha);
 						dtoPoliza.setFormasdepago(dtoFormadepago);
-						dtoPoliza.setTipoCobertura(dtoTipoCobertura);
+					//	dtoPoliza.setTipoCobertura(dtoTipoCobertura);
 						//dtoPoliza.setFechaInicioVigencia(fecha);
 						
 						System.out.println("-------------");

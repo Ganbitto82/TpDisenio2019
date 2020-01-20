@@ -102,18 +102,45 @@ public class ClienteDaoImp implements ClienteDao {
       DTODireccion direccion;
       
       for(Cliente c : clientes){
-          tipoDocumento = new DTOTipodedocumento(c.getTipodedocumento().getIdTipoDeDocumento(),c.getTipodedocumento().getNombre());
+    	  tipoDocumento = new DTOTipodedocumento();
+    	  tipoDocumento.setIdTipoDeDocumento(c.getTipodedocumento().getIdTipoDeDocumento());
+    	  tipoDocumento.setNombre(c.getTipodedocumento().getNombre());
+    	  
+    	  
           pais = c.getDireccion().getLocalidad().getProvincia().getPais();
-          dtopais = new DTOPais(pais.getIdPais(),pais.getNombre());
+          dtopais = new DTOPais();
+          dtopais.setIdPais(pais.getIdPais());
+          dtopais.setNombre(pais.getNombre());
+         
           provincia= c.getDireccion().getLocalidad().getProvincia();
-          dtoprovincia= new DTOProvincia(provincia.getIdProvincia(),provincia.getNombre(),dtopais);
+          dtoprovincia= new DTOProvincia();
+          dtoprovincia.setIdProvincia(provincia.getIdProvincia());
+          dtoprovincia.setNombre(provincia.getNombre());
+          dtoprovincia.setPais(dtopais);
+      
           localidad = c.getDireccion().getLocalidad();
-          dtolocalidad = new DTOLocalidad(localidad.getIdLocalidad(),localidad.getNombre(),dtoprovincia);
+          dtolocalidad = new DTOLocalidad();
+          dtolocalidad.setIdLocalidad(localidad.getIdLocalidad());
+          dtolocalidad.setNombre(localidad.getNombre());
+          dtolocalidad.setProvincia(dtoprovincia);
+         
+          direccion = new DTODireccion();
+          direccion.setIdDireccion(c.getDireccion().getIdDireccion());
+          direccion.setCalle(c.getDireccion().getCalle());
+          direccion.setNumero(c.getDireccion().getNumero());
+          direccion.setPiso(c.getDireccion().getPiso());
+          direccion.setDepartamento(c.getDireccion().getDepartamento());
+          direccion.setLocalidad(dtolocalidad);
           
-          direccion = new DTODireccion(c.getDireccion().getIdDireccion(),c.getDireccion().getCalle(),c.getDireccion().getNumero(),c.getDireccion().getPiso(),c.getDireccion().getDepartamento(),dtolocalidad);
+          nuevo = new DTOCliente();
+          nuevo.setIdCliente(c.getIdCliente());
+          nuevo.setNroCliente(c.getNroCliente());
+          nuevo.setNroDocumento(c.getNroDocumento());
+          nuevo.setNombre(c.getNombre());
+          nuevo.setApellido(c.getApellido());
+          nuevo.setTipodedocumento(tipoDocumento);
+          nuevo.setDireccion(direccion);
           
-          
-          nuevo = new DTOCliente(c.getNroCliente(),c.getIdCliente(),c.getNroDocumento(),c.getNombre(),c.getApellido(),tipoDocumento, direccion);
           listaDtoCliente.add(nuevo);
       }
        session.close();

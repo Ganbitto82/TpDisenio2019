@@ -82,10 +82,10 @@ public class GestorListasBDDesplegable {
          	
 		return listaTipocobertura;
 	}
- /*  public static List<Localidad> ObtenerLocalidad() {
+ /*  public static List<DTOLocalidad> ObtenerLocalidad() {
   
     	
-    	List<Localidad> listaLocalidad = localidadDao.obtenerTodas();
+    	List<DTOLocalidad> listaLocalidad = localidadDao.obtenerTodas();
          	
 		return listaLocalidad;
 	}*/
@@ -107,11 +107,11 @@ public class GestorListasBDDesplegable {
     	List<DTOAniodevehiculo> listaDtoAniodevehiculo = aniodeVehiculoDao.obtenerDTOAnioVehiculo();
     	return listaDtoAniodevehiculo ;	
     }
-    public static List<DTOModelo> obtenerModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
+   /* public static List<DTOModelo> obtenerModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
     	
     	List<DTOModelo> listaDtoModelo= modeloDao.obtenerDTOModelo(dtoMarca, dtoAniodeVehiculo);
     	return listaDtoModelo;
-    }
+    }*/
     
     public List<DTOModelo> ObtenerModelo(){
     	

@@ -168,14 +168,14 @@ public class RealizarPagoPoliza extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "DATOS DEL VEH\u00CDCULO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_11 = new JLabel("Marca:");
+		JLabel label_11 = new JLabel("DTOMarca:");
 		
 		txtAaaaaaaaaaaaaa = new JTextField();
 		txtAaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaaaaaa.setColumns(10);
 		
-		JLabel label_12 = new JLabel("Modelo:");
+		JLabel label_12 = new JLabel("DTOModelo:");
 		
 		txtAaaaaaaaaaaaaaa_1 = new JTextField();
 		txtAaaaaaaaaaaaaaa_1.setText("AAAAAAAAAAAAAAA");
@@ -224,7 +224,7 @@ public class RealizarPagoPoliza extends JFrame {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "TITULAR DEL SEGURO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_14 = new JLabel("Nro Cliente:");
+		JLabel label_14 = new JLabel("Nro DTOCliente:");
 		
 		nroCliente = new JTextField();
 		nroCliente.setText("99-9999999");
@@ -377,7 +377,7 @@ public class RealizarPagoPoliza extends JFrame {
 				},
 				
 				new String[] {
-					"Cuotas a Pagar", "Cuota/A\u00F1o", "Vencimiento", "Valor original", "Valor actual a pagar"
+					"Cuotas a Pagar", "DTOCuota/A\u00F1o", "Vencimiento", "Valor original", "Valor actual a pagar"
 				}
 			));
 			table.getColumnModel().getColumn(4).setPreferredWidth(123);

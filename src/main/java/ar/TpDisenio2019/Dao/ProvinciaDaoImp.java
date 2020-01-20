@@ -60,7 +60,10 @@ public class ProvinciaDaoImp implements ProvinciaDao {
     	 DTOProvincia dtoProvincia;
     	 
     	 for(Provincia p :provincias){
-    		 dtoProvincia = new DTOProvincia(p.getIdProvincia(),p.getNombre());
+    		 dtoProvincia = new DTOProvincia();
+    		 dtoProvincia.setIdProvincia(p.getIdProvincia());
+    		 dtoProvincia.setNombre(p.getNombre());
+    		
     		 listaDtoProvincia.add(dtoProvincia);
             }
     

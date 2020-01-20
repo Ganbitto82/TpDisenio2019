@@ -152,7 +152,7 @@ public class ModHijos extends JFrame {
 		JComboBox<String> sexo;
 		JComboBox<String> estadoCivil;
 		modelo = null;
-		String nomcols[] = { "Fecha de Nacimiento", "Sexo", "Estado Civil" };
+		String nomcols[] = { "Fecha de Nacimiento", "Sexo", "DTOEstado Civil" };
 
 		// GestorPoliza.buscarHijosCliente(idCliente);
 
@@ -297,7 +297,7 @@ public class ModHijos extends JFrame {
 					}
 					else {
 						JOptionPane.showMessageDialog(null,
-								"No ha seleccionado ningún valor en columna Estado Civil, vuelva a ingresar sus datos.",
+								"No ha seleccionado ningún valor en columna DTOEstado Civil, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
 						modelo.setValueAt("", i, 2);
 						break;

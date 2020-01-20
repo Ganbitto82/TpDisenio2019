@@ -33,7 +33,7 @@ public class GestorPoliza {
 		for(int i=0;i<listaEstadoCivil.size();i++) {
 	    	if(nombre.equals(listaEstadoCivil.get(i).getNombre()))
 	    	{
-	    		return listaEstadoCivil.get(i);	/*Retorna un elemento de la lista de Estado Civil*/
+	    		return listaEstadoCivil.get(i);	/*Retorna un elemento de la lista de DTOEstado Civil*/
 	    	}
 		}
 		return null;

@@ -60,7 +60,10 @@ public class AniodeVehiculoDaoImp implements AniodeVehiculoDao {
     	 List<DTOAniodevehiculo> listaDtoAnioVehiculo =  new ArrayList<>();
     	 DTOAniodevehiculo dtoAnio;
          for(Aniodevehiculo a : aniosdeVehiculos){
-        	 dtoAnio= new DTOAniodevehiculo(a.getIdAnioDeVehiculo(),a.getAnio());
+        	 dtoAnio= new DTOAniodevehiculo();
+        	 dtoAnio.setIdAnioDeVehiculo(a.getIdAnioDeVehiculo());
+        	 dtoAnio.setAnio(a.getAnio());
+        	 
         	 listaDtoAnioVehiculo.add(dtoAnio);
          }
     

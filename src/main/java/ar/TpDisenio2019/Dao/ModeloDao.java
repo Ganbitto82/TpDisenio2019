@@ -15,7 +15,7 @@ public interface ModeloDao {
     
     public void guardar (Modelo modelo);
     
-    public List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca, DTOAniodevehiculo dtoAniodeVehiculo);
+  //  public List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca, DTOAniodevehiculo dtoAniodeVehiculo);
     
     public List<DTOModelo> obtenerTodas();
 }

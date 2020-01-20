@@ -116,23 +116,30 @@ public class GestorListasDesplegables {
 	}
 
 	public static DTOPais crearDTOPais(Pais pais) {
-		DTOPais dtoPais = new DTOPais(pais.getIdPais(), pais.getNombre());
+		DTOPais dtoPais = new DTOPais();
+		dtoPais.setIdPais(pais.getIdPais());
+		dtoPais.setNombre(pais.getNombre());
 		return dtoPais;
 	}
 
 	public static DTOProvincia crearDTOProvincia(Provincia provincia) {
-		DTOProvincia dtoProvincia = new DTOProvincia(provincia.getIdProvincia(), provincia.getNombre());
+		DTOProvincia dtoProvincia = new DTOProvincia();
+		dtoProvincia.setIdProvincia(provincia.getIdProvincia());
+		dtoProvincia.setNombre(provincia.getNombre());
 		return dtoProvincia;
 	}
 
 	public static DTOLocalidad crearDTOLocalidad(Localidad localidad) {
-		DTOLocalidad dtoLocalidad = new DTOLocalidad(localidad.getIdLocalidad(), localidad.getNombre());
+		DTOLocalidad dtoLocalidad = new DTOLocalidad();
+		dtoLocalidad.setIdLocalidad(localidad.getIdLocalidad());
+		dtoLocalidad.setNombre(localidad.getNombre());
 		return dtoLocalidad;
 	}
 
 	public static DTOEstadocivil crearDTOEstadoCivil(Estadocivil estadoCivil) {
-		DTOEstadocivil dtoEstadoCivil = new DTOEstadocivil(estadoCivil.getIdEstadoCivil(), estadoCivil.getNombre());
-
+		DTOEstadocivil dtoEstadoCivil = new DTOEstadocivil();
+		dtoEstadoCivil.setIdEstadoCivil(estadoCivil.getIdEstadoCivil());
+		dtoEstadoCivil.setNombre(estadoCivil.getNombre());
 		return dtoEstadoCivil;
 	}
 	
@@ -150,12 +157,12 @@ public class GestorListasDesplegables {
 		return listaDtoAniodevehiculo;
 	}
 	
-    public static List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
+ /*   public static List<DTOModelo> obtenerDTOModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
 
     	List<DTOModelo> listaDtoModelo=GestorListasBDDesplegable.obtenerModelo(dtoMarca, dtoAniodeVehiculo);
     	
     	return  listaDtoModelo;	
-    }
+    }*/
     
 	public static  List<DTOProvincia>  obtenerDTOProvincia() {
     	
