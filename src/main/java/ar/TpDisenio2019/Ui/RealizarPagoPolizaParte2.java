@@ -148,14 +148,14 @@ public class RealizarPagoPolizaParte2 extends JFrame{
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "DATOS DEL VEH\u00CDCULO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_11 = new JLabel("DTOMarca:");
+		JLabel label_11 = new JLabel("Marca:");
 		
 		txtAaaaaaaaaaaaaa = new JTextField();
 		txtAaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaaaaaa.setColumns(10);
 		
-		JLabel label_12 = new JLabel("DTOModelo:");
+		JLabel label_12 = new JLabel("Modelo:");
 		
 		txtAaaaaaaaaaaaaaa_1 = new JTextField();
 		txtAaaaaaaaaaaaaaa_1.setText("AAAAAAAAAAAAAAA");
@@ -204,7 +204,7 @@ public class RealizarPagoPolizaParte2 extends JFrame{
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "TITULAR DEL SEGURO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_14 = new JLabel("Nro DTOCliente:");
+		JLabel label_14 = new JLabel("Nro Cliente:");
 		
 		nroCliente = new JTextField();
 		nroCliente.setText("99-9999999");
@@ -373,7 +373,7 @@ public class RealizarPagoPolizaParte2 extends JFrame{
 				{"004/19", "15/04/2019", "555,55", "575,75"},
 			},
 			new String[] {
-				"DTOCuota/A\u00F1o", "Vencimiento", "Valor original", "Valor actual a pagar"
+				"Cuota/A\u00F1o", "Vencimiento", "Valor original", "Valor actual a pagar"
 			}
 		));
 			table.setToolTipText("");
@@ -382,7 +382,7 @@ public class RealizarPagoPolizaParte2 extends JFrame{
 		
 		panel_3.setLayout(gl_panel_3);
 		
-		JLabel lblClientePaga = new JLabel("DTOCliente Paga:");
+		JLabel lblClientePaga = new JLabel("Cliente Paga:");
 		lblClientePaga.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		textField_1 = new JTextField();
@@ -398,7 +398,7 @@ public class RealizarPagoPolizaParte2 extends JFrame{
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		
-		JLabel lblVueltoAlCliente = new JLabel("Vuelto al DTOCliente:");
+		JLabel lblVueltoAlCliente = new JLabel("Vuelto al Cliente:");
 		lblVueltoAlCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(

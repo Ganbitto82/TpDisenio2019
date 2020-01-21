@@ -3,7 +3,6 @@ package ar.TpDisenio2019.Ui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.border.BevelBorder;
 
@@ -27,19 +26,6 @@ public class PantallaProductorSeguro extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaProductorSeguro frame = new PantallaProductorSeguro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public PantallaProductorSeguro() {
 		initialize();
 	}
@@ -94,16 +80,17 @@ public class PantallaProductorSeguro extends JFrame{
 		
 		imagenPanel.setLayout(null);
 		
-		JButton btnAltaPoliza = new JButton("Dar de Alta DTOPoliza");
+		JButton btnAltaPoliza = new JButton("Dar de Alta Poliza");
 		btnAltaPoliza.setForeground(Color.WHITE);
 		btnAltaPoliza.setBackground(new Color(255, 0, 51));
 		
 		btnAltaPoliza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnAltaPoliza) {
-					DTOCliente dtoCliente= null;
-				/*	DTOPoliza dtoPoliza= null;
-					DTOVehiculo dtoVehiculo= null;
+
+					DTOCliente dtoCliente = null;
+					DTOPoliza dtoPoliza= null;
+				/*	DTOVehiculo dtoVehiculo= null;
 					DTOMedidasdeseguridad dtoMedidasSeguridad=null;
 					DTOCuota dtoCuota=null;*/
 					darDeAltaPoliza darAltaPoliza = new darDeAltaPoliza(dtoCliente);
@@ -114,7 +101,7 @@ public class PantallaProductorSeguro extends JFrame{
 			}
 		});
 		
-		JButton btnConsultarPliza = new JButton("Consultar DTOPoliza");
+		JButton btnConsultarPliza = new JButton("Consultar Poliza");
 		btnConsultarPliza.setForeground(Color.WHITE);
 		btnConsultarPliza.setBackground(new Color(255, 0, 51));
 		
@@ -152,7 +139,7 @@ public class PantallaProductorSeguro extends JFrame{
 
 		});
 		
-		JButton btnDarDeAlta_1 = new JButton("Dar de Alta DTOCliente");
+		JButton btnDarDeAlta_1 = new JButton("Dar de Alta Cliente");
 		btnDarDeAlta_1.setForeground(Color.WHITE);
 		btnDarDeAlta_1.setBackground(new Color(255, 0, 51));
 			
@@ -170,7 +157,7 @@ public class PantallaProductorSeguro extends JFrame{
 
 		});		
 		
-		JButton btnConsultarCliente = new JButton("Consultar DTOCliente");
+		JButton btnConsultarCliente = new JButton("Consultar Cliente");
 		btnConsultarCliente.setForeground(Color.WHITE);
 		btnConsultarCliente.setBackground(new Color(255, 0, 51));
 		

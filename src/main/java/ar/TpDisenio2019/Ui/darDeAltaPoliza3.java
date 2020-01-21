@@ -399,14 +399,14 @@ public class darDeAltaPoliza3 extends JFrame {
 			poliza.setTipocobertura(cobertura);
 			poliza.setVehiculo(vehiculo);
 			
-			GestorPoliza.guardarVehiculo(vehiculo);
+			//GestorPoliza.guardarVehiculo(vehiculo);
 			//GestorPoliza.guardarModelo(modelo);
 			//GestorPoliza.guardarCliente(cliente);
 			//GestorPoliza.guardarFormaDePago(formaDePago);
 			//GestorPoliza.guardarKm(kmxAnio);
 			//GestorPoliza.guardarMedidas(medidas);
 			//GestorPoliza.guardarCobertura(cobertura);
-			GestorPoliza.guardarPoliza(poliza);
+			//GestorPoliza.guardarPoliza(poliza);
 		}
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(

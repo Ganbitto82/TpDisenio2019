@@ -79,7 +79,7 @@ public class RealizarPagoPolizaParte3 extends JFrame{
 		textField.setEditable(false);
 		textField.setColumns(10);
 		
-		JLabel lblNroRecibo = new JLabel("Nro DTORecibo:");
+		JLabel lblNroRecibo = new JLabel("Nro Recibo:");
 		lblNroRecibo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JLabel lblFecha = new JLabel("Fecha:");
@@ -99,14 +99,14 @@ public class RealizarPagoPolizaParte3 extends JFrame{
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "DATOS DEL VEH\u00CDCULO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JLabel label_11 = new JLabel("DTOMarca:");
+		JLabel label_11 = new JLabel("Marca:");
 		
 		txtAaaaaaaaaaaaaa = new JTextField();
 		txtAaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaaaaaa.setColumns(10);
 		
-		JLabel label_12 = new JLabel("DTOModelo:");
+		JLabel label_12 = new JLabel("Modelo:");
 		
 		txtAaaaaaaaaaaaaaa_1 = new JTextField();
 		txtAaaaaaaaaaaaaaa_1.setText("AAAAAAAAAAAAAAA");
@@ -164,7 +164,7 @@ public class RealizarPagoPolizaParte3 extends JFrame{
 		
 		JPanel panel_6 = new JPanel();
 		
-		JButton btnRegistrarPago = new JButton("Emitir DTORecibo de Pago");
+		JButton btnRegistrarPago = new JButton("Emitir Recibo de Pago");
 		
 		btnRegistrarPago.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -244,7 +244,7 @@ public class RealizarPagoPolizaParte3 extends JFrame{
 		JLabel lblBonificacinPorPago = new JLabel("Bonificaci\u00F3n por pago adelantado:");
 		lblBonificacinPorPago.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		JLabel lblOperador = new JLabel("DTOOperador:");
+		JLabel lblOperador = new JLabel("Operador:");
 		lblOperador.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JLabel lblMesAo = new JLabel("Mes / A\u00F1o abonado:");

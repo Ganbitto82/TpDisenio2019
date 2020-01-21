@@ -21,13 +21,13 @@ public class DTOSiniestro implements java.io.Serializable {
 
 	private Integer idSiniestro;
 	private Float porcentaje;
-	private Integer cantidad;
+	private String cantidad;
 	private Set<DTOPoliza> dTOPolizas = new HashSet<DTOPoliza>(0);
 
 	public DTOSiniestro() {
 	}
 
-	public DTOSiniestro(Float porcentaje, Integer cantidad, Set<DTOPoliza> dTOPolizas) {
+	public DTOSiniestro(Float porcentaje, String cantidad, Set<DTOPoliza> dTOPolizas) {
 		this.porcentaje = porcentaje;
 		this.cantidad = cantidad;
 		this.dTOPolizas = dTOPolizas;
@@ -55,11 +55,11 @@ public class DTOSiniestro implements java.io.Serializable {
 	}
 
 	@Column(name = "cantidad")
-	public Integer getCantidad() {
+	public String getCantidad() {
 		return this.cantidad;
 	}
 
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(String cantidad) {
 		this.cantidad = cantidad;
 	}
 

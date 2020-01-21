@@ -70,7 +70,7 @@ public class buscarCliente extends JFrame {
 	private JLabel labelAclaracionSobreNumerodeCliente;
 
 	private JScrollPane scrollPane;
-	private String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento",
+	private String[] nombresDeLasColumnasDeLaTabla = { "Nro de Cliente", "Nombre", "Apellido", "Tipo de Documento",
 			"Nro de Documento" };
 	private Object[][]datosDeLaTabla;
 	private JTable tablaCliente;
@@ -82,7 +82,7 @@ public class buscarCliente extends JFrame {
 	
 	public buscarCliente() {
 
-		setTitle("Buscar DTOCliente");
+		setTitle("Buscar Cliente");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
@@ -97,7 +97,7 @@ public class buscarCliente extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(15, 303, 764, 377);
 
-		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un DTOCliente");
+		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
 
 		
 		JButton button_2 = new JButton("Cancelar");
@@ -130,7 +130,7 @@ public class buscarCliente extends JFrame {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"TITULAR DEL SEGURO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		JLabel lblNroCliente = new JLabel("Nro de DTOCliente:");
+		JLabel lblNroCliente = new JLabel("Nro de Cliente:");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		JLabel label = new JLabel("Nombre");
@@ -692,17 +692,27 @@ public class buscarCliente extends JFrame {
 		
 			public void actionPerformed(ActionEvent e) {
               if(e.getSource()==button_Aceptar) {
-				
-            	 
+				          	 
 				int filaSeleccion= tablaCliente.getSelectedRow();
-			
-				
+					
 				try {
 					
 					if (filaSeleccion==-1)
 						JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente","Advertencia",JOptionPane.WARNING_MESSAGE);
 					else 
 					{
+						
+						int num = listaDtosCliente.size();
+
+						for(int i=0; i<num; i++)
+						{	
+							if(listaDtosCliente.get(i).getNroCliente().toString().equalsIgnoreCase(datosDeLaTabla[filaSeleccion][0].toString()))
+							{							
+								filaSeleccion=i;
+								break;
+							}						
+						}
+						
 						DTOPoliza dtoPoliza = null;
 						dispose();
 						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion),dtoPoliza);

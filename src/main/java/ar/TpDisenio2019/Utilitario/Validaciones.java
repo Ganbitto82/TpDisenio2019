@@ -94,64 +94,7 @@ public class Validaciones {
 					
 				return false;
 			}
-			
-			
-			/*public static boolean validarNumeroDeDocumento(String numeroDeDocumento, String tipoDeDocumento)
-			{
-				if(numeroDeDocumento.length() > 15)
-					return false;
-					
-				Pattern patronParaPasaporteYOtro = Pattern.compile("\\x20|\\p{Upper}|\\p{Digit}");
-				Matcher matcher;
-					
-				if(tipoDeDocumento.compareTo("DNI") == 0)
-					return validarCampoNumericoEstatico(numeroDeDocumento, 8);
-			
-				else if(tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
-					return validarCampoNumericoEstatico(numeroDeDocumento, 7);
-			
-				else if(tipoDeDocumento.compareTo("Pasaporte") == 0)
-				{	
-					if(numeroDeDocumento.length() > 9)
-						return false;
-						
-					int cantidadDeEvaluaciones = numeroDeDocumento.length();
-					int cantidadDeAciertos = 0;
-						
-					for(int i = 0; i < cantidadDeEvaluaciones; i++)
-					{	
-						matcher = patronParaPasaporteYOtro.matcher(numeroDeDocumento.substring(i, i + 1));
-						if(matcher.matches())
-							cantidadDeAciertos++;
-					}	
-						
-					if(cantidadDeAciertos == cantidadDeEvaluaciones)
-						return true;
-					else 
-						return false;	
-				}	
-						
-				else if(tipoDeDocumento.compareTo("Otro") == 0)
-				{	
-					int cantidadDeEvaluaciones = numeroDeDocumento.length();
-					int cantidadDeAciertos = 0;
-						
-					for(int i = 0; i < cantidadDeEvaluaciones; i++)
-					{	
-						matcher = patronParaPasaporteYOtro.matcher(numeroDeDocumento.substring(i, i + 1));
-						if(matcher.matches())
-							cantidadDeAciertos++;
-					}	
-						
-					if(cantidadDeAciertos == cantidadDeEvaluaciones)
-						return true;
-					else 
-						return false;	
-				}
-					
-				return false;
-			}*/
-			
+				
 			//valorDelCampo no debe ser la cadena vacía; valorMáximoPermitido debe ser mayor que 0
 			public static boolean validarCampoNumericoEstatico(String valorDelCampo, int valorMaximoPermitido)
 			{
@@ -260,6 +203,67 @@ public class Validaciones {
 			else if(bisiesto == false && día == 29 && mes == 2)
 				return false;
 			
+			return true;
+		}
+		public static boolean validarChasis(String chasis)
+		{
+			if(chasis.length() == 17) {
+			  return true;	
+			}
+			else return false;
+		}
+		public static boolean validarMotor(String motor)
+		{
+			if(motor.length() == 11) {
+				//no se cuantos tiene, debo averiguar
+			  return true;	
+			}
+			else return false;
+		}
+	   public static boolean validarPatente(String patente)
+	   {  
+		   if(patente.length() == 6){
+			   
+		   Pattern pat= Pattern.compile("[A-Z]{3}[0-9]{3}");
+		   Matcher matcher= pat.matcher(patente);
+		      if (matcher.matches()) 
+		      { return true;}
+		      else {return false;}
+		     
+		   }
+		   if(patente.length() == 7){
+			   
+			   Pattern pat= Pattern.compile("[A-Z]{2}[0-9]{3}[A-Z]{2}");
+			   
+			   Matcher matcher= pat.matcher(patente);
+			  if (matcher.matches()) { return true;}
+		      else return false;
+					     
+			   }
+		   return false;
+	   }
+		public static boolean validarKmPorAnio(String km)
+		{
+			for(int i=0; i<km.length(); i++)
+			{
+				if(!Character.isDigit(km.charAt(i))) {
+					
+				  return false;	
+				}
+				else return true;
+			}
+			return true;
+		}
+		public static boolean validarSumaAsegurada(String suma)
+		{
+			for(int i=0; i<suma.length(); i++)
+			{
+				if(!Character.isDigit(suma.charAt(i))) {
+					
+				  return false;	
+				}
+				else return true;
+			}
 			return true;
 		}
 }

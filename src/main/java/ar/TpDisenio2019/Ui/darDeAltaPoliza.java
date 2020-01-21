@@ -20,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
@@ -45,6 +47,7 @@ import ar.TpDisenio2019.DTO.DTOSiniestro;
 import ar.TpDisenio2019.DTO.DTOVehiculo;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
 import ar.TpDisenio2019.Utilitario.ObtenerDtoDeUnCombo;
+import ar.TpDisenio2019.Utilitario.Validaciones;
 
 public class darDeAltaPoliza extends JFrame {
 
@@ -86,7 +89,7 @@ public class darDeAltaPoliza extends JFrame {
 	private List<DTOProvincia> dtoListaProvincia;
 	private List<DTOLocalidad> dtoListaLocalidad;
 	private List<DTOSiniestro> dtoListaSiniestros;
-	private List<DTOMedidasdeseguridad> dtoListaMedidas;
+//	private List<DTOMedidasdeseguridad> dtoListaMedidas;
 	
 	private DTOModelo dtoModeloSeleccionado;
 	private DTOMarca dtoMarcaSeleccionado;
@@ -164,7 +167,7 @@ public class darDeAltaPoliza extends JFrame {
 		pnl_DatosDelCliente.setBounds(5, 163, 829, 114);
 		pnl_DatosDelCliente.setBorder(new TitledBorder(null, "DATOS DEL CLIENTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JLabel lblNroCliente = new JLabel("Nro DTOCliente");
+		JLabel lblNroCliente = new JLabel("Nro Cliente");
 		lblNroCliente.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField__NroCliente = new JTextField();
@@ -202,7 +205,7 @@ public class darDeAltaPoliza extends JFrame {
 		textField_NroDocumento.setEditable(false);
 		textField_NroDocumento.setColumns(10);
 		
-		JLabel lblProvincia = new JLabel("DTOProvincia");
+		JLabel lblProvincia = new JLabel("Provincia");
 		lblProvincia.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Provincia = new JTextField();
@@ -210,7 +213,7 @@ public class darDeAltaPoliza extends JFrame {
 		textField_Provincia.setEditable(false);
 		textField_Provincia.setColumns(10);
 		
-		JLabel lblLocalidad = new JLabel("DTOLocalidad");
+		JLabel lblLocalidad = new JLabel("Localidad");
 		lblLocalidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField_Localidad = new JTextField();
@@ -361,7 +364,7 @@ public class darDeAltaPoliza extends JFrame {
 		
 		pnl_IngresoDeDatos.add(lblDatosDelVehculo, gbc_lblDatosDelVehculo);
 		
-		JLabel lblMarca = new JLabel("DTOMarca(*)");
+		JLabel lblMarca = new JLabel("Marca(*)");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblMarca = new GridBagConstraints();
 		gbc_lblMarca.anchor = GridBagConstraints.WEST;
@@ -382,7 +385,7 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_cbxMarca.gridy = 3;
 		pnl_IngresoDeDatos.add(cbxMarca, gbc_cbxMarca);
 		
-		JLabel lblModelo = new JLabel("DTOModelo(*)");
+		JLabel lblModelo = new JLabel("Modelo(*)");
 		lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblModelo = new GridBagConstraints();
 		gbc_lblModelo.anchor = GridBagConstraints.WEST;
@@ -475,6 +478,26 @@ public class darDeAltaPoliza extends JFrame {
 			}
 			
 		});
+
+		textField_Motor.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
+				String motor = textField_Motor.getText();
+				
+				if(motor.length() > 0)
+				{	
+					if(Validaciones.validarMotor(motor) == true) {
+						System.out.println("motor bien");
+					}
+					else 
+					{
+						System.out.println("motor mal");
+					}
+				}
+			}
+			
+		});
 		
 		JLabel lblKmPorAnio = new JLabel("Km por A\u00F1o(*)");
 		lblKmPorAnio.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -496,12 +519,19 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_KmPorAnio.gridy = 4;
 		pnl_IngresoDeDatos.add(textField_KmPorAnio, gbc_textField_KmPorAnio);
 		
-		textField_KmPorAnio.addKeyListener(new KeyAdapter()
+		textField_KmPorAnio.addFocusListener(new FocusAdapter()
 		{
-			public void keyReleased(KeyEvent arg0)
+			public void focusLost(FocusEvent arg0)
 			{
-				String texto = textField_KmPorAnio.getText();
-				textField_KmPorAnio.setText(texto.toUpperCase());
+				String km = textField_KmPorAnio.getText();
+
+				if(km.length() > 0)
+				{	
+					if(Validaciones.validarKmPorAnio(km) == true) {
+						System.out.println("Km bien");
+						}
+					else System.out.println("Km mal");
+				}
 			}
 			
 		});
@@ -525,6 +555,23 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_Chasis.gridx = 8;
 		gbc_textField_Chasis.gridy = 4;
 		pnl_IngresoDeDatos.add(textField_Chasis, gbc_textField_Chasis);
+		
+		textField_Chasis.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
+				String chasis = textField_Chasis.getText();
+				
+				if(chasis.length() > 0)
+				{	
+					if(Validaciones.validarChasis(chasis) == true) {
+						System.out.println("chasis bien");
+					}
+					else System.out.println("chasis mal");
+				}
+			}
+			
+		});
 		
 		textField_Chasis.addKeyListener(new KeyAdapter()
 		{
@@ -556,6 +603,23 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_Patente.gridy = 5;
 		pnl_IngresoDeDatos.add(textField_Patente, gbc_textField_Patente);
 		
+		textField_Patente.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
+				String patente = textField_Patente.getText();
+				
+				if(patente.length() > 0)
+				{	
+					if(Validaciones.validarPatente(patente) == true) {
+						System.out.println("patente bien");
+					}
+					else System.out.println("patente mal");
+				}
+			}
+			
+		});
+		
 		textField_Patente.addKeyListener(new KeyAdapter()
 		{
 			public void keyReleased(KeyEvent arg0)
@@ -585,6 +649,23 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_textField_SumaAsegurada.gridx = 5;
 		gbc_textField_SumaAsegurada.gridy = 5;
 		pnl_IngresoDeDatos.add(textField_SumaAsegurada, gbc_textField_SumaAsegurada);
+		
+		textField_SumaAsegurada.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
+				String suma = textField_SumaAsegurada.getText();
+
+				if(suma.length() > 0)
+				{	
+					if(Validaciones.validarSumaAsegurada(suma) == true) {
+						System.out.println("suma bien");
+						}
+					else System.out.println("suma mal");
+				}
+			}
+			
+		});
 		
 		JLabel lblMedidasDeSeguridad = new JLabel("MEDIDAS DE SEGURIDAD");
 		lblMedidasDeSeguridad.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -1064,7 +1145,6 @@ public class darDeAltaPoliza extends JFrame {
 					
 					dtoKmPorAnio.setPorcentaje(km);
 					//dtoSiniestro.setCantidad(nroSiniestro);
-					dtoMedidasSeguridad.setIdMedidasSeguridad(1);
 					dtoPoliza.setCliente(dtoCliente);
 					dtoPoliza.setKmporanio(dtoKmPorAnio);
 					dtoPoliza.setMedidasdeseguridad(dtoMedidasSeguridad);
