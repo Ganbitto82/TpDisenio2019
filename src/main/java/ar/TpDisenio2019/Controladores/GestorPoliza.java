@@ -75,4 +75,11 @@ public class GestorPoliza {
 	public static void guardarPoliza(Poliza poliza) {
 		GestorBDPoliza.guardarPolizaAux(poliza);
 	}
+	
+	public static Poliza buscarPoliza(Long numPoliza) {
+		return GestorBDPoliza.BuscarPoliza(numPoliza);
+		
+		
+	}
+	
 }

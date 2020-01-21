@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "numeropoliza", catalog = "dbelaseguradov4")
 public class Numeropoliza implements java.io.Serializable {
 
-	private Integer nroPoliza;
+	private Long nroPoliza;
 	private int nroSucursal;
 	private int aleatorio;
 	private int secuencia;
@@ -45,11 +45,11 @@ public class Numeropoliza implements java.io.Serializable {
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "nroPoliza", unique = true, nullable = false)
-	public Integer getNroPoliza() {
+	public Long getNroPoliza() {
 		return this.nroPoliza;
 	}
 
-	public void setNroPoliza(Integer nroPoliza) {
+	public void setNroPoliza(Long nroPoliza) {
 		this.nroPoliza = nroPoliza;
 	}
 

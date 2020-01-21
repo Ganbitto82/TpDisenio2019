@@ -19,14 +19,14 @@ public class PolizaDaoImp implements PolizaDao {
     }
 
     @Override
-    public Poliza buscarPorId (int idPoliza){
+    public Poliza buscarPorNumeroPoliza (Long numPoliza){
         Session session = sessionFactory.openSession();
         
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Poliza> query = builder.createQuery(Poliza.class);
         Root<Poliza> root = query.from(Poliza.class);
         query.select(root);
-        query.where(builder.equal(root.get("idPoliza"), idPoliza));
+        query.where(builder.equal(root.get("nroPoliza"), numPoliza));
         
         Poliza poliza = session.createQuery(query).uniqueResult();
         

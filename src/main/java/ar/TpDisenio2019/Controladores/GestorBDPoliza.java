@@ -65,6 +65,14 @@ private ConexionBD session =new ConexionBD();
     {
     	polizaDao.guardar(poliza);
     }
+   
+    public static Poliza BuscarPoliza(Long numPoliza) {
+    	return polizaDao.buscarPorNumeroPoliza(numPoliza);
+    	
+    }
+    
+    
+    
 }
 
 	
