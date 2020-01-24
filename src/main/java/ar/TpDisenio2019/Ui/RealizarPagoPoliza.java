@@ -19,6 +19,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.Utilitario.Celda_CheckBox;
 import ar.TpDisenio2019.Utilitario.Render_CheckBox;
 
@@ -48,7 +49,7 @@ public class RealizarPagoPoliza extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 
-	public RealizarPagoPoliza() {
+	public RealizarPagoPoliza(DTOPoliza dtopoliza) {
 		initialize();
 	}
 

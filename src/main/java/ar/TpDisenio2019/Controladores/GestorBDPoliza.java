@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
+import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.Dao.FormasdepagoDao;
 import ar.TpDisenio2019.Dao.FormasdepagoDaoImp;
@@ -66,7 +67,7 @@ private ConexionBD session =new ConexionBD();
     	polizaDao.guardar(poliza);
     }
    
-    public static Poliza BuscarPoliza(Long numPoliza) {
+    public static DTOPoliza BuscarPoliza(Long numPoliza) {
     	return polizaDao.buscarPorNumeroPoliza(numPoliza);
     	
     }

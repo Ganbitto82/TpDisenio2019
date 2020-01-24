@@ -3,6 +3,7 @@ package ar.TpDisenio2019.DTO;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +45,8 @@ public class DTOPoliza implements java.io.Serializable {
 	private Float sumaAsegurada;
 	private Character nroSiniestro;
 	private Integer cantidad;
+	private List<DTOCuota> listadtocuota;
+	private Long nroPoliza;
 	private Set<DTOModificacionpoliza> dTOModificacionpolizas = new HashSet<DTOModificacionpoliza>(0);
 
 	public DTOPoliza() {
@@ -275,9 +278,28 @@ public class DTOPoliza implements java.io.Serializable {
 		this.cantidad = cantidad;
 	}
 
+
+
+	public List<DTOCuota> getListadtocuota() {
+		return listadtocuota;
+	}
+
+	public void setListadtocuota(List<DTOCuota> listadtocuota) {
+		this.listadtocuota = listadtocuota;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poliza")
 	public Set<DTOModificacionpoliza> getModificacionpolizas() {
 		return this.dTOModificacionpolizas;
+	}
+   
+	
+	public Long getNroPoliza() {
+		return nroPoliza;
+	}
+
+	public void setNroPoliza(Long nroPoliza) {
+		this.nroPoliza = nroPoliza;
 	}
 
 	public void setModificacionpolizas(Set<DTOModificacionpoliza> dTOModificacionpolizas) {

@@ -58,7 +58,7 @@ public class GestorListasDesplegables {
 			{
 				DTOSiniestro dtoSiniestro = new DTOSiniestro();
 				dtoSiniestro.setIdSiniestro(listaSiniestro.get(i).getIdSiniestro());
-				dtoSiniestro.setCantidad(listaSiniestro.get(i).getCantidad());
+				dtoSiniestro.setCantidad(listaSiniestro.get(i).getCantidad().toString());
 				listaDtosSiniestro.add(dtoSiniestro);
 			}
 			

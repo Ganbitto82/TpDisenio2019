@@ -89,8 +89,9 @@ public class ClienteDaoImp implements ClienteDao {
    	 CriteriaQuery<Cliente> cq = session.getCriteriaBuilder().createQuery(Cliente.class);
 	
    	 cq.from(Cliente.class);
+    	List<Cliente> clientes = session.createQuery(cq).getResultList();
    	 List<DTOCliente> listaDtoCliente = new ArrayList<>();
-   	 List<Cliente> clientes = session.createQuery(cq).getResultList();
+   	 
    	  DTOCliente nuevo;
    	  DTOTipodedocumento tipoDocumento;
    	  Pais pais;

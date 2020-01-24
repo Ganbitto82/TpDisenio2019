@@ -7,11 +7,10 @@
   <property name="hibernate.connection.password">cabj</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dbelaseguradov4</property>
   <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.current_session_context_class">thread</property>
+   <property name="hibernate.current_session_context_class">thread</property>
   <property name="hibernate.search.autoregister_listeners">true</property>
   <property name="hibernate.show_sql">false</property>
   <property name="hibernate.validator.apply_to_ddl">false</property>
-  <property name="show_sql">true</property>
   <mapping class="ar.TpDisenio2019.Modelo.Aniodevehiculo"/>
   <mapping class="ar.TpDisenio2019.Modelo.Aniomodelo"/>
   <mapping class="ar.TpDisenio2019.Modelo.AniomodeloId"/>

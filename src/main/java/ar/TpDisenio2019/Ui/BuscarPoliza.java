@@ -13,25 +13,30 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
-
+import ar.TpDisenio2019.Controladores.GestorPoliza;
+import ar.TpDisenio2019.DTO.DTOPoliza;
 
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.text.ParseException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 
-public class BuscaPoliza extends JFrame {
+public class BuscarPoliza extends JFrame {
+	public BuscarPoliza() {
+	}
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField nroPoliza;
 	private JTextField textField_NroCliente;
 	private JTextField textField_Apellido;
 	private JTextField textField_TipoDoc;
@@ -40,9 +45,10 @@ public class BuscaPoliza extends JFrame {
 	private JTextField textField_Nombre;
 	private JTextField textField_NumDoc;
 	private JTextField textField_Monto;
+    private DTOPoliza dtopoliza=new DTOPoliza();
+     
 
-
-	public BuscaPoliza() {
+	public void BuscarPoliza() {
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 730);
@@ -82,23 +88,36 @@ public class BuscaPoliza extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 94, 774, 191);
+		panel_1.setBounds(26, 94, 736, 191);
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 23, 754, 91);
+		panel_2.setBounds(10, 23, 732, 91);
 		panel_2.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"POLIZA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(281, 39, 158, 20);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		MaskFormatter mascara = null;
+
+		try {
+			mascara = new MaskFormatter("#############");
+			mascara.setPlaceholderCharacter(' ');
+		}
+
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		nroPoliza = new JFormattedTextField(mascara);
+		
+		
+		nroPoliza.setBounds(281, 39, 158, 20);
+		panel_2.add(nroPoliza);
+		nroPoliza.setColumns(10);
 		
 		JLabel lblNumeroDePoliza = new JLabel("Numero de Poliza");
 		lblNumeroDePoliza.setBounds(184, 42, 87, 14);
@@ -108,8 +127,9 @@ public class BuscaPoliza extends JFrame {
 		btnBuscar.setBounds(643, 145, 89, 23);
 		panel_1.add(btnBuscar);
 		
+			
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(15, 303, 764, 314);
+		panel_3.setBounds(10, 303, 752, 314);
 		panel_3.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
@@ -194,18 +214,54 @@ public class BuscaPoliza extends JFrame {
 		textField_Monto.setBounds(575, 242, 86, 20);
 		panel_3.add(textField_Monto);
 
-		
+	
+		btnBuscar.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				
+			if (nroPoliza.getText().equals(" ")) {
+				
+				 JOptionPane.showMessageDialog(null, "Ingrese el dato para buscar la póliza.", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				Long numeroPoliza= Long.parseLong(nroPoliza.getText());
+				
+			
+				dtopoliza= GestorPoliza.buscarPoliza(numeroPoliza);
+				
+				
+				if(dtopoliza==null)
+					JOptionPane.showMessageDialog(null, "No existe póliza con el número ingresado", "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+				
+				else {
+				System.out.println("HOLA");
+				
+				
+				
+			}
+				
+			}
+			
+			}});
+
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
+				RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
+				pago.setVisible(true);
+				pago.setResizable(false);
+				pago.setLocationRelativeTo(null);
+					
 			}
 		});
 		btnAceptar.setBounds(508, 637, 89, 23);
 		frame.getContentPane().add(btnAceptar);
 		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBounds(652, 637, 89, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(652, 637, 89, 23);
+		frame.getContentPane().add(btnCancelar);
 		
 		
 		JPanel panel_5 = new JPanel();

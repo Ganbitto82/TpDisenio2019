@@ -17,6 +17,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import ar.TpDisenio2019.DTO.DTOPoliza;
+
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -34,8 +37,9 @@ public class RealizarPagoPolizaVacio extends JFrame{
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTable table;
+	DTOPoliza dtopoliza=null;
 
-	public RealizarPagoPolizaVacio() {
+	public RealizarPagoPolizaVacio(DTOPoliza dtopoliza) {
 		initialize();
 	}
 
@@ -71,50 +75,27 @@ public class RealizarPagoPolizaVacio extends JFrame{
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
-		JLabel lblIngreseLaPliza = new JLabel("Ingrese la p\u00F3liza para la cual quiera registrar el pago:");
+		JLabel lblIngreseLaPliza = new JLabel("Seleccione una Poliza");
 		
-		JLabel label_6 = new JLabel("Nro. P\u00F3liza:");
-		
-		JFormattedTextField formattedTextField = new JFormattedTextField((Object) null);
-		formattedTextField.setText("9999-9999999-99");
-		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setForeground(Color.LIGHT_GRAY);
-		
-		JButton button = new JButton("Buscar");
-		
-		JButton button_1 = new JButton("Cancelar");
+		JButton buttonBuscarPoliza = new JButton("Buscar Poliza");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
+					.addGap(32)
 					.addComponent(lblIngreseLaPliza)
-					.addGap(18)
-					.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-					.addComponent(button)
-					.addGap(18)
-					.addComponent(button_1)
-					.addGap(22))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(buttonBuscarPoliza)
+					.addContainerGap(522, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 54, Short.MAX_VALUE)
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(16, Short.MAX_VALUE)
+					.addGap(28)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_1)
-						.addComponent(button))
-					.addContainerGap())
-				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_6)
-						.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblIngreseLaPliza))
-					.addContainerGap(11, Short.MAX_VALUE))
+						.addComponent(lblIngreseLaPliza)
+						.addComponent(buttonBuscarPoliza))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -262,7 +243,8 @@ public class RealizarPagoPolizaVacio extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnConfirmar)
 				{
-					RealizarPagoPoliza pago = new RealizarPagoPoliza();
+					
+					RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
 					pago.setVisible(true);
 					pago.setResizable(false);
 					pago.setLocationRelativeTo(null);
