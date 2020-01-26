@@ -294,8 +294,7 @@ public class ModHijos extends JFrame {
 								.buscarEstadoCivilPorNombre((String) modelo.getValueAt(i, 2));
 						dtoNuevoHijo.setEstadocivil(estadoCivilHijo);
 						listaDtosHijos.add(dtoNuevoHijo);
-					}
-					else {
+					} else {
 						JOptionPane.showMessageDialog(null,
 								"No ha seleccionado ningún valor en columna DTOEstado Civil, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
@@ -305,7 +304,7 @@ public class ModHijos extends JFrame {
 				}
 				if (GestorPoliza.validarElementosHijos(listaDtosHijos)) {
 					GestorPoliza.agregarDtosHijos(listaDtosHijos);
-					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: "+filas);
+					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: " + filas);
 					dispose();
 				}
 

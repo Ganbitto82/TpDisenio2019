@@ -14,9 +14,9 @@ public class MensajeDeError extends JFrame {
 
 	private static final long serialVersionUID = 0001L;
 	private final JLabel lblNewLabel = new JLabel("Error!!!");
-	
+
 	public static void main(String[] args) {
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -28,42 +28,39 @@ public class MensajeDeError extends JFrame {
 			}
 		});
 	}
+
 	public MensajeDeError() {
-		
+
 		setTitle("Advertencia");
 		setBounds(100, 100, 420, 230);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-	
-		
+
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAceptar.setBounds(161, 134, 89, 23);
 		getContentPane().add(btnAceptar);
-		
-		btnAceptar.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{
-				
+
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
 				setVisible(false);
 				dispose();
 			}
 		});
-		
+
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setBounds(136, 56, 174, 31);
 		getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(68, 41, 42, 59);
 		lblNewLabel_1.setIcon(new ImageIcon(MensajeDeError.class.getResource("/Utilitario/Imagenes/iconoError.png")));
 		getContentPane().add(lblNewLabel_1);
 
-
 		setVisible(true);
 		setLocationRelativeTo(null);
-		
+
 	}
 }

@@ -15,40 +15,32 @@ import ar.TpDisenio2019.Modelo.Cliente;
 import ar.TpDisenio2019.Modelo.Estadocivil;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
 
-
-
 public class GestorBDCliente {
-	
-	
-	private ConexionBD session =new ConexionBD();
-	
+
+	private ConexionBD session = new ConexionBD();
+
 	private static ClienteDao clienteDao;
 	private static TipodedocumentoDao tipodedocumentoDao;
 	private static EstadocivilDao estadocivilDao;
-	
+
 	public GestorBDCliente() {
-		 
-		GestorBDCliente.clienteDao= new ClienteDaoImp( session.Conexion());
-		GestorBDCliente.tipodedocumentoDao= new TipodedocumentoDaoImp( session.Conexion());
-		GestorBDCliente.estadocivilDao=new EstadocivilDaoImp  (session.Conexion());
+
+		GestorBDCliente.clienteDao = new ClienteDaoImp(session.Conexion());
+		GestorBDCliente.tipodedocumentoDao = new TipodedocumentoDaoImp(session.Conexion());
+		GestorBDCliente.estadocivilDao = new EstadocivilDaoImp(session.Conexion());
 	}
-	
-    public List<DTOCliente>  obtenerDTOCliente() {
-  
-    	
-    	List<DTOCliente> listaCliente =clienteDao.obtenerDTOClientes();
-         	
+
+	public List<DTOCliente> obtenerDTOCliente() {
+
+		List<DTOCliente> listaCliente = clienteDao.obtenerDTOClientes();
+
 		return listaCliente;
 	}
 
 	public List<Estadocivil> obtenerListaEstadoCivil() {
-		List<Estadocivil> listaEstadoCivil =estadocivilDao.obtenerTodas();
-     	
+		List<Estadocivil> listaEstadoCivil = estadocivilDao.obtenerTodas();
+
 		return listaEstadoCivil;
 	}
-    
- 
-    
-    
-    
+
 }

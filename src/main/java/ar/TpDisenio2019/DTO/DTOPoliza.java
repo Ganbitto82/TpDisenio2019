@@ -52,11 +52,12 @@ public class DTOPoliza implements java.io.Serializable {
 	public DTOPoliza() {
 	}
 
-	public DTOPoliza(DTOCliente dTOCliente, DTOCuota dTOCuota, DTODatosdehijo dTODatosdehijo, DTOEstado dTOEstado, DTOFactoresusados dTOFactoresusados,
-			DTOFormasdepago dTOFormasdepago, DTOKmporanio dTOKmporanio, DTOMedidasdeseguridad dTOMedidasdeseguridad,
-			DTONumeropoliza dTONumeropoliza, DTOParametrosgenerales dTOParametrosgenerales, DTOSiniestro dTOSiniestro,
-			DTOTipocobertura dTOTipocobertura, DTOVehiculo dTOVehiculo, Integer idEstadoCliente, Date fechaInicioVigencia,
-			Date fechaFinVigencia, Float sumaAsegurada, Character nroSiniestro, Integer cantidad,
+	public DTOPoliza(DTOCliente dTOCliente, DTOCuota dTOCuota, DTODatosdehijo dTODatosdehijo, DTOEstado dTOEstado,
+			DTOFactoresusados dTOFactoresusados, DTOFormasdepago dTOFormasdepago, DTOKmporanio dTOKmporanio,
+			DTOMedidasdeseguridad dTOMedidasdeseguridad, DTONumeropoliza dTONumeropoliza,
+			DTOParametrosgenerales dTOParametrosgenerales, DTOSiniestro dTOSiniestro, DTOTipocobertura dTOTipocobertura,
+			DTOVehiculo dTOVehiculo, Integer idEstadoCliente, Date fechaInicioVigencia, Date fechaFinVigencia,
+			Float sumaAsegurada, Character nroSiniestro, Integer cantidad,
 			Set<DTOModificacionpoliza> dTOModificacionpolizas) {
 		this.dTOCliente = dTOCliente;
 		this.dTOCuota = dTOCuota;
@@ -278,8 +279,6 @@ public class DTOPoliza implements java.io.Serializable {
 		this.cantidad = cantidad;
 	}
 
-
-
 	public List<DTOCuota> getListadtocuota() {
 		return listadtocuota;
 	}
@@ -292,8 +291,7 @@ public class DTOPoliza implements java.io.Serializable {
 	public Set<DTOModificacionpoliza> getModificacionpolizas() {
 		return this.dTOModificacionpolizas;
 	}
-   
-	
+
 	public Long getNroPoliza() {
 		return nroPoliza;
 	}

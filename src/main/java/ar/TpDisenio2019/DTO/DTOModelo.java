@@ -40,8 +40,8 @@ public class DTOModelo implements java.io.Serializable {
 		this.dTOMarca = dTOMarca;
 	}
 
-	public DTOModelo(DTOMarca dTOMarca, String nombre, Float porcentaje, String modelocol, Set<DTOAniomodelo> dTOAniomodelos,
-			Set<DTOVehiculo> dTOVehiculos) {
+	public DTOModelo(DTOMarca dTOMarca, String nombre, Float porcentaje, String modelocol,
+			Set<DTOAniomodelo> dTOAniomodelos, Set<DTOVehiculo> dTOVehiculos) {
 		this.dTOMarca = dTOMarca;
 		this.nombre = nombre;
 		this.porcentaje = porcentaje;

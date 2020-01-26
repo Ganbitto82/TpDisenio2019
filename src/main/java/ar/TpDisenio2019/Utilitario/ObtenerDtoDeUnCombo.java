@@ -9,53 +9,45 @@ import ar.TpDisenio2019.DTO.DTOProvincia;
 
 public class ObtenerDtoDeUnCombo {
 
-	public static DTOMarca ObtenerDTOMarca(String textoSeleccionado, List<DTOMarca> listaDtoMarca)
-	{
+	public static DTOMarca ObtenerDTOMarca(String textoSeleccionado, List<DTOMarca> listaDtoMarca) {
 		DTOMarca dtoBuscado = null;
-		
-		for(DTOMarca dtoMarca :listaDtoMarca)
-		{
-			
-			if( dtoMarca.getMarca().compareTo(textoSeleccionado) == 0) {
+
+		for (DTOMarca dtoMarca : listaDtoMarca) {
+
+			if (dtoMarca.getMarca().compareTo(textoSeleccionado) == 0) {
 				dtoBuscado = dtoMarca;
 				break;
 			}
-			
+
 		}
-			
+
 		return dtoBuscado;
 	}
-	
 
-	
-	public static DTOModelo ObtenerDTOModelo(String textoSeleccionado, List<DTOModelo> listaDtoModelo)
-	{
+	public static DTOModelo ObtenerDTOModelo(String textoSeleccionado, List<DTOModelo> listaDtoModelo) {
 		DTOModelo dtoBuscado = null;
-		
-		for(DTOModelo dtoModelo :listaDtoModelo)
-		{
-			
-			if( dtoModelo.getNombre().compareTo(textoSeleccionado) == 0) {
+
+		for (DTOModelo dtoModelo : listaDtoModelo) {
+
+			if (dtoModelo.getNombre().compareTo(textoSeleccionado) == 0) {
 				dtoBuscado = dtoModelo;
 				break;
 			}
-			
+
 		}
-			
+
 		return dtoBuscado;
 	}
-	
-	public static DTOProvincia ObtenerDTOProvincia(String textoSeleccionado, List<DTOProvincia> listaDtoProvincia)
-	{
+
+	public static DTOProvincia ObtenerDTOProvincia(String textoSeleccionado, List<DTOProvincia> listaDtoProvincia) {
 		DTOProvincia dtoBuscado = null;
-		
-		for(DTOProvincia dtoProvincia :listaDtoProvincia)
-		{
-			
-			if(dtoProvincia.getNombre().compareTo(textoSeleccionado) == 0) {
+
+		for (DTOProvincia dtoProvincia : listaDtoProvincia) {
+
+			if (dtoProvincia.getNombre().compareTo(textoSeleccionado) == 0) {
 				dtoBuscado = dtoProvincia;
 				break;
-			}	
+			}
 		}
 		return dtoBuscado;
 	}

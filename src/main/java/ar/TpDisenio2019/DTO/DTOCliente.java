@@ -43,9 +43,10 @@ public class DTOCliente implements java.io.Serializable {
 	public DTOCliente() {
 	}
 
-	public DTOCliente(DTOCondicioniva dTOCondicioniva, DTODireccion dTODireccion, DTOEstadocivil dTOEstadocivil, DTOEstadocliente dTOEstadocliente,
-			DTOProfesion dTOProfesion, DTOTipodedocumento dTOTipodedocumento, String nombre, String apellido, Integer nroDocumento,
-			String correoElectronico, Date anioDeRegistro, Long nroCuil, Long nroCliente, Set<DTOPoliza> dTOPolizas) {
+	public DTOCliente(DTOCondicioniva dTOCondicioniva, DTODireccion dTODireccion, DTOEstadocivil dTOEstadocivil,
+			DTOEstadocliente dTOEstadocliente, DTOProfesion dTOProfesion, DTOTipodedocumento dTOTipodedocumento,
+			String nombre, String apellido, Integer nroDocumento, String correoElectronico, Date anioDeRegistro,
+			Long nroCuil, Long nroCliente, Set<DTOPoliza> dTOPolizas) {
 		this.dTOCondicioniva = dTOCondicioniva;
 		this.dTODireccion = dTODireccion;
 		this.dTOEstadocivil = dTOEstadocivil;

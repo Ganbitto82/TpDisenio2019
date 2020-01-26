@@ -38,8 +38,8 @@ public class DTOModificacionpoliza implements java.io.Serializable {
 	public DTOModificacionpoliza() {
 	}
 
-	public DTOModificacionpoliza(DTODatosdehijo dTODatosdehijo, DTOMedidasdeseguridad dTOMedidasdeseguridad, DTOPoliza dTOPoliza,
-			DTOTipocobertura dTOTipocobertura, DTOVehiculo dTOVehiculo) {
+	public DTOModificacionpoliza(DTODatosdehijo dTODatosdehijo, DTOMedidasdeseguridad dTOMedidasdeseguridad,
+			DTOPoliza dTOPoliza, DTOTipocobertura dTOTipocobertura, DTOVehiculo dTOVehiculo) {
 		this.dTODatosdehijo = dTODatosdehijo;
 		this.dTOMedidasdeseguridad = dTOMedidasdeseguridad;
 		this.dTOPoliza = dTOPoliza;
@@ -47,9 +47,9 @@ public class DTOModificacionpoliza implements java.io.Serializable {
 		this.dTOVehiculo = dTOVehiculo;
 	}
 
-	public DTOModificacionpoliza(DTODatosdehijo dTODatosdehijo, DTOMedidasdeseguridad dTOMedidasdeseguridad, DTOPoliza dTOPoliza,
-			DTOTipocobertura dTOTipocobertura, DTOVehiculo dTOVehiculo, Date anio, String patente, String motor, String chasis,
-			String nroSiniestro, Integer kmPorAnio, Float montoTotal) {
+	public DTOModificacionpoliza(DTODatosdehijo dTODatosdehijo, DTOMedidasdeseguridad dTOMedidasdeseguridad,
+			DTOPoliza dTOPoliza, DTOTipocobertura dTOTipocobertura, DTOVehiculo dTOVehiculo, Date anio, String patente,
+			String motor, String chasis, String nroSiniestro, Integer kmPorAnio, Float montoTotal) {
 		this.dTODatosdehijo = dTODatosdehijo;
 		this.dTOMedidasdeseguridad = dTOMedidasdeseguridad;
 		this.dTOPoliza = dTOPoliza;

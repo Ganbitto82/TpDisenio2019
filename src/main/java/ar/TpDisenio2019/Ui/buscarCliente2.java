@@ -1,6 +1,5 @@
 package ar.TpDisenio2019.Ui;
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -50,56 +49,42 @@ public class buscarCliente2 extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon("C:\\Users\\Yesii\\Documents\\yesii\\5 nivel\\Dise\u00F1o de Sistemas\\logo.png"));
-		
+
 		JLabel lblError = new JLabel("Error!  TEXTO");
 		lblError.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btnAceptar)
-				{
+				if (e.getSource() == btnAceptar) {
 					buscarCliente b = new buscarCliente();
 					b.setVisible(true);
 					b.setResizable(false);
 					b.setLocationRelativeTo(null);
 					dispose();
 				}
-				
+
 			}
 		});
 		btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(25)
-					.addComponent(label)
-					.addGap(27)
-					.addComponent(lblError)
-					.addContainerGap(167, Short.MAX_VALUE))
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING,
+						gl_contentPane.createSequentialGroup().addGap(25).addComponent(label).addGap(27)
+								.addComponent(lblError).addContainerGap(167, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(250, Short.MAX_VALUE)
+						.addComponent(btnAceptar).addGap(21)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(250, Short.MAX_VALUE)
-					.addComponent(btnAceptar)
-					.addGap(21))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(39)
-							.addComponent(label)
-							.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-							.addComponent(btnAceptar))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(57)
-							.addComponent(lblError)))
-					.addContainerGap())
-		);
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup().addGap(39).addComponent(label)
+										.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+										.addComponent(btnAceptar))
+								.addGroup(gl_contentPane.createSequentialGroup().addGap(57).addComponent(lblError)))
+						.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 	}
 }

@@ -2,7 +2,6 @@ package ar.TpDisenio2019.ListaDesplegable;
 
 import java.util.List;
 
-
 import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOAniodevehiculo;
 import ar.TpDisenio2019.DTO.DTOLocalidad;
@@ -34,10 +33,9 @@ import ar.TpDisenio2019.Dao.TipocoberturaDaoImp;
 import ar.TpDisenio2019.Modelo.Tipodedocumento;
 
 public class GestorListasBDDesplegable {
-	
-	
-	private ConexionBD session =new ConexionBD();
-	
+
+	private ConexionBD session = new ConexionBD();
+
 	private TipodedocumentoDao tipodedocumentoDao;
 	private static ProvinciaDao provinciaDao;
 	private static LocalidadDao localidadDao;
@@ -47,96 +45,92 @@ public class GestorListasBDDesplegable {
 	private static MarcaDao marcaDao;
 	private static AniodeVehiculoDao aniodeVehiculoDao;
 	private static ModeloDao modeloDao;
-	
+
 	public GestorListasBDDesplegable() {
-		 
-		 this.tipodedocumentoDao= new TipodedocumentoDaoImp( session.Conexion());
-		 this.provinciaDao = new ProvinciaDaoImp( session.Conexion()); 
-		 this.localidadDao = new LocalidadDaoImp( session.Conexion()); 
-		 this.siniestroDao = new SiniestroDaoImp( session.Conexion()); 
-		 this.formasdepagoDao = new FormasdepagoDaoImp( session.Conexion()); 
-		 this.tipocoberturaDao = new TipocoberturaDaoImp( session.Conexion()); 
-		 this.marcaDao= new MarcaDaoImp( session.Conexion()); 
-		 this.aniodeVehiculoDao= new AniodeVehiculoDaoImp( session.Conexion()); 
-		 this.modeloDao= new ModeloDaoImp( session.Conexion());
-		 
+
+		this.tipodedocumentoDao = new TipodedocumentoDaoImp(session.Conexion());
+		this.provinciaDao = new ProvinciaDaoImp(session.Conexion());
+		this.localidadDao = new LocalidadDaoImp(session.Conexion());
+		this.siniestroDao = new SiniestroDaoImp(session.Conexion());
+		this.formasdepagoDao = new FormasdepagoDaoImp(session.Conexion());
+		this.tipocoberturaDao = new TipocoberturaDaoImp(session.Conexion());
+		this.marcaDao = new MarcaDaoImp(session.Conexion());
+		this.aniodeVehiculoDao = new AniodeVehiculoDaoImp(session.Conexion());
+		this.modeloDao = new ModeloDaoImp(session.Conexion());
+
 	}
-	
-    public List<Tipodedocumento> ObtenerTiposDocumento() {
-  
-    	
-    	List<Tipodedocumento> listaTipos =tipodedocumentoDao.obtenerTodas();
-         	
+
+	public List<Tipodedocumento> ObtenerTiposDocumento() {
+
+		List<Tipodedocumento> listaTipos = tipodedocumentoDao.obtenerTodas();
+
 		return listaTipos;
 	}
-    public static List<Formasdepago> ObtenerFormasdepago() {
-    	
-    	List<Formasdepago> listaFormadepago = formasdepagoDao.obtenerTodas();
-         	
+
+	public static List<Formasdepago> ObtenerFormasdepago() {
+
+		List<Formasdepago> listaFormadepago = formasdepagoDao.obtenerTodas();
+
 		return listaFormadepago;
 	}
-    
-  public static List<Tipocobertura> ObtenerTipocobertura() {
-    	
-    	List<Tipocobertura> listaTipocobertura = tipocoberturaDao.obtenerTodas();
-         	
+
+	public static List<Tipocobertura> ObtenerTipocobertura() {
+
+		List<Tipocobertura> listaTipocobertura = tipocoberturaDao.obtenerTodas();
+
 		return listaTipocobertura;
 	}
- /*  public static List<DTOLocalidad> ObtenerLocalidad() {
-  
-    	
-    	List<DTOLocalidad> listaLocalidad = localidadDao.obtenerTodas();
-         	
-		return listaLocalidad;
-	}*/
-    
-    
-    public static List<Siniestro> ObtenerSiniestros() {
- 
-    	List<Siniestro> listaSiniestro = siniestroDao.obtenerTodas();
-         	
+	/*
+	 * public static List<DTOLocalidad> ObtenerLocalidad() {
+	 * 
+	 * 
+	 * List<DTOLocalidad> listaLocalidad = localidadDao.obtenerTodas();
+	 * 
+	 * return listaLocalidad; }
+	 */
+
+	public static List<Siniestro> ObtenerSiniestros() {
+
+		List<Siniestro> listaSiniestro = siniestroDao.obtenerTodas();
+
 		return listaSiniestro;
-	}  
-    public static List<DTOMarca> obtenerMarca(){
-    	
-    	List<DTOMarca> listaDtoMarca = marcaDao.obtenerDTOMarca();
-    	return listaDtoMarca ; 	    	
-    }
-    public static List<DTOAniodevehiculo> obtenerAniodeVehiculo(){
-    	
-    	List<DTOAniodevehiculo> listaDtoAniodevehiculo = aniodeVehiculoDao.obtenerDTOAnioVehiculo();
-    	return listaDtoAniodevehiculo ;	
-    }
-   /* public static List<DTOModelo> obtenerModelo(DTOMarca dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
-    	
-    	List<DTOModelo> listaDtoModelo= modeloDao.obtenerDTOModelo(dtoMarca, dtoAniodeVehiculo);
-    	return listaDtoModelo;
-    }*/
-    
-    public List<DTOModelo> ObtenerModelo(){
-    	
-    	List <DTOModelo> listaModelos= modeloDao.obtenerTodas();
-    	return listaModelos;	
-    }
-    public static List<DTOProvincia> obtenerProvincia(){
-    	
-    	List<DTOProvincia> listaDtoProvincia = provinciaDao.obtenerDTOProvincia();
-    	return listaDtoProvincia ;	    	
-    }
-    public List<DTOLocalidad> ObtenerLocalidad(){
-    	
-    	List <DTOLocalidad> listaLocalidad= localidadDao.obtenerTodas();
-    	return listaLocalidad;	
-    }
-    
-    
-    
+	}
+
+	public static List<DTOMarca> obtenerMarca() {
+
+		List<DTOMarca> listaDtoMarca = marcaDao.obtenerDTOMarca();
+		return listaDtoMarca;
+	}
+
+	public static List<DTOAniodevehiculo> obtenerAniodeVehiculo() {
+
+		List<DTOAniodevehiculo> listaDtoAniodevehiculo = aniodeVehiculoDao.obtenerDTOAnioVehiculo();
+		return listaDtoAniodevehiculo;
+	}
+	/*
+	 * public static List<DTOModelo> obtenerModelo(DTOMarca
+	 * dtoMarca,DTOAniodevehiculo dtoAniodeVehiculo){
+	 * 
+	 * List<DTOModelo> listaDtoModelo= modeloDao.obtenerDTOModelo(dtoMarca,
+	 * dtoAniodeVehiculo); return listaDtoModelo; }
+	 */
+
+	public List<DTOModelo> ObtenerModelo() {
+
+		List<DTOModelo> listaModelos = modeloDao.obtenerTodas();
+		return listaModelos;
+	}
+
+	public static List<DTOProvincia> obtenerProvincia() {
+
+		List<DTOProvincia> listaDtoProvincia = provinciaDao.obtenerDTOProvincia();
+		return listaDtoProvincia;
+	}
+
+	public List<DTOLocalidad> ObtenerLocalidad() {
+
+		List<DTOLocalidad> listaLocalidad = localidadDao.obtenerTodas();
+		return listaLocalidad;
+	}
+
 }
-
-	
-	
-
-
-
-	
-

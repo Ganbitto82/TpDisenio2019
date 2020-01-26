@@ -29,8 +29,8 @@ public class DTOTipocobertura implements java.io.Serializable {
 	public DTOTipocobertura() {
 	}
 
-	public DTOTipocobertura(String tipo, Float porcentaje, String descripcion, Set<DTOModificacionpoliza> dTOModificacionpolizas,
-			Set<DTOPoliza> dTOPolizas) {
+	public DTOTipocobertura(String tipo, Float porcentaje, String descripcion,
+			Set<DTOModificacionpoliza> dTOModificacionpolizas, Set<DTOPoliza> dTOPolizas) {
 		this.tipo = tipo;
 		this.porcentaje = porcentaje;
 		this.descripcion = descripcion;
