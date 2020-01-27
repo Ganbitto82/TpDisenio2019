@@ -208,65 +208,62 @@ public class Validaciones {
 		return true;
 	}
 
-	public static boolean validarChasis(String chasis) {
-		if (chasis.length() == 17) {
-			return true;
-		} else
-			return false;
+	public static boolean validarChasis(String chasis)
+	{
+		if(chasis.length() == 17) {
+		  return true;	
+		}
+		else return false;
 	}
-
-	public static boolean validarMotor(String motor) {
-		if (motor.length() == 11) {
-			// no se cuantos tiene, debo averiguar
-			return true;
-		} else
-			return false;
+	public static boolean validarMotor(String motor)
+	{
+		if(motor.length() < 10) {
+			//no se cuantos tiene, debo averiguar
+		  return true;	
+		}
+		else return false;
 	}
-
-	public static boolean validarPatente(String patente) {
-		if (patente.length() == 6) {
-
-			Pattern pat = Pattern.compile("[A-Z]{3}[0-9]{3}");
-			Matcher matcher = pat.matcher(patente);
-			if (matcher.matches()) {
-				return true;
-			} else {
-				return false;
+   public static boolean validarPatente(String patente)
+   {  
+	   if(patente.length() == 6){
+		   
+	   Pattern pat= Pattern.compile("[A-Z]{3}[0-9]{3}");
+	   Matcher matcher= pat.matcher(patente);
+	      if (matcher.matches()) 
+	      { return true;}
+	      else {return false;}
+	     
+	   }
+	   if(patente.length() == 7){
+		   
+		   Pattern pat= Pattern.compile("[A-Z]{2}[0-9]{3}[A-Z]{2}");
+		   
+		   Matcher matcher= pat.matcher(patente);
+		  if (matcher.matches()) { return true;}
+	      else return false;
+				     
+		   }
+	   return false;
+   }
+	public static boolean validarKmPorAnio(String km)
+	{
+		for(int i=0; i<km.length(); i++)
+		{
+			if(!Character.isDigit(km.charAt(i))) {
+			  return false;	
 			}
-
-		}
-		if (patente.length() == 7) {
-
-			Pattern pat = Pattern.compile("[A-Z]{2}[0-9]{3}[A-Z]{2}");
-
-			Matcher matcher = pat.matcher(patente);
-			if (matcher.matches()) {
-				return true;
-			} else
-				return false;
-
-		}
-		return false;
-	}
-
-	public static boolean validarKmPorAnio(String km) {
-		for (int i = 0; i < km.length(); i++) {
-			if (!Character.isDigit(km.charAt(i))) {
-
-				return false;
-			} else
-				return true;
 		}
 		return true;
 	}
-
-	public static boolean validarSumaAsegurada(String suma) {
-		for (int i = 0; i < suma.length(); i++) {
-			if (!Character.isDigit(suma.charAt(i))) {
-
-				return false;
-			} else
-				return true;
+	public static boolean validarSumaAsegurada(String suma)
+	{
+		for(int i=0; i<suma.length(); i++)
+		{
+			if(!Character.isDigit(suma.charAt(i))) {
+				
+			  return false;	
+			}
+			
 		}
 		return true;
 	}

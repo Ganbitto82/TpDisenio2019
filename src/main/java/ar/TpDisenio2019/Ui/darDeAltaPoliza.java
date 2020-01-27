@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -105,6 +106,12 @@ public class darDeAltaPoliza extends JFrame {
 	private List<String> listaAnio = new ArrayList<>();
 	private List<String> listaProvincia = new ArrayList<>();
 	private List<String> listaLocalidad = new ArrayList<>();
+
+	private int banderaValidacionMotor = 0;
+	private int banderaValidacionKm = 0;
+	private int banderaValidacionChasis = 0;
+	private int banderaValidacionPatente = 0;
+	private int banderaValidacionSumaAsegurada = 0;
 
 	public darDeAltaPoliza(DTOCliente dtoCliente) {
 		setTitle("Dar de alta P\u00F3liza");
@@ -483,8 +490,10 @@ public class darDeAltaPoliza extends JFrame {
 				if (motor.length() > 0) {
 					if (Validaciones.validarMotor(motor) == true) {
 						System.out.println("motor bien");
+						banderaValidacionMotor = 0;
 					} else {
 						System.out.println("motor mal");
+						banderaValidacionMotor++;
 					}
 				}
 			}
@@ -518,11 +527,13 @@ public class darDeAltaPoliza extends JFrame {
 				if (km.length() > 0) {
 					if (Validaciones.validarKmPorAnio(km) == true) {
 						System.out.println("Km bien");
-					} else
+						banderaValidacionKm = 0;
+					} else {
 						System.out.println("Km mal");
+						banderaValidacionKm++;
+					}
 				}
 			}
-
 		});
 
 		JLabel lblChasis = new JLabel("Chasis(*)");
@@ -552,8 +563,12 @@ public class darDeAltaPoliza extends JFrame {
 				if (chasis.length() > 0) {
 					if (Validaciones.validarChasis(chasis) == true) {
 						System.out.println("chasis bien");
-					} else
+						banderaValidacionChasis = 0;
+					} else {
 						System.out.println("chasis mal");
+						banderaValidacionChasis++;
+					}
+
 				}
 			}
 
@@ -594,8 +609,11 @@ public class darDeAltaPoliza extends JFrame {
 				if (patente.length() > 0) {
 					if (Validaciones.validarPatente(patente) == true) {
 						System.out.println("patente bien");
-					} else
+						banderaValidacionPatente = 0;
+					} else {
 						System.out.println("patente mal");
+						banderaValidacionPatente++;
+					}
 				}
 			}
 
@@ -636,8 +654,11 @@ public class darDeAltaPoliza extends JFrame {
 				if (suma.length() > 0) {
 					if (Validaciones.validarSumaAsegurada(suma) == true) {
 						System.out.println("suma bien");
-					} else
+						banderaValidacionSumaAsegurada = 0;
+					} else {
 						System.out.println("suma mal");
+						banderaValidacionSumaAsegurada++;
+					}
 				}
 			}
 
@@ -979,7 +1000,7 @@ public class darDeAltaPoliza extends JFrame {
 				String anio = cbxAnioVehiculo.getSelectedItem().toString();
 				String nroSiniestro = comboBox_siniestro.getSelectedItem().toString();
 				String sumaAsegurada = textField_SumaAsegurada.getText();
-
+				String mensajeValidacion="";
 				if (e.getSource() == btnAceptar) {
 
 					if (kmxAnio.equals("") || motor.equals("") || chasis.equals("")
@@ -1051,7 +1072,56 @@ public class darDeAltaPoliza extends JFrame {
 							// System.out.println("----------------------");
 							// System.out.println(sumaA);
 						}
-					} else {
+					} 
+					else if(banderaValidacionMotor > 0 || banderaValidacionKm > 0 || banderaValidacionPatente > 0
+							|| banderaValidacionSumaAsegurada > 0 || banderaValidacionChasis>0) {
+						mensajeValidacion+=("Se han encontrado los siguientes errores: ");
+						if (banderaValidacionMotor > 0) {
+							lblMotor.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+							mensajeValidacion+=("\n\tFalla al ingresar un motor: ingrese menos de 10 caracteres.");
+						} else {
+							lblMotor.setForeground(Color.black);
+						}
+						if (banderaValidacionKm > 0) {
+							lblKmPorAnio.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+							mensajeValidacion+=("\n\tFalla al ingresar los Km por año: ingrese sólo números.");
+						} else {
+							lblKmPorAnio.setForeground(Color.black);
+						}
+						if (banderaValidacionPatente > 0) {
+							lblPatente.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+							mensajeValidacion+=("\n\tFalla al ingresar Patente: ingrese formato de patente válido.");
+
+						} else {
+							lblPatente.setForeground(Color.black);
+						}
+						if (banderaValidacionSumaAsegurada > 0) {
+							lblSumaAsegurada.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+							mensajeValidacion+=("\n\tFalla al ingresar la suma asegurada: ingrese sólo números.");
+
+						} else {
+							lblSumaAsegurada.setForeground(Color.black);
+						}
+						
+						if (banderaValidacionChasis > 0) {
+							lblChasis.setForeground(Color.red);
+							lblCamposObligatorios.setForeground(Color.red);
+							mensajeValidacion+=("\n\tFalla al ingresar el Chasis: son 17 caracteres.");
+
+						} else {
+							lblSumaAsegurada.setForeground(Color.black);
+						}
+						//System.out.println(mensajeAux);
+						System.out.println(mensajeValidacion);
+						JOptionPane.showMessageDialog(null,mensajeValidacion,"ERROR EN EL INGRESO DE DATOS",JOptionPane.ERROR_MESSAGE);
+						
+						
+					}
+					else{
 						int anioVehiculo = Integer.parseInt(anio);
 						float km = Float.parseFloat(kmxAnio);
 
