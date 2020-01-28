@@ -61,6 +61,9 @@ public class ModHijos extends JFrame {
 	private JButton btnAceptar = new JButton("Aceptar");
 	private JButton btnCancelar = new JButton("Cancelar");
 
+	private int banderaValidacionFecha=0;
+	private int banderaValidacionSexo=0;
+	private int banderaValidacionEstadoCivil=0;
 	/**
 	 * Create the application.
 	 */
@@ -243,7 +246,6 @@ public class ModHijos extends JFrame {
 
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int banderas = 0;
 
 				List<DTODatosdehijo> listaDtosHijos = new ArrayList<DTODatosdehijo>();
 
@@ -265,7 +267,7 @@ public class ModHijos extends JFrame {
 						if (GestorPoliza.validarFechaHijo(fechaAux)) {
 							dtoNuevoHijo.setFecha(fechaAux);
 						} else {
-							banderas++;
+							banderaValidacionFecha++;
 							JOptionPane.showMessageDialog(null, "La declaración de hijos es entre 18 y 30 años.",
 									"Alerta", JOptionPane.INFORMATION_MESSAGE);
 							modelo.setValueAt("", i, 0);
@@ -286,15 +288,16 @@ public class ModHijos extends JFrame {
 								"No ha seleccionado ningún valor en columna Sexo, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
 						modelo.setValueAt("", i, 1);
+						banderaValidacionSexo++;
 						break;
 					}
 					if (modelo.getValueAt(i, 2) != "") {
-
 						DTOEstadocivil estadoCivilHijo = GestorPoliza
 								.buscarEstadoCivilPorNombre((String) modelo.getValueAt(i, 2));
 						dtoNuevoHijo.setEstadocivil(estadoCivilHijo);
 						listaDtosHijos.add(dtoNuevoHijo);
 					} else {
+						banderaValidacionEstadoCivil++;
 						JOptionPane.showMessageDialog(null,
 								"No ha seleccionado ningún valor en columna DTOEstado Civil, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
@@ -302,12 +305,19 @@ public class ModHijos extends JFrame {
 						break;
 					}
 				}
+				if((banderaValidacionFecha>0)||(banderaValidacionSexo>0)||(banderaValidacionEstadoCivil>0)){
+					listaDtosHijos = new ArrayList<DTODatosdehijo>();
+
+					banderaValidacionFecha=0;
+					banderaValidacionSexo=0;
+					banderaValidacionEstadoCivil=0;
+				}
+				else
 				if (GestorPoliza.validarElementosHijos(listaDtosHijos)) {
 					GestorPoliza.agregarDtosHijos(listaDtosHijos);
 					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: " + filas);
 					dispose();
 				}
-
 			}
 		});
 
