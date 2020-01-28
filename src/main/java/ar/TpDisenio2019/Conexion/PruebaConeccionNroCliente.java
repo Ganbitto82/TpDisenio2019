@@ -1,11 +1,18 @@
 package ar.TpDisenio2019.Conexion;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOOperador;
@@ -21,20 +28,44 @@ public class PruebaConeccionNroCliente {
 	public static void main(String[] args) {
         
 		DTOCuota dtocuota = new DTOCuota();
-		/*Cliente c = new Cliente();
-		c = null;
-
-		Long l = 155555551L;
-
-		c = buscarPorId(l);
-		if (c == null)
-			System.out.println("No existe Cliente");
-
-		else
-			System.out.println(c.getApellido());*/
-		dtocuota=  buscarPorIdCuota(1);
-		System.out.println(dtocuota.getRecibo().getOperador().getNombre());
 		
+		DTOPoliza dtopoliza=new DTOPoliza();
+		
+		Long numeroPoliza=1123456700L;
+		dtopoliza = GestorPoliza.buscarPoliza(numeroPoliza);
+		List<DTOCuota> listaDtoCuota = new ArrayList<DTOCuota>();
+		
+		List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
+		
+		for (int i = dtopoliza.getCuota().getIdCuotas() + 1; i < dtopoliza.getCuota().getIdCuotas()+ 6; i++) {
+
+			dtocuota = GestorPoliza.buscarPorId(i);
+
+			listaDtoCuota.add(dtocuota);
+			}
+		
+	    Date fecha=listaDtoCuota.get(1).getVencimiento();
+		Calendar c = new GregorianCalendar();
+		
+		
+		
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+		String annio = Integer.toString(c.get(Calendar.YEAR));
+		String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
+		
+		System.out.println( fechaActual);
+		System.out.println(fecha.toString());
+		
+		if (fechaActual.compareTo(fecha.toString()) == 1) 
+		    	
+			System.out.println( "es mayor");
+		else
+			System.out.println( "es menor");
+			
+		
+
+			
 
 	}
 

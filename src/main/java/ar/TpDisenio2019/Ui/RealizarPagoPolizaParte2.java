@@ -18,6 +18,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import ar.TpDisenio2019.DTO.DTOPoliza;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -39,11 +42,8 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	public RealizarPagoPolizaParte2() {
-		initialize();
-	}
-
-	private void initialize() {
+	public RealizarPagoPolizaParte2(DTOPoliza dtopoliza) {
+		
 
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
 		this.setBounds(100, 0, 800, 730);
@@ -63,49 +63,11 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 				gl_panel.createSequentialGroup().addContainerGap(31, Short.MAX_VALUE).addComponent(label).addGap(21)));
 		panel.setLayout(gl_panel);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-
-		JLabel lblIngreseLaPliza = new JLabel("Ingrese la p\u00F3liza para la cual quiera registrar el pago:");
-
-		JLabel label_6 = new JLabel("Nro. P\u00F3liza:");
-
-		JFormattedTextField formattedTextField = new JFormattedTextField((Object) null);
-		formattedTextField.setText("9999-9999999-99");
-		formattedTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedTextField.setForeground(Color.BLACK);
-
-		JButton button = new JButton("Buscar");
-
-		JButton button_1 = new JButton("Cancelar");
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblIngreseLaPliza)
-						.addGap(18).addComponent(label_6, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE).addComponent(button)
-						.addGap(18).addComponent(button_1).addGap(22)));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING).addGap(0, 54, Short.MAX_VALUE)
-				.addGroup(gl_panel_1.createSequentialGroup().addContainerGap(16, Short.MAX_VALUE)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(button_1)
-								.addComponent(button))
-						.addContainerGap())
-				.addGroup(Alignment.LEADING,
-						gl_panel_1.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(label_6)
-										.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, 28,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblIngreseLaPliza))
-								.addContainerGap(11, Short.MAX_VALUE)));
-		panel_1.setLayout(gl_panel_1);
-
 		JPanel panel_2 = new JPanel();
 
 		JLabel label_7 = new JLabel("NRO DE P\u00D3LIZA:");
 
 		textField = new JTextField();
-		textField.setText("9999-9999999-99");
 		textField.setEditable(false);
 		textField.setColumns(10);
 
@@ -114,13 +76,11 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		JLabel label_9 = new JLabel("Desde:");
 
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setText("15/01/2019");
 		formattedTextField_1.setEditable(false);
 
 		JLabel label_10 = new JLabel("Hasta:");
 
 		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setText("15/06/2019");
 		formattedTextField_2.setEditable(false);
 
 		JPanel panel_4 = new JPanel();
@@ -130,21 +90,18 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		JLabel label_11 = new JLabel("Marca:");
 
 		txtAaaaaaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaaaaaa.setColumns(10);
 
 		JLabel label_12 = new JLabel("Modelo:");
 
 		txtAaaaaaaaaaaaaaa_1 = new JTextField();
-		txtAaaaaaaaaaaaaaa_1.setText("AAAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaaa_1.setEditable(false);
 		txtAaaaaaaaaaaaaaa_1.setColumns(10);
 
 		JLabel label_13 = new JLabel("Patente:");
 
 		txtAaaaa = new JTextField();
-		txtAaaaa.setText("AA-AAA-99");
 		txtAaaaa.setEditable(false);
 		txtAaaaa.setColumns(10);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
@@ -182,21 +139,18 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		JLabel label_14 = new JLabel("Nro Cliente:");
 
 		nroCliente = new JTextField();
-		nroCliente.setText("99-9999999");
 		nroCliente.setEditable(false);
 		nroCliente.setColumns(10);
 
 		JLabel label_15 = new JLabel("Apellido:");
 
 		txtAaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaa.setText("AAAAAAAAAA");
 		txtAaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaa.setColumns(10);
 
 		JLabel label_16 = new JLabel("Nombre:");
 
 		txtAaaaaaaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAAA");
 		txtAaaaaaaaaaaaaaa.setEditable(false);
 		txtAaaaaaaaaaaaaaa.setColumns(10);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
@@ -227,7 +181,6 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		textField_7 = new JTextField();
-		textField_7.setText("$2451,50");
 		textField_7.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_7.setFont(new Font("Tahoma", Font.BOLD, 12));
 		textField_7.setEditable(false);
@@ -272,22 +225,64 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 														.addComponent(btnCancelar).addComponent(btnRegistrarPago))
 												.addGap(33)));
 		panel_6.setLayout(gl_panel_6);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		JLabel label_1 = new JLabel("Seleccione una Poliza");
+		
+		JButton button = new JButton("BuscarPoliza");
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 759, Short.MAX_VALUE)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(26)
+					.addComponent(label_1)
+					.addGap(35)
+					.addComponent(button)
+					.addContainerGap(502, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 78, Short.MAX_VALUE)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(26)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_1)
+						.addComponent(button))
+					.addContainerGap(25, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addGroup(groupLayout.createSequentialGroup().addGap(10)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE).addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
-						.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE).addContainerGap())
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addContainerGap()
-						.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE).addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addComponent(panel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 427, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 759, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(15, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 443, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
@@ -321,13 +316,11 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		lblClientePaga.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		textField_1 = new JTextField();
-		textField_1.setText("$2500,00");
 		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		textField_1.setColumns(10);
 
 		textField_2 = new JTextField();
-		textField_2.setText("$48,50");
 		textField_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		textField_2.setEditable(false);

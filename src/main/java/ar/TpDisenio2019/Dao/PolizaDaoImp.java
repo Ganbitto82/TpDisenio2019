@@ -99,9 +99,11 @@ public class PolizaDaoImp implements PolizaDao {
 			dtoCliente.setNroCliente(poliza.getCliente().getNroCliente());
 			dtoCliente.setNroDocumento(poliza.getCliente().getNroDocumento());
 
+			
+			if (poliza.getCuota().getRecibo()!=null) {
 			dtorecibo.setIdRecibo(poliza.getCuota().getRecibo().getIdRecibo());
 			dtorecibo.setFecha(poliza.getCuota().getRecibo().getFecha());
-			dtorecibo.setImporteTotal(poliza.getCuota().getRecibo().getImporteTotal());
+			dtorecibo.setImporteTotal(poliza.getCuota().getRecibo().getImporteTotal());}
 			
 			dtocuota.setIdCuotas(poliza.getCuota().getIdCuotas());
 			dtocuota.setRecibo(dtorecibo);

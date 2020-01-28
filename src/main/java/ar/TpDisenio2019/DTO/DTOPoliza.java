@@ -46,6 +46,7 @@ public class DTOPoliza implements java.io.Serializable {
 	private Character nroSiniestro;
 	private Integer cantidad;
 	private List<DTOCuota> listadtocuota;
+	private List<DTOCuota> listadtocuotaSeleccionada;
 	private Long nroPoliza;
 	private Set<DTOModificacionpoliza> dTOModificacionpolizas = new HashSet<DTOModificacionpoliza>(0);
 
@@ -303,5 +304,14 @@ public class DTOPoliza implements java.io.Serializable {
 	public void setModificacionpolizas(Set<DTOModificacionpoliza> dTOModificacionpolizas) {
 		this.dTOModificacionpolizas = dTOModificacionpolizas;
 	}
+
+	public List<DTOCuota> getListadtocuotaSeleccionada() {
+		return listadtocuotaSeleccionada;
+	}
+
+	public void setListadtocuotaSeleccionada(List<DTOCuota> listadtocuotaSeleccionada) {
+		this.listadtocuotaSeleccionada = listadtocuotaSeleccionada;
+	}
+	
 
 }

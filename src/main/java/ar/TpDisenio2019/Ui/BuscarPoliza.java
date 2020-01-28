@@ -14,9 +14,9 @@ import javax.swing.border.TitledBorder;
 import ar.TpDisenio2019.Controladores.GestorPoliza;
 
 import ar.TpDisenio2019.DTO.DTOCuota;
-import ar.TpDisenio2019.DTO.DTOOperador;
+
 import ar.TpDisenio2019.DTO.DTOPoliza;
-import ar.TpDisenio2019.DTO.DTORecibo;
+
 import ar.TpDisenio2019.Utilitario.Validaciones;
 
 import javax.swing.JLabel;
@@ -29,6 +29,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -59,6 +60,7 @@ public class BuscarPoliza extends JFrame {
 
 	private void initialize() {
 
+		dtopoliza=null;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 730);
 		contentPane = new JPanel();
@@ -156,9 +158,9 @@ public class BuscarPoliza extends JFrame {
 		label_3.setBounds(66, 184, 143, 14);
 		panel_3.add(label_3);
 
-		JLabel label_4 = new JLabel("Fecha Pago");
-		label_4.setBounds(66, 245, 125, 14);
-		panel_3.add(label_4);
+		JLabel lblUltimaFechaDe = new JLabel("Ultima Fecha de Pago");
+		lblUltimaFechaDe.setBounds(66, 245, 125, 14);
+		panel_3.add(lblUltimaFechaDe);
 
 		JLabel label_5 = new JLabel("Numero de Poliza");
 		label_5.setBounds(395, 53, 153, 14);
@@ -247,7 +249,7 @@ public class BuscarPoliza extends JFrame {
 					numeroPoliza = Long.parseLong(numPoliza);
 				}
 
-				System.out.println(numeroPoliza);
+				
 				if (numeroPoliza.equals(0L)) {
 
 					JOptionPane.showMessageDialog(null, "Ingrese el numero de poliza correcto para buscar la póliza.",
@@ -278,19 +280,63 @@ public class BuscarPoliza extends JFrame {
 
 								listaDtoCuota.add(dtocuota);
 							}
-
-							for (DTOCuota cuota : listaDtoCuota) {
-								System.out.println(cuota.getRecibo().getFecha());
-
+							
+							List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
+							for (DTOCuota Dtocuota : listaDtoCuota) {
+								
+								if( Dtocuota.getRecibo().getNroRecibo()!=null) {
+									listaFechaRecibo.add(Dtocuota);	
+								}
+								
 							}
 							
+							if (listaFechaRecibo.size()!= 0) {
+							
+								Date fechaMayor= listaFechaRecibo.get(0).getRecibo().getFecha();
+								float ImporteTotal = 0; 
+								
+								for (int i = 1; i < listaFechaRecibo.size(); i++) {
+									
+									if (listaFechaRecibo.get(i).getRecibo().getFecha().compareTo(fechaMayor) == 1) 
+										
+										fechaMayor=listaFechaRecibo.get(i).getRecibo().getFecha();
+														
+											} 
+								for (int i = 0; i < listaFechaRecibo.size(); i++) {
+									if (fechaMayor.equals(listaFechaRecibo.get(i).getRecibo().getFecha())) 
+										
+										ImporteTotal= listaFechaRecibo.get(i).getRecibo().getImporteTotal();
+											
+								} 
+								
+							    String fechaUltimoPago= fechaMayor.toString();
+							    String monto= String.valueOf(ImporteTotal);
+							    String pesos="$";
+								String resultado=  (pesos.concat(monto));
+								textField_FechaPago.setText(fechaUltimoPago);
+								textField_Monto.setText(resultado);
+							
+							}else { 
+								
+								
+								textField_FechaPago.setText(" / /  ");
+								String pesos="$";
+								String monto =" 0 " ;
+								String resultado=  (pesos.concat(monto));
+								textField_Monto.setText(resultado);
+								
+							}
 							
 							dtopoliza.setListadtocuota(listaDtoCuota);
+							
+							
 
 						} else {
-
+						    String monto= dtopoliza.getCuota().getRecibo().getImporteTotal().toString();
+						    String pesos="$";
+							String resultado=  pesos.concat(monto);
 							textField_FechaPago.setText(dtopoliza.getCuota().getRecibo().getFecha().toString());
-							textField_Monto.setText(dtopoliza.getCuota().getRecibo().getImporteTotal().toString());
+							textField_Monto.setText(resultado);
 
 						}
 						textField_NroCliente.setText(dtopoliza.getCliente().getNroCliente().toString());
@@ -309,12 +355,36 @@ public class BuscarPoliza extends JFrame {
 
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnAceptar ) {
 
-				RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
-				pago.setVisible(true);
-				pago.setResizable(false);
-				pago.setLocationRelativeTo(null);
+					try {
+
+						if (dtopoliza == null)
+							JOptionPane.showMessageDialog(null, "Debe ingresar un numero de poliza para su busqueda", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+						else {
+
+							dispose();
+							RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
+							pago.setVisible(true);
+							pago.setResizable(false);
+							pago.setLocationRelativeTo(null);
+
+								}
+							}
+
+							
+						
+
+					catch (Exception e1) {
+
+					}
+				}
+				
+				
+				
+				
 
 			}
 		});
@@ -322,6 +392,14 @@ public class BuscarPoliza extends JFrame {
 		getContentPane().add(btnAceptar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+
+		btnCancelar .addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				hide();
+			}
+		});
+		
 		btnCancelar.setBounds(652, 637, 89, 23);
 		getContentPane().add(btnCancelar);
 
