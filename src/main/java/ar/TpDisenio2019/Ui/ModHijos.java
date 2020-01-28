@@ -155,7 +155,7 @@ public class ModHijos extends JFrame {
 		JComboBox<String> sexo;
 		JComboBox<String> estadoCivil;
 		modelo = null;
-		String nomcols[] = { "Fecha de Nacimiento", "Sexo", "DTOEstado Civil" };
+		String nomcols[] = { "Fecha de Nacimiento", "Sexo", "Estado Civil" };
 
 		// GestorPoliza.buscarHijosCliente(idCliente);
 
