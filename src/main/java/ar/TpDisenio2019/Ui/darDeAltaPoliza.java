@@ -758,17 +758,26 @@ public class darDeAltaPoliza extends JFrame {
 		btnCompletarHijos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nroHijos = textField_CantHijos.getText();
-				int numeroHijos = Integer.valueOf(nroHijos);
-
-				if (numeroHijos >= 1 && numeroHijos <= 15) {
-					if (e.getSource() == btnCompletarHijos) {
-						ModHijos b = new ModHijos(dtoPoliza, numeroHijos);
-						b.setVisible(true);
-						b.setResizable(false);
-						b.setLocationRelativeTo(null);
+				
+				if (nroHijos.equals(""))
+					JOptionPane.showMessageDialog(null,"Se ha olvidado el ingreso de la cantidad de hijos","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+				else {
+					int numeroHijos = Integer.valueOf(nroHijos);
+					if(numeroHijos==0)
+						JOptionPane.showMessageDialog(null,"No se acepta cero (0) como ingreso de cantidad de hijos","ERROR",JOptionPane.ERROR_MESSAGE);
+					else if(numeroHijos<0 || numeroHijos>15) {
+						JOptionPane.showMessageDialog(null,"Fuera del límite de cantidad de hijos. Por favor ingrese la cantidad de 1 a 15","ERROR EN EL INGRESO DE DATOS",JOptionPane.ERROR_MESSAGE);
+					}
+					else	
+					if (numeroHijos >= 1 && numeroHijos <= 15) {
+						if (e.getSource() == btnCompletarHijos) {
+							ModHijos b = new ModHijos(dtoPoliza, numeroHijos);
+							b.setVisible(true);
+							b.setResizable(false);
+							b.setLocationRelativeTo(null);
+						}
 					}
 				}
-
 			}
 		});
 		btnCompletarHijos.setFont(new Font("Tahoma", Font.PLAIN, 11));

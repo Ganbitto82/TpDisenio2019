@@ -318,6 +318,16 @@ public class ModHijos extends JFrame {
 					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: " + filas);
 					dispose();
 				}
+				else {
+					listaDtosHijos = new ArrayList<DTODatosdehijo>();
+					System.out.println("\nSetea el DTO de hijo: " + filas);
+					
+
+					banderaValidacionFecha=0;
+					banderaValidacionSexo=0;
+					banderaValidacionEstadoCivil=0;
+
+				}
 			}
 		});
 
