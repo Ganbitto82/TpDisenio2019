@@ -72,6 +72,7 @@ public class RealizarPagoPolizaVacio extends JFrame {
 		buttonBuscarPoliza.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == buttonBuscarPoliza) {
+					dispose();
 					BuscarPoliza bp = new BuscarPoliza();
 					bp.setVisible(true);
 					bp.setResizable(false);

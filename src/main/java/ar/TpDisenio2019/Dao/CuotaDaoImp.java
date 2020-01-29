@@ -35,6 +35,7 @@ public class CuotaDaoImp implements CuotaDao {
 		DTORecibo dtorecibo = new DTORecibo();
 		DTOOperador dtooperador = new DTOOperador();
 
+		if(cuota.getRecibo()!=null) {
 		dtooperador.setIdOperador(cuota.getRecibo().getOperador().getIdOperador());
 		dtooperador.setNombre(cuota.getRecibo().getOperador().getNombre());
 
@@ -44,7 +45,7 @@ public class CuotaDaoImp implements CuotaDao {
 		dtorecibo.setImporteTotal(cuota.getRecibo().getImporteTotal());
 		dtorecibo.setNroRecibo(cuota.getRecibo().getNroRecibo());
 		dtorecibo.setUltimoDiaDePago(cuota.getRecibo().getUltimoDiaDePago());
-		dtorecibo.setOperador(dtooperador);
+		dtorecibo.setOperador(dtooperador);}
 
 		dtocuota.setIdCuotas(cuota.getIdCuotas());
 		dtocuota.setRecibo(dtorecibo);
