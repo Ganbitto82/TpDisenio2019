@@ -10,41 +10,61 @@ import javax.swing.JTextField;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
+
+import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 
-import javax.swing.JFormattedTextField;
+
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
+
 
 public class RealizarPagoPolizaParte2 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField txtAaaaaaaaaaaaaa;
-	private JTextField txtAaaaaaaaaaaaaaa_1;
-	private JTextField txtAaaaa;
+	private JTextField textField_NroPoliza;
+	private JTextField txt_Marca;
+	private JTextField txt_Modelo;
+	private JTextField txtPatente;
 	private JTextField nroCliente;
-	private JTextField txtAaaaaaaaaa;
-	private JTextField txtAaaaaaaaaaaaaaa;
-	private JTextField textField_7;
-	private JTable table;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txt_Apellido;
+	private JTextField txt_Nombre;
+	private JTextField textField_SumaAPagar;
 
+	private JTextField textField_ClientePaga;
+	private JTextField textField_VueloAlCliente;
+	private JTextField textField_Desde;
+	private JTextField textField_Hasta;
+	
+	private JScrollPane scrollPane;
+	private String[] nombresDeLasColumnasDeLaTabla = {  "Cuota/A\u00F1o", "Vencimiento", "Valor original",
+			"Valor actual a pagar" };
+	private Object[][] datosDeLaTabla;
+	private JTable tablaCuota;
+    private float sumaTOTAL=0;  
+    private float pagoDeCliente ;
+    private float recargoPorMoraAcumulado=0;
+    private float bonificacionAcumulado=0;
+	
 	public RealizarPagoPolizaParte2(DTOPoliza dtopoliza) {
 		
-
+		
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
 		this.setBounds(100, 0, 800, 730);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,68 +85,214 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 
 		JPanel panel_2 = new JPanel();
 
-		JLabel label_7 = new JLabel("NRO DE P\u00D3LIZA:");
+		JLabel lbl_NroPoliza = new JLabel("NRO DE P\u00D3LIZA:");
 
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setColumns(10);
+		textField_NroPoliza = new JTextField();
+		textField_NroPoliza.setEditable(false);
+		textField_NroPoliza.setColumns(10);
+		
+		textField_NroPoliza.setText(dtopoliza.getNroPoliza().toString());
+		
 
-		JLabel label_8 = new JLabel("VIGENCIA:");
+		JLabel lblVigencia = new JLabel("VIGENCIA:");
 
-		JLabel label_9 = new JLabel("Desde:");
+		JLabel lbl_Desde = new JLabel("Desde:");
 
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setEditable(false);
-
-		JLabel label_10 = new JLabel("Hasta:");
-
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setEditable(false);
+		JLabel lbl_Hasta = new JLabel("Hasta:");
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "DATOS DEL VEH\u00CDCULO",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		JLabel label_11 = new JLabel("Marca:");
+		JLabel lbl_Marca = new JLabel("Marca:");
 
-		txtAaaaaaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaaaaaa.setEditable(false);
-		txtAaaaaaaaaaaaaa.setColumns(10);
+		txt_Marca = new JTextField();
+		txt_Marca.setEditable(false);
+		txt_Marca.setColumns(10);
+		
+		txt_Marca.setText(dtopoliza.getVehiculo().getModelo().getMarca().getMarca());
 
-		JLabel label_12 = new JLabel("Modelo:");
+		JLabel lbl_Modelo = new JLabel("Modelo:");
 
-		txtAaaaaaaaaaaaaaa_1 = new JTextField();
-		txtAaaaaaaaaaaaaaa_1.setEditable(false);
-		txtAaaaaaaaaaaaaaa_1.setColumns(10);
+		txt_Modelo = new JTextField();
+		txt_Modelo.setEditable(false);
+		txt_Modelo.setColumns(10);
+         
+		txt_Modelo.setText(dtopoliza.getVehiculo().getModelo().getNombre());
+		
+		JLabel label_Patente = new JLabel("Patente:");
 
-		JLabel label_13 = new JLabel("Patente:");
+		txtPatente = new JTextField();
+		txtPatente.setEditable(false);
+		txtPatente.setColumns(10);
+		
+		txtPatente.setText(dtopoliza.getVehiculo().getPatente());
+		
+		JLabel lblNroCliente = new JLabel("Nro Cliente:");
 
-		txtAaaaa = new JTextField();
-		txtAaaaa.setEditable(false);
-		txtAaaaa.setColumns(10);
+		long numCliente = dtopoliza.getCliente().getNroCliente();
+		String strCliente = Long.toString(numCliente);
+		
+		nroCliente = new JTextField();
+		nroCliente.setEditable(false);
+		nroCliente.setColumns(10);
+		
+		nroCliente.setText( strCliente );
+
+		JLabel label_Apellido = new JLabel("Apellido:");
+
+		txt_Apellido = new JTextField();
+		txt_Apellido.setEditable(false);
+		txt_Apellido.setColumns(10);
+		
+		txt_Apellido.setText(dtopoliza.getCliente().getApellido());
+
+		JLabel label_Nombre = new JLabel("Nombre:");
+
+		txt_Nombre = new JTextField();
+		txt_Nombre.setEditable(false);
+		txt_Nombre.setColumns(10);
+		
+		txt_Nombre.setText(dtopoliza.getCliente().getNombre());
+		
+		JLabel lblSumaAPagarl = new JLabel("Suma a Pagar:");
+		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
+
+		JLabel lblVueltoAlCliente = new JLabel("Vuelto al Cliente:");
+		lblVueltoAlCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		textField_Desde = new JTextField();
+		textField_Desde.setEditable(false);
+		textField_Desde.setColumns(10);
+		
+		textField_Desde.setText(dtopoliza.getFechaInicioVigencia().toString());
+		
+		textField_Hasta = new JTextField();
+		textField_Hasta.setEditable(false);
+		textField_Hasta.setColumns(10);
+		textField_Hasta.setText(dtopoliza.getFechaFinVigencia().toString());
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(16, 16, 715, 93);
+		datosDeLaTabla = new Object[24][5];
+		tablaCuota = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+		tablaCuota.setCellSelectionEnabled(true);
+		
+		JLabel lblValorClientePaga = new JLabel("El valor ingresado debe ser igual o mayor a la suma a pagar");
+		lblValorClientePaga.setForeground(Color.RED);
+		lblValorClientePaga.setBackground(Color.BLACK);
+		lblValorClientePaga.setVisible(false);
+		lblValorClientePaga.setFont(new Font("Tahoma", Font.PLAIN, 8));
+
+		tablaCuota.getColumnModel().getColumn(2).setPreferredWidth(119);
+		tablaCuota.getColumnModel().getColumn(3).setPreferredWidth(118);
+		scrollPane.setViewportView(tablaCuota);
+		
+					
+		
+		construirTabla(dtopoliza.getListadtocuotaSeleccionada());
+		
+				
+		textField_SumaAPagar = new JTextField();
+		textField_SumaAPagar.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_SumaAPagar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textField_SumaAPagar.setEditable(false);
+		textField_SumaAPagar.setColumns(10);
+		
+		String suma=String. valueOf(sumaTOTAL);
+		
+		dtopoliza.setSumaTotal(sumaTOTAL);
+		dtopoliza.setBonificacionAcumulado(bonificacionAcumulado);
+		dtopoliza.setRecargoPorMoraAcumulado(recargoPorMoraAcumulado);
+		
+		textField_SumaAPagar.setText(suma);
+		
+		
+		textField_ClientePaga = new JTextField();
+		textField_ClientePaga.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_ClientePaga.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textField_ClientePaga.setColumns(10);
+		
+		textField_VueloAlCliente = new JTextField();
+		textField_VueloAlCliente.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_VueloAlCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textField_VueloAlCliente.setEditable(false);
+		textField_VueloAlCliente.setColumns(10);
+		
+		textField_ClientePaga .addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent arg0) {
+				String ClientePaga = textField_ClientePaga.getText();
+
+				 float pagoDeCliente = Float.parseFloat(ClientePaga);
+				
+				  if (pagoDeCliente < sumaTOTAL) {
+					  
+						lblValorClientePaga.setVisible(true);
+					  		  }
+				
+			}
+
+			public void focusGained(FocusEvent arg0) {
+				
+				lblValorClientePaga.setVisible(false);
+			}
+		});
+	
+	
+		textField_ClientePaga.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == textField_ClientePaga) {
+					
+					String ClientePaga = textField_ClientePaga.getText();
+					System.out.println(ClientePaga );
+					
+					
+					if (ClientePaga.isEmpty() )
+						pagoDeCliente=0; 
+					else 
+						
+						pagoDeCliente= Float.parseFloat(ClientePaga);
+					
+					
+					float vuelto = calculo(pagoDeCliente,sumaTOTAL );
+					
+					String vueltoString=String.valueOf(vuelto);  
+					
+					textField_VueloAlCliente.setText(vueltoString);
+				}
+			}
+		});
+
+		JPanel panel_6 = new JPanel();
+
+		JLabel lblClientePaga = new JLabel("Cliente Paga:");
+		lblClientePaga.setFont(new Font("Tahoma", Font.BOLD, 12));
+
+		JButton btnRegistrarPago = new JButton("Registrar Pago");
+
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup().addContainerGap()
-						.addComponent(label_11, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbl_Marca, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(txtAaaaaaaaaaaaaa, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE).addGap(18)
-						.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txt_Marca, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE).addGap(18)
+						.addComponent(lbl_Modelo, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(txtAaaaaaaaaaaaaaa_1, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(label_13, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(txtAaaaa, GroupLayout.PREFERRED_SIZE,
+						.addComponent(txt_Modelo, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
+						.addGap(18).addComponent(label_Patente, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(txtPatente, GroupLayout.PREFERRED_SIZE,
 								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap()));
 		gl_panel_4
 				.setVerticalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_4.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE).addComponent(label_11)
-										.addComponent(txtAaaaaaaaaaaaaa, GroupLayout.PREFERRED_SIZE,
+								.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE).addComponent(lbl_Marca)
+										.addComponent(txt_Marca, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_13)
-										.addComponent(txtAaaaa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										.addComponent(label_Patente)
+										.addComponent(txtPatente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_12).addComponent(txtAaaaaaaaaaaaaaa_1,
+										.addComponent(lbl_Modelo).addComponent(txt_Modelo,
 												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(16, Short.MAX_VALUE)));
@@ -136,70 +302,54 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		panel_5.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "TITULAR DEL SEGURO",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		JLabel label_14 = new JLabel("Nro Cliente:");
-
-		nroCliente = new JTextField();
-		nroCliente.setEditable(false);
-		nroCliente.setColumns(10);
-
-		JLabel label_15 = new JLabel("Apellido:");
-
-		txtAaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaa.setEditable(false);
-		txtAaaaaaaaaa.setColumns(10);
-
-		JLabel label_16 = new JLabel("Nombre:");
-
-		txtAaaaaaaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaaaaaaa.setEditable(false);
-		txtAaaaaaaaaaaaaaa.setColumns(10);
+		
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
 		gl_panel_5.setHorizontalGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_5.createSequentialGroup().addGap(6)
-						.addComponent(label_14, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE).addGap(18)
+						.addComponent(lblNroCliente, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE).addGap(18)
 						.addComponent(nroCliente, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE).addGap(30)
-						.addComponent(label_15).addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(txtAaaaaaaaaa, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE).addGap(33)
-						.addComponent(label_16).addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(txtAaaaaaaaaaaaaaa, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_Apellido).addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(txt_Apellido, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE).addGap(33)
+						.addComponent(label_Nombre).addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(txt_Nombre, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
 						.addGap(20)));
 		gl_panel_5
 				.setVerticalGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_5.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(label_14)
-										.addComponent(txtAaaaaaaaaaaaaaa, GroupLayout.PREFERRED_SIZE,
+								.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE).addComponent(lblNroCliente)
+										.addComponent(txt_Nombre, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_16)
-										.addComponent(txtAaaaaaaaaa, GroupLayout.PREFERRED_SIZE,
+										.addComponent(label_Nombre)
+										.addComponent(txt_Apellido, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_15).addComponent(nroCliente, GroupLayout.PREFERRED_SIZE,
+										.addComponent(label_Apellido).addComponent(nroCliente, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(16, Short.MAX_VALUE)));
 		panel_5.setLayout(gl_panel_5);
-
-		JLabel lblSumaAPagarl = new JLabel("Suma a Pagar:");
-		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
-
-		textField_7 = new JTextField();
-		textField_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_7.setEditable(false);
-		textField_7.setColumns(10);
-
-		JPanel panel_6 = new JPanel();
-
-		JButton btnRegistrarPago = new JButton("Registrar Pago");
-
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		JLabel label_1 = new JLabel("Seleccione una Poliza");
+		
 		btnRegistrarPago.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnRegistrarPago) {
-					RealizarPagoPolizaParte3 pago = new RealizarPagoPolizaParte3();
+				
+				String ClientePaga = textField_ClientePaga.getText();
+				
+				if(ClientePaga.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar un valor a pagar", "Advertencia",
+							JOptionPane.WARNING_MESSAGE);
+				}
+									
+				else {
+					RealizarPagoPolizaParte3 pago = new RealizarPagoPolizaParte3(dtopoliza);
 					pago.setVisible(true);
 					pago.setResizable(false);
 					pago.setLocationRelativeTo(null);
-				}
+				
 			}
-		});
+		}}});
 
 		JButton btnCancelar = new JButton("Cancelar");
 
@@ -226,12 +376,12 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 												.addGap(33)));
 		panel_6.setLayout(gl_panel_6);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+	
 		
-		JLabel label_1 = new JLabel("Seleccione una Poliza");
+		JButton btnBuscarPoliza = new JButton("BuscarPoliza");
 		
-		JButton button = new JButton("BuscarPoliza");
+		btnBuscarPoliza.setEnabled(false);
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -240,7 +390,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 					.addGap(26)
 					.addComponent(label_1)
 					.addGap(35)
-					.addComponent(button)
+					.addComponent(btnBuscarPoliza)
 					.addContainerGap(502, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -250,7 +400,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 					.addGap(26)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_1)
-						.addComponent(button))
+						.addComponent(btnBuscarPoliza))
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
@@ -288,7 +438,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"SELECCI\u00D3N DE CUOTAS A PAGAR:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 
-		JScrollPane scrollPane = new JScrollPane();
+	
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap()
@@ -297,111 +447,190 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING).addComponent(scrollPane,
 				GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE));
 
-		table = new JTable();
-		table.setRowSelectionAllowed(false);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		table.setModel(new DefaultTableModel(
-				new Object[][] { { "001/19", "16/01/2019", "555,55", "650,50" },
-						{ "002/19", "15/02/2019", "555,55", "625,25" }, { "003/19", "16/03/2019", "555,55", "600,00" },
-						{ "004/19", "15/04/2019", "555,55", "575,75" }, },
-				new String[] { "Cuota/A\u00F1o", "Vencimiento", "Valor original", "Valor actual a pagar" }));
-		table.setToolTipText("");
-
-		scrollPane.setViewportView(table);
+		
 
 		panel_3.setLayout(gl_panel_3);
+		
+	
 
-		JLabel lblClientePaga = new JLabel("Cliente Paga:");
-		lblClientePaga.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-
-		textField_2 = new JTextField();
-		textField_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-
-		JLabel lblVueltoAlCliente = new JLabel("Vuelto al Cliente:");
-		lblVueltoAlCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_2
-				.createSequentialGroup()
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_2.createSequentialGroup()
-						.addGap(20).addComponent(label_7, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE).addGap(57)
-						.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE).addGap(4)
-						.addComponent(formattedTextField_1, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-						.addGap(10).addComponent(label_10, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addGap(4)
-						.addComponent(formattedTextField_2, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_2.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(panel_4, Alignment.LEADING, 0, 0, Short.MAX_VALUE).addComponent(
-												panel_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 742,
-												Short.MAX_VALUE))))
-				.addContainerGap(12, Short.MAX_VALUE))
-				.addGroup(gl_panel_2.createSequentialGroup().addContainerGap(418, Short.MAX_VALUE).addGroup(gl_panel_2
-						.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblClientePaga, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-								.addComponent(lblSumaAPagarl, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)))
-						.addGap(18)
-						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-						.addGap(98))
-				.addGroup(Alignment.LEADING, gl_panel_2.createSequentialGroup().addGap(12)
-						.addComponent(panel_3, 0, 0, Short.MAX_VALUE).addContainerGap()));
-		gl_panel_2.setVerticalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_2
-				.createSequentialGroup().addContainerGap()
-				.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup().addGap(16)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE).addComponent(label_7)
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel_2.createSequentialGroup().addGap(18)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(6)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(label_9).addComponent(label_8)))
-										.addComponent(formattedTextField_1, GroupLayout.PREFERRED_SIZE, 27,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(6).addComponent(label_10))
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(1).addComponent(
-												formattedTextField_2, GroupLayout.PREFERRED_SIZE, 24,
-												GroupLayout.PREFERRED_SIZE)))))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(20)
+							.addComponent(lbl_NroPoliza, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textField_NroPoliza, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+							.addGap(57)
+							.addComponent(lblVigencia, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lbl_Desde, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textField_Desde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lbl_Hasta, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textField_Hasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(panel_4, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(panel_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))))
+					.addContainerGap(12, Short.MAX_VALUE))
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap(418, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblClientePaga, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblSumaAPagarl, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+							.addGap(18))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)))
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(textField_SumaAPagar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_ClientePaga, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_VueloAlCliente, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+					.addGap(98))
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(12)
+					.addComponent(panel_3, 0, 0, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addContainerGap(536, Short.MAX_VALUE)
+					.addComponent(lblValorClientePaga)
+					.addGap(76))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(16)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lbl_NroPoliza)
+								.addComponent(textField_NroPoliza, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(24)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lbl_Desde)
+									.addComponent(lblVigencia))
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+									.addComponent(textField_Desde, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lbl_Hasta)
+									.addComponent(textField_Hasta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+					.addGap(8)
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_SumaAPagar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSumaAPagarl))
-				.addGap(9)
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addGap(9)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_ClientePaga, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblClientePaga))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblValorClientePaga)
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_VueloAlCliente, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-				.addContainerGap()));
+					.addContainerGap())
+		);
 		panel_2.setLayout(gl_panel_2);
 		this.getContentPane().setLayout(groupLayout);
 	}
+	
+
+
+	private float calculo(float pagoDeCliente, float sumatotal) {
+		
+			return  pagoDeCliente - sumatotal;
+	}
+
+
+
+	private void construirTabla(List<DTOCuota> listaDtosCuota) {
+		String[] nombresDeLasColumnasDeLaTabla = {  "Cuota/A\u00F1o", "Vencimiento", "Valor original",
+				"Valor actual a pagar" };
+		Object[][] informacion = obtenerMatriz(listaDtosCuota);
+		tablaCuota = new JTable(informacion, nombresDeLasColumnasDeLaTabla);
+		scrollPane.setViewportView(tablaCuota);
+
+	}
+
+	private Object[][] obtenerMatriz(List<DTOCuota> listaDtosCuota) {
+		datosDeLaTabla = new Object[listaDtosCuota.size()][5];
+		Calendar anio = Calendar.getInstance();
+		
+        Calendar c = new GregorianCalendar();
+		
+		
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+		String annio = Integer.toString(c.get(Calendar.YEAR));
+		String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
+		
+		float resultado;
+		
+		for (int i = 0; i < listaDtosCuota.size(); i++) {
+            			
+			anio.setTime(listaDtosCuota.get(i).getVencimiento());
+			int year =  anio.get(Calendar.YEAR);
+			
+		    String nroCuota= listaDtosCuota.get(i).getIdCuotas().toString();
+			String anioCuota = Integer.toString(year);
+			
+			String nrocuota_anio=nroCuota.concat("/").concat(anioCuota);
+			datosDeLaTabla[i][0] = nrocuota_anio+ "";
+			
+			datosDeLaTabla[i][1] = listaDtosCuota.get(i).getVencimiento() + "";
+			
+			datosDeLaTabla[i][2] = listaDtosCuota.get(i).getValorOriginal()+ "";
+			
+			if (fechaActual.compareTo(listaDtosCuota.get(i).getVencimiento().toString()) == 1) {
+				
+				resultado= listaDtosCuota.get(i).getValorOriginal() + listaDtosCuota.get(i).getRecargoPorMora() ;
+				
+				datosDeLaTabla[i][3] = resultado + "";
+				recargoPorMoraAcumulado +=resultado;
+			 
+				}
+			else
+				{
+				resultado= listaDtosCuota.get(i).getValorOriginal() - listaDtosCuota.get(i).getBonificacion() ;
+				
+				datosDeLaTabla[i][3] = resultado + "";
+				
+				bonificacionAcumulado+= resultado;
+				
+				
+				}
+			
+			
+		}
+		
+		
+		for(int j = 0; j < listaDtosCuota.size(); j++) {
+			
+			
+	        float r = Float.valueOf((String) datosDeLaTabla[j][3]);
+		
+		sumaTOTAL+= r;
+		}
+		
+		
+	    
+	
+		return datosDeLaTabla;	}
 }

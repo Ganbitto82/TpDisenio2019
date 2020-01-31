@@ -282,6 +282,7 @@ public class BuscarPoliza extends JFrame {
 							}
 							
 							List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
+							
 							for (DTOCuota Dtocuota : listaDtoCuota) {
 								
 								if( Dtocuota.getRecibo().getNroRecibo()!=null) {
@@ -332,11 +333,31 @@ public class BuscarPoliza extends JFrame {
 							
 
 						} else {
+							
+							listaDtoCuota.add(dtopoliza.getCuota());
+							
+														
+							if(dtopoliza.getCuota().getRecibo().getNroRecibo()!=null) {
 						    String monto= dtopoliza.getCuota().getRecibo().getImporteTotal().toString();
 						    String pesos="$";
 							String resultado=  pesos.concat(monto);
 							textField_FechaPago.setText(dtopoliza.getCuota().getRecibo().getFecha().toString());
 							textField_Monto.setText(resultado);
+							
+							
+							}
+							else {
+
+								textField_FechaPago.setText(" / /  ");
+								String pesos="$";
+								String monto =" 0 " ;
+								String resultado=  (pesos.concat(monto));
+								textField_Monto.setText(resultado);		
+								
+								
+							}
+							
+							dtopoliza.setListadtocuota(listaDtoCuota);
 
 						}
 						textField_NroCliente.setText(dtopoliza.getCliente().getNroCliente().toString());

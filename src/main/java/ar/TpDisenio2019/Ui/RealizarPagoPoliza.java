@@ -35,7 +35,7 @@ import ar.TpDisenio2019.DTO.DTOPoliza;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+
 
 
 public class RealizarPagoPoliza extends JFrame {
@@ -96,6 +96,9 @@ public class RealizarPagoPoliza extends JFrame {
 		JLabel lblSeleccionePoliza = new JLabel("Seleccione una Poliza");
 
 		JButton btnBuscarPoliza = new JButton("BuscarPoliza");
+		
+		btnBuscarPoliza.setEnabled(false);
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup().addGap(26).addComponent(lblSeleccionePoliza).addGap(35)
@@ -359,23 +362,31 @@ public class RealizarPagoPoliza extends JFrame {
 							JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una cuota", "Advertencia",
 									JOptionPane.WARNING_MESSAGE);
 						else {
-
-							 
-							
-
-							for (int i = 0; i <rows.length; i++) {
+                             
+							if(rows.length==1) {
+								
+								listadtocuotaSeleccionada.add(listaDtoCuota.get(0));
+								
+							}
+							else {
+								for (int i = 0; i <rows.length; i++) {
 					  
+								
 								int  rowsSeleccionada=rows[i]+1;
+								
 								if( rowsSeleccionada== listaDtoCuota.get(i).getIdCuotas()) {
 										
 									
 									listadtocuotaSeleccionada.add(listaDtoCuota.get(i));
 								}
 								}
+								}
+													
+							
 							
 						dtopoliza.setListadtocuotaSeleccionada(listadtocuotaSeleccionada);
 						
-				
+				      
 						
 						dispose();
 						RealizarPagoPolizaParte2 rp2 = new RealizarPagoPolizaParte2(dtopoliza);
@@ -386,6 +397,8 @@ public class RealizarPagoPoliza extends JFrame {
 						}
 
 					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "No funciono la suma", "Advertencia",
+								JOptionPane.WARNING_MESSAGE);
 
 					}
 				}
@@ -616,6 +629,7 @@ public class RealizarPagoPoliza extends JFrame {
 			String anioCuota = Integer.toString(year);
 			
 			String nrocuota_anio=nroCuota.concat("/").concat(anioCuota);
+			datosDeLaTabla[i][0] = (i+1) + "";
 			datosDeLaTabla[i][1] = nrocuota_anio+ "";
 			
 			datosDeLaTabla[i][2] = listaDtosCuota.get(i).getVencimiento() + "";
