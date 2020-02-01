@@ -265,7 +265,7 @@ public class ModHijos extends JFrame {
 					DTODatosdehijo dtoNuevoHijo = new DTODatosdehijo();
 					dtoNuevoHijo.setIdDatosHijo(i);
 
-					if (modelo.getValueAt(i, 0) != "DD/MM/AAAA") {
+					if ((modelo.getValueAt(i, 0) != "DD/MM/AAAA") || (modelo.getValueAt(i, 0) != "  /  /   ")) {
 						if (Validaciones.validarFechaNacimiento((String) modelo.getValueAt(i, 0))) {
 							Date fechaAux = Fechas.convertirCadenaFechaADate((String) modelo.getValueAt(i, 0)); // Acá
 																												// convierte
@@ -333,6 +333,10 @@ public class ModHijos extends JFrame {
 				else
 				if (GestorPoliza.validarElementosHijos(listaDtosHijos)) {
 					GestorPoliza.agregarDtosHijos(listaDtosHijos);
+					JOptionPane.showMessageDialog(null,
+							"Los datos de los hijos se han guardado exitosamente.",
+							"Alerta", JOptionPane.OK_OPTION);
+					
 					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: " + filas);
 					dispose();
 				}
