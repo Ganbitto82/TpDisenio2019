@@ -164,14 +164,14 @@ public class ModHijos extends JFrame {
 
 			for (int i = 0; i < numeroHijos; i++) {
 
-				datosDeLaTablaPrincipal[i][0] = null;
-				datosDeLaTablaPrincipal[i][1] = null;
-				datosDeLaTablaPrincipal[i][2] = null;
+				datosDeLaTablaPrincipal[i][0] =  "DD/MM/AAAA";
+				datosDeLaTablaPrincipal[i][1] =  " --Seleccione-- ";
+				datosDeLaTablaPrincipal[i][2] =  " --Seleccione-- ";
 
 			}
 
 		} else {
-			String s[] = { "", "", "" };
+			String s[] = { "DD/MM/AAAA",  " --Seleccione-- ",  " --Seleccione-- " };
 			modelo.addRow(s);
 		}
 
@@ -183,8 +183,8 @@ public class ModHijos extends JFrame {
 		TableColumn colSexo = table.getColumnModel().getColumn(1);
 		TableColumn colEstadoCivil = table.getColumnModel().getColumn(2);
 
-		String opSexo[] = { "Femenino", "Masculino" };
-		String opEstadoCivil[] = { "Soltero/a.", "Comprometido/a.", "Casado/a.", "Unión libre o unión de hecho.",
+		String opSexo[] = { " --Seleccione-- ","Femenino", "Masculino" };
+		String opEstadoCivil[] = {" --Seleccione-- ","Soltero/a.", "Comprometido/a.", "Casado/a.", "Unión libre o unión de hecho.",
 				"Separado/a.", "Divorciado/a.", "Viudo/a." };
 
 		sexo = new JComboBox<String>(opSexo);
@@ -209,7 +209,7 @@ public class ModHijos extends JFrame {
 
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String s[] = { "", "", "" };
+				String s[] = { "DD/MM/AAAA", " --Seleccione-- ", " --Seleccione-- " };
 				modelo.addRow(s);
 
 			}
@@ -218,13 +218,21 @@ public class ModHijos extends JFrame {
 
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int seleccionada = table.getSelectedRow();
-				if (seleccionada == -1) {
-
+				int seleccionadaFila = table.getSelectedRow();
+				int seleccionadaColumna= table.getSelectedColumn();
+				if (seleccionadaFila == -1) {
+					JOptionPane.showMessageDialog(null,
+							"Seleccione una fila para modificar hijo.",
+							"Alerta", JOptionPane.INFORMATION_MESSAGE);
 				}
 
 				else {
-					modelo.setValueAt("", seleccionada, 0);
+					switch(seleccionadaColumna) {
+					case 0: modelo.setValueAt("DD/MM/AAAA", seleccionadaFila, 0); break;
+					case 1: modelo.setValueAt(" --Seleccione-- ", seleccionadaFila, 1); break;
+					case 2: modelo.setValueAt(" --Seleccione-- ", seleccionadaFila, 2); break;
+					}
+					
 				}
 			}
 		});
@@ -257,41 +265,51 @@ public class ModHijos extends JFrame {
 					DTODatosdehijo dtoNuevoHijo = new DTODatosdehijo();
 					dtoNuevoHijo.setIdDatosHijo(i);
 
-					if (Validaciones.validarFechaNacimiento((String) modelo.getValueAt(i, 0))) {
-						Date fechaAux = Fechas.convertirCadenaFechaADate((String) modelo.getValueAt(i, 0)); // Acá
-																											// convierte
-																											// la cadena
-																											// a formato
-																											// Date
-																											// válido
-						if (GestorPoliza.validarFechaHijo(fechaAux)) {
-							dtoNuevoHijo.setFecha(fechaAux);
+					if (modelo.getValueAt(i, 0) != "DD/MM/AAAA") {
+						if (Validaciones.validarFechaNacimiento((String) modelo.getValueAt(i, 0))) {
+							Date fechaAux = Fechas.convertirCadenaFechaADate((String) modelo.getValueAt(i, 0)); // Acá
+																												// convierte
+																												// la cadena
+																												// a formato
+																												// Date
+																												// válido
+							if (GestorPoliza.validarFechaHijo(fechaAux)) {
+								dtoNuevoHijo.setFecha(fechaAux);
+							} else {
+								banderaValidacionFecha++;
+								JOptionPane.showMessageDialog(null, "La declaración de hijos es entre 18 y 30 años.",
+										"Alerta", JOptionPane.INFORMATION_MESSAGE);
+								modelo.setValueAt("DD/MM/AAAA", i, 0);
+								break;
+							}
 						} else {
-							banderaValidacionFecha++;
-							JOptionPane.showMessageDialog(null, "La declaración de hijos es entre 18 y 30 años.",
-									"Alerta", JOptionPane.INFORMATION_MESSAGE);
-							modelo.setValueAt("", i, 0);
-							break;
-						}
-					} else {
+							JOptionPane.showMessageDialog(null,
+									"No ha ingresado un valor válido de fecha, vuelva a ingresar sus datos.", "Alerta",
+									JOptionPane.INFORMATION_MESSAGE);
+							modelo.setValueAt("DD/MM/AAAA", i, 0);
+						}	
+					}
+					else {
 						JOptionPane.showMessageDialog(null,
-								"No ha ingresado un valor válido de fecha, vuelva a ingresar sus datos.", "Alerta",
+								"No ha ingresado un valor de fecha, recuerde el formato DD/MM/AAAA.", "Alerta",
 								JOptionPane.INFORMATION_MESSAGE);
-						modelo.setValueAt("", i, 0);
+						modelo.setValueAt("DD/MM/AAAA", i, 0);
+						banderaValidacionFecha++;
 						break;
 					}
-
-					if (modelo.getValueAt(i, 1) != "") {
+						
+					
+					if (modelo.getValueAt(i, 1) != " --Seleccione-- ") {
 						dtoNuevoHijo.setSexo((String) modelo.getValueAt(i, 1));
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"No ha seleccionado ningún valor en columna Sexo, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
-						modelo.setValueAt("", i, 1);
+						modelo.setValueAt(" --Seleccione-- ", i, 1);
 						banderaValidacionSexo++;
 						break;
 					}
-					if (modelo.getValueAt(i, 2) != "") {
+					if (modelo.getValueAt(i, 2) != " --Seleccione-- ") {
 						DTOEstadocivil estadoCivilHijo = GestorPoliza
 								.buscarEstadoCivilPorNombre((String) modelo.getValueAt(i, 2));
 						dtoNuevoHijo.setEstadocivil(estadoCivilHijo);
@@ -299,9 +317,9 @@ public class ModHijos extends JFrame {
 					} else {
 						banderaValidacionEstadoCivil++;
 						JOptionPane.showMessageDialog(null,
-								"No ha seleccionado ningún valor en columna DTOEstado Civil, vuelva a ingresar sus datos.",
+								"No ha seleccionado ningún valor en columna Estado Civil, vuelva a ingresar sus datos.",
 								"Alerta", JOptionPane.INFORMATION_MESSAGE);
-						modelo.setValueAt("", i, 2);
+						modelo.setValueAt(" --Seleccione-- ", i, 2);
 						break;
 					}
 				}
@@ -322,7 +340,6 @@ public class ModHijos extends JFrame {
 					listaDtosHijos = new ArrayList<DTODatosdehijo>();
 					System.out.println("\nSetea el DTO de hijo: " + filas);
 					
-
 					banderaValidacionFecha=0;
 					banderaValidacionSexo=0;
 					banderaValidacionEstadoCivil=0;
