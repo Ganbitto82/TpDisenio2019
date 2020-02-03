@@ -34,6 +34,7 @@ import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOAniomodelo;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
@@ -90,6 +91,8 @@ public class darDeAltaPoliza extends JFrame {
 	private List<DTOProvincia> dtoListaProvincia;
 	private List<DTOLocalidad> dtoListaLocalidad;
 	private List<DTOSiniestro> dtoListaSiniestros;
+	private List<DTOMedidasdeseguridad> listaDtosMedidasSeguridad = new ArrayList<DTOMedidasdeseguridad>();
+	
 //	private List<DTOMedidasdeseguridad> dtoListaMedidas;
 
 	private DTOModelo dtoModeloSeleccionado;
@@ -686,25 +689,25 @@ public class darDeAltaPoliza extends JFrame {
 		gbc_pnl_CheckMedidasSeguridad.gridy = 7;
 		pnl_IngresoDeDatos.add(pnl_CheckMedidasSeguridad, gbc_pnl_CheckMedidasSeguridad);
 
-		chbxGarage = new JCheckBox("\u00BFSe guarda en garage?");
+		chbxGarage = new JCheckBox("¿Se guarda en garage?");
 		chbxGarage.setEnabled(false);
 		chbxGarage.setForeground(Color.BLACK);
 		chbxGarage.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxGarage.setBackground(Color.WHITE);
 
-		chbxAlarma = new JCheckBox("\u00BFTiene alarma?");
+		chbxAlarma = new JCheckBox("¿Tiene alarma?");
 		chbxAlarma.setForeground(Color.BLACK);
 		chbxAlarma.setEnabled(false);
 		chbxAlarma.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxAlarma.setBackground(Color.WHITE);
 
-		chbxTuercas = new JCheckBox("\u00BFPosee tuercas antirrobo en las cuatro ruedas?");
+		chbxTuercas = new JCheckBox("¿Posee tuercas antirrobo en las cuatro ruedas?");
 		chbxTuercas.setForeground(Color.BLACK);
 		chbxTuercas.setEnabled(false);
 		chbxTuercas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chbxTuercas.setBackground(Color.WHITE);
 
-		chbxRastreo = new JCheckBox("\u00BFPosee dispositivo de rastreo vehicular?");
+		chbxRastreo = new JCheckBox("¿Posee dispositivo de rastreo vehicular?");
 		chbxRastreo.setForeground(Color.BLACK);
 		chbxRastreo.setEnabled(false);
 		chbxRastreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -977,20 +980,6 @@ public class darDeAltaPoliza extends JFrame {
 				}
 			});
 
-			/*
-			 * String garaje = chbxGarage.getLabel(); String alarma = chbxAlarma.getLabel();
-			 * String tuecas = chbxTuercas.getLabel(); String rastreo =
-			 * chbxRastreo.getLabel();
-			 * 
-			 * if(chbxGarage.isSelected() || chbxAlarma.isSelected() ||
-			 * chbxTuercas.isSelected() || chbxRastreo.isSelected()) {
-			 * if(chbxGarage.isSelected()) { dtoMedidasSeguridad.setNombre(garaje); }
-			 * if(chbxAlarma.isSelected()) { dtoMedidasSeguridad.setNombre(alarma); }
-			 * if(chbxTuercas.isSelected()) { dtoMedidasSeguridad.setNombre(tuecas); }
-			 * if(chbxRastreo.isSelected()) { dtoMedidasSeguridad.setNombre(rastreo); }
-			 * System.out.println(" ---------------------------- ");
-			 * System.out.println(dtoMedidasSeguridad.getNombre()); }
-			 */
 		}
 		;
 
@@ -1124,16 +1113,45 @@ public class darDeAltaPoliza extends JFrame {
 						} else {
 							lblSumaAsegurada.setForeground(Color.black);
 						}
-						//System.out.println(mensajeAux);
-						System.out.println(mensajeValidacion);
 						JOptionPane.showMessageDialog(null,mensajeValidacion,"ERROR EN EL INGRESO DE DATOS",JOptionPane.ERROR_MESSAGE);
-						
 						
 					}
 					else{
 						int anioVehiculo = Integer.parseInt(anio);
 						float km = Float.parseFloat(kmxAnio);
+						
+						if(dtoPoliza.getDatosdehijo()!=null)
+							System.out.println("Hijo "+dtoPoliza.getDatosdehijo().getIdDatosHijo().toString()+dtoPoliza.getDatosdehijo().getSexo().toString());
 
+
+						if(chbxGarage.isSelected()) {
+							DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+							dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxGarage.getText().toString());
+							if(dtoNuevaMedida!=null)listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+						}
+						if(chbxAlarma.isSelected()) {
+							System.out.println(chbxAlarma.getText().toString());
+							DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+							dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxAlarma.getText().toString());
+							if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+						}
+						if(chbxRastreo.isSelected()) {
+							System.out.println(chbxRastreo.getText().toString());
+							DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+							dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxRastreo.getText().toString());
+							if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+						}
+						if(chbxTuercas.isSelected()) {
+							System.out.println(chbxTuercas.getText().toString());
+							DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+							dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxTuercas.getText().toString());
+							if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+						}
+						
+						for(DTOMedidasdeseguridad tipo : listaDtosMedidasSeguridad) {
+							dtoPoliza.setMedidasdeseguridad(tipo);
+						}
+						
 						dtoVehiculo.setAnio(anioVehiculo);
 						dtoVehiculo.setChasis(chasis);
 						// dtoVehiculo.setIdModelo(dtoModeloSeleccionado);
@@ -1145,7 +1163,6 @@ public class darDeAltaPoliza extends JFrame {
 						// dtoSiniestro.setCantidad(nroSiniestro);
 						dtoPoliza.setCliente(dtoCliente);
 						dtoPoliza.setKmporanio(dtoKmPorAnio);
-						dtoPoliza.setMedidasdeseguridad(dtoMedidasSeguridad);
 						dtoPoliza.setSiniestro(dtoSiniestro);
 						dtoPoliza.setVehiculo(dtoVehiculo);
 

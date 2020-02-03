@@ -332,7 +332,7 @@ public class ModHijos extends JFrame {
 				}
 				else
 				if (GestorPoliza.validarElementosHijos(listaDtosHijos)) {
-					GestorPoliza.agregarDtosHijos(listaDtosHijos);
+					GestorPoliza.agregarDtosHijos(dtoPoliza,listaDtosHijos);
 					JOptionPane.showMessageDialog(null,
 							"Los datos de los hijos se han guardado exitosamente.",
 							"Alerta", JOptionPane.OK_OPTION);

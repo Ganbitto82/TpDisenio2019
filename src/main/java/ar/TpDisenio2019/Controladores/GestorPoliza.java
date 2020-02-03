@@ -1,13 +1,16 @@
 package ar.TpDisenio2019.Controladores;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOEstadocivil;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOPoliza;
+import ar.TpDisenio2019.Modelo.Medidasdeseguridad;
 import ar.TpDisenio2019.Modelo.Poliza;
 import ar.TpDisenio2019.Modelo.Vehiculo;
 import ar.TpDisenio2019.Utilitario.Fechas;
@@ -22,10 +25,11 @@ public class GestorPoliza {
 		return GestorCliente.buscarDtoscliente();
 	}
 
-	public static void agregarDtosHijos(List<DTODatosdehijo> listaDtosHijos) {
-		DTOPoliza dtoPoliza = new DTOPoliza();
-		for (int i = 0; i < listaDtosHijos.size(); i++) {
-			dtoPoliza.setDatosdehijo(listaDtosHijos.get(i));
+	public static void agregarDtosHijos(DTOPoliza dtoPoliza, List<DTODatosdehijo> listaDtosHijos) {
+		for(DTODatosdehijo tipo : listaDtosHijos) {
+		//for (int i = 0; i < listaDtosHijos.size(); i++) {
+			//dtoPoliza.setDatosdehijo(listaDtosHijos.get(i));
+			dtoPoliza.setDatosdehijo(tipo);
 		}
 	}
 
@@ -69,6 +73,30 @@ public class GestorPoliza {
 		else
 			return false;
 	}
+	
+	public static DTOMedidasdeseguridad buscarMedidaSeguridadPorNombre(String nombre) {
+		List<DTOMedidasdeseguridad> listaMedidaDeSeguridad = GestorPoliza.buscarDtosMedidasdeseguridad();
+		for(DTOMedidasdeseguridad tipo : listaMedidaDeSeguridad) {
+			if (nombre.equals(tipo.getNombre().toString())) {
+				return tipo; /* Retorna un elemento de la lista de Medidasdeseguridad */
+			}
+		}
+		return null;
+	}
+	
+	public static List<DTOMedidasdeseguridad> buscarDtosMedidasdeseguridad() {
+		List<DTOMedidasdeseguridad> dtoMedidasdeseguridad = new ArrayList<DTOMedidasdeseguridad>();
+		List<Medidasdeseguridad> lista = gestionPoliza.obtenerListaMedidasdeseguridad();
+		for (int i = 0; i < lista.size(); i++) {
+			DTOMedidasdeseguridad dtoAux = new DTOMedidasdeseguridad();
+			dtoAux.setIdMedidasSeguridad(lista.get(i).getIdMedidasSeguridad().intValue());
+			dtoAux.setNombre(lista.get(i).getNombre().toString());
+			dtoMedidasdeseguridad.add(dtoAux);
+		}
+
+		return dtoMedidasdeseguridad;
+	}
+
 
 	public static void guardarVehiculo(Vehiculo vehiculo) {
 		GestorBDPoliza.guardarVehiculoAux(vehiculo);

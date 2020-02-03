@@ -11,6 +11,8 @@ import ar.TpDisenio2019.Dao.CuotaDao;
 import ar.TpDisenio2019.Dao.CuotaDaoImp;
 import ar.TpDisenio2019.Dao.FormasdepagoDao;
 import ar.TpDisenio2019.Dao.FormasdepagoDaoImp;
+import ar.TpDisenio2019.Dao.MedidasdeseguridadDao;
+import ar.TpDisenio2019.Dao.MedidasdeseguridadDaoImp;
 import ar.TpDisenio2019.Dao.PolizaDao;
 import ar.TpDisenio2019.Dao.PolizaDaoImp;
 import ar.TpDisenio2019.Dao.TipocoberturaDao;
@@ -18,6 +20,7 @@ import ar.TpDisenio2019.Dao.TipocoberturaDaoImp;
 import ar.TpDisenio2019.Dao.VehiculoDao;
 import ar.TpDisenio2019.Dao.VehiculoDaoImp;
 import ar.TpDisenio2019.Modelo.Formasdepago;
+import ar.TpDisenio2019.Modelo.Medidasdeseguridad;
 import ar.TpDisenio2019.Modelo.Poliza;
 import ar.TpDisenio2019.Modelo.Tipocobertura;
 import ar.TpDisenio2019.Modelo.Vehiculo;
@@ -30,6 +33,8 @@ public class GestorBDPoliza {
 	private static FormasdepagoDao formadepagoDao;
 	private static VehiculoDao vehiculoDao;
 	private static CuotaDao cuotaDao;
+	private static MedidasdeseguridadDao medidasdeseguridadDao;
+	
 
 	public GestorBDPoliza() {
 
@@ -38,6 +43,8 @@ public class GestorBDPoliza {
 		GestorBDPoliza.formadepagoDao = new FormasdepagoDaoImp(session.Conexion());
 		GestorBDPoliza.vehiculoDao = new VehiculoDaoImp(session.Conexion());
 		GestorBDPoliza.cuotaDao = new CuotaDaoImp(session.Conexion());
+		GestorBDPoliza.medidasdeseguridadDao = new MedidasdeseguridadDaoImp(session.Conexion());
+			
 	}
 
 	public Tipocobertura getTipocobertura(DTOTipocobertura dtotipocobertura) {
@@ -58,6 +65,12 @@ public class GestorBDPoliza {
 			}
 		}
 		return null;
+	}
+	
+	public List<Medidasdeseguridad> obtenerListaMedidasdeseguridad() {
+		List<Medidasdeseguridad> listaMedidasdeseguridad = medidasdeseguridadDao.obtenerTodas();
+
+		return listaMedidasdeseguridad;
 	}
 
 	public static void guardarVehiculoAux(Vehiculo vehiculo) {
