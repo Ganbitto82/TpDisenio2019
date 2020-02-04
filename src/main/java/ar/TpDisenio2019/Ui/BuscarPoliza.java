@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import ar.TpDisenio2019.Controladores.GestorPoliza;
 
 import ar.TpDisenio2019.DTO.DTOCuota;
-
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 
 import ar.TpDisenio2019.Utilitario.Validaciones;
@@ -54,11 +54,8 @@ public class BuscarPoliza extends JFrame {
 
 	private JLabel lblFormatoDig;
 
-	public BuscarPoliza() {
-		initialize();
-	}
+	public BuscarPoliza(DTOOperador dtoOperador) {
 
-	private void initialize() {
 
 		dtopoliza=null;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -262,7 +259,7 @@ public class BuscarPoliza extends JFrame {
 						JOptionPane.showMessageDialog(null, "No existe póliza con el número ingresado", "Busqueda",
 								JOptionPane.INFORMATION_MESSAGE);
 						dispose();
-						BuscarPoliza bp = new BuscarPoliza();
+						BuscarPoliza bp = new BuscarPoliza(dtoOperador);
 						bp.setVisible(true);
 						bp.setResizable(false);
 						bp.setLocationRelativeTo(null);
@@ -387,7 +384,7 @@ public class BuscarPoliza extends JFrame {
 						else {
 
 							dispose();
-							RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
+							RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza,dtoOperador);
 							pago.setVisible(true);
 							pago.setResizable(false);
 							pago.setLocationRelativeTo(null);

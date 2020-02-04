@@ -11,13 +11,19 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
 
+import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 
 import javax.swing.SwingConstants;
@@ -25,25 +31,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 
 public class RealizarPagoPolizaParte3 extends JFrame {
-
-	private final class AbstractListModelExtension extends AbstractListModel<Object> {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		String[] values = new String[] {};
-
-		public int getSize() {
-			return values.length;
-		}
-
-		public Object getElementAt(int index) {
-			return values[index];
-		}
-	}
-
 	private static final long serialVersionUID = 1L;
 	private JTextField textField_NroPoliza;
 	private JTextField textField_Importe;
@@ -54,9 +44,12 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 	private JTextField txOperador;
 	private JTextField textField_Fecha;
 	private JTextField textField_Hora;
-	private JList<Object> list;
-
-	public RealizarPagoPolizaParte3(DTOPoliza dtopoliza) {
+	private JList<Object> list=new JList<Object>();
+	private DefaultListModel listaanio=new  DefaultListModel();
+	private float premio,prima,derechoDeEmision;
+	
+	@SuppressWarnings("unchecked")
+	public RealizarPagoPolizaParte3(DTOPoliza dtopoliza, DTOOperador dtoOperador) {
 	
 
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
@@ -94,8 +87,11 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 
 		JLabel lblSumaAPagarl = new JLabel("IMPORTE");
 		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		String peso="$";
 
 		textField_NroPoliza = new JTextField();
+		textField_NroPoliza.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_NroPoliza.setEditable(false);
 		textField_NroPoliza.setColumns(10);
 
@@ -108,26 +104,43 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 		textField_Importe.setColumns(10);
 		
 		String suma=String. valueOf(dtopoliza.getSumaTotal());
-		textField_Importe.setText(suma);
+		
+		textField_Importe.setText(peso.concat(suma));
 
 		textField_Premio = new JTextField();
 		textField_Premio.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_Premio.setEditable(false);
 		textField_Premio.setColumns(10);
+		
+		 premio=calcularPremio(dtopoliza);
+		
+		 String premioString = Float.toString(premio);
+		 textField_Premio.setText(peso.concat(premioString));
+
 
 		textField_RecargoPorMor = new JTextField();
 		textField_RecargoPorMor.setEditable(false);
 		textField_RecargoPorMor.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_RecargoPorMor.setColumns(10);
-
+		
+		String s = Float.toString(dtopoliza.getRecargoPorMoraAcumulado());
+        
+		textField_RecargoPorMor.setText(peso.concat(s));
+		
 		textField_Bonificacion = new JTextField();
-		textField_Bonificacion.setHorizontalAlignment(SwingConstants.LEFT);
+		textField_Bonificacion.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField_Bonificacion.setEditable(false);
 		textField_Bonificacion.setColumns(10);
+		
+		String b = Float.toString(dtopoliza.getBonificacionAcumulado());
+		
+		textField_Bonificacion.setText(peso.concat(b));
 
 		txOperador = new JTextField();
 		txOperador.setEditable(false);
 		txOperador.setColumns(10);
+		
+		txOperador.setText(dtoOperador.getNombre());
 
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -147,6 +160,7 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 		textField_Hora.setText(horaDelDia);
 		
 		textField_NroRecibo = new JTextField();
+		textField_NroRecibo.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_NroRecibo.setEditable(false);
 		textField_NroRecibo.setColumns(10);
 		
@@ -316,11 +330,41 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 					.addContainerGap(60, Short.MAX_VALUE))
 		);
 
-		list= new JList<Object>();
-		list.setModel(new AbstractListModelExtension());
+		list.setModel( listaanio);
+        Calendar mes = Calendar.getInstance();
+        Calendar anio= Calendar.getInstance();
+		
+		 int year,month;
+		 String a,m,m_a;
+		 
+		 
+		 for(DTOCuota c: dtopoliza.getListadtocuotaSeleccionada()) {
+			 anio.setTime(c.getVencimiento());
+			 mes.setTime(c.getVencimiento());
+			 year = anio.get(Calendar.YEAR);
+			 month= mes.get(Calendar.MONTH);
+			 a = Integer.toString(year);
+			 m=  Integer.toString(month+1);
+			 m_a=m.concat("/").concat(a);
+			 listaanio.addElement(m_a);
+			 
+		 }
+		 
+		
+	
+		
 		scrollPane.setViewportView(list);
 		panel_2.setLayout(gl_panel_2);
 		this.getContentPane().setLayout(groupLayout);
+	}
+
+	private float calcularPremio(DTOPoliza dtopoliza) {
+		float tasaDerechoDeEmision; 
+		prima=dtopoliza.getFactoresusados().getPrima();
+		tasaDerechoDeEmision=  dtopoliza.getParametrosgenerales().getDerechosDeEmision();
+		derechoDeEmision=prima*(tasaDerechoDeEmision/100);
+         premio=prima + derechoDeEmision;
+         return premio ;
 	}
 
 	private String crearHoraDelDia() {

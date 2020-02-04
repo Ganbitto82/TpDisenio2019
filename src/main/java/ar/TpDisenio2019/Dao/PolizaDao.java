@@ -8,5 +8,7 @@ public interface PolizaDao {
 	public DTOPoliza buscarPorNumeroPoliza(Long numPoliza);
 
 	public void guardar(Poliza poliza);
+	
+
 
 }

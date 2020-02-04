@@ -13,9 +13,12 @@ import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOEstado;
+import ar.TpDisenio2019.DTO.DTOFactoresusados;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridadporc;
 import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.DTO.DTOParametrosgenerales;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTORecibo;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
@@ -28,6 +31,10 @@ public class PruebaConeccionBuscarPoliza {
 
 		DTOPoliza dtopoliza = new DTOPoliza();
 		DTOCuota dtocuota=new DTOCuota();
+
+        DTOFactoresusados dtofactoresusados=new DTOFactoresusados();
+			
+			DTOParametrosgenerales dtoparametrogenerales=new DTOParametrosgenerales();
 		List<DTOCuota> listaDtoCuota = new ArrayList<DTOCuota>(); 
 
 		dtopoliza = buscarPorNumeroPoliza(1123456700L);
@@ -36,26 +43,23 @@ public class PruebaConeccionBuscarPoliza {
 
 		else {
 
-			if (dtopoliza.getFormasdepago().getNombre().equals("MENSUAL")) {
-
-				for (int i = dtopoliza.getCuota().getIdCuotas() + 1; i < dtopoliza.getCuota().getIdCuotas()+ 6; i++) {
-
-					dtocuota = GestorPoliza.buscarPorId(i);
-
-					listaDtoCuota.add(dtocuota);
+			float prima=dtopoliza.getFactoresusados().getPrima();
+            float derechoDeEmision=dtopoliza.getParametrosgenerales().getDerechosDeEmision();
+            float premio =prima + derechoDeEmision;
+            System.out.println(premio);
+			
 				}
 
 				for (DTOCuota cuota : listaDtoCuota) {
 					System.out.println(cuota.getRecibo().getFecha());
 
 				}
-			} else {
-				System.out.println("SEMESTRAL");
-			}
+			} 
+			
 
-		}
+		
 
-	}
+	
 
 	
 	
@@ -76,11 +80,11 @@ public class PruebaConeccionBuscarPoliza {
 
 		Poliza poliza = session.createQuery(query).uniqueResult();
 
-		
 		if (poliza == null)
 			return null;
 		else {
 
+	
 			DTOPoliza nueva = new DTOPoliza();
 
 			DTOCliente dtoCliente = new DTOCliente();
@@ -89,7 +93,7 @@ public class PruebaConeccionBuscarPoliza {
 
 			DTOCuota dtocuota = new DTOCuota();
 			
-		
+			DTOSiniestro dtosiniestro= new DTOSiniestro();
 
 			DTOFormasdepago dtoformasdepago = new DTOFormasdepago();
 
@@ -102,8 +106,13 @@ public class PruebaConeccionBuscarPoliza {
 			DTOModelo dtomodelo = new DTOModelo();
 
 			DTOMarca dtomarca = new DTOMarca();
-
-			List<DTOCuota> listadtocuotas = new ArrayList<DTOCuota>();
+			
+			DTOFactoresusados dtofactoresusados=new DTOFactoresusados();
+			
+			DTOParametrosgenerales dtoparametrogenerales=new DTOParametrosgenerales();
+			
+			 DTOMedidasdeseguridadporc dtomedidasdeseguridadporc= new DTOMedidasdeseguridadporc();
+			
 
 			dtoestado.setIdEstado(poliza.getEstado().getIdEstado());
 			dtoestado.setTipo(poliza.getEstado().getTipo());
@@ -129,9 +138,11 @@ public class PruebaConeccionBuscarPoliza {
 			dtoCliente.setNroCliente(poliza.getCliente().getNroCliente());
 			dtoCliente.setNroDocumento(poliza.getCliente().getNroDocumento());
 
+			
+			if (poliza.getCuota().getRecibo()!=null) {
 			dtorecibo.setIdRecibo(poliza.getCuota().getRecibo().getIdRecibo());
 			dtorecibo.setFecha(poliza.getCuota().getRecibo().getFecha());
-			dtorecibo.setImporteTotal(poliza.getCuota().getRecibo().getImporteTotal());
+			dtorecibo.setImporteTotal(poliza.getCuota().getRecibo().getImporteTotal());}
 			
 			dtocuota.setIdCuotas(poliza.getCuota().getIdCuotas());
 			dtocuota.setRecibo(dtorecibo);
@@ -143,17 +154,38 @@ public class PruebaConeccionBuscarPoliza {
 			dtocuota.setBonificacion(poliza.getCuota().getBonificacion());
 			dtocuota.setRecargoPorMora(poliza.getCuota().getRecargoPorMora());
 			
-			
-
+	
 			dtoformasdepago.setIdFormasDePago(poliza.getFormasdepago().getIdFormasDePago());
 			dtoformasdepago.setNombre(poliza.getFormasdepago().getNombre());
+			
+			dtomedidasdeseguridadporc.setIdMedPorc(poliza.getFactoresusados().getMedidasdeseguridadporc().getIdMedPorc());
+			dtomedidasdeseguridadporc.setPorcentaje(poliza.getFactoresusados().getMedidasdeseguridadporc().getPorcentaje());
+			
+			dtofactoresusados.setIdFacUsados(poliza.getFactoresusados().getIdFacUsados());
+			dtofactoresusados.setPorcentajePorRiesgoDeDomicilio(poliza.getFactoresusados().getPorcentajePorRiesgoDeDomicilio());
+			dtofactoresusados.setPorcentajePorModeloVehiculo(poliza.getFactoresusados().getPorcentajePorModeloVehiculo());
+			dtofactoresusados.setPrima(poliza.getFactoresusados().getPrima());
+			dtofactoresusados.setMedidasdeseguridadporc(dtomedidasdeseguridadporc);
+			
+			
+			
+			dtoparametrogenerales.setIdParametrosGenerales(poliza.getParametrosgenerales().getIdParametrosGenerales());
+			dtoparametrogenerales.setDerechosDeEmision(poliza.getParametrosgenerales().getDerechosDeEmision());
+			dtoparametrogenerales.setTasaDeDescuento(poliza.getParametrosgenerales().getTasaDeDescuento());
+			dtoparametrogenerales.setTasaDeInteres(poliza.getParametrosgenerales().getTasaDeInteres());
+			
+			
+			
 			nueva.setCliente(dtoCliente);
 			nueva.setNroPoliza(poliza.getNroPoliza());
 			nueva.setFechaInicioVigencia(poliza.getFechaInicioVigencia());
 			nueva.setFechaFinVigencia(poliza.getFechaFinVigencia());
 			nueva.setCantidad(poliza.getCantidad());
 			nueva.setSumaAsegurada(poliza.getSumaAsegurada());
-		
+			nueva.setFactoresusados(dtofactoresusados);
+			nueva.setFormasdepago(dtoformasdepago);
+			nueva.setParametrosgenerales(dtoparametrogenerales);
+			
 			nueva.setVehiculo(dtovehiculo);
 			nueva.setCuota(dtocuota);
 			

@@ -35,7 +35,7 @@ public class PruebaConeccionNroCliente {
 		dtopoliza = GestorPoliza.buscarPoliza(numeroPoliza);
 		List<DTOCuota> listaDtoCuota = new ArrayList<DTOCuota>();
 		
-		List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
+	
 		
 		for (int i = dtopoliza.getCuota().getIdCuotas() + 1; i < dtopoliza.getCuota().getIdCuotas()+ 6; i++) {
 

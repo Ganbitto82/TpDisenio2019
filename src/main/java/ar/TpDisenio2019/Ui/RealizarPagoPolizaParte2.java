@@ -17,7 +17,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -25,10 +29,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
-
+import ar.TpDisenio2019.Controladores.GestorBDPoliza;
+import ar.TpDisenio2019.Controladores.GestorOperador;
 import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
-
+import ar.TpDisenio2019.DTO.DTORecibo;
+import ar.TpDisenio2019.Modelo.Recibo;
+import ar.TpDisenio2019.Utilitario.Validaciones;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -61,8 +69,13 @@ public class RealizarPagoPolizaParte2 extends JFrame {
     private float pagoDeCliente ;
     private float recargoPorMoraAcumulado=0;
     private float bonificacionAcumulado=0;
-	
-	public RealizarPagoPolizaParte2(DTOPoliza dtopoliza) {
+    private String ClientePaga ; 
+    private DTORecibo dtoRecibo= new DTORecibo();
+    private Date fechaDelDia;
+    private float interes,descuentos;
+    private List<DTOCuota> listasel= new ArrayList<DTOCuota>();	
+    private List<DTOCuota> listaselCopia= new ArrayList<DTOCuota>();	
+	public RealizarPagoPolizaParte2(DTOPoliza dtopoliza, DTOOperador dtoOperador) {
 		
 		
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
@@ -82,8 +95,11 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
 				gl_panel.createSequentialGroup().addContainerGap(31, Short.MAX_VALUE).addComponent(label).addGap(21)));
 		panel.setLayout(gl_panel);
+		
+		 
 
 		JPanel panel_2 = new JPanel();
+		
 
 		JLabel lbl_NroPoliza = new JLabel("NRO DE P\u00D3LIZA:");
 
@@ -177,20 +193,27 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		datosDeLaTabla = new Object[24][5];
 		tablaCuota = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
 		tablaCuota.setCellSelectionEnabled(true);
-		
-		JLabel lblValorClientePaga = new JLabel("El valor ingresado debe ser igual o mayor a la suma a pagar");
-		lblValorClientePaga.setForeground(Color.RED);
-		lblValorClientePaga.setBackground(Color.BLACK);
-		lblValorClientePaga.setVisible(false);
-		lblValorClientePaga.setFont(new Font("Tahoma", Font.PLAIN, 8));
 
 		tablaCuota.getColumnModel().getColumn(2).setPreferredWidth(119);
 		tablaCuota.getColumnModel().getColumn(3).setPreferredWidth(118);
 		scrollPane.setViewportView(tablaCuota);
 		
 					
+		Float tasaDeInteres = dtopoliza.getParametrosgenerales().getTasaDeInteres();
+		Float tasaDeDescuento = dtopoliza.getParametrosgenerales().getTasaDeDescuento();
 		
-		construirTabla(dtopoliza.getListadtocuotaSeleccionada());
+		interes= (tasaDeInteres/100)*dtopoliza.getCuota().getValorOriginal();
+		descuentos=(tasaDeDescuento/100)*dtopoliza.getCuota().getValorOriginal();
+		
+		
+		
+		listasel = dtopoliza.getListadtocuotaSeleccionada();
+		listaselCopia=listasel;
+	
+		
+		construirTabla(listaselCopia);
+		
+	
 		
 				
 		textField_SumaAPagar = new JTextField();
@@ -221,20 +244,20 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		
 		textField_ClientePaga .addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent arg0) {
-				String ClientePaga = textField_ClientePaga.getText();
+				ClientePaga = textField_ClientePaga.getText();
 
-				 float pagoDeCliente = Float.parseFloat(ClientePaga);
-				
-				  if (pagoDeCliente < sumaTOTAL) {
-					  
-						lblValorClientePaga.setVisible(true);
+				 if (ClientePaga.compareTo(" ") != 0) {
+						if (Validaciones.validarValorIngresado(ClientePaga) != true) {
+							
+							textField_VueloAlCliente.setText("");
+						
 					  		  }
 				
 			}
-
+			}
 			public void focusGained(FocusEvent arg0) {
 				
-				lblValorClientePaga.setVisible(false);
+				
 			}
 		});
 	
@@ -243,22 +266,44 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == textField_ClientePaga) {
 					
-					String ClientePaga = textField_ClientePaga.getText();
-					System.out.println(ClientePaga );
-					
-					
-					if (ClientePaga.isEmpty() )
+					ClientePaga = textField_ClientePaga.getText();
+                    if (Validaciones.validarValorIngresado(ClientePaga) != true) {
+                    	JOptionPane.showMessageDialog(null, "OPERACION INVALIDA", "Advertencia",
+								JOptionPane.WARNING_MESSAGE);
+                    	textField_VueloAlCliente.setText("");
+                    	textField_ClientePaga.setText(" ");
+						
+					  		  }
+                    else {
+                    	
+                    	if (ClientePaga.isEmpty() )
 						pagoDeCliente=0; 
 					else 
 						
 						pagoDeCliente= Float.parseFloat(ClientePaga);
 					
+					if (pagoDeCliente < sumaTOTAL) {
+						
+						ClientePaga = textField_ClientePaga.getText();
+						JOptionPane.showMessageDialog(null, "El valor ingresado debe ser igual o mayor a la suma a pagar", "Advertencia",
+								JOptionPane.WARNING_MESSAGE);
+						textField_ClientePaga.setText("");
+					}
 					
-					float vuelto = calculo(pagoDeCliente,sumaTOTAL );
+					else {
+						float vuelto = calculo(pagoDeCliente,sumaTOTAL );
 					
+						
 					String vueltoString=String.valueOf(vuelto);  
 					
 					textField_VueloAlCliente.setText(vueltoString);
+					}
+					}
+					
+								
+					
+					
+					
 				}
 			}
 		});
@@ -337,19 +382,133 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 				
 				String ClientePaga = textField_ClientePaga.getText();
 				
-				if(ClientePaga.isEmpty()) {
+				if(ClientePaga.isEmpty()|| ClientePaga.equals("") ) {
 					JOptionPane.showMessageDialog(null, "Debe ingresar un valor a pagar", "Advertencia",
 							JOptionPane.WARNING_MESSAGE);
 				}
 									
 				else {
-					RealizarPagoPolizaParte3 pago = new RealizarPagoPolizaParte3(dtopoliza);
+					
+					
+					DTOOperador dtoOperardoBusca= GestorOperador.buscarPorNombreOperador(dtoOperador.getNombre());
+										
+					try {
+					 fechaDelDia = calcularFecha();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+										
+					int horaDelDia= crearHoraDelDia();
+					
+					for(int i=0; i < listasel.size();i ++) {
+						
+						dtoRecibo.setIdRecibo(listasel.get(i).getIdCuotas());
+								
+						dtoRecibo.setOperador(dtoOperardoBusca);
+										
+						dtoRecibo.setNroRecibo(listasel.get(i).getIdCuotas());
+					
+						
+						dtoRecibo.setFecha(fechaDelDia);
+						dtoRecibo.setHora(horaDelDia);						
+						dtoRecibo.setUltimoDiaDePago(listasel.get(i).getVencimiento());
+						
+						if(listasel.get(i).getValorOriginal() < listasel.get(i).getValorPorMora())
+						{
+							dtoRecibo.setImporteTotal(listasel.get(i).getValorPorMora());
+							
+							
+						}else 
+						
+						{    dtoRecibo.setImporteTotal(listasel.get(i).getValorPorMora()); } 
+						
+						
+						
+						GestorBDPoliza.guardarRecibo(dtoRecibo);
+						
+						listasel.get(i).setRecibo(dtoRecibo);
+						listasel.get(i).setCuotasPagas(listasel.size());
+						listasel.get(i).setRecargoPorMora(interes);
+						listasel.get(i).setBonificacion(descuentos);
+						
+						if(listasel.get(i).getValorOriginal() < listasel.get(i).getValorPorMora())
+						{
+							listasel.get(i).setValorTotalaPagar(listasel.get(i).getValorPorMora());
+							
+							
+														
+						}else 
+						
+						{    
+							listasel.get(i).setValorTotalaPagar(listasel.get(i).getValorPorMora());
+							
+							
+							
+						} 
+						
+											
+						
+						if(listasel.get(i).getValorOriginal() < listasel.get(i).getValorPorMora())
+						{
+							listasel.get(i).setValorPorMora(listasel.get(i).getValorPorMora());
+							
+						}else 
+						
+						{   listasel.get(i).setValorPorMora(0f); }
+						
+						
+																	
+					}
+					
+					
+					for(int i=0; i < listasel.size();i ++) {
+						
+						
+						GestorBDPoliza.guardarDTOCuota(listasel.get(i));			
+						
+					}
+					
+					
+					dispose();				
+					RealizarPagoPolizaParte3 pago = new RealizarPagoPolizaParte3(dtopoliza,dtoOperador);
 					pago.setVisible(true);
 					pago.setResizable(false);
 					pago.setLocationRelativeTo(null);
 				
 			}
-		}}});
+		}}
+
+		
+
+			private int crearHoraDelDia() {
+				int hora;
+				
+				Calendar calendario = new GregorianCalendar();
+			
+				hora =calendario.get(Calendar.HOUR_OF_DAY);
+				
+				return hora;
+			}
+
+
+
+			private Date calcularFecha() throws Exception {
+				Calendar c = new GregorianCalendar();
+				
+				
+				
+				String dia = Integer.toString(c.get(Calendar.DATE));
+				String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+				String annio = Integer.toString(c.get(Calendar.YEAR));
+				String fechaActual=dia.concat("-").concat(mes).concat("-").concat(annio);
+				Date date=new SimpleDateFormat("dd-MM-yyyy").parse(fechaActual);
+				
+				return date;
+				
+			}});
 
 		JButton btnCancelar = new JButton("Cancelar");
 
@@ -457,7 +616,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
@@ -484,14 +643,11 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addContainerGap(418, Short.MAX_VALUE)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblClientePaga, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblSumaAPagarl, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
-							.addGap(18))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)))
+						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(lblClientePaga, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblSumaAPagarl, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+						.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addComponent(textField_SumaAPagar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_ClientePaga, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
@@ -501,10 +657,6 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 					.addGap(12)
 					.addComponent(panel_3, 0, 0, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(536, Short.MAX_VALUE)
-					.addComponent(lblValorClientePaga)
-					.addGap(76))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -539,9 +691,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_ClientePaga, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblClientePaga))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblValorClientePaga)
-					.addGap(4)
+					.addGap(20)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField_VueloAlCliente, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblVueltoAlCliente, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
@@ -572,14 +722,10 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 	private Object[][] obtenerMatriz(List<DTOCuota> listaDtosCuota) {
 		datosDeLaTabla = new Object[listaDtosCuota.size()][5];
 		Calendar anio = Calendar.getInstance();
+		DTOCuota c =new DTOCuota();
 		
-        Calendar c = new GregorianCalendar();
-		
-		
-		String dia = Integer.toString(c.get(Calendar.DATE));
-		String mes = Integer.toString(c.get(Calendar.MONTH)+1);
-		String annio = Integer.toString(c.get(Calendar.YEAR));
-		String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
+   		
+        String fechaActual= formarFecha();
 		
 		float resultado;
 		
@@ -600,19 +746,24 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 			
 			if (fechaActual.compareTo(listaDtosCuota.get(i).getVencimiento().toString()) == 1) {
 				
-				resultado= listaDtosCuota.get(i).getValorOriginal() + listaDtosCuota.get(i).getRecargoPorMora() ;
+				resultado= listaDtosCuota.get(i).getValorOriginal() + interes ;
+				 
+				 listaDtosCuota.get(i).setValorPorMora(resultado);
 				
+			
 				datosDeLaTabla[i][3] = resultado + "";
-				recargoPorMoraAcumulado +=resultado;
+				recargoPorMoraAcumulado += interes;
 			 
 				}
 			else
 				{
-				resultado= listaDtosCuota.get(i).getValorOriginal() - listaDtosCuota.get(i).getBonificacion() ;
+				resultado= listaDtosCuota.get(i).getValorOriginal() - descuentos ;
+				
 				
 				datosDeLaTabla[i][3] = resultado + "";
+				 listaDtosCuota.get(i).setValorPorMora(resultado);
 				
-				bonificacionAcumulado+= resultado;
+				bonificacionAcumulado+= descuentos  ;
 				
 				
 				}
@@ -633,4 +784,31 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 	    
 	
 		return datosDeLaTabla;	}
+
+
+
+	private String formarFecha() {
+		 Calendar c = new GregorianCalendar();
+			int d,m;
+			String dia,mes,annio;
+			d=c.get(Calendar.DATE);
+			m=c.get(Calendar.MONTH)+1;
+			if (d<10) {
+				
+				dia = Integer.toString(c.get(Calendar.DATE));
+			    dia=("0").concat(dia);
+			}else 
+			      dia = Integer.toString(c.get(Calendar.DATE));
+			
+			if (m <10) {
+				
+			 mes =  Integer.toString(c.get(Calendar.MONTH)+1);
+			 mes=("0").concat(mes);
+			}else
+				mes =  Integer.toString(c.get(Calendar.MONTH)+1); 
+			
+			annio = Integer.toString(c.get(Calendar.YEAR));
+			String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
+			return fechaActual;
+	}
 }

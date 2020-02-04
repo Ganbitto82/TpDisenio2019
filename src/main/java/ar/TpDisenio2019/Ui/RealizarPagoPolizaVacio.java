@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 
 import javax.swing.UIManager;
@@ -39,11 +40,8 @@ public class RealizarPagoPolizaVacio extends JFrame {
 	private JTable table;
 	DTOPoliza dtopoliza = null;
 
-	public RealizarPagoPolizaVacio(DTOPoliza dtopoliza) {
-		initialize();
-	}
-
-	private void initialize() {
+	public RealizarPagoPolizaVacio(DTOPoliza dtopoliza,DTOOperador dtoOperador) {
+	
 
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
 		this.setBounds(0, 0, 800, 730);
@@ -73,7 +71,7 @@ public class RealizarPagoPolizaVacio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == buttonBuscarPoliza) {
 					dispose();
-					BuscarPoliza bp = new BuscarPoliza();
+					BuscarPoliza bp = new BuscarPoliza(dtoOperador);
 					bp.setVisible(true);
 					bp.setResizable(false);
 					bp.setLocationRelativeTo(null);
@@ -230,7 +228,7 @@ public class RealizarPagoPolizaVacio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnConfirmar) {
 
-					RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza);
+					RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza,dtoOperador);
 					pago.setVisible(true);
 					pago.setResizable(false);
 					pago.setLocationRelativeTo(null);

@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 
 
 import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 
 
@@ -49,7 +50,6 @@ public class RealizarPagoPoliza extends JFrame {
 	private JTextField nroCliente;
 	private JTextField txtApellido;
 	private JTextField txtNombre;
-	private JTextField textField_SumarAPagar;
 	private JTextField txtDni;
 	private JTextField textField_NroDocumento;
 	private JTextField textField_FechaPago;
@@ -64,13 +64,16 @@ public class RealizarPagoPoliza extends JFrame {
 			"Valor actual a pagar" };
 	private Object[][] datosDeLaTabla;
 	private JTable tablaCuota;
+	private float interes, descuentos;
 	
 
 	private List<DTOCuota> listaDtoCuota = new ArrayList<DTOCuota>();
 	private List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
 	private List<DTOCuota> listadtocuotaSeleccionada= new ArrayList<DTOCuota>();
+	private List<DTOCuota> listaActulizada= new ArrayList<DTOCuota>();
+	protected int flag=0;
 
-	public RealizarPagoPoliza(DTOPoliza dtopoliza) {
+	public RealizarPagoPoliza(DTOPoliza dtopoliza,DTOOperador dtoOperador) {
 	
 
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
@@ -248,19 +251,6 @@ public class RealizarPagoPoliza extends JFrame {
 		
 		textField_FechaHasta.setText(dtopoliza.getFechaFinVigencia().toString());
 		
-		
-		JLabel lblSumaAPagarl = new JLabel("Suma a Pagar:");
-		lblSumaAPagarl.setBounds(472, 436, 91, 15);
-		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
-
-		textField_SumarAPagar = new JTextField();
-		textField_SumarAPagar.setBounds(567, 433, 116, 21);
-		
-		textField_SumarAPagar.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_SumarAPagar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_SumarAPagar.setEditable(false);
-		textField_SumarAPagar.setColumns(10);
-		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(16, 16, 715, 93);
 		datosDeLaTabla = new Object[24][5];
@@ -277,10 +267,11 @@ public class RealizarPagoPoliza extends JFrame {
 		
 		for (DTOCuota Dtocuota : listaDtoCuota) {
 			
-			if( Dtocuota.getRecibo().getNroRecibo()!=null) {
+			if( Dtocuota.getRecibo().getIdRecibo()!=null) {
 				listaFechaRecibo.add(Dtocuota);	
 			}
-			
+			else {
+				listaActulizada.add(Dtocuota);}
 		}
 		
 		if (listaFechaRecibo.size()!= 0) {
@@ -337,7 +328,16 @@ public class RealizarPagoPoliza extends JFrame {
 			
 		}
 		
-		construirTabla(listaDtoCuota);
+		Float tasaDeInteres = dtopoliza.getParametrosgenerales().getTasaDeInteres();
+		Float tasaDeDescuento = dtopoliza.getParametrosgenerales().getTasaDeDescuento();
+		
+		interes= (tasaDeInteres/100)*dtopoliza.getCuota().getValorOriginal();
+		descuentos=(tasaDeDescuento/100)*dtopoliza.getCuota().getValorOriginal();
+		
+		
+  
+		
+		construirTabla(listaActulizada);
 
 		
 		
@@ -349,6 +349,7 @@ public class RealizarPagoPoliza extends JFrame {
 		
 		btnConfirmar.addActionListener(new ActionListener() {
 
+		
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnConfirmar) {
 
@@ -362,22 +363,38 @@ public class RealizarPagoPoliza extends JFrame {
 							JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una cuota", "Advertencia",
 									JOptionPane.WARNING_MESSAGE);
 						else {
-                             
-							if(rows.length==1) {
+							for (int i = 0; i <rows.length; i++) {
+								
+								if (rows[i]!=i) {flag=1;}
+								break;
+												
+								
+							}
+							if (flag==1) {
+								JOptionPane.showMessageDialog(null, "Para saldar la cuota N, la N-1 debe estar saldada", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
+								dispose();
+								RealizarPagoPoliza pago = new RealizarPagoPoliza(dtopoliza,dtoOperador);
+								pago.setVisible(true);
+								pago.setResizable(false);
+								pago.setLocationRelativeTo(null);
+								
+								
+							}else {	if(rows.length==1) {
 								
 								listadtocuotaSeleccionada.add(listaDtoCuota.get(0));
 								
 							}
 							else {
-								for (int i = 0; i <rows.length; i++) {
+								for (int j = 0; j <rows.length; j++) {
 					  
 								
-								int  rowsSeleccionada=rows[i]+1;
+								int  rowsSeleccionada=rows[j]+1;
 								
-								if( rowsSeleccionada== listaDtoCuota.get(i).getIdCuotas()) {
+								if( rowsSeleccionada== listaDtoCuota.get(j).getIdCuotas()) {
 										
 									
-									listadtocuotaSeleccionada.add(listaDtoCuota.get(i));
+									listadtocuotaSeleccionada.add(listaDtoCuota.get(j));
 								}
 								}
 								}
@@ -386,13 +403,16 @@ public class RealizarPagoPoliza extends JFrame {
 							
 						dtopoliza.setListadtocuotaSeleccionada(listadtocuotaSeleccionada);
 						
+						
 				      
 						
 						dispose();
-						RealizarPagoPolizaParte2 rp2 = new RealizarPagoPolizaParte2(dtopoliza);
+						RealizarPagoPolizaParte2 rp2 = new RealizarPagoPolizaParte2(dtopoliza,dtoOperador);
 						rp2.setVisible(true);
 						rp2.setResizable(false);
-						rp2.setLocationRelativeTo(null);
+						rp2.setLocationRelativeTo(null);}
+							
+						
 
 						}
 
@@ -590,8 +610,6 @@ public class RealizarPagoPoliza extends JFrame {
 		panel_2.add(panel_3);
 		panel_3.setLayout(null);
 		panel_3.add(scrollPane);
-		panel_2.add(lblSumaAPagarl);
-		panel_2.add(textField_SumarAPagar);
 		panel_2.add(btnConfirmar);
 		panel_2.add(btnCancelar);
 		this.getContentPane().setLayout(groupLayout);
@@ -609,15 +627,21 @@ public class RealizarPagoPoliza extends JFrame {
 	private Object[][] obtenerMatriz(List<DTOCuota> listaDtosCuota) {
 		datosDeLaTabla = new Object[listaDtosCuota.size()][5];
 		Calendar anio = Calendar.getInstance();
+		String fechaActual= formarFecha();
+		int desde;
+		int divisor;
+		int dividendo;
+		int resto;
 		
-        Calendar c = new GregorianCalendar();
-		
-		
-		String dia = Integer.toString(c.get(Calendar.DATE));
-		String mes = Integer.toString(c.get(Calendar.MONTH)+1);
-		String annio = Integer.toString(c.get(Calendar.YEAR));
-		String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
-		
+		if (listaDtosCuota.size()==1) {
+			desde=listaDtosCuota.get(0).getIdCuotas();
+			divisor=desde;
+		}
+		else
+		{    desde=listaDtosCuota.get(0).getIdCuotas()+listaDtosCuota.size();
+		     divisor=desde;
+		}
+        			
 		float resultado;
 		
 		for (int i = 0; i < listaDtosCuota.size(); i++) {
@@ -629,7 +653,7 @@ public class RealizarPagoPoliza extends JFrame {
 			String anioCuota = Integer.toString(year);
 			
 			String nrocuota_anio=nroCuota.concat("/").concat(anioCuota);
-			datosDeLaTabla[i][0] = (i+1) + "";
+			datosDeLaTabla[i][0] = listaDtosCuota.get(i).getIdCuotas() + "";
 			datosDeLaTabla[i][1] = nrocuota_anio+ "";
 			
 			datosDeLaTabla[i][2] = listaDtosCuota.get(i).getVencimiento() + "";
@@ -638,13 +662,15 @@ public class RealizarPagoPoliza extends JFrame {
 			
 			if (fechaActual.compareTo(listaDtosCuota.get(i).getVencimiento().toString()) == 1) {
 				
-				resultado= listaDtosCuota.get(i).getValorOriginal() + listaDtosCuota.get(i).getRecargoPorMora() ;
+				resultado= listaDtosCuota.get(i).getValorOriginal() + interes ;
+				
 				
 				datosDeLaTabla[i][4] = resultado + "";
 				}
 			else
 				{
-				resultado= listaDtosCuota.get(i).getValorOriginal() - listaDtosCuota.get(i).getBonificacion() ;
+			
+				resultado= listaDtosCuota.get(i).getValorOriginal() - descuentos ;
 				
 				datosDeLaTabla[i][4] = resultado + "";
 				
@@ -653,5 +679,32 @@ public class RealizarPagoPoliza extends JFrame {
 			
 		}
 		return datosDeLaTabla;
+	}
+
+	private String formarFecha() {
+	
+	
+        Calendar c = new GregorianCalendar();
+		int d,m;
+		String dia,mes,annio;
+		d=c.get(Calendar.DATE);
+		m=c.get(Calendar.MONTH)+1;
+		if (d<10) {
+			
+			dia = Integer.toString(c.get(Calendar.DATE));
+		    dia=("0").concat(dia);
+		}else 
+		      dia = Integer.toString(c.get(Calendar.DATE));
+		
+		if (m <10) {
+			
+		 mes =  Integer.toString(c.get(Calendar.MONTH)+1);
+		 mes=("0").concat(mes);
+		}else
+			mes =  Integer.toString(c.get(Calendar.MONTH)+1); 
+		
+		annio = Integer.toString(c.get(Calendar.YEAR));
+		String fechaActual=annio.concat("-").concat(mes).concat("-").concat(dia);
+		return fechaActual;
 	}
 }
