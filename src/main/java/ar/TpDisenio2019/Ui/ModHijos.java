@@ -211,7 +211,6 @@ public class ModHijos extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String s[] = { "DD/MM/AAAA", " --Seleccione-- ", " --Seleccione-- " };
 				modelo.addRow(s);
-
 			}
 
 		});
@@ -333,9 +332,7 @@ public class ModHijos extends JFrame {
 				else
 				if (GestorPoliza.validarElementosHijos(listaDtosHijos)) {
 					GestorPoliza.agregarDtosHijos(dtoPoliza,listaDtosHijos);
-					JOptionPane.showMessageDialog(null,
-							"Los datos de los hijos se han guardado exitosamente.",
-							"Alerta", JOptionPane.OK_OPTION);
+					JOptionPane.showConfirmDialog(null, "Los datos de los hijos se han guardado exitosamente.");
 					
 					System.out.println("\nHa guardado el DTO en forma exitosa, número de hijos: " + filas);
 					dispose();

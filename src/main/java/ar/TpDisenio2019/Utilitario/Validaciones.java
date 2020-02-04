@@ -122,6 +122,16 @@ public class Validaciones {
 			return false;
 		}
 	}
+	
+	public static boolean validarValorIngresado(String cadena) {
+		try {
+
+			Float.parseFloat(cadena);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
 
 	// Valida que la fecha esté completa y correcta y dentro del rango (01/01/1857 -
 	// fecha actual menos un día)

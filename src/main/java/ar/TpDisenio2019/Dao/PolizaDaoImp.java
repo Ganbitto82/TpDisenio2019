@@ -13,9 +13,12 @@ import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOEstado;
+import ar.TpDisenio2019.DTO.DTOFactoresusados;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOMarca;
+import ar.TpDisenio2019.DTO.DTOMedidasdeseguridadporc;
 import ar.TpDisenio2019.DTO.DTOModelo;
+import ar.TpDisenio2019.DTO.DTOParametrosgenerales;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTORecibo;
 import ar.TpDisenio2019.DTO.DTOSiniestro;
@@ -72,8 +75,13 @@ public class PolizaDaoImp implements PolizaDao {
 			DTOModelo dtomodelo = new DTOModelo();
 
 			DTOMarca dtomarca = new DTOMarca();
-
-			List<DTOCuota> listadtocuotas = new ArrayList<DTOCuota>();
+			
+			DTOFactoresusados dtofactoresusados=new DTOFactoresusados();
+			
+			DTOParametrosgenerales dtoparametrogenerales=new DTOParametrosgenerales();
+			
+			 DTOMedidasdeseguridadporc dtomedidasdeseguridadporc= new DTOMedidasdeseguridadporc();
+			
 
 			dtoestado.setIdEstado(poliza.getEstado().getIdEstado());
 			dtoestado.setTipo(poliza.getEstado().getTipo());
@@ -119,12 +127,33 @@ public class PolizaDaoImp implements PolizaDao {
 			dtoformasdepago.setIdFormasDePago(poliza.getFormasdepago().getIdFormasDePago());
 			dtoformasdepago.setNombre(poliza.getFormasdepago().getNombre());
 			
+			dtomedidasdeseguridadporc.setIdMedPorc(poliza.getFactoresusados().getMedidasdeseguridadporc().getIdMedPorc());
+			dtomedidasdeseguridadporc.setPorcentaje(poliza.getFactoresusados().getMedidasdeseguridadporc().getPorcentaje());
+			
+			dtofactoresusados.setIdFacUsados(poliza.getFactoresusados().getIdFacUsados());
+			dtofactoresusados.setPorcentajePorRiesgoDeDomicilio(poliza.getFactoresusados().getPorcentajePorRiesgoDeDomicilio());
+			dtofactoresusados.setPorcentajePorModeloVehiculo(poliza.getFactoresusados().getPorcentajePorModeloVehiculo());
+			dtofactoresusados.setPrima(poliza.getFactoresusados().getPrima());
+			dtofactoresusados.setMedidasdeseguridadporc(dtomedidasdeseguridadporc);
+			
+			
+			
+			dtoparametrogenerales.setIdParametrosGenerales(poliza.getParametrosgenerales().getIdParametrosGenerales());
+			dtoparametrogenerales.setDerechosDeEmision(poliza.getParametrosgenerales().getDerechosDeEmision());
+			dtoparametrogenerales.setTasaDeDescuento(poliza.getParametrosgenerales().getTasaDeDescuento());
+			dtoparametrogenerales.setTasaDeInteres(poliza.getParametrosgenerales().getTasaDeInteres());
+			
+			
+			
 			nueva.setCliente(dtoCliente);
 			nueva.setNroPoliza(poliza.getNroPoliza());
 			nueva.setFechaInicioVigencia(poliza.getFechaInicioVigencia());
 			nueva.setFechaFinVigencia(poliza.getFechaFinVigencia());
 			nueva.setCantidad(poliza.getCantidad());
 			nueva.setSumaAsegurada(poliza.getSumaAsegurada());
+			nueva.setFactoresusados(dtofactoresusados);
+			nueva.setFormasdepago(dtoformasdepago);
+			nueva.setParametrosgenerales(dtoparametrogenerales);
 			
 			nueva.setVehiculo(dtovehiculo);
 			nueva.setCuota(dtocuota);
@@ -145,5 +174,6 @@ public class PolizaDaoImp implements PolizaDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
 
 }

@@ -11,6 +11,7 @@ import ar.TpDisenio2019.DTO.DTOEstadocivil;
 import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.Modelo.Medidasdeseguridad;
+import ar.TpDisenio2019.DTO.DTORecibo;
 import ar.TpDisenio2019.Modelo.Poliza;
 import ar.TpDisenio2019.Modelo.Vehiculo;
 import ar.TpDisenio2019.Utilitario.Fechas;
@@ -115,6 +116,15 @@ public class GestorPoliza {
 
 		return GestorBDPoliza.buscarPorId(idCuota);
 
+	}
+	public static void guardarRecibo(DTORecibo dtoRecibo) {
+		GestorBDPoliza.guardarRecibo(dtoRecibo);
+	}
+	
+	public static void guardarCuota(DTOCuota dtocuota) {
+		GestorBDPoliza.guardarDTOCuota(dtocuota);
+		
+		
 	}
 
 }

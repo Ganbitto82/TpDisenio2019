@@ -20,17 +20,22 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
+
+import ar.TpDisenio2019.Controladores.GestorOperador;
+//import ar.TpDisenio2019.Controladores.GestorOperador;
+import ar.TpDisenio2019.DTO.DTOOperador;
+import ar.TpDisenio2019.Modelo.Operador;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.Validaciones;
 
 public class InicioDeSesion extends JFrame {
-
-//	List<DTOUsuario>  dtoListaUsuario = new ArrayList<DTOUsuario>();
+	
+	private DTOOperador dtoOperador = new DTOOperador();
 	private static final long serialVersionUID = 0001L;
 	private JTextField usuario_textField;
 	private JPasswordField contrasenia_textField;
-	// private final UsuarioDao
-
+	                   
+    
 	public InicioDeSesion() {
 		setTitle("Iniciar Sesi\u00F3n");
 		setBounds(100, 100, 500, 380);
@@ -45,7 +50,7 @@ public class InicioDeSesion extends JFrame {
 
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
-
+		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 11));
 
@@ -54,33 +59,40 @@ public class InicioDeSesion extends JFrame {
 
 		usuario_textField = new JTextField();
 		usuario_textField.setColumns(10);
-
-		// **********nombreUsuario
-
-		usuario_textField.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent arg0) {
+		
+		//**********nombreUsuario
+		
+		usuario_textField.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
 				String nombres = usuario_textField.getText();
-
-				if (nombres.length() > 0) {
-					if (Validaciones.validarApellidoONombre(nombres) == false) {
-						// labelAclaracionSobreNombres.setVisible(true);
+				
+				if(nombres.length() > 0)
+				{				
+					if(Validaciones.validarApellidoONombre(nombres) == false)
+					{
+						//labelAclaracionSobreNombres.setVisible(true);
 					}
 				}
 			}
-
-			public void focusGained(FocusEvent arg0) {
-				// labelAclaracionSobreNombres.setVisible(false);
+			
+			public void focusGained(FocusEvent arg0)
+			{
+				//labelAclaracionSobreNombres.setVisible(false);
 			}
 		});
-
+		
 		usuario_textField.addKeyListener(new KeyAdapterModificado());
-
-		usuario_textField.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent arg0) {
+		
+		usuario_textField.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
 				String texto = usuario_textField.getText();
 				usuario_textField.setText(texto.toUpperCase());
 			}
-
+			
 		});
 
 		JComboBox<String> Persona_comboBox = new JComboBox<String>();
@@ -103,7 +115,7 @@ public class InicioDeSesion extends JFrame {
 										.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 55,
 												GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(gl_panel.createSequentialGroup()
+						  		.addGroup(gl_panel.createSequentialGroup()
 										.addComponent(lblContrasea, GroupLayout.PREFERRED_SIZE, 70,
 												GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.UNRELATED))))
@@ -167,7 +179,7 @@ public class InicioDeSesion extends JFrame {
 					String usuario = usuario_textField.getText();
 					@SuppressWarnings("deprecation")
 					String contrasenia = contrasenia_textField.getText();
-
+					
 					if (cargo.equals("") || usuario.equals("") || contrasenia.equals("")) {
 						if (cargo.equals(" --Seleccione-- ")) {
 							lblCargo.setForeground(Color.red);
@@ -184,7 +196,18 @@ public class InicioDeSesion extends JFrame {
 						} else {
 							lblContrasea.setForeground(Color.black);
 						}
-					} else {
+					}
+					 else {
+						 
+						 Operador operador = new Operador();						 
+						 operador.setNombre(usuario);
+						 
+						 GestorOperador.guardarOperador(operador);
+						 
+						 dtoOperador.setCargo(cargo);
+						 dtoOperador.setcontrasenia(contrasenia);
+						 dtoOperador.setNombre(usuario);
+						 
 						switch (cargo) {
 						case "Productor de seguro": {
 
@@ -195,7 +218,7 @@ public class InicioDeSesion extends JFrame {
 							break;
 						}
 						case "Cobrador": {
-							PantallaCobrador c = new PantallaCobrador();
+							PantallaCobrador c = new PantallaCobrador(dtoOperador);
 							c.setVisible(true);
 							c.setResizable(false);
 							c.setLocationRelativeTo(null);
@@ -229,7 +252,7 @@ public class InicioDeSesion extends JFrame {
 
 		setVisible(true);
 		setLocationRelativeTo(null);
-
+	
 		GroupLayout gl_seccionBotones = new GroupLayout(seccionBotones);
 		gl_seccionBotones.setHorizontalGroup(gl_seccionBotones.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_seccionBotones.createSequentialGroup().addContainerGap(265, Short.MAX_VALUE)

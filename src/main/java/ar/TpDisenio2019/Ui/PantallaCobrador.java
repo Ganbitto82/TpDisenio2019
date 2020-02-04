@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 
+import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.Utilitario.ImagenProductor;
 
@@ -21,11 +22,8 @@ public class PantallaCobrador extends JFrame {
 
 	private static final long serialVersionUID = -4324011734699041113L;
 
-	public PantallaCobrador() {
-		initialize();
-	}
-
-	private void initialize() {
+	public PantallaCobrador(DTOOperador dtoOperador) {
+	
 
 		this.setTitle("El Asegurado");
 		this.setBounds(50, 0, 800, 450);
@@ -75,7 +73,7 @@ public class PantallaCobrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				DTOPoliza dtopoliza = null;
-				RealizarPagoPolizaVacio pago = new RealizarPagoPolizaVacio(dtopoliza);
+				RealizarPagoPolizaVacio pago = new RealizarPagoPolizaVacio(dtopoliza, dtoOperador);
 				pago.setVisible(true);
 				pago.setResizable(false);
 				pago.setLocationRelativeTo(null);

@@ -11,35 +11,46 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Random;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
-import javax.swing.JFormattedTextField;
+
+import ar.TpDisenio2019.DTO.DTOCuota;
+import ar.TpDisenio2019.DTO.DTOOperador;
+import ar.TpDisenio2019.DTO.DTOPoliza;
+
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 
 public class RealizarPagoPolizaParte3 extends JFrame {
-
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField txtAaaaaaaaaaaaaa;
-	private JTextField txtAaaaaaaaaaaaaaa_1;
-	private JTextField txtAaaaa;
-	private JTextField textField_7;
-	private JTextField textField_3;
-	private JTextField textField_1;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField txtMaraMontenegro;
-
-	public RealizarPagoPolizaParte3() {
-		initialize();
-	}
-
-	private void initialize() {
+	private JTextField textField_NroPoliza;
+	private JTextField textField_Importe;
+	private JTextField textField_NroRecibo;
+	private JTextField textField_Premio;
+	private JTextField textField_RecargoPorMor;
+	private JTextField textField_Bonificacion;
+	private JTextField txOperador;
+	private JTextField textField_Fecha;
+	private JTextField textField_Hora;
+	private JList<Object> list=new JList<Object>();
+	private DefaultListModel listaanio=new  DefaultListModel();
+	private float premio,prima,derechoDeEmision;
+	
+	@SuppressWarnings("unchecked")
+	public RealizarPagoPolizaParte3(DTOPoliza dtopoliza, DTOOperador dtoOperador) {
+	
 
 		this.setTitle("El Asegurado - Realizar el Pago de P\u00F3liza");
 		this.setBounds(50, 0, 800, 730);
@@ -62,94 +73,103 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 		panel_2.setBorder(
 				new TitledBorder(null, "SE HA REGISTRADO EL PAGO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JLabel label_7 = new JLabel("NRO DE P\u00D3LIZA:");
-		label_7.setFont(new Font("Tahoma", Font.PLAIN, 11));
-
-		textField = new JTextField();
-		textField.setText("9999-9999999-99");
-		textField.setEditable(false);
-		textField.setColumns(10);
-
+		JLabel label_NroPoliza = new JLabel("NRO DE P\u00D3LIZA:");
+		label_NroPoliza.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
 		JLabel lblNroRecibo = new JLabel("Nro Recibo:");
 		lblNroRecibo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		JLabel lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setText("14/05/2019");
-		formattedTextField_1.setEditable(false);
-
 		JLabel lblHora = new JLabel("Hora:");
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setText("11:06");
-		formattedTextField_2.setEditable(false);
-
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "DATOS DEL VEH\u00CDCULO",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-
-		JLabel label_11 = new JLabel("Marca:");
-
-		txtAaaaaaaaaaaaaa = new JTextField();
-		txtAaaaaaaaaaaaaa.setText("AAAAAAAAAAAAAA");
-		txtAaaaaaaaaaaaaa.setEditable(false);
-		txtAaaaaaaaaaaaaa.setColumns(10);
-
-		JLabel label_12 = new JLabel("Modelo:");
-
-		txtAaaaaaaaaaaaaaa_1 = new JTextField();
-		txtAaaaaaaaaaaaaaa_1.setText("AAAAAAAAAAAAAAA");
-		txtAaaaaaaaaaaaaaa_1.setEditable(false);
-		txtAaaaaaaaaaaaaaa_1.setColumns(10);
-
-		JLabel label_13 = new JLabel("Patente:");
-
-		txtAaaaa = new JTextField();
-		txtAaaaa.setText("AA-AAA-99");
-		txtAaaaa.setEditable(false);
-		txtAaaaa.setColumns(10);
-		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup().addContainerGap()
-						.addComponent(label_11, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(txtAaaaaaaaaaaaaa, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE).addGap(18)
-						.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(txtAaaaaaaaaaaaaaa_1, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(label_13, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(txtAaaaa, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
-		gl_panel_4
-				.setVerticalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_4.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE).addComponent(label_11)
-										.addComponent(txtAaaaaaaaaaaaaa, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_13)
-										.addComponent(txtAaaaa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(label_12).addComponent(txtAaaaaaaaaaaaaaa_1,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(16, Short.MAX_VALUE)));
-		panel_4.setLayout(gl_panel_4);
-
 		JLabel lblSumaAPagarl = new JLabel("IMPORTE");
 		lblSumaAPagarl.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		String peso="$";
 
-		textField_7 = new JTextField();
-		textField_7.setText("$2451,50");
-		textField_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_7.setEditable(false);
-		textField_7.setColumns(10);
+		textField_NroPoliza = new JTextField();
+		textField_NroPoliza.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_NroPoliza.setEditable(false);
+		textField_NroPoliza.setColumns(10);
 
+		textField_NroPoliza.setText(dtopoliza.getNroPoliza().toString());
+
+		textField_Importe = new JTextField();
+		textField_Importe.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_Importe.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textField_Importe.setEditable(false);
+		textField_Importe.setColumns(10);
+		
+		String suma=String. valueOf(dtopoliza.getSumaTotal());
+		
+		textField_Importe.setText(peso.concat(suma));
+
+		textField_Premio = new JTextField();
+		textField_Premio.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_Premio.setEditable(false);
+		textField_Premio.setColumns(10);
+		
+		 premio=calcularPremio(dtopoliza);
+		
+		 String premioString = Float.toString(premio);
+		 textField_Premio.setText(peso.concat(premioString));
+
+
+		textField_RecargoPorMor = new JTextField();
+		textField_RecargoPorMor.setEditable(false);
+		textField_RecargoPorMor.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_RecargoPorMor.setColumns(10);
+		
+		String s = Float.toString(dtopoliza.getRecargoPorMoraAcumulado());
+        
+		textField_RecargoPorMor.setText(peso.concat(s));
+		
+		textField_Bonificacion = new JTextField();
+		textField_Bonificacion.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_Bonificacion.setEditable(false);
+		textField_Bonificacion.setColumns(10);
+		
+		String b = Float.toString(dtopoliza.getBonificacionAcumulado());
+		
+		textField_Bonificacion.setText(peso.concat(b));
+
+		txOperador = new JTextField();
+		txOperador.setEditable(false);
+		txOperador.setColumns(10);
+		
+		txOperador.setText(dtoOperador.getNombre());
+
+		JScrollPane scrollPane = new JScrollPane();
+		
+		textField_Fecha = new JTextField();
+		textField_Fecha.setEditable(false);
+		textField_Fecha.setColumns(10);
+		
+		String fechaDelDia = calcularFecha();
+		textField_Fecha.setText(fechaDelDia);
+		
+		textField_Hora = new JTextField();
+		textField_Hora.setEditable(false);
+		textField_Hora.setColumns(10);
+		
+		String horaDelDia= crearHoraDelDia();
+		
+		textField_Hora.setText(horaDelDia);
+		
+		textField_NroRecibo = new JTextField();
+		textField_NroRecibo.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_NroRecibo.setEditable(false);
+		textField_NroRecibo.setColumns(10);
+		
+		String numRecibo= crearNumeroRecibo(dtopoliza.getCuota().getIdCuotas());
+
+		textField_NroRecibo.setText(numRecibo);
+		
 		JPanel panel_6 = new JPanel();
+		
 
 		JButton btnRegistrarPago = new JButton("Emitir Recibo de Pago");
 
@@ -198,10 +218,6 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 				.addGap(18).addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 499, Short.MAX_VALUE).addGap(30)
 				.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setText("99999999999");
-		textField_3.setColumns(10);
 
 		JLabel lblPremio = new JLabel("Premio:");
 		lblPremio.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -218,166 +234,168 @@ public class RealizarPagoPolizaParte3 extends JFrame {
 		JLabel lblMesAo = new JLabel("Mes / A\u00F1o abonado:");
 		lblMesAo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_1.setEditable(false);
-		textField_1.setText("$2222,20");
-		textField_1.setColumns(10);
 
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_4.setText("$245,45");
-		textField_4.setColumns(10);
-
-		textField_5 = new JTextField();
-		textField_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_5.setEditable(false);
-		textField_5.setText("$0,00");
-		textField_5.setColumns(10);
-
-		txtMaraMontenegro = new JTextField();
-		txtMaraMontenegro.setEditable(false);
-		txtMaraMontenegro.setText("MAR\u00CDA MONTENEGRO");
-		txtMaraMontenegro.setColumns(10);
-
-		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup().addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup().addContainerGap().addComponent(panel_4,
-								GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_2.createSequentialGroup().addGap(20).addGroup(gl_panel_2
-								.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblSumaAPagarl, GroupLayout.PREFERRED_SIZE, 106,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNroRecibo, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblMesAo)
-								.addComponent(lblOperador, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-								.addGap(10)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtMaraMontenegro, GroupLayout.PREFERRED_SIZE, 202,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 140,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_panel_2.createSequentialGroup().addGroup(gl_panel_2
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(textField_7, 0, 0, Short.MAX_VALUE)
-												.addComponent(lblPremio, GroupLayout.PREFERRED_SIZE, 62,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblRecargosPorMora).addComponent(lblBonificacinPorPago)
-												.addComponent(textField, 163, 163, 163).addComponent(textField_3,
-														GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
-														.addGroup(gl_panel_2.createSequentialGroup().addGroup(gl_panel_2
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(textField_4, GroupLayout.PREFERRED_SIZE,
-																		98, GroupLayout.PREFERRED_SIZE)
-																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE,
-																		98, GroupLayout.PREFERRED_SIZE)
-																.addComponent(textField_5, GroupLayout.PREFERRED_SIZE,
-																		98, GroupLayout.PREFERRED_SIZE))
-																.addGap(342))
-														.addGroup(gl_panel_2.createSequentialGroup().addGroup(gl_panel_2
-																.createParallelGroup(Alignment.TRAILING)
-																.addComponent(lblHora, GroupLayout.PREFERRED_SIZE, 40,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 43,
-																		GroupLayout.PREFERRED_SIZE))
-																.addGap(4)
-																.addGroup(gl_panel_2
-																		.createParallelGroup(Alignment.TRAILING, false)
-																		.addComponent(formattedTextField_2,
-																				Alignment.LEADING)
-																		.addComponent(formattedTextField_1,
-																				Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE, 74,
-																				Short.MAX_VALUE))
-																.addGap(102)))))))
-						.addContainerGap()));
-		gl_panel_2.setVerticalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_2
-				.createSequentialGroup().addGap(
-						40)
-				.addGroup(
-						gl_panel_2.createParallelGroup(Alignment.LEADING)
-								.addGroup(
-										gl_panel_2.createSequentialGroup().addGap(12)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(formattedTextField_1, GroupLayout.PREFERRED_SIZE,
-																27, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblFecha))
-												.addGap(18)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(formattedTextField_2, GroupLayout.PREFERRED_SIZE,
-																24, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblHora)))
-								.addGroup(
-										gl_panel_2
-												.createSequentialGroup().addGap(9)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(label_7).addComponent(textField,
-																GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(21)
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(lblNroRecibo)
-														.addComponent(textField_3, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-				.addGap(16)
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE).addComponent(lblSumaAPagarl).addComponent(
-						textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(20)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSumaAPagarl, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_NroPoliza, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNroRecibo, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMesAo)
+						.addComponent(lblOperador, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+					.addGap(10)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(txOperador, GroupLayout.PREFERRED_SIZE, 202, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_2.createSequentialGroup()
-								.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false).addGroup(gl_panel_2
-										.createSequentialGroup()
-										.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblPremio).addComponent(textField_1,
-														GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblRecargosPorMora).addComponent(textField_4,
-														GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblBonificacinPorPago).addComponent(textField_5,
-														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(85))
-										.addGroup(gl_panel_2.createSequentialGroup()
-												.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-														.addComponent(lblOperador).addComponent(txtMaraMontenegro,
-																GroupLayout.PREFERRED_SIZE, 23,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(32)))
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE).addComponent(lblMesAo)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61,
-												GroupLayout.PREFERRED_SIZE))))
-				.addContainerGap(72, Short.MAX_VALUE)));
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_Importe, 0, 0, Short.MAX_VALUE)
+								.addComponent(lblPremio, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRecargosPorMora)
+								.addComponent(lblBonificacinPorPago)
+								.addComponent(textField_NroPoliza, 163, 163, 163)
+								.addComponent(textField_NroRecibo, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel_2.createSequentialGroup()
+									.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+										.addComponent(textField_RecargoPorMor, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textField_Premio, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textField_Bonificacion, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+									.addGap(342))
+								.addGroup(gl_panel_2.createSequentialGroup()
+									.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblHora, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+									.addGap(4)
+									.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+										.addComponent(textField_Fecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textField_Hora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(50)))))
+					.addContainerGap())
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(40)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(12)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblFecha)
+								.addComponent(textField_Fecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblHora)
+								.addComponent(textField_Hora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(9)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(label_NroPoliza)
+								.addComponent(textField_NroPoliza, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(21)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNroRecibo)
+								.addComponent(textField_NroRecibo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addGap(16)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSumaAPagarl)
+						.addComponent(textField_Importe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblPremio)
+								.addComponent(textField_Premio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblRecargosPorMora)
+								.addComponent(textField_RecargoPorMor, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblBonificacinPorPago)
+								.addComponent(textField_Bonificacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(85))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblOperador)
+								.addComponent(txOperador, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+							.addGap(32)))
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMesAo)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(60, Short.MAX_VALUE))
+		);
 
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			String[] values = new String[] { "01 / 2019", "02 / 2019", "03 / 2019", "04 / 2019" };
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		list.setModel( listaanio);
+        Calendar mes = Calendar.getInstance();
+        Calendar anio= Calendar.getInstance();
+		
+		 int year,month;
+		 String a,m,m_a;
+		 
+		 
+		 for(DTOCuota c: dtopoliza.getListadtocuotaSeleccionada()) {
+			 anio.setTime(c.getVencimiento());
+			 mes.setTime(c.getVencimiento());
+			 year = anio.get(Calendar.YEAR);
+			 month= mes.get(Calendar.MONTH);
+			 a = Integer.toString(year);
+			 m=  Integer.toString(month+1);
+			 m_a=m.concat("/").concat(a);
+			 listaanio.addElement(m_a);
+			 
+		 }
+		 
+		
+	
+		
 		scrollPane.setViewportView(list);
 		panel_2.setLayout(gl_panel_2);
 		this.getContentPane().setLayout(groupLayout);
+	}
+
+	private float calcularPremio(DTOPoliza dtopoliza) {
+		float tasaDerechoDeEmision; 
+		prima=dtopoliza.getFactoresusados().getPrima();
+		tasaDerechoDeEmision=  dtopoliza.getParametrosgenerales().getDerechosDeEmision();
+		derechoDeEmision=prima*(tasaDerechoDeEmision/100);
+         premio=prima + derechoDeEmision;
+         return premio ;
+	}
+
+	private String crearHoraDelDia() {
+		Calendar calendario = new GregorianCalendar();
+		
+		int hora ,minutos;
+		
+		
+		hora =calendario.get(Calendar.HOUR_OF_DAY);
+		minutos = calendario.get(Calendar.MINUTE);
+		String h=Integer.toString(hora);
+		String m=Integer.toString(minutos);
+		String horaMinutos=h.concat(":").concat(m);
+		return horaMinutos;
+	}
+
+	private String calcularFecha() {
+Calendar c = new GregorianCalendar();
+		
+		
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		String mes = Integer.toString(c.get(Calendar.MONTH)+1);
+		String annio = Integer.toString(c.get(Calendar.YEAR));
+		
+		String fecha = dia.concat("-").concat(mes).concat("-").concat(annio);
+		return fecha;
+	}
+
+	private String crearNumeroRecibo(int valorIDCuota) {
+		String v=Integer.toString(valorIDCuota);
+		String r="00";
+		return r.concat(v);
 	}
 }

@@ -25,6 +25,10 @@ import javax.persistence.TemporalType;
 @Table(name = "poliza", catalog = "dbelaseguradov4")
 public class DTOPoliza implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer identNroPoliza;
 	private DTOCliente dTOCliente;
 	private DTOCuota dTOCuota;
@@ -48,6 +52,10 @@ public class DTOPoliza implements java.io.Serializable {
 	private List<DTOCuota> listadtocuota;
 	private List<DTOCuota> listadtocuotaSeleccionada;
 	private Long nroPoliza;
+	private float sumaTotal;
+	private float recargoPorMoraAcumulado;
+	 private float bonificacionAcumulado;
+	
 	private Set<DTOModificacionpoliza> dTOModificacionpolizas = new HashSet<DTOModificacionpoliza>(0);
 
 	public DTOPoliza() {
@@ -312,6 +320,31 @@ public class DTOPoliza implements java.io.Serializable {
 	public void setListadtocuotaSeleccionada(List<DTOCuota> listadtocuotaSeleccionada) {
 		this.listadtocuotaSeleccionada = listadtocuotaSeleccionada;
 	}
+
+	public float getSumaTotal() {
+		return sumaTotal;
+	}
+
+	public void setSumaTotal(float sumaTotal) {
+		this.sumaTotal = sumaTotal;
+	}
+
+	public float getBonificacionAcumulado() {
+		return bonificacionAcumulado;
+	}
+
+	public void setBonificacionAcumulado(float bonificacionAcumulado) {
+		this.bonificacionAcumulado = bonificacionAcumulado;
+	}
+
+	public float getRecargoPorMoraAcumulado() {
+		return recargoPorMoraAcumulado;
+	}
+
+	public void setRecargoPorMoraAcumulado(float recargoPorMoraAcumulado) {
+		this.recargoPorMoraAcumulado = recargoPorMoraAcumulado;
+	}
+	
 	
 
 }

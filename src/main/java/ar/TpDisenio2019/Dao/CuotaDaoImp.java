@@ -11,6 +11,8 @@ import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTORecibo;
 import ar.TpDisenio2019.Modelo.Cuota;
+import ar.TpDisenio2019.Modelo.Operador;
+import ar.TpDisenio2019.Modelo.Recibo;
 
 public class CuotaDaoImp implements CuotaDao {
 
@@ -83,6 +85,33 @@ public class CuotaDaoImp implements CuotaDao {
 		session.close();
 
 		return cuotas;
+	}
+	
+	@Override
+	public void guardarDTOCuota(DTOCuota dtocuota) {
+		Session session = sessionFactory.openSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Cuota> query = builder.createQuery(Cuota.class);
+		Root<Cuota> root = query.from(Cuota.class);
+		query.select(root);
+		query.where(builder.equal(root.get("idCuotas"), dtocuota.getIdCuotas()));
+
+		Cuota cuota = session.createQuery(query).uniqueResult();
+		
+		session.beginTransaction();
+			
+		Recibo recibo=new Recibo();
+		recibo.setIdRecibo(cuota.getIdCuotas());
+		cuota.setRecibo(recibo);
+		cuota.setCuotasPagas(dtocuota.getCuotasPagas());
+		cuota.setValorPorMora(dtocuota.getValorPorMora());
+		cuota.setValorTotalaPagar(dtocuota.getValorTotalaPagar());
+		cuota.setBonificacion(dtocuota.getBonificacion());
+		cuota.setRecargoPorMora(dtocuota.getRecargoPorMora());
+		
+		session.save(cuota);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

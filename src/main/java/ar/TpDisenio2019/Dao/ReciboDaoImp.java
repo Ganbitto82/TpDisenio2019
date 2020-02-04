@@ -6,6 +6,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import ar.TpDisenio2019.DTO.DTOOperador;
+import ar.TpDisenio2019.DTO.DTORecibo;
+import ar.TpDisenio2019.Modelo.Operador;
 import ar.TpDisenio2019.Modelo.Recibo;
 
 public class ReciboDaoImp implements ReciboDao {
@@ -34,9 +38,34 @@ public class ReciboDaoImp implements ReciboDao {
 	}
 
 	@Override
-	public void guardar(Recibo recibo) {
+	public void guardar(DTORecibo dtorecibo) {
 		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+        session.beginTransaction();
+		
+        Recibo recibo=new Recibo();
+		Operador operador =new Operador();
+		
+		operador.setIdOperador(dtorecibo.getOperador().getIdOperador());
+		operador.setNombre(dtorecibo.getOperador().getNombre());
+		
+		
+		recibo.setIdRecibo(dtorecibo.getIdRecibo());
+		recibo.setOperador(operador);
+		recibo.setNroRecibo(dtorecibo.getNroRecibo());
+		recibo.setFecha(dtorecibo.getFecha());
+		recibo.setHora(dtorecibo.getHora());
+		recibo.setUltimoDiaDePago(dtorecibo.getUltimoDiaDePago());
+		recibo.setImporteTotal(dtorecibo.getImporteTotal());
+		
+		/*System.out.println(dtorecibo.getIdRecibo());
+		System.out.println(operador.getNombre());
+		System.out.println(dtorecibo.getNroRecibo());
+		System.out.println(dtorecibo.getFecha());
+		System.out.println(dtorecibo.getHora());
+		System.out.println(dtorecibo.getUltimoDiaDePago());
+		System.out.println(dtorecibo.getImporteTotal());*/
+		System.out.println();
+		
 		session.save(recibo);
 		session.getTransaction().commit();
 		session.close();

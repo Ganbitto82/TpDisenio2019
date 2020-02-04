@@ -6,6 +6,7 @@ import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOPoliza;
+import ar.TpDisenio2019.DTO.DTORecibo;
 import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.Dao.CuotaDao;
 import ar.TpDisenio2019.Dao.CuotaDaoImp;
@@ -15,6 +16,8 @@ import ar.TpDisenio2019.Dao.MedidasdeseguridadDao;
 import ar.TpDisenio2019.Dao.MedidasdeseguridadDaoImp;
 import ar.TpDisenio2019.Dao.PolizaDao;
 import ar.TpDisenio2019.Dao.PolizaDaoImp;
+import ar.TpDisenio2019.Dao.ReciboDao;
+import ar.TpDisenio2019.Dao.ReciboDaoImp;
 import ar.TpDisenio2019.Dao.TipocoberturaDao;
 import ar.TpDisenio2019.Dao.TipocoberturaDaoImp;
 import ar.TpDisenio2019.Dao.VehiculoDao;
@@ -33,8 +36,11 @@ public class GestorBDPoliza {
 	private static FormasdepagoDao formadepagoDao;
 	private static VehiculoDao vehiculoDao;
 	private static CuotaDao cuotaDao;
+
 	private static MedidasdeseguridadDao medidasdeseguridadDao;
 	
+
+	private static ReciboDao reciboDao;
 
 	public GestorBDPoliza() {
 
@@ -45,6 +51,7 @@ public class GestorBDPoliza {
 		GestorBDPoliza.cuotaDao = new CuotaDaoImp(session.Conexion());
 		GestorBDPoliza.medidasdeseguridadDao = new MedidasdeseguridadDaoImp(session.Conexion());
 			
+		GestorBDPoliza.reciboDao= new ReciboDaoImp(session.Conexion());
 	}
 
 	public Tipocobertura getTipocobertura(DTOTipocobertura dtotipocobertura) {
@@ -90,6 +97,14 @@ public class GestorBDPoliza {
 
 		return cuotaDao.buscarPorId(idCuota);
 
+	}
+	
+	public static void guardarRecibo(DTORecibo dtoRecibo) {
+		reciboDao.guardar(dtoRecibo);
+	}
+	public static void guardarDTOCuota(DTOCuota dtocuota) {
+		
+		cuotaDao.guardarDTOCuota(dtocuota);
 	}
 
 }

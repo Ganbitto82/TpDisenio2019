@@ -12,4 +12,7 @@ public interface CuotaDao {
 	public void guardar(Cuota cuota);
 
 	public List<Cuota> obtenerTodas();
+	
+	public void guardarDTOCuota(DTOCuota dtocuota);
+	
 }
