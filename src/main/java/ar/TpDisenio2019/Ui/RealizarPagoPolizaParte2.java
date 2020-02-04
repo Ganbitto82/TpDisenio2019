@@ -431,21 +431,25 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 						
 						listasel.get(i).setRecibo(dtoRecibo);
 						listasel.get(i).setCuotasPagas(listasel.size());
-						listasel.get(i).setRecargoPorMora(interes);
-						listasel.get(i).setBonificacion(descuentos);
+						//listasel.get(i).setRecargoPorMora(interes);
+						//listasel.get(i).setBonificacion(descuentos);
 						
 						if(listasel.get(i).getValorOriginal() < listasel.get(i).getValorPorMora())
 						{
 							listasel.get(i).setValorTotalaPagar(listasel.get(i).getValorPorMora());
 							
+							listasel.get(i).setRecargoPorMora(interes);
 							
+							listasel.get(i).setBonificacion(0f);
 														
 						}else 
 						
 						{    
 							listasel.get(i).setValorTotalaPagar(listasel.get(i).getValorPorMora());
 							
+							listasel.get(i).setBonificacion(descuentos);
 							
+							listasel.get(i).setRecargoPorMora(0f);
 							
 						} 
 						

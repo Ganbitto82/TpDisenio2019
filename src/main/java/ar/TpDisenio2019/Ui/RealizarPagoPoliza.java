@@ -628,19 +628,7 @@ public class RealizarPagoPoliza extends JFrame {
 		datosDeLaTabla = new Object[listaDtosCuota.size()][5];
 		Calendar anio = Calendar.getInstance();
 		String fechaActual= formarFecha();
-		int desde;
-		int divisor;
-		int dividendo;
-		int resto;
-		
-		if (listaDtosCuota.size()==1) {
-			desde=listaDtosCuota.get(0).getIdCuotas();
-			divisor=desde;
-		}
-		else
-		{    desde=listaDtosCuota.get(0).getIdCuotas()+listaDtosCuota.size();
-		     divisor=desde;
-		}
+	
         			
 		float resultado;
 		
