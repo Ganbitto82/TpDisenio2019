@@ -24,6 +24,10 @@ import javax.persistence.TemporalType;
 @Table(name = "poliza", catalog = "dbelaseguradov4")
 public class Poliza implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8984516062523963133L;
 	private Integer identNroPoliza;
 	private Cliente cliente;
 	private Cuota cuota;
@@ -42,7 +46,7 @@ public class Poliza implements java.io.Serializable {
 	private Date fechaInicioVigencia;
 	private Date fechaFinVigencia;
 	private Float sumaAsegurada;
-	private Character nroSiniestro;
+	private String nroSiniestro;
 	private Integer cantidad;
 	private Set<Modificacionpoliza> modificacionpolizas = new HashSet<Modificacionpoliza>(0);
 
@@ -53,7 +57,7 @@ public class Poliza implements java.io.Serializable {
 			Formasdepago formasdepago, Kmporanio kmporanio, Medidasdeseguridad medidasdeseguridad,
 			Parametrosgenerales parametrosgenerales, Siniestro siniestro, Tipocobertura tipocobertura,
 			Vehiculo vehiculo, Integer idEstadoCliente, Long nroPoliza, Date fechaInicioVigencia, Date fechaFinVigencia,
-			Float sumaAsegurada, Character nroSiniestro, Integer cantidad,
+			Float sumaAsegurada, String nroSiniestro, Integer cantidad,
 			Set<Modificacionpoliza> modificacionpolizas) {
 		this.cliente = cliente;
 		this.cuota = cuota;
@@ -256,12 +260,12 @@ public class Poliza implements java.io.Serializable {
 		this.sumaAsegurada = sumaAsegurada;
 	}
 
-	@Column(name = "nroSiniestro", length = 1)
-	public Character getNroSiniestro() {
+	@Column(name = "nroSiniestro", length = 15)
+	public String getNroSiniestro() {
 		return this.nroSiniestro;
 	}
 
-	public void setNroSiniestro(Character nroSiniestro) {
+	public void setNroSiniestro(String nroSiniestro) {
 		this.nroSiniestro = nroSiniestro;
 	}
 

@@ -33,9 +33,9 @@ import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOTipodedocumento;
 import ar.TpDisenio2019.ListaDesplegable.GestorListasDesplegables;
-import ar.TpDisenio2019.Modelo.Cliente;
 import ar.TpDisenio2019.Utilitario.KeyAdapterModificado;
 import ar.TpDisenio2019.Utilitario.Validaciones;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -62,22 +62,24 @@ public class buscarCliente extends JFrame {
 	private JFormattedTextField nroCliente;
 
 	private List<DTOTipodedocumento> dtoListaTipoDocumento = new ArrayList<DTOTipodedocumento>();
-	private List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
-	private List<DTOCliente> clientes_busqueda = new ArrayList<DTOCliente>();
-
+    private List<DTOCliente> listaDtosCliente = new ArrayList<DTOCliente>();
+    private List<DTOCliente> clientes_busqueda= new ArrayList<DTOCliente>();
+    
+    
 	private JLabel labelAclaracionSobreNumerodeCliente;
 
 	private JScrollPane scrollPane;
 	private String[] nombresDeLasColumnasDeLaTabla = { "Nro de Cliente", "Nombre", "Apellido", "Tipo de Documento",
 			"Nro de Documento" };
-	private Object[][] datosDeLaTabla;
+	private Object[][]datosDeLaTabla;
 	private JTable tablaCliente;
 	long numCliente;
 	int numeroDoc;
-	private String tipoDeDocumento = " ";
-	int bandera = 0;
+	private String tipoDeDocumento=" ";
+	int bandera=0;
 
-	public buscarCliente() {
+	
+	public buscarCliente(DTOCliente dtoCliente) {
 
 		setTitle("Buscar Cliente");
 
@@ -96,26 +98,27 @@ public class buscarCliente extends JFrame {
 
 		JLabel lblSeleccioneUnCliente = new JLabel("Seleccione un Cliente");
 
+		
 		JButton button_2 = new JButton("Cancelar");
 		button_2.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				hide();
+				dispose();
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		// datos de tabla
 		scrollPane = new JScrollPane();
-
+	
 		datosDeLaTabla = new Object[24][5];
-		tablaCliente = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
-		tablaCliente.setCellSelectionEnabled(true);
+		 tablaCliente = new JTable(datosDeLaTabla, nombresDeLasColumnasDeLaTabla);
+		 tablaCliente.setCellSelectionEnabled(true);
 
-		tablaCliente.getColumnModel().getColumn(2).setPreferredWidth(119);
-		tablaCliente.getColumnModel().getColumn(3).setPreferredWidth(118);
-		scrollPane.setViewportView(tablaCliente);
+		 tablaCliente.getColumnModel().getColumn(2).setPreferredWidth(119);
+		 tablaCliente.getColumnModel().getColumn(3).setPreferredWidth(118);
+		scrollPane.setViewportView( tablaCliente);
 
+	
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(5, 94, 774, 211);
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -176,8 +179,9 @@ public class buscarCliente extends JFrame {
 		apellidoCliente = new JTextField();
 		apellidoCliente.setColumns(10);
 		//
+	
 
-		docCliente = new JTextField();
+		docCliente = new  JTextField();
 		docCliente.setColumns(10);
 
 		// ********** Verifica el numero de cliente
@@ -198,6 +202,8 @@ public class buscarCliente extends JFrame {
 			}
 		});
 
+		System.out.println( );
+		
 		labelAclaracionSobreNumerodeCliente = new JLabel("Formato de numero de cliente 99-99999999");
 		labelAclaracionSobreNumerodeCliente.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		labelAclaracionSobreNumerodeCliente.setForeground(Color.RED);
@@ -277,40 +283,47 @@ public class buscarCliente extends JFrame {
 
 		// ***** verifica los tipos de documentos con sus cantidades de digitos
 
-		docCliente.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent arg0) {
+
+	
+		docCliente.addFocusListener(new FocusAdapter()
+		{
+			public void focusLost(FocusEvent arg0)
+			{
 				String numeroDeDoc = docCliente.getText();
-				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
-
-				if ((numeroDeDoc.length() > 0) && ((tipoDeDocumento != "--Seleccione--") || tipoDeDocumento != " ")) {
-
-					if (Validaciones.validarNumeroDeDocumento(numeroDeDoc, tipoDeDocumento) == false) {
-						if (tipoDeDocumento.compareTo("DNI") == 0)
+			    tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
+				
+				if( (numeroDeDoc.length() > 0) && ((tipoDeDocumento!="--Seleccione--")||tipoDeDocumento!=" ") )
+				{	
+									
+					if(Validaciones.validarNumeroDeDocumento(numeroDeDoc , tipoDeDocumento) == false)
+					{
+						if(tipoDeDocumento.compareTo("DNI") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (solo 8)");
-						else if (tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
+						else if(tipoDeDocumento.compareTo("LE") == 0 || tipoDeDocumento.compareTo("LC") == 0)
 							labelAclaracionSobreNumeroDeDocumento.setText("Solo se permiten numeros (solo 7)");
-						else if (tipoDeDocumento.compareTo("Pasaporte") == 0)
-							labelAclaracionSobreNumeroDeDocumento
-									.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 9)");
-						else if (tipoDeDocumento.compareTo("Otro") == 0)
-							labelAclaracionSobreNumeroDeDocumento
-									.setText("Caracteres validos: 0-9, A-Z, espacio (máximo 15)");
+						else if(tipoDeDocumento.compareTo("Pasaporte") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Caracteres validos: 0-9, A-Z, espacio (maximo 9)");
+						else if(tipoDeDocumento.compareTo("Otro") == 0)
+							labelAclaracionSobreNumeroDeDocumento.setText("Caracteres validos: 0-9, A-Z, espacio (máximo 15)");
 						labelAclaracionSobreNumeroDeDocumento.setVisible(true);
 					}
 				}
 			}
-
-			public void focusGained(FocusEvent arg0) {
+			
+			public void focusGained(FocusEvent arg0)
+			{
 				labelAclaracionSobreNumeroDeDocumento.setVisible(false);
 			}
 		});
-
-		docCliente.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent arg0) {
+		
+		docCliente.addKeyListener(new KeyAdapter()
+		{
+			public void keyReleased(KeyEvent arg0)
+			{
 				String texto = docCliente.getText();
 				docCliente.setText(texto.toUpperCase());
 			}
-
+			
 		});
 
 		// ******************
@@ -389,72 +402,78 @@ public class buscarCliente extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 
 		btnBuscar.addActionListener(new ActionListener() {
+			
 
 			public void actionPerformed(ActionEvent e) {
 
+				
 				String numeroCliente = nroCliente.getText();
 
 				if (numeroCliente.compareTo("  -        ") != 0) {
-
-					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
+					
+					if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) 
+					   {
 
 						labelAclaracionSobreNumerodeCliente.setVisible(true);
+						
+					    }
+				    else {
+					String[] parts = numeroCliente.split("-");
+					String part1 = parts[0]; 
+					String part2 = parts[1];
+				    numeroCliente=part1.concat(part2);
+				    if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
 
-					} else {
-						String[] parts = numeroCliente.split("-");
-						String part1 = parts[0];
-						String part2 = parts[1];
-						numeroCliente = part1.concat(part2);
-						if (Validaciones.validarNumeroDeCliente(numeroCliente) == true) {
-
-							numCliente = 0L;
-
-						}
-
-						else
-							numCliente = Long.parseLong(numeroCliente);
-					}
-				}
-
+				    	numCliente= 0L;
+				    
+				    }
+								    
+				    else 
+				    	numCliente = Long.parseLong(numeroCliente);
+				    }}
+				
+				
+				
 				String nombre = nombreCliente.getText();
 
 				if (nombre.length() > 0) {
 					if (Validaciones.validarApellidoONombre(nombre) == false) {
 
 						labelAclaracionSobreNombres.setVisible(true);
-
+						
 					}
 
 				}
 
+				
 				String apellido = apellidoCliente.getText();
 
 				if (apellido.length() > 0) {
 					if (Validaciones.validarApellidoONombre(apellido) == false) {
 
 						labelAclaracionSobreApellido.setVisible(true);
-					}
+						}
 
 				}
-
+              
 				String numeroDeDoc = docCliente.getText();
-
-				tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
-
-				if (numeroDeDoc.isEmpty())
-					numeroDoc = 0;
-				else
-					numeroDoc = Integer.parseInt(numeroDeDoc);
-
-				clientes_busqueda.clear();
-
-				if (numCliente == 0 && nombre.isEmpty() && apellido.isEmpty()
-						&& ((tipoDeDocumento == "--Seleccione--") || (tipoDeDocumento == " ")) && numeroDoc == 0) {
+							
+               tipoDeDocumento = comboBoxTipoDocumento.getSelectedItem().toString();
+      
+               
+               if(numeroDeDoc.isEmpty())
+            	   numeroDoc = 0;
+               else
+                numeroDoc = Integer.parseInt(numeroDeDoc);
+               
+               
+		        clientes_busqueda.clear();
+                
+				if (numCliente==0 && nombre.isEmpty()  && apellido.isEmpty() && ((tipoDeDocumento=="--Seleccione--")||(tipoDeDocumento==" ")) && numeroDoc==0) {
 					{
-						JOptionPane.showMessageDialog(null, "Ingrese un dato para buscar el cliente.", "Alerta",
-								JOptionPane.INFORMATION_MESSAGE);
-
-					}
+					JOptionPane.showMessageDialog(null, "Ingrese un dato para buscar el cliente.", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+					
+						}
 
 				} else {
 					DTOCliente buscarCliente = new DTOCliente();
@@ -465,227 +484,226 @@ public class buscarCliente extends JFrame {
 					tipo.setNombre(tipoDeDocumento);
 					buscarCliente.setTipodedocumento(tipo);
 					buscarCliente.setNroDocumento(numeroDoc);
-					System.out.println("El numero de cliente :" + " " + buscarCliente.getNroCliente());
-					System.out.println("El  nombre del cliente :" + " " + buscarCliente.getNombre());
-					System.out.println("El apellido del cliente :" + " " + buscarCliente.getApellido());
-					System.out.println("El tipo de documento del cliente :" + " "
-							+ buscarCliente.getTipodedocumento().getNombre());
-					System.out.println("El numero de documento :" + " " + buscarCliente.getNroDocumento());
-
+					System.out.println("El numero de cliente :" + " "+buscarCliente.getNroCliente() );
+	                System.out.println("El  nombre del cliente :" + " "+ buscarCliente.getNombre() );
+	                System.out.println("El apellido del cliente :" + " "+buscarCliente.getApellido() );
+	                System.out.println("El tipo de documento del cliente :" + " "+ buscarCliente.getTipodedocumento().getNombre() );
+	                System.out.println("El numero de documento :" + " "+ buscarCliente.getNroDocumento());
+										
 					listaDtosCliente = GestorCliente.buscarDtoscliente();
+		            
+					if(buscarCliente.getNroCliente()!=0) {
+		           
+						for(DTOCliente dtocliente:listaDtosCliente) {
 
-					if (buscarCliente.getNroCliente() != 0) {
-
-						for (DTOCliente dtocliente : listaDtosCliente) {
-
-							if (dtocliente.getNroCliente().equals(buscarCliente.getNroCliente())) {
-								clientes_busqueda.add(dtocliente);
-								break;
-
-							}
-						}
-					}
-
-					if (!buscarCliente.getNombre().equals("")) {
-
-						if (!clientes_busqueda.isEmpty()) {
-							for (DTOCliente dto : clientes_busqueda) {
-
-								if (!(dto.getNombre().equals(buscarCliente.getNombre())))
-									clientes_busqueda.clear();
-								break;
-
-							}
-						} else {
-
-							for (DTOCliente dtocliente : listaDtosCliente) {
-								if (buscarCliente.getNombre().equals(dtocliente.getNombre())) {
+		            		if(dtocliente.getNroCliente().equals(buscarCliente.getNroCliente())) {
+		            			 clientes_busqueda.add(dtocliente);
+		            			 break;
+	
+		            		}}}
+									
+					if(!buscarCliente.getNombre().equals("")) {
+						
+				          if(!clientes_busqueda.isEmpty()) {
+				        	for(DTOCliente dto: clientes_busqueda) { 
+				        	  
+				        		if(!(dto.getNombre().equals(buscarCliente.getNombre())))
+				        				  clientes_busqueda.clear(); 
+				        	               break;
+				        	               
+				        		}
+				          }else {
+				        	  
+				        	  for(DTOCliente dtocliente:listaDtosCliente) {
+				        		  if (buscarCliente.getNombre().equals(dtocliente.getNombre())) {
 									if (!(clientes_busqueda.contains(dtocliente))) {
-
+				                        
 										clientes_busqueda.add(dtocliente);
-
-									} else
-										break;
-								}
-							}
-						}
+									
+				                        
+				                    }
+									else break;       			
+				            		}
+				        	  	}
+				          }
 					}
-
-					if (!buscarCliente.getApellido().equals("")) {
-
-						if (!clientes_busqueda.isEmpty()) {
-							for (DTOCliente dto : clientes_busqueda) {
-
-								if (!(dto.getApellido().equals(buscarCliente.getApellido())))
-									clientes_busqueda.clear();
-								break;
-
-							}
-						} else {
-
-							for (DTOCliente dtocliente : listaDtosCliente) {
-								if (buscarCliente.getApellido().equals(dtocliente.getApellido())) {
+					
+					if(!buscarCliente.getApellido().equals("")) {
+						
+				          if(!clientes_busqueda.isEmpty()) {
+				        	for(DTOCliente dto: clientes_busqueda) { 
+				        	  
+				        		if(!(dto.getApellido().equals(buscarCliente.getApellido())))
+				        				  clientes_busqueda.clear(); 
+				        	               break;
+				        	               
+				        		}
+				          }else {
+				        	  
+				        	  for(DTOCliente dtocliente:listaDtosCliente) {
+				        		  if (buscarCliente.getApellido().equals(dtocliente.getApellido())) {
 									if (!(clientes_busqueda.contains(dtocliente))) {
-										clientes_busqueda.add(dtocliente);
-
-									} else
-										break;
-								}
-							}
-						}
-					}
-
-					if (!buscarCliente.getTipodedocumento().getNombre().equals("--Seleccione--")) {
-
-						if (!clientes_busqueda.isEmpty()) {
-							for (DTOCliente dto : clientes_busqueda) {
-
-								if (!(dto.getTipodedocumento().getNombre()
-										.equals(buscarCliente.getTipodedocumento().getNombre())))
-									clientes_busqueda.clear();
-
-							}
-						} else {
-
-							for (DTOCliente dtocliente : listaDtosCliente) {
-								if (buscarCliente.getTipodedocumento().getNombre()
-										.equals(dtocliente.getTipodedocumento().getNombre())) {
+				                        clientes_busqueda.add(dtocliente);
+													                        
+				                    }
+									else break;       			
+				            		}
+				        		  }
+				          }
+					}	
+					
+					if(!buscarCliente.getTipodedocumento().getNombre().equals("--Seleccione--")) {
+						
+				          if(!clientes_busqueda.isEmpty()) {
+				        	for(DTOCliente dto: clientes_busqueda) { 
+				        	  
+				        		if(!(dto.getTipodedocumento().getNombre().equals(buscarCliente.getTipodedocumento().getNombre())))
+				        				  clientes_busqueda.clear(); 
+				        	               
+				        	               
+				        		}
+				          }else {
+				        	  
+				        	  for(DTOCliente dtocliente:listaDtosCliente) {
+				        		  if (buscarCliente.getTipodedocumento().getNombre().equals(dtocliente.getTipodedocumento().getNombre())) {
 									if (!(clientes_busqueda.contains(dtocliente))) {
-										clientes_busqueda.add(dtocliente);
-
-									} else
-										break;
-								}
-							}
-						}
-					}
-
-					if (!buscarCliente.getNroDocumento().equals(0)) {
-
-						if (!clientes_busqueda.isEmpty()) {
-							int bandera = 0;
-							DTOCliente aux = new DTOCliente();
-							for (DTOCliente dto : clientes_busqueda) {
-
-								if ((dto.getNroDocumento().equals(buscarCliente.getNroDocumento()))) {
-									bandera = 1;
-									aux = dto;
-									break;
-								}
-
-							}
-							if (bandera == 1) {
-
-								clientes_busqueda.clear();
-								clientes_busqueda.add(aux);
-							} else
-								clientes_busqueda.clear();
-
-						} else {
-
-							for (DTOCliente dtocliente : listaDtosCliente) {
-
-								if (buscarCliente.getNroDocumento().equals(dtocliente.getNroDocumento())) {
-
-									if (!(clientes_busqueda.contains(dtocliente))) {
-										clientes_busqueda.add(dtocliente);
-										break;
-
-									}
-								}
-
-								else
-									break;
-
-							}
-						}
-					}
-
+				                        clientes_busqueda.add(dtocliente);
+													                        
+				                    }
+									else break;       			
+				            		}
+				        		  }
+				          }
+					}	
+	
+					if(!buscarCliente.getNroDocumento().equals(0)) {
+						
+				          if(!clientes_busqueda.isEmpty()) {
+				        	  int bandera=0;
+				        	  DTOCliente aux=new DTOCliente();
+				        	for(DTOCliente dto: clientes_busqueda) { 
+				        	  
+				        		if((dto.getNroDocumento().equals(buscarCliente.getNroDocumento()))) {
+				        			 bandera=1;
+				        			 aux=dto;
+				        			 break;			        		
+				        		}
+				        		
+	
+				        		}
+				        	if(bandera==1) {
+				        		        	
+		        			      clientes_busqueda.clear(); 
+		        		          clientes_busqueda.add(aux);
+		        		       	        	}     
+				        	else   
+				        		clientes_busqueda.clear();
+			        	
+				          }else {
+				        	  
+				        	  for(DTOCliente dtocliente:listaDtosCliente) {
+				        		
+				        		  if (buscarCliente.getNroDocumento().equals(dtocliente.getNroDocumento())) {
+				        			  
+				        			  if (!(clientes_busqueda.contains(dtocliente))) {
+					                        clientes_busqueda.add(dtocliente);
+					                        break;														                        
+					                    }}					                    
+								 else  break;     							        		 
+				        		    }
+				           }
+					 }					
+					
 					if (clientes_busqueda.size() == 0) {
-
-						JOptionPane.showMessageDialog(null, "No existe cliente para los datos ingresados", "Busqueda",
-								JOptionPane.INFORMATION_MESSAGE);
+                       						
+						JOptionPane.showMessageDialog(null, "No existe cliente para los datos ingresados", "Busqueda", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
-						buscarCliente m = new buscarCliente();
+						buscarCliente m = new buscarCliente(dtoCliente);
 						m.setVisible(true);
 						m.setResizable(false);
 						m.setLocationRelativeTo(null);
 					}
 
 					else {
-
-						construirTabla(clientes_busqueda);
-
+						
+						construirTabla(clientes_busqueda);					
 					}
 				}
-
 			}
-
+		
 			private void construirTabla(List<DTOCliente> listaDtosCliente) {
-				String[] nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento",
-						"Nro de Documento" };
-				Object[][] informacion = obtenerMatriz(listaDtosCliente);
-				tablaCliente = new JTable(informacion, nombresDeLasColumnasDeLaTabla);
-				scrollPane.setViewportView(tablaCliente);
-
+				String[] 	nombresDeLasColumnasDeLaTabla = { "Nro deCliente", "Nombre", "Apellido", "Tipo de Documento","Nro de Documento" };
+				Object[][] informacion=obtenerMatriz(listaDtosCliente); 
+				 tablaCliente=new JTable(informacion,nombresDeLasColumnasDeLaTabla);
+				scrollPane.setViewportView( tablaCliente);
+				
 			}
 
 			private Object[][] obtenerMatriz(List<DTOCliente> listaDtosCliente) {
 				datosDeLaTabla = new Object[listaDtosCliente.size()][5];
 
 				for (int i = 0; i < listaDtosCliente.size(); i++) {
-					datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente() + "";
-					datosDeLaTabla[i][1] = listaDtosCliente.get(i).getNombre() + "";
-					datosDeLaTabla[i][2] = listaDtosCliente.get(i).getApellido() + "";
-					datosDeLaTabla[i][3] = listaDtosCliente.get(i).getTipodedocumento().getNombre() + "";
-					datosDeLaTabla[i][4] = listaDtosCliente.get(i).getNroDocumento() + "";
+					datosDeLaTabla[i][0] = listaDtosCliente.get(i).getNroCliente() +"";
+					datosDeLaTabla[i][1] = listaDtosCliente.get(i).getNombre()+"";
+					datosDeLaTabla[i][2] = listaDtosCliente.get(i).getApellido()+"";
+					datosDeLaTabla[i][3] = listaDtosCliente.get(i).getTipodedocumento().getNombre()+"";
+					datosDeLaTabla[i][4] = listaDtosCliente.get(i).getNroDocumento()+"";
 				}
 				return datosDeLaTabla;
 			}
 		});
+		
+		
 
 		JButton button_Aceptar = new JButton("Aceptar");
 		button_Aceptar.addActionListener(new ActionListener() {
-
+		
 			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == button_Aceptar) {
+              if(e.getSource()==button_Aceptar) {
+				          	 
+				int filaSeleccion= tablaCliente.getSelectedRow();
+					
+				try {
+					
+					if (filaSeleccion==-1)
+						JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente","Advertencia",JOptionPane.WARNING_MESSAGE);
+					else 
+					{
+						
+						int num = listaDtosCliente.size();
 
-					int filaSeleccion = tablaCliente.getSelectedRow();
-
-					try {
-
-						if (filaSeleccion == -1)
-							JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente", "Advertencia",
-									JOptionPane.WARNING_MESSAGE);
-						else {
-
-							int num = listaDtosCliente.size();
-
-							for (int i = 0; i < num; i++) {
-								if (listaDtosCliente.get(i).getNroCliente().toString()
-										.equalsIgnoreCase(datosDeLaTabla[filaSeleccion][0].toString())) {
-									filaSeleccion = i;
-									break;
-								}
-							}
-
-							DTOPoliza dtoPoliza = null;
-							dispose();
-							buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion), dtoPoliza);
-							b.setVisible(true);
-							b.setResizable(false);
-							b.setLocationRelativeTo(null);
-
-						}
-
-					} catch (Exception e1) {
-
+						for(int i=0; i<num; i++)
+						{	
+							if(listaDtosCliente.get(i).getNroCliente().toString().equalsIgnoreCase(datosDeLaTabla[filaSeleccion][0].toString()))
+							{							
+								filaSeleccion=i;
+								break;
+							}						
+						} 
+						
+						DTOPoliza dtoPoliza = null;
+					//	dtoCliente.setNroCliente(listaDtosCliente.get(filaSeleccion).getNroCliente());
+						
+						System.out.println("----------------------------");
+				//		System.out.println(dtoCliente.getNroCliente());
+						System.out.println("----------------------------");
+						dispose();
+						buscarCliente1 b = new buscarCliente1(listaDtosCliente.get(filaSeleccion),dtoPoliza);
+						b.setVisible(true);
+						b.setResizable(false);
+						b.setLocationRelativeTo(null);										
 					}
+					
+				}catch (Exception e1) {	
+					
 				}
+              }
 			}
 		});
-
+		
+		
 		button_Aceptar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+
 
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1
@@ -703,25 +721,24 @@ public class buscarCliente extends JFrame {
 						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnBuscar).addContainerGap()));
 		panel_1.setLayout(gl_panel_1);
-
+		
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup().addContainerGap(87, Short.MAX_VALUE)
-						.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-						.addGap(45).addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-						.addGap(85))
+						.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE).addGap(45)
+						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE).addGap(85))
 				.addGroup(gl_panel_3.createSequentialGroup().addGap(19).addComponent(lblSeleccioneUnCliente)
 						.addContainerGap(644, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup().addContainerGap()
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE).addContainerGap()));
-		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_3
-				.createSequentialGroup().addGap(20).addComponent(lblSeleccioneUnCliente)
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
-				.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-				.addGap(19)));
+		gl_panel_3.setVerticalGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup().addGap(20).addComponent(lblSeleccioneUnCliente)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addGap(18)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(button_Aceptar, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+						.addGap(19)));
 		panel_3.setLayout(gl_panel_3);
 
 		contentPane.setLayout(null);

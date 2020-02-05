@@ -47,7 +47,7 @@ public class DTOPoliza implements java.io.Serializable {
 	private Date fechaInicioVigencia;
 	private Date fechaFinVigencia;
 	private Float sumaAsegurada;
-	private Character nroSiniestro;
+	private String nroSiniestro;
 	private Integer cantidad;
 	private List<DTOCuota> listadtocuota;
 	private List<DTOCuota> listadtocuotaSeleccionada;
@@ -66,7 +66,7 @@ public class DTOPoliza implements java.io.Serializable {
 			DTOMedidasdeseguridad dTOMedidasdeseguridad, DTONumeropoliza dTONumeropoliza,
 			DTOParametrosgenerales dTOParametrosgenerales, DTOSiniestro dTOSiniestro, DTOTipocobertura dTOTipocobertura,
 			DTOVehiculo dTOVehiculo, Integer idEstadoCliente, Date fechaInicioVigencia, Date fechaFinVigencia,
-			Float sumaAsegurada, Character nroSiniestro, Integer cantidad,
+			Float sumaAsegurada, String nroSiniestro, Integer cantidad,
 			Set<DTOModificacionpoliza> dTOModificacionpolizas) {
 		this.dTOCliente = dTOCliente;
 		this.dTOCuota = dTOCuota;
@@ -271,12 +271,12 @@ public class DTOPoliza implements java.io.Serializable {
 	}
 
 	@Column(name = "nroSiniestro", length = 1)
-	public Character getNroSiniestro() {
+	public String getNroSiniestro() {
 		return this.nroSiniestro;
 	}
 
-	public void setNroSiniestro(Character nroSiniestro) {
-		this.nroSiniestro = nroSiniestro;
+	public void setNroSiniestro(String nroSiniestro2) {
+		this.nroSiniestro = nroSiniestro2;
 	}
 
 	@Column(name = "cantidad")

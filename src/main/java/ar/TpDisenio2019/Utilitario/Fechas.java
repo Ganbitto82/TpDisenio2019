@@ -71,6 +71,103 @@ public class Fechas {
 			diffYear = diffYear - 1;
 		}
 		return diffYear;
-
+	}
+	
+	public static Date obtenerFechaActualMMasQuinceDias()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +15);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasUnMesyMedio()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +45);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasDosMesyMedio()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +75);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasTresMesyMedio()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +105);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasCuatroMesyMedio()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +135);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasCincoMesyMedio()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +165);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
+	}
+	
+	public static Date obtenerFechaActualMasSeisMesesDespues()
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, +180);
+		
+		int día = c.get(Calendar.DATE);
+		int mes = c.get(Calendar.MONTH);
+		int año = c.get(Calendar.YEAR) - 1900;	
+		
+		Date fechaActualMenosUnDía = new Date(año, mes, día);
+			
+		return fechaActualMenosUnDía;
 	}
 }

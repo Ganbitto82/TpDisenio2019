@@ -8,10 +8,20 @@ import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTODatosdehijo;
 import ar.TpDisenio2019.DTO.DTOEstadocivil;
+import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
 import ar.TpDisenio2019.DTO.DTOPoliza;
+import ar.TpDisenio2019.Modelo.Cuota;
+import ar.TpDisenio2019.Modelo.Datosdehijo;
+import ar.TpDisenio2019.Modelo.Factoresusados;
+import ar.TpDisenio2019.Modelo.Kmporanio;
 import ar.TpDisenio2019.Modelo.Medidasdeseguridad;
+import ar.TpDisenio2019.Modelo.Medidasdeseguridadporc;
+import ar.TpDisenio2019.Modelo.Modificacionpoliza;
+import ar.TpDisenio2019.Modelo.Parametrosgenerales;
 import ar.TpDisenio2019.DTO.DTORecibo;
+import ar.TpDisenio2019.DTO.DTOSiniestro;
+import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.Modelo.Poliza;
 import ar.TpDisenio2019.Modelo.Vehiculo;
 import ar.TpDisenio2019.Utilitario.Fechas;
@@ -98,7 +108,7 @@ public class GestorPoliza {
 		return dtoMedidasdeseguridad;
 	}
 
-
+/*
 	public static void guardarVehiculo(Vehiculo vehiculo) {
 		GestorBDPoliza.guardarVehiculoAux(vehiculo);
 	}
@@ -106,7 +116,7 @@ public class GestorPoliza {
 	public static void guardarPoliza(Poliza poliza) {
 		GestorBDPoliza.guardarPolizaAux(poliza);
 	}
-
+*/
 	public static DTOPoliza buscarPoliza(Long numPoliza) {
 		return GestorBDPoliza.BuscarPoliza(numPoliza);
 
@@ -122,9 +132,54 @@ public class GestorPoliza {
 	}
 	
 	public static void guardarCuota(DTOCuota dtocuota) {
-		GestorBDPoliza.guardarDTOCuota(dtocuota);
-		
-		
+		GestorBDPoliza.guardarDTOCuota(dtocuota);	
+	}
+	
+	public static void guardarVehiculo(Vehiculo vehiculo) {
+		GestorBDPoliza.guardarVehiculoAux(vehiculo);
+	}
+	
+	public static void guardarPoliza(Poliza poliza) {
+		GestorBDPoliza.guardarPolizaAux(poliza);
+	}
+	
+	public static void guardarKm(Kmporanio km) {
+		GestorBDPoliza.guardarKmAux(km);
+	}
+	
+	public static void guardarCuota(Cuota cuota) {
+		GestorBDPoliza.guardarCuotaAux(cuota);
+	}
+	
+	public static void guardarFactores(Factoresusados f) {
+		GestorBDPoliza.guardarFactoresAux(f);
+	}
+	
+	public static void guardarParametros(Parametrosgenerales parametros) {
+		GestorBDPoliza.guardarParametrosAux(parametros);
+	}
+	public static void guardarModificacionDePoliza(Modificacionpoliza modificacionPoliza) {
+		GestorBDPoliza.guardarModificacionDePolizaAux(modificacionPoliza);
+	}
+	
+	public static void guardarMedidasPorc(Medidasdeseguridadporc medidas) {
+		GestorBDPoliza.guardarMedidasPorcAux(medidas);
+	}
+/*	
+	public static void guardarHijos(Datosdehijo hijos) {
+		GestorBDPoliza.guardarHijosAux(hijos);
+	}
+*/	
+	public static DTOSiniestro buscarPorCantidad(String cant) {
+		return GestorBDPoliza.BuscarSiniestro(cant);
+	}
+	
+	public static DTOFormasdepago buscarPorTipo(String tipo) {
+		return GestorBDPoliza.BuscarFormasdepago(tipo);
+	}
+	
+	public static DTOTipocobertura buscarPorTipodecobertura(String tipo) {
+		return GestorBDPoliza.BuscarTipocobertura(tipo);
 	}
 
 }
