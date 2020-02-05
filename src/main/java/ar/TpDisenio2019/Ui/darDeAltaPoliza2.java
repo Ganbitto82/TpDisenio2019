@@ -389,6 +389,7 @@ public class darDeAltaPoliza2 extends JFrame {
 					parametros.setTasaDeDescuento(tasaDeDescuento);
 					parametros.setTasaDeInteres(tasaDeInteres);
 					
+					
 					poliza.setCliente(cliente);
 					poliza.setKmporanio(kmxAnio);
 					poliza.setVehiculo(vehiculo);						
