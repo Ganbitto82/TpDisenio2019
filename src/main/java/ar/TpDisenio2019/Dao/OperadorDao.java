@@ -9,7 +9,6 @@ public interface OperadorDao {
 
 	public void guardar(Operador operador);
 	
-	public DTOOperador buscarPorNombre(String nombre );
-	
+	public DTOOperador buscarNombre(String nombre);
 
 }

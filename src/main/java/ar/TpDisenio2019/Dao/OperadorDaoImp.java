@@ -6,7 +6,10 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import ar.TpDisenio2019.Conexion.ConexionBD;
+import ar.TpDisenio2019.DTO.DTOFormasdepago;
 import ar.TpDisenio2019.DTO.DTOOperador;
+import ar.TpDisenio2019.Modelo.Formasdepago;
 import ar.TpDisenio2019.Modelo.Operador;
 
 public class OperadorDaoImp implements OperadorDao {
@@ -43,7 +46,9 @@ public class OperadorDaoImp implements OperadorDao {
 		session.close();
 	}
 	@Override
-	public DTOOperador buscarPorNombre(String nombre ) {
+	public DTOOperador buscarNombre(String nombre) {
+		
+		ConexionBD cone = new ConexionBD();
 		Session session = sessionFactory.openSession();
 
 		CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -52,21 +57,15 @@ public class OperadorDaoImp implements OperadorDao {
 		query.select(root);
 		query.where(builder.equal(root.get("nombre"), nombre));
 
-		 System.out.println();
 		Operador operador = session.createQuery(query).uniqueResult();
-		session.close();
-		
+		session.close();		
 		
 		DTOOperador dtoOperador =new DTOOperador();
 		dtoOperador.setIdOperador(operador.getIdOperador());
 		dtoOperador.setNombre(operador.getNombre());
-
+		
+		session.close();
 		
 		return dtoOperador;
-		
-		
-		
-		
 	}
-
 }

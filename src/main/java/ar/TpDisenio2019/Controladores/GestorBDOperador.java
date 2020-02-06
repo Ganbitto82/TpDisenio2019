@@ -3,6 +3,7 @@ package ar.TpDisenio2019.Controladores;
 
 import ar.TpDisenio2019.Conexion.ConexionBD;
 import ar.TpDisenio2019.DTO.DTOOperador;
+import ar.TpDisenio2019.DTO.DTOTipocobertura;
 import ar.TpDisenio2019.Dao.OperadorDao;
 import ar.TpDisenio2019.Dao.OperadorDaoImp;
 import ar.TpDisenio2019.Modelo.Operador;
@@ -24,10 +25,8 @@ private ConexionBD session =new ConexionBD();
     
     public static DTOOperador buscarPorNombre(String nombre)
     {
-    return	operadorDao.buscarPorNombre(nombre);
+    	return	operadorDao.buscarNombre(nombre);
     }
-    
-    
 }
 
 	

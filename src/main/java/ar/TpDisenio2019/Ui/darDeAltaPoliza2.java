@@ -12,7 +12,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
@@ -22,7 +21,6 @@ import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCliente;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOMedidasdeseguridad;
-import ar.TpDisenio2019.DTO.DTOModificacionpoliza;
 import ar.TpDisenio2019.DTO.DTOPoliza;
 import ar.TpDisenio2019.DTO.DTOVehiculo;
 import ar.TpDisenio2019.Modelo.Cliente;
@@ -363,15 +361,18 @@ public class darDeAltaPoliza2 extends JFrame {
 						
 					Float riesgoDomicilio = (float) 0.10;
 					Float porcModelo = (float) 0.3;
+					Float derechosDeEmision = (float) (factores.getPrima()*1.71/100);
+					Float tasaDeDescuento = (float) 2.27;
+					Float tasaDeInteres = (float) 2.27;
+					Float premio = factores.getPrima() + derechosDeEmision;
 					
 					factores.setPorcentajePorRiesgoDeDomicilio(riesgoDomicilio);
-					factores.setPorcentajePorModeloVehiculo(porcModelo);
 					factores.setPrima(dtoPoliza.getSumaAsegurada()*riesgoDomicilio*porcModelo);
 					factores.setIdFacUsados(idFacUsados);
-					factores.setPorcentajePorSiniestro(dtoPoliza.getSiniestro().getPorcentaje());
-					factores.setPorcentajeCobertura(dtoPoliza.getTipocobertura().getPorcentaje());
-					factores.setPorcentajePorKm(dtoPoliza.getKmporanio().getPorcentaje());
-					factores.setPorcentajePorModeloVehiculo(dtoVehiculo.getModelo().getPorcentaje());
+					factores.setPorcentajePorSiniestro(siniestro.getPorcentaje());
+					factores.setPorcentajeCobertura(cobertura.getPorcentaje());
+					factores.setPorcentajePorKm(kmxAnio.getPorcentaje());
+					factores.setPorcentajePorModeloVehiculo(modelo.getPorcentaje());
 					
 					//factores.setDescuentoPorUnidad(descuentoPorUnidad);
 					//factores.setImportePorDescuentosPagoSemestral(importePorDescuentosPagoSemestral);
@@ -380,15 +381,10 @@ public class darDeAltaPoliza2 extends JFrame {
 					//factores.setPorcentajePorHijo(porcentajePorHijo);
 					//factores.setPorcentajePorMedidasDeSeguridad(porcentajePorMedidasDeSeguridad);
 					
-					Float derechosDeEmision = (float) (factores.getPrima()*0.3);
-					Float tasaDeDescuento = (float) 2.27;
-					Float tasaDeInteres = (float) 2.27;
-					
 					parametros.setDerechosDeEmision(derechosDeEmision);
 					parametros.setIdParametrosGenerales(idParametrosGenerales);
 					parametros.setTasaDeDescuento(tasaDeDescuento);
-					parametros.setTasaDeInteres(tasaDeInteres);
-					
+					parametros.setTasaDeInteres(tasaDeInteres);					
 					
 					poliza.setCliente(cliente);
 					poliza.setKmporanio(kmxAnio);
@@ -432,25 +428,15 @@ public class darDeAltaPoliza2 extends JFrame {
 				//	System.out.println(modificacion.getTipocobertura().getIdTipoCobertura());
 				//	System.out.println(modificacion.getVehiculo().getIdVehiculo());
 				//	System.out.println(".................................");		
-					
-					Float bonificacion = (float) 0.20;
-					Float recargoPorMora = (float) 0.10;
-					Float valorOriginal = (float) 50;
-					Float valorPorMora = (float) 75;
-					Float valorTotalaPagar = (float) 100;
-					
+
 					switch(dtoPoliza.getFormasdepago().getNombre())
 					{
 						case "Mensual":
 						{
+							Float valorOriginal = (float) (premio/6);
 							Date vencimiento1 = Fechas.obtenerFechaActualMMasQuinceDias();
 							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento1);							
 							cuota.setRecibo(recibo);
 							
@@ -458,26 +444,16 @@ public class darDeAltaPoliza2 extends JFrame {
 							poliza.setCuota(cuota);
 							
 							Date vencimiento2 = Fechas.obtenerFechaActualMasUnMesyMedio();
-							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
+				
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento2);							
 							cuota.setRecibo(recibo);
 							
 							GestorPoliza.guardarCuota(cuota);
 							
 							Date vencimiento3 = Fechas.obtenerFechaActualMasDosMesyMedio();
-							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
+
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento3);							
 							cuota.setRecibo(recibo);
 							
@@ -485,38 +461,23 @@ public class darDeAltaPoliza2 extends JFrame {
 							
 							Date vencimiento4 = Fechas.obtenerFechaActualMasTresMesyMedio();
 							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento4);							
 							cuota.setRecibo(recibo);
 							
 							GestorPoliza.guardarCuota(cuota);
 							
 							Date vencimiento5 = Fechas.obtenerFechaActualMasCuatroMesyMedio();
-							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
+
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento5);							
 							cuota.setRecibo(recibo);
 							
 							GestorPoliza.guardarCuota(cuota);
 							
 							Date vencimiento6 = Fechas.obtenerFechaActualMasCincoMesyMedio();
-							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
+
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento6);							
 							cuota.setRecibo(recibo);
 							
@@ -526,14 +487,10 @@ public class darDeAltaPoliza2 extends JFrame {
 						}
 						case "Semestral":
 						{
+							Float valorOriginal = (float) premio;
 							Date vencimiento = Fechas.obtenerFechaActualMMasQuinceDias();
 							
-							cuota.setBonificacion(bonificacion);
-							cuota.setCuotasPagas(0);
-							cuota.setRecargoPorMora(recargoPorMora);
 							cuota.setValorOriginal(valorOriginal);
-							cuota.setValorPorMora(valorPorMora);
-							cuota.setValorTotalaPagar(valorTotalaPagar);
 							cuota.setVencimiento(vencimiento);							
 							cuota.setRecibo(recibo);
 							
@@ -546,11 +503,12 @@ public class darDeAltaPoliza2 extends JFrame {
 					
 					GestorPoliza.guardarVehiculo(vehiculo);
 					GestorPoliza.guardarKm(kmxAnio);
-					GestorPoliza.guardarPoliza(poliza);
 					GestorPoliza.guardarParametros(parametros);
+					//GestorPoliza.guardarFactores(factores);
+					//GestorPoliza.guardarPoliza(poliza);
 					//GestorPoliza.guardarMedidasPorc(medidasPorc);
 					//GestorPoliza.guardarHijos(datosHijos);
-					//GestorPoliza.guardarFactores(factores);
+					
 					//GestorPoliza.guardarModificacionDePoliza(modificacion);
 					
 					dispose();					

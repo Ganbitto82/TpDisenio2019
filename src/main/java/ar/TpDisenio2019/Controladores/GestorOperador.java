@@ -15,5 +15,4 @@ public class GestorOperador {
 		
 		return GestorBDOperador.buscarPorNombre(nombre);
 	}
-	
 }

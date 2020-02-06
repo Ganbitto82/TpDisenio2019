@@ -101,6 +101,7 @@ public class darDeAltaPoliza extends JFrame {
     private List<String> listaAnio= new ArrayList<>(); 
     private List<String> listaProvincia= new ArrayList<>(); 
     private List<String> listaLocalidad= new ArrayList<>(); 
+    private List<DTOMedidasdeseguridad> listaDtosMedidasSeguridad = new ArrayList<DTOMedidasdeseguridad>();
 
 	private int banderaValidacionMotor = 0;
 	private int banderaValidacionKm = 0;
@@ -983,33 +984,6 @@ public class darDeAltaPoliza extends JFrame {
 						}
 					}
 				});
-			
-	/*		String garaje = chbxGarage.getLabel();
-			String alarma = chbxAlarma.getLabel();
-			String tuecas = chbxTuercas.getLabel();
-			String rastreo = chbxRastreo.getLabel();
-			
-			if(chbxGarage.isSelected() || chbxAlarma.isSelected() || chbxTuercas.isSelected() || chbxRastreo.isSelected())
-			{
-				if(chbxGarage.isSelected())
-				{
-					dtoMedidasSeguridad.setNombre(garaje);
-				}
-				if(chbxAlarma.isSelected())
-				{
-					dtoMedidasSeguridad.setNombre(alarma);
-				}
-				if(chbxTuercas.isSelected())
-				{
-					dtoMedidasSeguridad.setNombre(tuecas);
-				}
-				if(chbxRastreo.isSelected())
-				{
-					dtoMedidasSeguridad.setNombre(rastreo);
-				}
-				System.out.println(" ---------------------------- ");
-				System.out.println(dtoMedidasSeguridad.getNombre());
-			}*/
 		};
 	
 		JButton btnAceptar = new JButton("Aceptar");
@@ -1192,8 +1166,8 @@ public class darDeAltaPoliza extends JFrame {
 					}
 					
 					int anioVehiculo = Integer.parseInt(anio);
-					Float porcentaje = Float.parseFloat(kmxAnio);
-					
+					Float porcentaje = Float.parseFloat(kmxAnio);	
+				
 					dtoVehiculo1.setAnio(anioVehiculo);
 					dtoVehiculo1.setChasis(chasis);
 					dtoVehiculo1.setMotor(motor);
