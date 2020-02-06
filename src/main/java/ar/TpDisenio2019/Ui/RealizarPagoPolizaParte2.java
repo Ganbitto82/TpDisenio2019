@@ -31,6 +31,7 @@ import javax.swing.border.TitledBorder;
 
 import ar.TpDisenio2019.Controladores.GestorBDPoliza;
 import ar.TpDisenio2019.Controladores.GestorOperador;
+import ar.TpDisenio2019.Controladores.GestorPoliza;
 import ar.TpDisenio2019.DTO.DTOCuota;
 import ar.TpDisenio2019.DTO.DTOOperador;
 import ar.TpDisenio2019.DTO.DTOPoliza;
@@ -75,6 +76,9 @@ public class RealizarPagoPolizaParte2 extends JFrame {
     private float interes,descuentos;
     private List<DTOCuota> listasel= new ArrayList<DTOCuota>();	
     private List<DTOCuota> listaselCopia= new ArrayList<DTOCuota>();	
+    private List<DTOCuota> listaDtoCuota = new ArrayList<DTOCuota>();
+    
+    DTOCuota dtocuota =new DTOCuota();
 	public RealizarPagoPolizaParte2(DTOPoliza dtopoliza, DTOOperador dtoOperador) {
 		
 		
@@ -208,10 +212,10 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 		
 		
 		listasel = dtopoliza.getListadtocuotaSeleccionada();
-		listaselCopia=listasel;
+		
 	
 		
-		construirTabla(listaselCopia);
+		construirTabla(listasel);
 		
 	
 		
@@ -389,9 +393,8 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 									
 				else {
 					
-					
-					DTOOperador dtoOperardoBusca= GestorOperador.buscarPorNombreOperador(dtoOperador.getNombre());
-										
+					  
+														
 					try {
 					 fechaDelDia = calcularFecha();
 					} catch (Exception e1) {
@@ -400,6 +403,31 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 					}
 					
 					
+					
+					
+					
+					if (dtopoliza.getFormasdepago().getNombre().equals("MENSUAL")) {
+                        
+						
+						listaDtoCuota.add(dtopoliza.getCuota());
+						
+
+						for (int i = dtopoliza.getCuota().getIdCuotas() + 1; i < dtopoliza.getCuota().getIdCuotas()+ 6; i++) {
+
+							 dtocuota = GestorPoliza.buscarPorId(i);
+
+							listaDtoCuota.add(dtocuota);
+						}
+					}else {
+						
+						
+						
+						int i= dtopoliza.getCuota().getIdCuotas() ;
+						
+					    dtocuota = GestorPoliza.buscarPorId(i);
+
+					listaDtoCuota.add(dtocuota);
+					}
 										
 					int horaDelDia= crearHoraDelDia();
 					
@@ -407,7 +435,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 						
 						dtoRecibo.setIdRecibo(listasel.get(i).getIdCuotas());
 								
-						dtoRecibo.setOperador(dtoOperardoBusca);
+						dtoRecibo.setOperador( dtoOperador);
 										
 						dtoRecibo.setNroRecibo(listasel.get(i).getIdCuotas());
 					
@@ -431,8 +459,7 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 						
 						listasel.get(i).setRecibo(dtoRecibo);
 						listasel.get(i).setCuotasPagas(listasel.size());
-						//listasel.get(i).setRecargoPorMora(interes);
-						//listasel.get(i).setBonificacion(descuentos);
+					
 						
 						if(listasel.get(i).getValorOriginal() < listasel.get(i).getValorPorMora())
 						{
@@ -467,8 +494,12 @@ public class RealizarPagoPolizaParte2 extends JFrame {
 																	
 					}
 					
+                    
+                   
 					
-					for(int i=0; i < listasel.size();i ++) {
+					
+                     
+                     for(int i=0; i < listasel.size();i ++) {
 						
 						
 						GestorBDPoliza.guardarDTOCuota(listasel.get(i));			

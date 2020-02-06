@@ -1,11 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,31 +19,27 @@ import javax.persistence.Table;
 @Table(name = "operador", catalog = "dbelaseguradov4")
 public class Operador implements java.io.Serializable {
 
-	private int idOperador;
+	private Integer idOperador;
 	private String nombre;
 	private Set<Recibo> recibos = new HashSet<Recibo>(0);
 
 	public Operador() {
 	}
 
-	public Operador(int idOperador) {
-		this.idOperador = idOperador;
-	}
-
-	public Operador(int idOperador, String nombre, Set<Recibo> recibos) {
-		this.idOperador = idOperador;
+	public Operador(String nombre, Set<Recibo> recibos) {
 		this.nombre = nombre;
 		this.recibos = recibos;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idOperador", unique = true, nullable = false)
-	public int getIdOperador() {
+	public Integer getIdOperador() {
 		return this.idOperador;
 	}
 
-	public void setIdOperador(int idOperador) {
+	public void setIdOperador(Integer idOperador) {
 		this.idOperador = idOperador;
 	}
 

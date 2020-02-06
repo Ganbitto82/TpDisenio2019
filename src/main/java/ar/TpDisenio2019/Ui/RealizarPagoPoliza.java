@@ -71,6 +71,7 @@ public class RealizarPagoPoliza extends JFrame {
 	private List<DTOCuota> listaFechaRecibo = new ArrayList<DTOCuota>();
 	private List<DTOCuota> listadtocuotaSeleccionada= new ArrayList<DTOCuota>();
 	private List<DTOCuota> listaActulizada= new ArrayList<DTOCuota>();
+	private List<DTOCuota> listaSinRecibo= new ArrayList<DTOCuota>();
 	protected int flag=0;
 
 	public RealizarPagoPoliza(DTOPoliza dtopoliza,DTOOperador dtoOperador) {
@@ -264,6 +265,11 @@ public class RealizarPagoPoliza extends JFrame {
 		
 		listaDtoCuota=dtopoliza.getListadtocuota();
 		
+		for(DTOCuota dtocuota:listaDtoCuota ) {
+	       	 
+	       	 System.out.println(dtocuota.getIdCuotas());
+	       	 
+	        }
 		
 		for (DTOCuota Dtocuota : listaDtoCuota) {
 			
@@ -271,8 +277,12 @@ public class RealizarPagoPoliza extends JFrame {
 				listaFechaRecibo.add(Dtocuota);	
 			}
 			else {
-				listaActulizada.add(Dtocuota);}
+				listaActulizada.add(Dtocuota);
+				listaSinRecibo.add(Dtocuota);
+				}
 		}
+		
+		dtopoliza.setListaSinRecibo(listaSinRecibo);
 		
 		if (listaFechaRecibo.size()!= 0) {
 			
@@ -402,6 +412,7 @@ public class RealizarPagoPoliza extends JFrame {
 							
 							
 						dtopoliza.setListadtocuotaSeleccionada(listadtocuotaSeleccionada);
+						
 						
 						
 				      

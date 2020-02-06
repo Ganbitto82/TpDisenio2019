@@ -203,7 +203,9 @@ public class InicioDeSesion extends JFrame {
 						 operador.setNombre(usuario);
 						 
 						 GestorOperador.guardarOperador(operador);
+						 DTOOperador dtoOperardoBusca= GestorOperador.buscarPorNombreOperador(operador.getNombre());
 						 
+						 dtoOperador.setIdOperador(dtoOperardoBusca.getIdOperador());
 						 dtoOperador.setCargo(cargo);
 						 dtoOperador.setcontrasenia(contrasenia);
 						 dtoOperador.setNombre(usuario);

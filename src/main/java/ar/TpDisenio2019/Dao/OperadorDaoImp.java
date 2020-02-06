@@ -54,14 +54,14 @@ public class OperadorDaoImp implements OperadorDao {
 
 		 System.out.println();
 		Operador operador = session.createQuery(query).uniqueResult();
-
+		session.close();
 		
 		
 		DTOOperador dtoOperador =new DTOOperador();
 		dtoOperador.setIdOperador(operador.getIdOperador());
 		dtoOperador.setNombre(operador.getNombre());
 
-		session.close();
+		
 		return dtoOperador;
 		
 		

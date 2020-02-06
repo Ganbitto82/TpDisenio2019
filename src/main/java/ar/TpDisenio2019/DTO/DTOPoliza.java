@@ -1,6 +1,7 @@
 package ar.TpDisenio2019.DTO;
 // Generated 19/01/2020 00:05:34 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -51,6 +52,7 @@ public class DTOPoliza implements java.io.Serializable {
 	private Integer cantidad;
 	private List<DTOCuota> listadtocuota;
 	private List<DTOCuota> listadtocuotaSeleccionada;
+	private List<DTOCuota> listaSinRecibo;
 	private Long nroPoliza;
 	private float sumaTotal;
 	private float recargoPorMoraAcumulado;
@@ -343,6 +345,14 @@ public class DTOPoliza implements java.io.Serializable {
 
 	public void setRecargoPorMoraAcumulado(float recargoPorMoraAcumulado) {
 		this.recargoPorMoraAcumulado = recargoPorMoraAcumulado;
+	}
+
+	public List<DTOCuota> getListaSinRecibo() {
+		return listaSinRecibo;
+	}
+
+	public void setListaSinRecibo(List<DTOCuota> listaSinRecibo) {
+		this.listaSinRecibo = listaSinRecibo;
 	}
 	
 	

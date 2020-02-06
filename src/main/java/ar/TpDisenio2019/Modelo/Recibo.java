@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name = "recibo", catalog = "dbelaseguradov4")
 public class Recibo implements java.io.Serializable {
 
-	private int idRecibo;
+	private Integer idRecibo;
 	private Operador operador;
 	private Integer nroRecibo;
 	private Date fecha;
@@ -34,13 +36,8 @@ public class Recibo implements java.io.Serializable {
 	public Recibo() {
 	}
 
-	public Recibo(int idRecibo) {
-		this.idRecibo = idRecibo;
-	}
-
-	public Recibo(int idRecibo, Operador operador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
+	public Recibo(Operador operador, Integer nroRecibo, Date fecha, Integer hora, Date ultimoDiaDePago,
 			Float importeTotal, Set<Cuota> cuotas) {
-		this.idRecibo = idRecibo;
 		this.operador = operador;
 		this.nroRecibo = nroRecibo;
 		this.fecha = fecha;
@@ -51,13 +48,14 @@ public class Recibo implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idRecibo", unique = true, nullable = false)
-	public int getIdRecibo() {
+	public Integer getIdRecibo() {
 		return this.idRecibo;
 	}
 
-	public void setIdRecibo(int idRecibo) {
+	public void setIdRecibo(Integer idRecibo) {
 		this.idRecibo = idRecibo;
 	}
 

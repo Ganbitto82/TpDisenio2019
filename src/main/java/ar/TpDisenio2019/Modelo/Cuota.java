@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name = "cuota", catalog = "dbelaseguradov4")
 public class Cuota implements java.io.Serializable {
 
-	private int idCuotas;
+	private Integer idCuotas;
 	private Recibo recibo;
 	private Integer cuotasPagas;
 	private Date vencimiento;
@@ -36,13 +38,8 @@ public class Cuota implements java.io.Serializable {
 	public Cuota() {
 	}
 
-	public Cuota(int idCuotas) {
-		this.idCuotas = idCuotas;
-	}
-
-	public Cuota(int idCuotas, Recibo recibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal,
-			Float valorPorMora, Float valorTotalaPagar, Float bonificacion, Float recargoPorMora, Set<Poliza> polizas) {
-		this.idCuotas = idCuotas;
+	public Cuota(Recibo recibo, Integer cuotasPagas, Date vencimiento, Float valorOriginal, Float valorPorMora,
+			Float valorTotalaPagar, Float bonificacion, Float recargoPorMora, Set<Poliza> polizas) {
 		this.recibo = recibo;
 		this.cuotasPagas = cuotasPagas;
 		this.vencimiento = vencimiento;
@@ -55,13 +52,14 @@ public class Cuota implements java.io.Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "idCuotas", unique = true, nullable = false)
-	public int getIdCuotas() {
+	public Integer getIdCuotas() {
 		return this.idCuotas;
 	}
 
-	public void setIdCuotas(int idCuotas) {
+	public void setIdCuotas(Integer idCuotas) {
 		this.idCuotas = idCuotas;
 	}
 

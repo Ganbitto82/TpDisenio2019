@@ -1,9 +1,13 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +21,7 @@ public class Numeropoliza implements java.io.Serializable {
 	private int nroSucursal;
 	private int aleatorio;
 	private int secuencia;
+	private Set<Poliza> polizas = new HashSet<Poliza>(0);
 
 	public Numeropoliza() {
 	}
@@ -26,6 +31,14 @@ public class Numeropoliza implements java.io.Serializable {
 		this.nroSucursal = nroSucursal;
 		this.aleatorio = aleatorio;
 		this.secuencia = secuencia;
+	}
+
+	public Numeropoliza(long nroPoliza, int nroSucursal, int aleatorio, int secuencia, Set<Poliza> polizas) {
+		this.nroPoliza = nroPoliza;
+		this.nroSucursal = nroSucursal;
+		this.aleatorio = aleatorio;
+		this.secuencia = secuencia;
+		this.polizas = polizas;
 	}
 
 	@Id
@@ -64,6 +77,15 @@ public class Numeropoliza implements java.io.Serializable {
 
 	public void setSecuencia(int secuencia) {
 		this.secuencia = secuencia;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "numeropoliza")
+	public Set<Poliza> getPolizas() {
+		return this.polizas;
+	}
+
+	public void setPolizas(Set<Poliza> polizas) {
+		this.polizas = polizas;
 	}
 
 }

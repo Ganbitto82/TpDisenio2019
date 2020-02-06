@@ -146,7 +146,7 @@ public class PolizaDaoImp implements PolizaDao {
 			
 			
 			nueva.setCliente(dtoCliente);
-			nueva.setNroPoliza(poliza.getNroPoliza());
+			nueva.setNroPoliza(poliza.getNumeropoliza().getNroPoliza());
 			nueva.setFechaInicioVigencia(poliza.getFechaInicioVigencia());
 			nueva.setFechaFinVigencia(poliza.getFechaFinVigencia());
 			nueva.setCantidad(poliza.getCantidad());

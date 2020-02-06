@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;

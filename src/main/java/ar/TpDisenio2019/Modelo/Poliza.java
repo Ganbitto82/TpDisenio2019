@@ -1,5 +1,5 @@
 package ar.TpDisenio2019.Modelo;
-// Generated 22/01/2020 22:35:34 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2020 17:41:53 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,10 +24,6 @@ import javax.persistence.TemporalType;
 @Table(name = "poliza", catalog = "dbelaseguradov4")
 public class Poliza implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8984516062523963133L;
 	private Integer identNroPoliza;
 	private Cliente cliente;
 	private Cuota cuota;
@@ -37,12 +33,11 @@ public class Poliza implements java.io.Serializable {
 	private Formasdepago formasdepago;
 	private Kmporanio kmporanio;
 	private Medidasdeseguridad medidasdeseguridad;
+	private Numeropoliza numeropoliza;
 	private Parametrosgenerales parametrosgenerales;
 	private Siniestro siniestro;
 	private Tipocobertura tipocobertura;
 	private Vehiculo vehiculo;
-	private Integer idEstadoCliente;
-	private Long nroPoliza;
 	private Date fechaInicioVigencia;
 	private Date fechaFinVigencia;
 	private Float sumaAsegurada;
@@ -55,10 +50,9 @@ public class Poliza implements java.io.Serializable {
 
 	public Poliza(Cliente cliente, Cuota cuota, Datosdehijo datosdehijo, Estado estado, Factoresusados factoresusados,
 			Formasdepago formasdepago, Kmporanio kmporanio, Medidasdeseguridad medidasdeseguridad,
-			Parametrosgenerales parametrosgenerales, Siniestro siniestro, Tipocobertura tipocobertura,
-			Vehiculo vehiculo, Integer idEstadoCliente, Long nroPoliza, Date fechaInicioVigencia, Date fechaFinVigencia,
-			Float sumaAsegurada, String nroSiniestro, Integer cantidad,
-			Set<Modificacionpoliza> modificacionpolizas) {
+			Numeropoliza numeropoliza, Parametrosgenerales parametrosgenerales, Siniestro siniestro,
+			Tipocobertura tipocobertura, Vehiculo vehiculo, Date fechaInicioVigencia, Date fechaFinVigencia,
+			Float sumaAsegurada, String nroSiniestro, Integer cantidad, Set<Modificacionpoliza> modificacionpolizas) {
 		this.cliente = cliente;
 		this.cuota = cuota;
 		this.datosdehijo = datosdehijo;
@@ -67,12 +61,11 @@ public class Poliza implements java.io.Serializable {
 		this.formasdepago = formasdepago;
 		this.kmporanio = kmporanio;
 		this.medidasdeseguridad = medidasdeseguridad;
+		this.numeropoliza = numeropoliza;
 		this.parametrosgenerales = parametrosgenerales;
 		this.siniestro = siniestro;
 		this.tipocobertura = tipocobertura;
 		this.vehiculo = vehiculo;
-		this.idEstadoCliente = idEstadoCliente;
-		this.nroPoliza = nroPoliza;
 		this.fechaInicioVigencia = fechaInicioVigencia;
 		this.fechaFinVigencia = fechaFinVigencia;
 		this.sumaAsegurada = sumaAsegurada;
@@ -174,6 +167,16 @@ public class Poliza implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "nroPoliza")
+	public Numeropoliza getNumeropoliza() {
+		return this.numeropoliza;
+	}
+
+	public void setNumeropoliza(Numeropoliza numeropoliza) {
+		this.numeropoliza = numeropoliza;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idParametrosGenerales")
 	public Parametrosgenerales getParametrosgenerales() {
 		return this.parametrosgenerales;
@@ -213,24 +216,6 @@ public class Poliza implements java.io.Serializable {
 		this.vehiculo = vehiculo;
 	}
 
-	@Column(name = "idEstadoCliente")
-	public Integer getIdEstadoCliente() {
-		return this.idEstadoCliente;
-	}
-
-	public void setIdEstadoCliente(Integer idEstadoCliente) {
-		this.idEstadoCliente = idEstadoCliente;
-	}
-
-	@Column(name = "nroPoliza")
-	public Long getNroPoliza() {
-		return this.nroPoliza;
-	}
-
-	public void setNroPoliza(Long nroPoliza) {
-		this.nroPoliza = nroPoliza;
-	}
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fechaInicioVigencia", length = 10)
 	public Date getFechaInicioVigencia() {
@@ -251,7 +236,7 @@ public class Poliza implements java.io.Serializable {
 		this.fechaFinVigencia = fechaFinVigencia;
 	}
 
-	@Column(name = "sumaAsegurada", precision = 6)
+	@Column(name = "sumaAsegurada", precision = 8)
 	public Float getSumaAsegurada() {
 		return this.sumaAsegurada;
 	}
@@ -260,7 +245,7 @@ public class Poliza implements java.io.Serializable {
 		this.sumaAsegurada = sumaAsegurada;
 	}
 
-	@Column(name = "nroSiniestro", length = 15)
+	@Column(name = "nroSiniestro", length = 20)
 	public String getNroSiniestro() {
 		return this.nroSiniestro;
 	}
