@@ -131,7 +131,7 @@ public class GestorPoliza {
 		GestorBDPoliza.guardarRecibo(dtoRecibo);
 	}
 	
-	public static void guardarCuota(DTOCuota dtocuota) {
+	public static void guardarCuota1(DTOCuota dtocuota) {
 		GestorBDPoliza.guardarDTOCuota(dtocuota);	
 	}
 	

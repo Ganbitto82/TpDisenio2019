@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -317,6 +318,9 @@ public class darDeAltaPoliza2 extends JFrame {
 					Estado estadoPoliza = new Estado();					
 					Modificacionpoliza modificacion = new Modificacionpoliza();
 					
+					
+					//num.setAleatorio(aleatorio);
+					 
 				/*	estadoCivil.setIdEstadoCivil(dtoPoliza.getDatosdehijo().getEstadocivil().getIdEstadoCivil());
 					estadoCivil.setNombre(dtoPoliza.getDatosdehijo().getEstadocivil().getNombre());
 					datosHijos.setEstadocivil(estadoCivil);
@@ -360,26 +364,27 @@ public class darDeAltaPoliza2 extends JFrame {
 					estadoPoliza.setIdEstado(1);
 						
 					Float riesgoDomicilio = (float) 0.10;
-					Float porcModelo = (float) 0.3;
-					Float derechosDeEmision = (float) (factores.getPrima()*1.71/100);
-					Float tasaDeDescuento = (float) 2.27;
-					Float tasaDeInteres = (float) 2.27;
-					Float premio = factores.getPrima() + derechosDeEmision;
-					
+					Float prima = (dtoPoliza.getSumaAsegurada())*(riesgoDomicilio)*(modelo.getPorcentaje());
+				
 					factores.setPorcentajePorRiesgoDeDomicilio(riesgoDomicilio);
-					factores.setPrima(dtoPoliza.getSumaAsegurada()*riesgoDomicilio*porcModelo);
+					factores.setPorcentajePorModeloVehiculo(modelo.getPorcentaje());
+					factores.setPrima(prima);
 					factores.setIdFacUsados(idFacUsados);
 					factores.setPorcentajePorSiniestro(siniestro.getPorcentaje());
 					factores.setPorcentajeCobertura(cobertura.getPorcentaje());
 					factores.setPorcentajePorKm(kmxAnio.getPorcentaje());
-					factores.setPorcentajePorModeloVehiculo(modelo.getPorcentaje());
-					
+	
 					//factores.setDescuentoPorUnidad(descuentoPorUnidad);
 					//factores.setImportePorDescuentosPagoSemestral(importePorDescuentosPagoSemestral);
 					//factores.setMedidasdeseguridadporc(medidasdeseguridadporc);
 					//factores.setMontoTotal(montoTotal);
 					//factores.setPorcentajePorHijo(porcentajePorHijo);
 					//factores.setPorcentajePorMedidasDeSeguridad(porcentajePorMedidasDeSeguridad);
+					
+					Float derechosDeEmision = (float) (factores.getPrima()*1.71/100);
+					Float tasaDeDescuento = (float) 2.27;
+					Float tasaDeInteres = (float) 2.27;
+					Float premio = (float) 12.2;//factores.getPrima() + derechosDeEmision;
 					
 					parametros.setDerechosDeEmision(derechosDeEmision);
 					parametros.setIdParametrosGenerales(idParametrosGenerales);
@@ -396,13 +401,12 @@ public class darDeAltaPoliza2 extends JFrame {
 					poliza.setNroSiniestro(dtoPoliza.getNroSiniestro());
 					poliza.setEstado(estadoPoliza);
 					poliza.setIdentNroPoliza(identNroPoliza);
-					/*poliza.setParametrosgenerales(parametros);
-					poliza.setCantidad(cantidad);
-					poliza.setDatosdehijo(datosHijos);
-					poliza.setFactoresusados(factores);
-					poliza.setIdEstadoCliente(cliente.getEstadocliente().getIdEstadoCliente());
+					poliza.setParametrosgenerales(parametros);
+					poliza.setCantidad(1);		
+					//poliza.setNumeropoliza(num);
+					//poliza.setFactoresusados(factores);
+					/*poliza.setDatosdehijo(datosHijos);
 					poliza.setMedidasdeseguridad(medidas);
-					poliza.setNumeropoliza(num);
 					poliza.setFechaFinVigencia(fechaFinVigencia);
 					poliza.setFechaInicioVigencia(fechaInicioVigencia);*/					
 					
@@ -431,7 +435,7 @@ public class darDeAltaPoliza2 extends JFrame {
 
 					switch(dtoPoliza.getFormasdepago().getNombre())
 					{
-						case "Mensual":
+						case "MENSUAL":
 						{
 							Float valorOriginal = (float) (premio/6);
 							Date vencimiento1 = Fechas.obtenerFechaActualMMasQuinceDias();
@@ -440,7 +444,7 @@ public class darDeAltaPoliza2 extends JFrame {
 							cuota.setVencimiento(vencimiento1);							
 							cuota.setRecibo(recibo);
 							
-							GestorPoliza.guardarCuota(cuota);
+							GestorPoliza.guardarCuota(cuota);							
 							poliza.setCuota(cuota);
 							
 							Date vencimiento2 = Fechas.obtenerFechaActualMasUnMesyMedio();
@@ -485,7 +489,7 @@ public class darDeAltaPoliza2 extends JFrame {
 							
 							break;
 						}
-						case "Semestral":
+						case "SEMESTRAL":
 						{
 							Float valorOriginal = (float) premio;
 							Date vencimiento = Fechas.obtenerFechaActualMMasQuinceDias();
@@ -493,10 +497,9 @@ public class darDeAltaPoliza2 extends JFrame {
 							cuota.setValorOriginal(valorOriginal);
 							cuota.setVencimiento(vencimiento);							
 							cuota.setRecibo(recibo);
-							
+						
 							GestorPoliza.guardarCuota(cuota);
 							poliza.setCuota(cuota);
-							
 							break;
 						}
 					}
@@ -504,11 +507,10 @@ public class darDeAltaPoliza2 extends JFrame {
 					GestorPoliza.guardarVehiculo(vehiculo);
 					GestorPoliza.guardarKm(kmxAnio);
 					GestorPoliza.guardarParametros(parametros);
-					//GestorPoliza.guardarFactores(factores);
-					//GestorPoliza.guardarPoliza(poliza);
+					GestorPoliza.guardarPoliza(poliza);
 					//GestorPoliza.guardarMedidasPorc(medidasPorc);
 					//GestorPoliza.guardarHijos(datosHijos);
-					
+					//GestorPoliza.guardarFactores(factores);
 					//GestorPoliza.guardarModificacionDePoliza(modificacion);
 					
 					dispose();					

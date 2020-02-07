@@ -1168,6 +1168,37 @@ public class darDeAltaPoliza extends JFrame {
 					int anioVehiculo = Integer.parseInt(anio);
 					Float porcentaje = Float.parseFloat(kmxAnio);	
 				
+					if(chbxGarage.isSelected()) {
+						DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+						dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxGarage.getText().toString());
+						if(dtoNuevaMedida!=null)listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+					}
+					if(chbxAlarma.isSelected()) {
+						System.out.println(chbxAlarma.getText().toString());
+						DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+						dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxAlarma.getText().toString());
+						if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+					}
+					if(chbxRastreo.isSelected()) {
+						System.out.println(chbxRastreo.getText().toString());
+						DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+						dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxRastreo.getText().toString());
+						if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+					}
+					if(chbxTuercas.isSelected()) {
+						System.out.println(chbxTuercas.getText().toString());
+						DTOMedidasdeseguridad dtoNuevaMedida = new DTOMedidasdeseguridad();
+						dtoNuevaMedida=GestorPoliza.buscarMedidaSeguridadPorNombre(chbxTuercas.getText().toString());
+						if(dtoNuevaMedida!=null) listaDtosMedidasSeguridad.add(dtoNuevaMedida);
+					}
+					
+					for(DTOMedidasdeseguridad tipo : listaDtosMedidasSeguridad) {
+						dtoPoliza1.setMedidasdeseguridad(tipo);
+					}
+
+					System.out.println("----------------------------------");
+					System.out.println(dtoPoliza1.getMedidasdeseguridad().getIdMedidasSeguridad());
+					System.out.println("----------------------------------");
 					dtoVehiculo1.setAnio(anioVehiculo);
 					dtoVehiculo1.setChasis(chasis);
 					dtoVehiculo1.setMotor(motor);
@@ -1179,7 +1210,6 @@ public class darDeAltaPoliza extends JFrame {
 					dtoSiniestro.setCantidad(nroSiniestro);
 
 					dtoPoliza1.setKmporanio(dtoKmPorAnio);
-					//dtoPoliza.setMedidasdeseguridad(dtoMedidasSeguridad);
 					dtoPoliza1.setSiniestro(dtoSiniestro);				
 					dtoPoliza1.setNroSiniestro(nroSiniestro);
 					

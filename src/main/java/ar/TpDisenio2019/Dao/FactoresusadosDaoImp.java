@@ -16,14 +16,14 @@ public class FactoresusadosDaoImp implements FactoresusadosDao {
 	}
 
 	@Override
-	public Factoresusados buscarPorId(int idFactoresusados) {
+	public Factoresusados buscarPorId(int idFacUsados) {
 		Session session = sessionFactory.openSession();
 
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<Factoresusados> query = builder.createQuery(Factoresusados.class);
 		Root<Factoresusados> root = query.from(Factoresusados.class);
 		query.select(root);
-		query.where(builder.equal(root.get("idFactoresusados"), idFactoresusados));
+		query.where(builder.equal(root.get("idFacUsados"), idFacUsados));
 
 		Factoresusados factoresusados = session.createQuery(query).uniqueResult();
 
